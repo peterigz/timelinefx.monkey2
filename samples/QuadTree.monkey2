@@ -14,8 +14,6 @@ Class Game Extends Window
 	Field player:tlBox
 	Field DrawBox:DrawBoxAction
 	Field DrawScreen:DrawScreenAction
-	Field toDraw:List<tlBox>
-	Field screenDraw:List<tlBox>
 	Field currentCanvas:Canvas
 	
 	Private
@@ -31,9 +29,6 @@ Class Game Extends Window
 		
 		DrawBox.thegame = Self
 		DrawScreen.thegame = Self
-		
-		toDraw = New List<tlBox>
-		screenDraw = New List<tlBox>
 		
 		'Populate the quadtree with a bunch of objects
 		For Local c:Int = 1 To 10000
