@@ -496,8 +496,10 @@ Class tlBox
 		
 		Local result:tlCollisionResult = New tlCollisionResult
 		
-		Local minmax0:=New Float[2]
-		Local minmax1:=New Float[2]
+		Local min0:Float
+		Local max0:Float
+		Local min1:Float
+		Local max1:Float
 		
 		Local overlapdistance:Float
 		Local veloverlapdistance:Float
@@ -507,26 +509,26 @@ Class tlBox
 		
 			Select c
 				Case 0
-					minmax0[0] = tl_corner.y
-					minmax0[1] = br_corner.y
-					minmax1[0] = box.tl_corner.y
-					minmax1[1] = box.br_corner.y
+					min0 = tl_corner.y
+					max0 = br_corner.y
+					min1 = box.tl_corner.y
+					max1 = box.br_corner.y
 					
-					overlapdistance = IntervalDistance(minmax0[0], minmax0[1], minmax1[0], minmax1[1])
+					overlapdistance = IntervalDistance(min0, max0, min1, max1)
 					If overlapdistance > 0
 						result.intersecting = False
 					End If
 					
 					If velocity.y Or box.velocity.y
 						If velocity.y
-							minmax0[0]+=velocity.y
-							minmax0[1]+=velocity.y
+							min0+=velocity.y
+							max0+=velocity.y
 						End If
 						If box.velocity.y
-							minmax1[0]+=box.velocity.y
-							minmax1[1]+=box.velocity.y
+							min1+=box.velocity.y
+							max1+=box.velocity.y
 						End If
-						veloverlapdistance = IntervalDistance(minmax0[0], minmax0[1], minmax1[0], minmax1[1])
+						veloverlapdistance = IntervalDistance(min0, max0, min1, max1)
 						If veloverlapdistance > 0
 							result.willintersect = False
 						Else
@@ -550,26 +552,26 @@ Class tlBox
 					End If
 					
 				Case 1
-					minmax0[0] = tl_corner.x
-					minmax0[1] = br_corner.x
-					minmax1[0] = box.tl_corner.x
-					minmax1[1] = box.br_corner.x
+					min0 = tl_corner.x
+					max0 = br_corner.x
+					min1 = box.tl_corner.x
+					max1 = box.br_corner.x
 					
-					overlapdistance = IntervalDistance(minmax0[0], minmax0[1], minmax1[0], minmax1[1])
+					overlapdistance = IntervalDistance(min0, max0, min1, max1)
 					If overlapdistance > 0
 						result.intersecting = False
 					End If
 					
 					If velocity.x Or box.velocity.x
 						If velocity.x
-							minmax0[0]+=velocity.x
-							minmax0[1]+=velocity.x
+							min0+=velocity.x
+							max0+=velocity.x
 						End If
 						If box.velocity.x
-							minmax1[0]+=box.velocity.x
-							minmax1[1]+=box.velocity.x
+							min1+=box.velocity.x
+							max1+=box.velocity.x
 						End If
-						veloverlapdistance = IntervalDistance(minmax0[0], minmax0[1], minmax1[0], minmax1[1])
+						veloverlapdistance = IntervalDistance(min0, max0, min1, max1)
 						If veloverlapdistance > 0
 							result.willintersect = False
 						Else
@@ -614,8 +616,10 @@ Class tlBox
 		
 		Local axis:tlVector2
 		
-		Local minmax0:=New Float[2]
-		Local minmax1:=New Float[2]
+		Local min0:Float
+		Local max0:Float
+		Local min1:Float
+		Local max1:Float
 		
 		Local dotoffset:Float
 		
@@ -638,15 +642,15 @@ Class tlBox
 				If Not axis Exit
 			End If
 			
-			Project(axis, minmax0)
-			circle.Project(axis, minmax1)
+			Project(axis, Varptr(min0), Varptr(max0))
+			circle.Project(axis, Varptr(min1), Varptr(max1))
 			
 			dotoffset = axis.DotProduct(woffset)
 			
-			minmax0[0] += dotoffset
-			minmax0[1] += dotoffset
+			min0 += dotoffset
+			max0 += dotoffset
 			
-			overlapdistance = IntervalDistance(minmax0[0], minmax0[1], minmax1[0], minmax1[1])
+			overlapdistance = IntervalDistance(min0, max0, min1, max1)
 			If overlapdistance > 0
 				result.intersecting = False
 			End If
@@ -654,15 +658,15 @@ Class tlBox
 			If velocity.x Or velocity.y Or circle.velocity.x Or circle.velocity.y
 				If velocity.x Or velocity.y
 					velocityoffset0 = axis.DotProduct(velocity)
-					minmax0[0] += velocityoffset0
-					minmax0[1] += velocityoffset0
+					min0 += velocityoffset0
+					max0 += velocityoffset0
 				End If
 				If circle.velocity.x Or circle.velocity.y
 					velocityoffset1 = axis.DotProduct(circle.velocity)
-					minmax1[0] += velocityoffset1
-					minmax1[1] += velocityoffset1
+					min1 += velocityoffset1
+					max1 += velocityoffset1
 				End If
-				veloverlapdistance = IntervalDistance(minmax0[0], minmax0[1], minmax1[0], minmax1[1])
+				veloverlapdistance = IntervalDistance(min0, max0, min1, max1)
 				If veloverlapdistance > 0
 					result.willintersect = False
 				Else
@@ -703,8 +707,10 @@ Class tlBox
 		
 		Local axis:tlVector2
 		
-		Local minmax0:=New Float[2]
-		Local minmax1:=New Float[2]
+		Local min0:Float
+		Local max0:Float
+		Local min1:Float
+		Local max1:Float
 		
 		Local dotoffset:Float
 		
@@ -726,15 +732,15 @@ Class tlBox
 				axis = normals[c - 1]
 			End If
 		
-			Project(axis, minmax0)
-			line.Project(axis, minmax1)
+			Project(axis, Varptr(min0), Varptr(max0))
+			line.Project(axis, Varptr(min1), Varptr(max1))
 			
 			dotoffset = axis.DotProduct(woffset)
 			
-			minmax0[0] += dotoffset
-			minmax0[1] += dotoffset
+			min0 += dotoffset
+			max0 += dotoffset
 			
-			overlapdistance = IntervalDistance(minmax0[0], minmax0[1], minmax1[0], minmax1[1])
+			overlapdistance = IntervalDistance(min0, max0, min1, max1)
 			If overlapdistance > 0
 				result.intersecting = False
 			End If
@@ -742,15 +748,15 @@ Class tlBox
 			If velocity.x Or velocity.y Or line.velocity.x Or line.velocity.y
 				If velocity.x Or velocity.y
 					velocityoffset0 = axis.DotProduct(velocity)
-					minmax0[0]+=velocityoffset0
-					minmax0[1]+=velocityoffset0
+					min0+=velocityoffset0
+					max0+=velocityoffset0
 				End If
 				If line.velocity.x Or line.velocity.y
 					velocityoffset1 = axis.DotProduct(line.velocity)
-					minmax1[0]+=velocityoffset1
-					minmax1[1]+=velocityoffset1
+					min1+=velocityoffset1
+					max1+=velocityoffset1
 				End If
-				veloverlapdistance = IntervalDistance(minmax0[0], minmax0[1], minmax1[0], minmax1[1])
+				veloverlapdistance = IntervalDistance(min0, max0, min1, max1)
 				If veloverlapdistance > 0
 					result.willintersect = False
 				Else
@@ -791,8 +797,10 @@ Class tlBox
 		
 		Local axis:tlVector2
 		
-		Local minmax0:=New Float[2]
-		Local minmax1:=New Float[2]
+		Local min0:Float
+		Local max0:Float
+		Local min1:Float
+		Local max1:Float
 		
 		Local dotoffset:Float
 		
@@ -813,15 +821,15 @@ Class tlBox
 				axis = normals[c - poly.vertices.Length]
 			End If
 		
-			Project(axis, minmax0)
-			poly.Project(axis, minmax1)
+			Project(axis, Varptr(min0), Varptr(max0))
+			poly.Project(axis, Varptr(min1), Varptr(max1))
 			
 			dotoffset = axis.DotProduct(woffset)
 			
-			minmax0[0]+=dotoffset
-			minmax0[1]+=dotoffset
+			min0+=dotoffset
+			max0+=dotoffset
 			
-			overlapdistance = IntervalDistance(minmax0[0], minmax0[1], minmax1[0], minmax1[1])
+			overlapdistance = IntervalDistance(min0, max0, min1, max1)
 			If overlapdistance > 0
 				result.intersecting = False
 			End If
@@ -829,15 +837,15 @@ Class tlBox
 			If velocity.x Or velocity.y Or poly.velocity.x Or poly.velocity.y
 				If velocity.x Or velocity.y
 					velocityoffset0 = axis.DotProduct(velocity)
-					minmax0[0]+=velocityoffset0
-					minmax0[1]+=velocityoffset0
+					min0+=velocityoffset0
+					max0+=velocityoffset0
 				End If
 				If poly.velocity.x Or poly.velocity.y
 					velocityoffset1 = axis.DotProduct(poly.velocity)
-					minmax1[0]+=velocityoffset1
-					minmax1[1]+=velocityoffset1
+					min1+=velocityoffset1
+					max1+=velocityoffset1
 				End If
-				veloverlapdistance = IntervalDistance(minmax0[0], minmax0[1], minmax1[0], minmax1[1])
+				veloverlapdistance = IntervalDistance(min0, max0, min1, max1)
 				If veloverlapdistance > 0
 					result.willintersect = False
 				Else
@@ -1229,18 +1237,18 @@ Class tlBox
 		br_corner.y = Max(y, br_corner.y)
 	End
 	
-	Method Project(axis:tlVector2, minmax:Float[]) Virtual
+	Method Project(axis:tlVector2, minv:Float Ptr, maxv:Float Ptr) Virtual
 		'This projects the Box onto an axis and lets us know the min and max dotproduct values
 		Local dotproduct:Float = axis.DotProduct(tformvertices[0])
 		'Local dothandle:Float = axis.DotProduct(handle)
-		minmax[0] = dotproduct
-		minmax[1] = dotproduct
+		Cast<Float Ptr>(minv)[0] = dotproduct
+		Cast<Float Ptr>(maxv)[0] = dotproduct
 		For Local c:Int = 1 To 3
 			dotproduct = tformvertices[c].DotProduct(axis)
-			If dotproduct < minmax[0]
-				minmax[0] = dotproduct
-			ElseIf dotproduct > minmax[1]
-				minmax[1] = dotproduct
+			If dotproduct < Cast<Float Ptr>(minv)[0]
+				Cast<Float Ptr>(minv)[0] = dotproduct
+			ElseIf dotproduct > Cast<Float Ptr>(maxv)[0]
+				Cast<Float Ptr>(maxv)[0] = dotproduct
 			End If
 		Next
 	End
@@ -1328,8 +1336,10 @@ Class tlCircle Extends tlBox
 		
 		Local axis:tlVector2
 		
-		Local minmax0:=New Float[2]
-		Local minmax1:=New Float[2]
+		Local min0:Float
+		Local max0:Float
+		Local min1:Float
+		Local max1:Float
 		
 		Local dotoffset:Float
 		
@@ -1353,15 +1363,15 @@ Class tlCircle Extends tlBox
 				EndIf
 			End If
 		
-			Project(axis, minmax0)
-			box.Project(axis, minmax1)
+			Project(axis, Varptr(min0), Varptr(max0))
+			box.Project(axis, Varptr(min1), Varptr(max1))
 			
 			dotoffset = axis.DotProduct(woffset)
 			
-			minmax0[0]+=dotoffset
-			minmax0[1]+=dotoffset
+			min0+=dotoffset
+			max0+=dotoffset
 			
-			overlapdistance = IntervalDistance(minmax0[0], minmax0[1], minmax1[0], minmax1[1])
+			overlapdistance = IntervalDistance(min0, max0, min1, max1)
 			If overlapdistance > 0
 				result.intersecting = False
 			End If
@@ -1369,15 +1379,15 @@ Class tlCircle Extends tlBox
 			If velocity.x Or velocity.y Or box.velocity.x Or box.velocity.y
 				If velocity.x Or velocity.y
 					velocityoffset0 = axis.DotProduct(velocity)
-					minmax0[0]+=velocityoffset0
-					minmax0[1]+=velocityoffset0
+					min0+=velocityoffset0
+					max0+=velocityoffset0
 				End If
 				If box.velocity.x Or box.velocity.y
 					velocityoffset1 = axis.DotProduct(box.velocity)
-					minmax1[0]+=velocityoffset1
-					minmax1[1]+=velocityoffset1
+					min1+=velocityoffset1
+					max1+=velocityoffset1
 				End If
-				veloverlapdistance = IntervalDistance(minmax0[0], minmax0[1], minmax1[0], minmax1[1])
+				veloverlapdistance = IntervalDistance(min0, max0, min1, max1)
 				If veloverlapdistance > 0
 					result.willintersect = False
 				Else
@@ -1419,8 +1429,10 @@ Class tlCircle Extends tlBox
 		
 		Local axis:tlVector2
 		
-		Local minmax0:=New Float[2]
-		Local minmax1:=New Float[2]
+		Local min0:Float
+		Local max0:Float
+		Local min1:Float
+		Local max1:Float
 		
 		Local dotoffset:Float
 		
@@ -1439,13 +1451,13 @@ Class tlCircle Extends tlBox
 		
 		dotoffset = axis.DotProduct(woffset)
 		
-		Project(axis, minmax0)
-		circle.Project(axis, minmax1)
+		Project(axis, Varptr(min0), Varptr(max0))
+		circle.Project(axis, Varptr(min1), Varptr(max1))
 		
-		minmax0[0]+=dotoffset
-		minmax0[1]+=dotoffset
+		min0+=dotoffset
+		max0+=dotoffset
 		
-		overlapdistance = IntervalDistance(minmax0[0], minmax0[1], minmax1[0], minmax1[1])
+		overlapdistance = IntervalDistance(min0, max0, min1, max1)
 		If overlapdistance > 0
 			result.intersecting = False
 		End If
@@ -1453,15 +1465,15 @@ Class tlCircle Extends tlBox
 		If velocity.x Or velocity.y Or circle.velocity.x Or circle.velocity.y
 			If velocity.x Or velocity.y
 				velocityoffset0 = axis.DotProduct(velocity)
-				minmax0[0]+=velocityoffset0
-				minmax0[1]+=velocityoffset0
+				min0+=velocityoffset0
+				max0+=velocityoffset0
 			End If
 			If circle.velocity.x Or circle.velocity.y
 				velocityoffset1 = axis.DotProduct(circle.velocity)
-				minmax1[0]+=velocityoffset1
-				minmax1[1]+=velocityoffset1
+				min1+=velocityoffset1
+				max1+=velocityoffset1
 			End If
-			veloverlapdistance = IntervalDistance(minmax0[0], minmax0[1], minmax1[0], minmax1[1])
+			veloverlapdistance = IntervalDistance(min0, max0, min1, max1)
 			If veloverlapdistance > 0
 				result.willintersect = False
 			Else
@@ -1501,8 +1513,10 @@ Class tlCircle Extends tlBox
 		
 		Local axis:tlVector2
 		
-		Local minmax0:=New Float[2]
-		Local minmax1:=New Float[2]
+		Local min0:Float
+		Local max0:Float
+		Local min1:Float
+		Local max1:Float
 		
 		Local dotoffset:Float
 		
@@ -1522,21 +1536,21 @@ Class tlCircle Extends tlBox
 				axis = line.GetVoronoiAxis(worldhandle)
 				If Not axis Exit
 				
-				Project(axis, minmax0)
-				line.Project(axis, minmax1)
+				Project(axis, Varptr(min0), Varptr(max0))
+				line.Project(axis, Varptr(min1), Varptr(max1))
 			Else
 				axis = line.normals[c]
 	
-				Project(axis, minmax0)
-				line.Project(axis, minmax1)
+				Project(axis, Varptr(min0), Varptr(max0))
+				line.Project(axis, Varptr(min1), Varptr(max1))
 			End If
 			
 			dotoffset = axis.DotProduct(woffset)
 			
-			minmax0[0]+=dotoffset
-			minmax0[1]+=dotoffset
+			min0+=dotoffset
+			max0+=dotoffset
 			
-			overlapdistance = IntervalDistance(minmax0[0], minmax0[1], minmax1[0], minmax1[1])
+			overlapdistance = IntervalDistance(min0, max0, min1, max1)
 			If overlapdistance > 0
 				result.intersecting = False
 			End If
@@ -1544,15 +1558,15 @@ Class tlCircle Extends tlBox
 			If velocity.x Or velocity.y Or line.velocity.x Or line.velocity.y
 				If velocity.x Or velocity.y
 					velocityoffset0 = axis.DotProduct(velocity)
-					minmax0[0]+=velocityoffset0
-					minmax0[1]+=velocityoffset0
+					min0+=velocityoffset0
+					max0+=velocityoffset0
 				End If
 				If line.velocity.x Or line.velocity.y
 					velocityoffset1 = axis.DotProduct(line.velocity)
-					minmax1[0]+=velocityoffset1
-					minmax1[1]+=velocityoffset1
+					min1+=velocityoffset1
+					max1+=velocityoffset1
 				End If
-				veloverlapdistance = IntervalDistance(minmax0[0], minmax0[1], minmax1[0], minmax1[1])
+				veloverlapdistance = IntervalDistance(min0, max0, min1, max1)
 				If veloverlapdistance > 0
 					result.willintersect = False
 				Else
@@ -1594,8 +1608,10 @@ Class tlCircle Extends tlBox
 		
 		Local axis:tlVector2
 		
-		Local minmax0:=New Float[2]
-		Local minmax1:=New Float[2]
+		Local min0:Float
+		Local max0:Float
+		Local min1:Float
+		Local max1:Float
 		
 		Local dotoffset:Float
 		
@@ -1615,21 +1631,21 @@ Class tlCircle Extends tlBox
 				axis = poly.GetVoronoiAxis(worldhandle)
 				If Not axis Exit
 				
-				Project(axis, minmax0)
-				poly.Project(axis, minmax1)
+				Project(axis, Varptr(min0), Varptr(max0))
+				poly.Project(axis, Varptr(min1), Varptr(max1))
 			Else
 				axis = poly.normals[c]
 	
-				Project(axis, minmax0)
-				poly.Project(axis, minmax1)
+				Project(axis, Varptr(min0), Varptr(max0))
+				poly.Project(axis, Varptr(min1), Varptr(max1))
 			End If
 			
 			dotoffset = axis.DotProduct(woffset)
 			
-			minmax0[0]+=dotoffset
-			minmax0[1]+=dotoffset
+			min0+=dotoffset
+			max0+=dotoffset
 			
-			overlapdistance = IntervalDistance(minmax0[0], minmax0[1], minmax1[0], minmax1[1])
+			overlapdistance = IntervalDistance(min0, max0, min1, max1)
 			If overlapdistance > 0
 				result.intersecting = False
 			End If
@@ -1637,15 +1653,15 @@ Class tlCircle Extends tlBox
 			If velocity.x Or velocity.y Or poly.velocity.x Or poly.velocity.y
 				If velocity.x Or velocity.y
 					velocityoffset0 = axis.DotProduct(velocity)
-					minmax0[0]+=velocityoffset0
-					minmax0[1]+=velocityoffset0
+					min0+=velocityoffset0
+					max0+=velocityoffset0
 				End If
 				If poly.velocity.x Or poly.velocity.y
 					velocityoffset1 = axis.DotProduct(poly.velocity)
-					minmax1[0]+=velocityoffset1
-					minmax1[1]+=velocityoffset1
+					min1+=velocityoffset1
+					max1+=velocityoffset1
 				End If
-				veloverlapdistance = IntervalDistance(minmax0[0], minmax0[1], minmax1[0], minmax1[1])
+				veloverlapdistance = IntervalDistance(min0, max0, min1, max1)
 				If veloverlapdistance > 0
 					result.willintersect = False
 				Else
@@ -1771,11 +1787,11 @@ Class tlCircle Extends tlBox
 	End
 	
 	'internal stuff--------------------
-	Method Project(axis:tlVector2, minmax:Float[]) Override
+	Method Project(axis:tlVector2, minv:Float Ptr, maxv:Float Ptr) Override
 		'This projects the circle onto an axis and lets us know the min and max dotproduct values
 		Local dothandle:Float = axis.DotProduct(handle)
-		minmax[0] = -tformradius + dothandle
-		minmax[1] = tformradius + dothandle
+		Cast<Float Ptr>(minv)[0] = -tformradius + dothandle
+		Cast<Float Ptr>(maxv)[0] = tformradius + dothandle
 	End
 	
 	Method UpdateDimensions() Override
@@ -2011,8 +2027,10 @@ Class tlPolygon Extends tlBox
 		
 		Local axis:tlVector2
 		
-		Local minmax0:=New Float[2]
-		Local minmax1:=New Float[2]
+		Local min0:Float
+		Local max0:Float
+		Local min1:Float
+		Local max1:Float
 		
 		Local dotoffset:Float
 		
@@ -2033,15 +2051,15 @@ Class tlPolygon Extends tlBox
 				axis = Box.normals[c - vertices.Length]
 			End If
 		
-			Project(axis, minmax0)
-			Box.Project(axis, minmax1)
+			Project(axis, Varptr(min0), Varptr(max0))
+			Box.Project(axis, Varptr(min1), Varptr(max1))
 			
 			dotoffset = axis.DotProduct(woffset)
 			
-			minmax0[0]+=dotoffset
-			minmax0[1]+=dotoffset
+			min0+=dotoffset
+			max0+=dotoffset
 			
-			overlapdistance = IntervalDistance(minmax0[0], minmax0[1], minmax1[0], minmax1[1])
+			overlapdistance = IntervalDistance(min0, max0, min1, max1)
 			If overlapdistance > 0
 				result.intersecting = False
 			End If
@@ -2049,15 +2067,15 @@ Class tlPolygon Extends tlBox
 			If velocity.x Or velocity.y Or Box.velocity.x Or Box.velocity.y
 				If velocity.x Or velocity.y
 					velocityoffset0 = axis.DotProduct(velocity)
-					minmax0[0]+=velocityoffset0
-					minmax0[1]+=velocityoffset0
+					min0+=velocityoffset0
+					max0+=velocityoffset0
 				End If
 				If Box.velocity.x Or Box.velocity.y
 					velocityoffset1 = axis.DotProduct(Box.velocity)
-					minmax1[0]+=velocityoffset1
-					minmax1[1]+=velocityoffset1
+					min1+=velocityoffset1
+					max1+=velocityoffset1
 				End If
-				veloverlapdistance = IntervalDistance(minmax0[0], minmax0[1], minmax1[0], minmax1[1])
+				veloverlapdistance = IntervalDistance(min0, max0, min1, max1)
 				If veloverlapdistance > 0
 					result.willintersect = False
 				Else
@@ -2098,8 +2116,10 @@ Class tlPolygon Extends tlBox
 		
 		Local axis:tlVector2
 		
-		Local minmax0:=New Float[2]
-		Local minmax1:=New Float[2]
+		Local min0:Float
+		Local max0:Float
+		Local min1:Float
+		Local max1:Float
 		
 		Local dotoffset:Float
 		
@@ -2119,21 +2139,21 @@ Class tlPolygon Extends tlBox
 				axis = GetVoronoiAxis(circle.worldhandle)
 				If Not axis Exit
 				
-				Project(axis, minmax0)
-				circle.Project(axis, minmax1)
+				Project(axis, Varptr(min0), Varptr(max0))
+				circle.Project(axis, Varptr(min1), Varptr(max1))
 			Else
 				axis = normals[c]
 	
-				Project(axis, minmax0)
-				circle.Project(axis, minmax1)
+				Project(axis, Varptr(min0), Varptr(max0))
+				circle.Project(axis, Varptr(min1), Varptr(max1))
 			End If
 			
 			dotoffset = axis.DotProduct(woffset)
 			
-			minmax0[0]+=dotoffset
-			minmax0[1]+=dotoffset
+			min0+=dotoffset
+			max0+=dotoffset
 			
-			overlapdistance = IntervalDistance(minmax0[0], minmax0[1], minmax1[0], minmax1[1])
+			overlapdistance = IntervalDistance(min0, max0, min1, max1)
 			If overlapdistance > 0
 				result.intersecting = False
 			End If
@@ -2141,15 +2161,15 @@ Class tlPolygon Extends tlBox
 			If velocity.x Or velocity.y Or circle.velocity.x Or circle.velocity.y
 				If velocity.x Or velocity.y
 					velocityoffset0 = axis.DotProduct(velocity)
-					minmax0[0]+=velocityoffset0
-					minmax0[1]+=velocityoffset0
+					min0+=velocityoffset0
+					max0+=velocityoffset0
 				End If
 				If circle.velocity.x Or circle.velocity.y
 					velocityoffset1 = axis.DotProduct(circle.velocity)
-					minmax1[0]+=velocityoffset1
-					minmax1[1]+=velocityoffset1
+					min1+=velocityoffset1
+					max1+=velocityoffset1
 				End If
-				veloverlapdistance = IntervalDistance(minmax0[0], minmax0[1], minmax1[0], minmax1[1])
+				veloverlapdistance = IntervalDistance(min0, max0, min1, max1)
 				If veloverlapdistance > 0
 					result.willintersect = False
 				Else
@@ -2191,8 +2211,10 @@ Class tlPolygon Extends tlBox
 		
 		Local axis:tlVector2
 		
-		Local minmax0:=New Float[2]
-		Local minmax1:=New Float[2]
+		Local min0:Float
+		Local max0:Float
+		Local min1:Float
+		Local max1:Float
 		
 		Local dotoffset:Float
 		
@@ -2214,15 +2236,15 @@ Class tlPolygon Extends tlBox
 				axis = normals[c - 2]
 			End If
 		
-			Project(axis, minmax0)
-			Line.Project(axis, minmax1)
+			Project(axis, Varptr(min0), Varptr(max0))
+			Line.Project(axis, Varptr(min1), Varptr(max1))
 			
 			dotoffset = axis.DotProduct(woffset)
 			
-			minmax0[0]+=dotoffset
-			minmax0[1]+=dotoffset
+			min0+=dotoffset
+			max0+=dotoffset
 			
-			overlapdistance = IntervalDistance(minmax0[0], minmax0[1], minmax1[0], minmax1[1])
+			overlapdistance = IntervalDistance(min0, max0, min1, max1)
 			If overlapdistance > 0
 				result.intersecting = False
 			End If
@@ -2230,15 +2252,15 @@ Class tlPolygon Extends tlBox
 			If velocity.x Or velocity.y Or Line.velocity.x Or Line.velocity.y
 				If velocity.x Or velocity.y
 					velocityoffset0 = axis.DotProduct(velocity)
-					minmax0[0]+=velocityoffset0
-					minmax0[1]+=velocityoffset0
+					min0+=velocityoffset0
+					max0+=velocityoffset0
 				End If
 				If Line.velocity.x Or Line.velocity.y
 					velocityoffset1 = axis.DotProduct(Line.velocity)
-					minmax1[0]+=velocityoffset1
-					minmax1[1]+=velocityoffset1
+					min1+=velocityoffset1
+					max1+=velocityoffset1
 				End If
-				veloverlapdistance = IntervalDistance(minmax0[0], minmax0[1], minmax1[0], minmax1[1])
+				veloverlapdistance = IntervalDistance(min0, max0, min1, max1)
 				If veloverlapdistance > 0
 					result.willintersect = False
 				Else
@@ -2279,9 +2301,11 @@ Class tlPolygon Extends tlBox
 		Local result:tlCollisionResult = New tlCollisionResult
 		
 		Local axis:tlVector2
-		
-		Local minmax0:=New Float[2]
-		Local minmax1:=New Float[2]
+
+		Local min0:Float
+		Local max0:Float
+		Local min1:Float
+		Local max1:Float
 		
 		Local dotoffset:Float
 		
@@ -2303,15 +2327,15 @@ Class tlPolygon Extends tlBox
 				axis = poly.normals[c - vertices.Length]
 			End If
 		
-			Project(axis, minmax0)
-			poly.Project(axis, minmax1)
+			Project(axis, Varptr(min0), Varptr(max0))
+			poly.Project(axis, Varptr(min1), Varptr(max1))
 			
 			dotoffset = axis.DotProduct(woffset)
 			
-			minmax0[0]+=dotoffset
-			minmax0[1]+=dotoffset
+			min0+=dotoffset
+			max0+=dotoffset
 			
-			overlapdistance = IntervalDistance(minmax0[0], minmax0[1], minmax1[0], minmax1[1])
+			overlapdistance = IntervalDistance(min0, max0, min1, max1)
 			If overlapdistance > 0
 				result.intersecting = False
 			End If
@@ -2319,15 +2343,15 @@ Class tlPolygon Extends tlBox
 			If velocity.x Or velocity.y Or poly.velocity.x Or poly.velocity.y
 				If velocity.x Or velocity.y
 					velocityoffset0 = axis.DotProduct(velocity)
-					minmax0[0]+=velocityoffset0
-					minmax0[1]+=velocityoffset0
+					min0+=velocityoffset0
+					max0+=velocityoffset0
 				End If
 				If poly.velocity.x Or poly.velocity.y
 					velocityoffset1 = axis.DotProduct(poly.velocity)
-					minmax1[0]+=velocityoffset1
-					minmax1[1]+=velocityoffset1
+					min1+=velocityoffset1
+					max1+=velocityoffset1
 				End If
-				veloverlapdistance = IntervalDistance(minmax0[0], minmax0[1], minmax1[0], minmax1[1])
+				veloverlapdistance = IntervalDistance(min0, max0, min1, max1)
 				If veloverlapdistance > 0
 					result.willintersect = False
 				Else
@@ -2527,17 +2551,17 @@ Class tlPolygon Extends tlBox
 		
 	End
 	
-	Method Project(axis:tlVector2, minmax:Float[]) Override
+	Method Project(axis:tlVector2, minv:float Ptr, maxv:float Ptr) Override
 		'This projects the poly onto an axis and lets us know the min and max dotproduct values
 		Local dotproduct:Float = axis.DotProduct(tformvertices[0])
-		minmax[0] = dotproduct
-		minmax[1] = dotproduct
+		Cast<Float Ptr>(minv)[0] = dotproduct
+		Cast<Float Ptr>(maxv)[0] = dotproduct
 		For Local c:Int = 1 To tformvertices.Length - 1
 			dotproduct = tformvertices[c].DotProduct(axis)
-			If dotproduct < minmax[0]
-				minmax[0] = dotproduct
-			ElseIf dotproduct > minmax[1]
-				minmax[1] = dotproduct
+			If dotproduct < Cast<Float Ptr>(minv)[0]
+				Cast<Float Ptr>(minv)[0] = dotproduct
+			ElseIf dotproduct > Cast<Float Ptr>(maxv)[0]
+				Cast<Float Ptr>(maxv)[0] = dotproduct
 			End If
 		Next
 	End
@@ -2598,8 +2622,10 @@ Class tlLine Extends tlPolygon
 		
 		Local axis:tlVector2
 		
-		Local minmax0:=New Float[2]
-		Local minmax1:=New Float[2]
+		Local min0:Float
+		Local max0:Float
+		Local min1:Float
+		Local max1:Float
 		
 		Local dotoffset:Float
 		
@@ -2620,15 +2646,15 @@ Class tlLine Extends tlPolygon
 				axis = Box.normals[c - 1]
 			End If
 		
-			Project(axis, minmax0)
-			Box.Project(axis, minmax1)
+			Project(axis, Varptr(min0), Varptr(max0))
+			Box.Project(axis, Varptr(min1), Varptr(max1))
 			
 			dotoffset = axis.DotProduct(woffset)
 			
-			minmax0[0]+=dotoffset
-			minmax0[1]+=dotoffset
+			min0+=dotoffset
+			max0+=dotoffset
 			
-			overlapdistance = IntervalDistance(minmax0[0], minmax0[1], minmax1[0], minmax1[1])
+			overlapdistance = IntervalDistance(min0, max0, min1, max1)
 			If overlapdistance > 0
 				result.intersecting = False
 			End If
@@ -2636,15 +2662,15 @@ Class tlLine Extends tlPolygon
 			If velocity.x Or velocity.y Or Box.velocity.x Or Box.velocity.y
 				If velocity.x Or velocity.y
 					velocityoffset0 = axis.DotProduct(velocity)
-					minmax0[0]+=velocityoffset0
-					minmax0[1]+=velocityoffset0
+					min0+=velocityoffset0
+					max0+=velocityoffset0
 				End If
 				If Box.velocity.x Or Box.velocity.y
 					velocityoffset1 = axis.DotProduct(Box.velocity)
-					minmax1[0]+=velocityoffset1
-					minmax1[1]+=velocityoffset1
+					min1+=velocityoffset1
+					max1+=velocityoffset1
 				End If
-				veloverlapdistance = IntervalDistance(minmax0[0], minmax0[1], minmax1[0], minmax1[1])
+				veloverlapdistance = IntervalDistance(min0, max0, min1, max1)
 				If veloverlapdistance > 0
 					result.willintersect = False
 				Else
@@ -2686,8 +2712,10 @@ Class tlLine Extends tlPolygon
 		
 		Local axis:tlVector2
 		
-		Local minmax0:=New Float[2]
-		Local minmax1:=New Float[2]
+		Local min0:Float
+		Local max0:Float
+		Local min1:Float
+		Local max1:Float
 		
 		Local dotoffset:Float
 		
@@ -2707,21 +2735,21 @@ Class tlLine Extends tlPolygon
 				axis = GetVoronoiAxis(circle.world)
 				If Not axis Exit
 				
-				Project(axis, minmax0)
-				circle.Project(axis, minmax1)
+				Project(axis, Varptr(min0), Varptr(max0))
+				circle.Project(axis, Varptr(min1), Varptr(max1))
 			Else
 				axis = normals[c]
 	
-				Project(axis, minmax0)
-				circle.Project(axis, minmax1)
+				Project(axis, Varptr(min0), Varptr(max0))
+				circle.Project(axis, Varptr(min1), Varptr(max1))
 			End If
 			
 			dotoffset = axis.DotProduct(woffset)
 			
-			minmax0[0]+=dotoffset
-			minmax0[1]+=dotoffset
+			min0+=dotoffset
+			max0+=dotoffset
 			
-			overlapdistance = IntervalDistance(minmax0[0], minmax0[1], minmax1[0], minmax1[1])
+			overlapdistance = IntervalDistance(min0, max0, min1, max1)
 			If overlapdistance > 0
 				result.intersecting = False
 			End If
@@ -2729,15 +2757,15 @@ Class tlLine Extends tlPolygon
 			If velocity.x Or velocity.y Or circle.velocity.x Or circle.velocity.y
 				If velocity.x Or velocity.y
 					velocityoffset0 = axis.DotProduct(velocity)
-					minmax0[0]+=velocityoffset0
-					minmax0[1]+=velocityoffset0
+					min0+=velocityoffset0
+					max0+=velocityoffset0
 				End If
 				If circle.velocity.x Or circle.velocity.y
 					velocityoffset1 = axis.DotProduct(circle.velocity)
-					minmax1[0]+=velocityoffset1
-					minmax1[1]+=velocityoffset1
+					min1+=velocityoffset1
+					max1+=velocityoffset1
 				End If
-				veloverlapdistance = IntervalDistance(minmax0[0], minmax0[1], minmax1[0], minmax1[1])
+				veloverlapdistance = IntervalDistance(min0, max0, min1, max1)
 				If veloverlapdistance > 0
 					result.willintersect = False
 				Else
@@ -2779,8 +2807,10 @@ Class tlLine Extends tlPolygon
 		
 		Local axis:tlVector2
 		
-		Local minmax0:=New Float[2]
-		Local minmax1:=New Float[2]
+		Local min0:Float
+		Local max0:Float
+		Local min1:Float
+		Local max1:Float
 		
 		Local dotoffset:Float
 		
@@ -2802,15 +2832,15 @@ Class tlLine Extends tlPolygon
 				axis = line.normals[c - 2]
 			End If
 		
-			Project(axis, minmax0)
-			line.Project(axis, minmax1)
+			Project(axis, Varptr(min0), Varptr(max0))
+			line.Project(axis, Varptr(min1), Varptr(max1))
 			
 			dotoffset = axis.DotProduct(woffset)
 			
-			minmax0[0]+=dotoffset
-			minmax0[1]+=dotoffset
+			min0+=dotoffset
+			max0+=dotoffset
 			
-			overlapdistance = IntervalDistance(minmax0[0], minmax0[1], minmax1[0], minmax1[1])
+			overlapdistance = IntervalDistance(min0, max0, min1, max1)
 			If overlapdistance > 0
 				result.intersecting = False
 			End If
@@ -2818,15 +2848,15 @@ Class tlLine Extends tlPolygon
 			If velocity.x Or velocity.y Or line.velocity.x Or line.velocity.y
 				If velocity.x Or velocity.y
 					velocityoffset0 = axis.DotProduct(velocity)
-					minmax0[0]+=velocityoffset0
-					minmax0[1]+=velocityoffset0
+					min0+=velocityoffset0
+					max0+=velocityoffset0
 				End If
 				If line.velocity.x Or line.velocity.y
 					velocityoffset1 = axis.DotProduct(line.velocity)
-					minmax1[0]+=velocityoffset1
-					minmax1[1]+=velocityoffset1
+					min1+=velocityoffset1
+					max1+=velocityoffset1
 				End If
-				veloverlapdistance = IntervalDistance(minmax0[0], minmax0[1], minmax1[0], minmax1[1])
+				veloverlapdistance = IntervalDistance(min0, max0, min1, max1)
 				If veloverlapdistance > 0
 					result.willintersect = False
 				Else
@@ -2868,8 +2898,10 @@ Class tlLine Extends tlPolygon
 		
 		Local axis:tlVector2
 		
-		Local minmax0:=New Float[2]
-		Local minmax1:=New Float[2]
+		Local min0:Float
+		Local max0:Float
+		Local min1:Float
+		Local max1:Float
 		
 		Local dotoffset:Float
 		
@@ -2891,15 +2923,15 @@ Class tlLine Extends tlPolygon
 				axis = poly.normals[c - 2]
 			End If
 		
-			Project(axis, minmax0)
-			poly.Project(axis, minmax1)
+			Project(axis, Varptr(min0), Varptr(max0))
+			poly.Project(axis, Varptr(min1), Varptr(max1))
 			
 			dotoffset = axis.DotProduct(woffset)
 			
-			minmax0[0]+=dotoffset
-			minmax0[1]+=dotoffset
+			min0+=dotoffset
+			max0+=dotoffset
 			
-			overlapdistance = IntervalDistance(minmax0[0], minmax0[1], minmax1[0], minmax1[1])
+			overlapdistance = IntervalDistance(min0, max0, min1, max1)
 			If overlapdistance > 0
 				result.intersecting = False
 			End If
@@ -2907,15 +2939,15 @@ Class tlLine Extends tlPolygon
 			If velocity.x Or velocity.y Or poly.velocity.x Or poly.velocity.y
 				If velocity.x Or velocity.y
 					velocityoffset0 = axis.DotProduct(velocity)
-					minmax0[0]+=velocityoffset0
-					minmax0[1] += velocityoffset0
+					min0+=velocityoffset0
+					max0 += velocityoffset0
 				End If
 				If poly.velocity.x Or poly.velocity.y
 					velocityoffset1 = axis.DotProduct(poly.velocity)
-					minmax1[0]+=velocityoffset1
-					minmax1[1]+=velocityoffset1
+					min1+=velocityoffset1
+					max1+=velocityoffset1
 				End If
-				veloverlapdistance = IntervalDistance(minmax0[0], minmax0[1], minmax1[0], minmax1[1])
+				veloverlapdistance = IntervalDistance(min0, max0, min1, max1)
 				If veloverlapdistance > 0
 					result.willintersect = False
 				Else
@@ -3063,16 +3095,16 @@ Class tlLine Extends tlPolygon
 		normals[1].Normalise()
 	End
 	
-	Method Project(axis:tlVector2, minmax:Float[]) Override
+	Method Project(axis:tlVector2, minv:Float Ptr, maxv:Float Ptr) Override
 		'This projects the line onto an axis and lets us know the min and max dotproduct values
 		Local dotproduct:Float = axis.DotProduct(tformvertices[0])
-		minmax[0] = dotproduct
-		minmax[1] = dotproduct
+		Cast<Float Ptr>(minv)[0] = dotproduct
+		Cast<Float Ptr>(maxv)[0] = dotproduct
 		dotproduct = tformvertices[1].DotProduct(axis)
-		If dotproduct < minmax[0]
-			minmax[0] = dotproduct
-		ElseIf dotproduct > minmax[1]
-			minmax[1] = dotproduct
+		If dotproduct < Cast<Float Ptr>(minv)[0]
+			Cast<Float Ptr>(minv)[0] = dotproduct
+		ElseIf dotproduct > Cast<Float Ptr>(maxv)[0]
+			Cast<Float Ptr>(maxv)[0] = dotproduct
 		End If
 	End
 

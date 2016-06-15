@@ -15,6 +15,7 @@ Class Game Extends Window
 	Field DrawBox:DrawBoxAction
 	Field DrawScreen:DrawScreenAction
 	Field currentCanvas:Canvas
+	Field eventCount:int
 	
 	Private
 	
@@ -23,7 +24,7 @@ Class Game Extends Window
 	Field _fpscount:Int
 
 	Method New()
-		QTree = New tlQuadTree(0, 0, Width, Height, 5, 5)
+		QTree = New tlQuadTree(0, 0, Width, Height, 5, 20)
 		DrawBox = New DrawBoxAction
 		DrawScreen = New DrawScreenAction
 		
@@ -31,7 +32,7 @@ Class Game Extends Window
 		DrawScreen.thegame = Self
 		
 		'Populate the quadtree with a bunch of objects
-		For Local c:Int = 1 To 10000
+		For Local c:Int = 1 To 1000
 			Local t:Int = Rnd(3)
 			Local rect:tlBox
 			Local x:Float = Rnd() * Width
@@ -66,12 +67,13 @@ Class Game Extends Window
 		canvas.Clear( New Color(0,0,0,1) )
 		
 		'canvas.PushMatrix()		
+		canvas.BlendMode = BlendMode.Alpha
 		
 		player.SetPosition(Mouse.X, Mouse.Y)
 
 		Local QueryTime:Int = Millisecs()
 		If Keyboard.KeyDown(Key.Space) QTree.ForEachObjectInArea(0, 0, Width, Height, Null, DrawScreen, New Int[](0, 1, 2))
-		QTree.ForEachObjectInBox(player, player, DrawBox,New Int[](0, 1, 2))
+		QTree.ForEachObjectInBox(player, player, DrawBox, New Int[](0, 1, 2))
 		QueryTime = Millisecs() - QueryTime
 		
 		Local RenderTime:Int = Millisecs()
@@ -91,9 +93,11 @@ Class Game Extends Window
 		
 		canvas.DrawText(_fps, 10, 10)
 		canvas.DrawText(QTree.objectsupdated, 30, 10)
-		canvas.DrawText(QTree.totalobjectsintree, 50, 10)
+		canvas.DrawText(eventCount, 50, 10)
 		canvas.DrawText("Process Time: " + QueryTime, 10, 35)
 		QTree.objectsupdated = 0
+		
+		eventCount = 0
 	
 	End
 
@@ -120,6 +124,7 @@ Class DrawBoxAction Implements tlQuadTreeEvent
 			End If
 			thegame.currentCanvas.Color = New Color(0, 1, 0)
 			rect.Draw(thegame.currentCanvas)
+			thegame.eventCount+=1
 		End If
 	End
 	Method doAction:Void(ReturnedObject:Object, Data:Object, Result:tlCollisionResult)
@@ -133,6 +138,7 @@ Class DrawScreenAction Implements tlQuadTreeEvent
 		Local rect:tlBox = Cast<tlBox>(o)
 		thegame.currentCanvas.Color = New Color(0.5, 0.5, 0.5)
 		rect.Draw(thegame.currentCanvas)
+		thegame.eventCount+=1
 	End
 	Method doAction:Void(ReturnedObject:Object, Data:Object, Result:tlCollisionResult)
 		
