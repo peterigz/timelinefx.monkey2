@@ -69,7 +69,7 @@ Const tlLAYER_31:Int = 31
 
 #rem monkeydoc Class for storing the results of a collision
 #end
-Class tlCollisionResult
+Struct tlCollisionResult
 	
 	Public
 	
@@ -85,6 +85,7 @@ Class tlCollisionResult
 	Field raydistance:Float
 	Field source:tlBox
 	Field target:tlBox
+	Field nocollision:Int
 	
 	#rem monkeydoc Find out if the last collision check is intersecting
 		Returns true if there was an intersection
@@ -98,6 +99,12 @@ Class tlCollisionResult
 	#end
 	Property IsColliding:Int() 
 		Return intersecting
+	End
+
+	Property NoCollision:Int()
+		Return nocollision
+	Setter (v:Int)
+		nocollision = v
 	End
 	
 	#rem monkeydoc Find out if the last collision check is intersecting
@@ -255,7 +262,7 @@ Class tlBox
 
 	Field remove:int 						'set to 1 to mark for removal
 
-	Method New() 
+	Method New()
 	End
 	
 	Method New(x:Float, y:Float, w:Float, h:Float, layer:Int = tlLAYER_0, data:Object = Null)
@@ -633,9 +640,11 @@ Class tlBox
 		#tlCollisionResult to perform various things based on the result of the collision check.
 	#end
 	Method CircleCollide:tlCollisionResult(circle:tlCircle) Virtual
-		If Not BoundingBoxOverlap(circle, True) Return Null
-	
 		Local result:tlCollisionResult = New tlCollisionResult
+		If Not BoundingBoxOverlap(circle, True) 
+			result.NoCollision = True
+			Return result
+		End
 		
 		Local axis:tlVector2
 		
@@ -724,9 +733,12 @@ Class tlBox
 		#tlCollisionResult to perform various things based on the result of the collision check.
 	#end
 	Method LineCollide:tlCollisionResult(line:tlLine) Virtual
-		If Not BoundingBoxOverlap(line, True) Return Null
-	
 		Local result:tlCollisionResult = New tlCollisionResult
+
+		If Not BoundingBoxOverlap(line, True)
+			result.NoCollision = True
+			Return result
+		End
 		
 		Local axis:tlVector2
 		
@@ -814,9 +826,12 @@ Class tlBox
 		#tlCollisionResult to perform various things based on the result of the collision check.
 	#end
 	Method PolyCollide:tlCollisionResult(poly:tlPolygon) Virtual
-		If Not BoundingBoxOverlap(poly, True) Return Null
-
 		Local result:tlCollisionResult = New tlCollisionResult
+
+		If Not BoundingBoxOverlap(poly, True)
+			result.NoCollision = True
+			Return result
+		End
 		
 		Local axis:tlVector2
 		
@@ -996,7 +1011,7 @@ Class tlBox
 		to prevent 2 boundaries from overlapping. If push is set to true, then the source boundary will push the target boundary along it's velocity vector.
 	#end
 	Method PreventOverlap(result:tlCollisionResult, push:Int = False)
-		If result
+		If not result.NoCollision
 			If Not push
 				If result.willintersect
 					If Self = result.source
@@ -1035,7 +1050,7 @@ Class tlBox
 		the other entity away.
 	#end
 	Method Repel(result:tlCollisionResult, push:Int = False, factor:Float = 0.1)
-		If result
+		If not result.NoCollision
 			If Not push
 				If result.willintersect
 					If Self = result.source
@@ -1073,7 +1088,7 @@ Class tlBox
 		you pass to it. So you can either push them away from each other equally or you can weight one or the other.
 	#end
 	Method Separate(result:tlCollisionResult, sourcefactor:Float = 0.1, targetfactor:Float = 0.1)
-		If result
+		If not result.NoCollision
 			If result.willintersect
 				result.target.Move(-result.translationvector.x * targetfactor, -result.translationvector.y * targetfactor)
 				result.source.Move(result.translationvector.x * sourcefactor, result.translationvector.y * sourcefactor)
@@ -1284,9 +1299,6 @@ Class tlCircle Extends tlBox
 	
 	Field radius:Float
 	Field tformradius:Float
-
-	Method New() 
-	End
 	
 	#rem monkeydoc Create a #tlCircle
 		Returns New #tlCircle
@@ -1321,7 +1333,7 @@ Class tlCircle Extends tlBox
 		Use this to find out if a point at x,y falls with the radius of this #tlCircle
 	#end
 	Method PointInside:Int(x:Float, y:Float) Override
-		Return (GetDistance(x, y, worldhandle.x, worldhandle.y) <= radius)
+		Return GetDistance(x, y, worldhandle.x, worldhandle.y) <= radius
 	End
 	
 	#rem monkeydoc Compare this circle with another #tlCircle
@@ -1353,9 +1365,12 @@ Class tlCircle Extends tlBox
 		#tlCollisionResult to perform various things based on the result of the collision check.
 	#end
 	Method BoxCollide:tlCollisionResult(box:tlBox) Override
-		If Not Super.BoundingBoxOverlap(box, True) Return Null
-	
 		Local result:tlCollisionResult = New tlCollisionResult
+
+		If Not Super.BoundingBoxOverlap(box, True)
+			result.NoCollision = True
+			Return result
+		End
 		
 		Local axis:tlVector2
 		
@@ -1443,10 +1458,12 @@ Class tlCircle Extends tlBox
 		#tlCollisionResult to perform various things based on the result of the collision check.
 	#end
 	Method CircleCollide:tlCollisionResult(circle:tlCircle) Override
-		
-		If Not Super.BoundingBoxOverlap(circle, True) Return Null
-	
 		Local result:tlCollisionResult = New tlCollisionResult
+
+		If Not Super.BoundingBoxOverlap(circle, True)
+			result.NoCollision = True
+			Return result
+		End
 		
 		Local axis:tlVector2
 		
@@ -1527,10 +1544,12 @@ Class tlCircle Extends tlBox
 		#tlCollisionResult to perform various things based on the result of the collision check.
 	#end
 	Method LineCollide:tlCollisionResult(line:tlLine) Override
-		
-		If Not Super.BoundingBoxOverlap(line, True) Return Null
-	
 		Local result:tlCollisionResult = New tlCollisionResult
+
+		If Not Super.BoundingBoxOverlap(line, True)
+			result.NoCollision = True
+			Return result
+		End
 		
 		Local axis:tlVector2
 		
@@ -1622,10 +1641,12 @@ Class tlCircle Extends tlBox
 		#tlCollisionResult to perform various things based on the result of the collision check.
 	#end
 	Method PolyCollide:tlCollisionResult(poly:tlPolygon) Override
-		
-		If Not Super.BoundingBoxOverlap(poly, True) Return Null
-	
 		Local result:tlCollisionResult = New tlCollisionResult
+
+		If Not Super.BoundingBoxOverlap(poly, True)
+			result.NoCollision = True
+			Return result
+		End
 		
 		Local axis:tlVector2
 		
@@ -1835,7 +1856,7 @@ Class tlPolygon Extends tlBox
 		
 	Field angle:Float
 
-	Method New() 
+	Method New()
 	End
 	
 	#rem monkeydoc Create a #tlPolygon
@@ -2042,9 +2063,12 @@ Class tlPolygon Extends tlBox
 		#tlCollisionResult to perform various things based on the result of the collision check.
 	#end
 	Method BoxCollide:tlCollisionResult(Box:tlBox) Override
-		If Not Super.BoundingBoxOverlap(Box, True) Return Null
-	
 		Local result:tlCollisionResult = New tlCollisionResult
+
+		If Not Super.BoundingBoxOverlap(Box, True)
+			result.NoCollision = True
+			Return result
+		End
 		
 		Local axis:tlVector2
 		
@@ -2130,10 +2154,12 @@ Class tlPolygon Extends tlBox
 		#tlCollisionResult to perform various things based on the result of the collision check.
 	#end
 	Method CircleCollide:tlCollisionResult(circle:tlCircle) Override
-		
-		If Not Super.BoundingBoxOverlap(circle, True) Return Null
-	
 		Local result:tlCollisionResult = New tlCollisionResult
+
+		If Not Super.BoundingBoxOverlap(circle, True)
+			result.NoCollision = True
+			Return result
+		End
 		
 		Local axis:tlVector2
 		
@@ -2225,10 +2251,12 @@ Class tlPolygon Extends tlBox
 		#tlCollisionResult to perform various things based on the result of the collision check.
 	#end
 	Method LineCollide:tlCollisionResult(Line:tlLine) Override
-		
-		If Not Super.BoundingBoxOverlap(Line, True) Return Null
-	
 		Local result:tlCollisionResult = New tlCollisionResult
+
+		If Not Super.BoundingBoxOverlap(Line, True)
+			result.NoCollision = True
+			Return result
+		End
 		
 		Local axis:tlVector2
 		
@@ -2316,10 +2344,12 @@ Class tlPolygon Extends tlBox
 		#tlCollisionResult to perform various things based on the result of the collision check.
 	#end
 	Method PolyCollide:tlCollisionResult(poly:tlPolygon) Override
-		
-		If Not Super.BoundingBoxOverlap(poly, True) Return Null
-	
 		Local result:tlCollisionResult = New tlCollisionResult
+
+		If Not Super.BoundingBoxOverlap(poly, True)
+			result.NoCollision = True
+			Return result
+		End
 		
 		Local axis:tlVector2
 
@@ -2408,7 +2438,6 @@ Class tlPolygon Extends tlBox
 		to extend to. If the ray starts inside the poly then result.rayorigininside will be set to true.
 	#end
 	Method RayCollide:tlCollisionResult(px:Float, py:Float, dx:Float, dy:Float, maxdistance:Float = 0) Override
-		
 		Local result:tlCollisionResult = New tlCollisionResult
 		
 		If PointInside(px, py)
@@ -2592,9 +2621,6 @@ End
 #rem monkeydoc Collision line class
 #end
 Class tlLine Extends tlPolygon
-
-	Method New() 
-	End
 	
 	#rem monkeydoc Create a #tlLine
 		Returns New #tlLine
@@ -2637,9 +2663,12 @@ Class tlLine Extends tlPolygon
 		#tlCollisionResult to perform various things based on the result of the collision check.
 	#end
 	Method BoxCollide:tlCollisionResult(Box:tlBox) Override
-		If Not Super.BoundingBoxOverlap(Box, True) Return Null
-	
 		Local result:tlCollisionResult = New tlCollisionResult
+
+		If Not Super.BoundingBoxOverlap(Box, True)
+			result.NoCollision = True
+			Return result
+		End
 		
 		Local axis:tlVector2
 		
@@ -2726,10 +2755,12 @@ Class tlLine Extends tlPolygon
 		#tlCollisionResult to perform various things based on the result of the collision check.
 	#end
 	Method CircleCollide:tlCollisionResult(circle:tlCircle) Override
-		
-		If Not Super.BoundingBoxOverlap(circle, True) Return Null
-	
 		Local result:tlCollisionResult = New tlCollisionResult
+
+		If Not Super.BoundingBoxOverlap(circle, True)
+			result.NoCollision = True
+			Return result
+		End
 		
 		Local axis:tlVector2
 		
@@ -2821,10 +2852,12 @@ Class tlLine Extends tlPolygon
 		#tlCollisionResult to perform various things based on the result of the collision check.
 	#end
 	Method LineCollide:tlCollisionResult(line:tlLine) Override
-		
-		If Not Super.BoundingBoxOverlap(line, True) Return Null
-	
 		Local result:tlCollisionResult = New tlCollisionResult
+
+		If Not Super.BoundingBoxOverlap(line, True)
+			result.NoCollision = True
+			Return result
+		End
 		
 		Local axis:tlVector2
 		
@@ -2912,10 +2945,12 @@ Class tlLine Extends tlPolygon
 		#tlCollisionResult to perform various things based on the result of the collision check.
 	#end
 	Method PolyCollide:tlCollisionResult(poly:tlPolygon) Override
-		
-		If Not Super.BoundingBoxOverlap(poly, True) Return Null
-	
 		Local result:tlCollisionResult = New tlCollisionResult
+
+		If Not Super.BoundingBoxOverlap(poly, True)
+			result.NoCollision = True
+			Return result
+		End
 		
 		Local axis:tlVector2
 		
@@ -3392,7 +3427,7 @@ End Function
 	is located then it might inadvertantly place the bouandary back inside the object it's colliding with causing strange things to happen.
 #end
 Function PreventOverlap(result:tlCollisionResult, push:Int = False)
-	If result
+	If not result.NoCollision
 		If result.source
 			result.source.PreventOverlap(result, push)
 		End If

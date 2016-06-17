@@ -378,7 +378,7 @@ Class tlQuadTree
 			'if line starts outside of quadtree
 			If x < 0 Or x >= dimension Or y < 0 Or y >= dimension
 				Local result:tlCollisionResult = rootnode[Layer[c]].Box.LineCollide(line)
-				If Not result Return False
+				If result.NoCollision Return False
 				If result.intersecting
 					Select direction
 						Case 0
@@ -1001,7 +1001,7 @@ Class tlQuadTreeNode
 		For Local r:tlBox = EachIn objects
 			If r.AreaCheckCount[checkindex] <> parenttree.AreaCheckCount[checkindex] And Line <> r
 				result = r.LineCollide(Line)
-				If result
+				If not result.NoCollision
 					If result.intersecting Or result.willintersect
 						onFoundObject.doAction(r, Data, result)
 						r.AreaCheckCount[checkindex] = parenttree.AreaCheckCount[checkindex]
