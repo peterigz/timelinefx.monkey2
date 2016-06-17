@@ -79,7 +79,9 @@ Class tlCollisionResult
 	Field translationvector:tlVector2
 	Field repelvector:tlVector2
 	Field surfacenormal:tlVector2
+	Field hassurfacenormal:Int = false
 	Field rayintersection:tlVector2
+	Field hasintersection:Int = false
 	Field raydistance:Float
 	Field source:tlBox
 	Field target:tlBox
@@ -131,6 +133,27 @@ Class tlCollisionResult
 	#end
 	Property RayIntersection:tlVector2() 
 		Return rayintersection
+	Setter (vec:tlVector2)
+		rayintersection = vec
+		hasintersection = True
+	End
+
+	#rem monkeydoc Get the surface normal of the collision
+
+	#end
+	Property SurfaceNormal:tlVector2() 
+		Return surfacenormal
+	Setter (vec:tlVector2)
+		surfacenormal = vec
+		hassurfacenormal = True
+	End
+
+	Property HasIntersection:int()
+		Return hasintersection
+	End
+
+	Property HasSurfaceNormal:int()
+		Return hassurfacenormal
 	End
 	
 	#rem monkeydoc Get the surface normal that the ray hits
@@ -163,7 +186,7 @@ Class tlCollisionResult
 	#end
 	Method GetReboundVector:tlVector2(v:tlVector2, friction:Float = 0, bounce:Float = 1)
 		
-		If surfacenormal And (intersecting Or willintersect)
+		If hassurfacenormal And (intersecting Or willintersect)
 			If v.DotProduct(surfacenormal) < 0
 				Local Vn:tlVector2 = surfacenormal.Scale(v.DotProduct(surfacenormal))
 				Local Vt:tlVector2 = v.SubtractVector(Vn)
@@ -639,7 +662,7 @@ Class tlBox
 				axis = normals[c]
 			Else
 				axis = GetVoronoiAxis(circle.worldhandle)
-				If Not axis Exit
+				If axis.Invalid Exit
 			End If
 			
 			Project(axis, Varptr(min0), Varptr(max0))
@@ -1134,8 +1157,8 @@ Class tlBox
 	Method GetVoronoiAxis:tlVector2(point:tlVector2) Virtual
 		'Finds the voronoi region of a point and returns the axis vector between the nearest vertex and the point.
 		'returns null is the region is an edge rather then a vector.
-		If point.x >= tl_corner.x And point.x <= br_corner.x Return Null
-		If point.y >= tl_corner.y And point.y <= br_corner.y Return Null
+		If point.x >= tl_corner.x And point.x <= br_corner.x Return New tlVector2(0, 0, true)
+		If point.y >= tl_corner.y And point.y <= br_corner.y Return New tlVector2(0, 0, true)
 		
 		Local axis:tlVector2
 		
@@ -1157,7 +1180,7 @@ Class tlBox
 			Return axis
 		End If
 		
-		Return Null
+		Return New tlVector2(0, 0, true)
 		
 	End
 	
@@ -1358,9 +1381,7 @@ Class tlCircle Extends tlBox
 				axis = box.normals[c]
 			Else
 				axis = box.GetVoronoiAxis(worldhandle)
-				If Not axis
-					Exit
-				EndIf
+				If axis.Invalid	Exit
 			End If
 		
 			Project(axis, Varptr(min0), Varptr(max0))
@@ -1534,7 +1555,7 @@ Class tlCircle Extends tlBox
 		
 			If c = 2
 				axis = line.GetVoronoiAxis(worldhandle)
-				If Not axis Exit
+				If axis.Invalid Exit
 				
 				Project(axis, Varptr(min0), Varptr(max0))
 				line.Project(axis, Varptr(min1), Varptr(max1))
@@ -1629,7 +1650,7 @@ Class tlCircle Extends tlBox
 		
 			If c = poly.tformvertices.Length
 				axis = poly.GetVoronoiAxis(worldhandle)
-				If Not axis Exit
+				If axis.Invalid Exit
 				
 				Project(axis, Varptr(min0), Varptr(max0))
 				poly.Project(axis, Varptr(min1), Varptr(max1))
@@ -2137,7 +2158,7 @@ Class tlPolygon Extends tlBox
 		
 			If c = tformvertices.Length
 				axis = GetVoronoiAxis(circle.worldhandle)
-				If Not axis Exit
+				If axis.Invalid Exit
 				
 				Project(axis, Varptr(min0), Varptr(max0))
 				circle.Project(axis, Varptr(min1), Varptr(max1))
@@ -2541,13 +2562,13 @@ Class tlPolygon Extends tlBox
 				End If
 			Else
 				If vc.DotProduct(edge.Normal()) > 0
-					Return Null
+					Return New tlVector2
 				End If
 			End If
 			v1 = v2
 		Next
 		
-		Return Null
+		Return New tlVector2(0, 0, true)
 		
 	End
 	
@@ -2733,7 +2754,7 @@ Class tlLine Extends tlPolygon
 		
 			If c = 2
 				axis = GetVoronoiAxis(circle.world)
-				If Not axis Exit
+				If axis.Invalid Exit
 				
 				Project(axis, Varptr(min0), Varptr(max0))
 				circle.Project(axis, Varptr(min1), Varptr(max1))
@@ -3061,10 +3082,10 @@ Class tlLine Extends tlPolygon
 			vc.Normalise()
 			Return vc
 		Else
-			Return Null
+			Return New tlVector2(0, 0, true)
 		End If
 		
-		Return Null
+		Return New tlVector2(0, 0, true)
 		
 	End
 	

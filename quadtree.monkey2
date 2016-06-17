@@ -1028,7 +1028,7 @@ Class tlQuadTreeNode
 				nearestobject = r
 				Exit
 			End If
-			If result.raydistance < mindistance And result.rayintersection
+			If result.raydistance < mindistance And result.HasIntersection
 				mindistance = result.raydistance
 				nearestresult = result
 				nearestobject = r

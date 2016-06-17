@@ -22,10 +22,6 @@ Class CollisionTest Extends Window
 	Field shape:Int
 	
 	Private
-	
-	Field _fps:Int
-	Field _tick:Int
-	Field _fpscount:Int
 
 	Method New()
 		box = new tlBox(400, 300, 100, 100)
@@ -70,16 +66,6 @@ Class CollisionTest Extends Window
 				result = CheckRayCollision(poly, point.x, point.y, ray.x, ray.y)
 		End Select
 		
-		If Millisecs() - _tick > 1008
-			_fps = _fpscount
-			_tick = Millisecs()
-			_fpscount=0
-		Else
-			_fpscount +=1
-		End
-		
-		canvas.DrawText(_fps, 10, 50)
-		
 		Select shape
 			Case 0
 				box.Draw(canvas)
@@ -89,7 +75,6 @@ Class CollisionTest Extends Window
 				circle.Draw(canvas)
 			Case 3
 				poly.Draw(canvas)
-				canvas.DrawText(poly.angle, 10, 40)
 		End Select
 		
 		canvas.DrawRect(point.x - 5, point.y - 5, 10, 10)

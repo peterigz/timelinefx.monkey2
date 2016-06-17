@@ -32,7 +32,7 @@ Class Game Extends Window
 		DrawScreen.thegame = Self
 		
 		'Populate the quadtree with a bunch of objects
-		For Local c:Int = 1 To 1000
+		For Local c:Int = 1 To 10000
 			Local t:Int = Rnd(3)
 			Local rect:tlBox
 			Local x:Float = Rnd() * Width

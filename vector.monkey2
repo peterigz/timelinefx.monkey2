@@ -23,16 +23,22 @@
 
 Namespace timelinefx.vector
 
-Class tlVector2
+Struct tlVector2
 	
 	Public
 	
 	Field x:Float
 	Field y:Float
-	
-	Method New(x:Float = 0, y:Float = 0)
+	Field invalid:Int
+
+	Method New(x:Float = 0, y:Float = 0, invalid:int = false)
 		self.x = x
 		self.y = y
+		self.invalid = invalid
+	End
+
+	Property Invalid:int()
+		return invalid
 	End
 	
 	Method Clone:tlVector2()

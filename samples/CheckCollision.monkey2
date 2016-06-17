@@ -11,7 +11,6 @@ Using timelinefx..
 Class CollisionTest Extends Window
 
 	Field poly:tlPolygon
-	Field poly2:tlPolygon
 	
 	'create a box to move about
 	Field box:tlBox
@@ -34,7 +33,6 @@ Class CollisionTest Extends Window
 	Method New()
 		Local verts:= New Float[](0.0, 0.0, -150.0, 100.0, 50.0, 150.0, 185.0, 100.0, 300.0, 0.0)
 		poly = CreatePolygon(400, 200, verts)
-		poly2 = CreatePolygon(150, 150, verts)
 		box = CreateBox(100, 100, 20, 20)
 	End
 	
@@ -80,7 +78,6 @@ Class CollisionTest Extends Window
 		
 		box.Draw(canvas)
 		poly.Draw(canvas)
-		poly2.Draw(canvas)
 		
 		If Millisecs() - _tick > 1008
 			_fps = _fpscount
