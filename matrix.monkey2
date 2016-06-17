@@ -25,7 +25,7 @@ Namespace timelinefx.matrix
 
 Using timelinefx.vector..
 
-Class tlMatrix2
+Struct tlMatrix2
 	
 	Private
 
