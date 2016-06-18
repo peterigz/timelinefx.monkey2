@@ -115,7 +115,7 @@ Class DrawBoxAction Implements tlQuadTreeEvent
 		Local player:tlBox = Cast<tlBox>(data)
 		'Do a collision check and store the result
 		Local collisionresult:tlCollisionResult = CheckCollision(player, rect)
-		If collisionresult.intersecting = True
+		If collisionresult.Intersecting = True
 			If rect.CollisionType = tlPOLY_COLLISION
 				Cast<tlPolygon>(rect).RotateDegrees(1)
 			

@@ -379,7 +379,7 @@ Class tlQuadTree
 			If x < 0 Or x >= dimension Or y < 0 Or y >= dimension
 				Local result:tlCollisionResult = rootnode[Layer[c]].Box.LineCollide(line)
 				If result.NoCollision Return False
-				If result.intersecting
+				If result.Intersecting
 					Select direction
 						Case 0
 							While x < 0 Or x >= dimension Or y < 0 Or y >= dimension
@@ -1002,7 +1002,7 @@ Class tlQuadTreeNode
 			If r.AreaCheckCount[checkindex] <> parenttree.AreaCheckCount[checkindex] And Line <> r
 				result = r.LineCollide(Line)
 				If not result.NoCollision
-					If result.intersecting Or result.willintersect
+					If result.Intersecting Or result.WillIntersect
 						onFoundObject.doAction(r, Data, result)
 						r.AreaCheckCount[checkindex] = parenttree.AreaCheckCount[checkindex]
 						parenttree.objectsfound+=1
@@ -1022,14 +1022,14 @@ Class tlQuadTreeNode
 		
 		For Local r:tlBox = EachIn objects
 			result = r.RayCollide(px, py, dx, dy, maxdistance)
-			If result.rayorigininside
-				mindistance = result.raydistance
+			If result.RayOriginInside
+				mindistance = result.RayDistance
 				nearestresult = result
 				nearestobject = r
 				Exit
 			End If
-			If result.raydistance < mindistance And result.HasIntersection
-				mindistance = result.raydistance
+			If result.RayDistance < mindistance And result.HasIntersection
+				mindistance = result.RayDistance
 				nearestresult = result
 				nearestobject = r
 			End If

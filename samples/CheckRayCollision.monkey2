@@ -80,15 +80,15 @@ Class CollisionTest Extends Window
 		canvas.DrawRect(point.x - 5, point.y - 5, 10, 10)
 		
 		'if the result shows an intersection and it wasn't insise the shape
-		If result.RayIntersection And Not result.RayOriginInside
+		If result.Intersecting And Not result.RayOriginInside
 			'draw the ray upto the intersection point
-			canvas.DrawLine(point.x, point.y, result.rayintersection.x, result.rayintersection.y)
-			canvas.DrawOval(result.rayintersection.x - 4, result.rayintersection.y - 4, 8, 8)
+			canvas.DrawLine(point.x, point.y, result.RayIntersection.x, result.RayIntersection.y)
+			canvas.DrawOval(result.RayIntersection.x - 4, result.RayIntersection.y - 4, 8, 8)
 			'find the rebound vector
 			Local rebound:tlVector2 = result.GetReboundVector(ray)
 			'draw the rebounded ray
-			canvas.DrawLine (result.rayintersection.x, result.rayintersection.y,
-					result.rayintersection.x + rebound.x * 500, result.rayintersection.y + rebound.y * 500)
+			canvas.DrawLine (result.RayIntersection.x, result.RayIntersection.y,
+					result.RayIntersection.x + rebound.x * 500, result.RayIntersection.y + rebound.y * 500)
 		ElseIf result.RayOriginInside
 			canvas.DrawText ("Ray starts inside object!", 10, 30)
 		Else
