@@ -401,6 +401,10 @@ Class tlBox
 			quadtree.UpdateRect(Self)
 		EndIf
 	End
+
+	Property Velocity:tlVector2()
+		return velocity
+	End
 	
 	#rem monkeydoc Update the position of the boundary
 		You can use this method to update it's position according to its current velocity vector
