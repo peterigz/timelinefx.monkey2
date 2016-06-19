@@ -45,55 +45,32 @@ Struct tlVector2
 		Return New tlVector2(x, y)
 	End
 	
-	Method Move(distance_x:Float, distance_y:Float)
-		x += distance_x
-		y += distance_y
+	Method Move:tlVector2(distance_x:Float, distance_y:Float)
+		Return New tlVector2(x + distance_x, y + distance_y)
 	End
 	
-	Method MoveByVector(distance:tlVector2)
-		x += distance.x
-		y += distance.y
+	Method MoveByVector:tlVector2(distance:tlVector2)
+		Return New tlVector2(x + distance.x, y + distance.y)
 	End
 
-	Method SetPosition(x:Float, y:Float)
-		self.x = x
-		self.y = y
-	End
-
-	Method Zero()
-		x = 0
-		y = 0
-	End
-
-	Method SetPositionByVector(v:tlVector2)
-		x = v.x
-		y = v.y
+	Method SetPositionByVector:tlVector2(v:tlVector2)
+		return New tlVector2(v.x, v.y)
 	End
 
 	Method SubtractVector:tlVector2(v:tlVector2)
 		Return New tlVector2(x - v.x, y - v.y)
 	End
 	
-   Operator-:tlVector2( v:tlVector2 )
-      Return New tlVector2( x - v.x,y - v.y )
-   End
+	Operator-:tlVector2( v:tlVector2 )
+	  Return New tlVector2( x - v.x,y - v.y )
+	End
 
 	Method AddVector:tlVector2(v:tlVector2)
 		Return New tlVector2(x + v.x, y + v.y)
 	End
 	
-   Operator+:tlVector2( v:tlVector2 )
-      Return New tlVector2( x + v.x, y + v.y )
-   End
-
-	Method AddVectorSelf(v:tlVector2)
-		x += v.x
-		y += v.y
-	End
-
-	Method SubtractVectorSelf(v:tlVector2)
-		x -= v.x
-		y -= v.y
+	Operator+:tlVector2( v:tlVector2 )
+	  Return New tlVector2( x + v.x, y + v.y )
 	End
 
 	Method Multiply:tlVector2(v:tlVector2)
@@ -106,11 +83,6 @@ Struct tlVector2
 
 	Method Scale:tlVector2(scale:Float)
 		Return New tlVector2(x * scale, y * scale)
-	End
-
-	Method ScaleSelf(scale:Float)
-		x *= scale
-		y *= scale
 	End
 
 	Method Limit(limit:Float)
@@ -136,12 +108,10 @@ Struct tlVector2
 
 	Method Unit:tlVector2()
 		Local length:Float = Length()
-		Local v:tlVector2 = Clone()
 		If length
-			v.x = x / length
-			v.y = y / length
+			return New tlVector2(x / length, y / length)
 		End If
-		Return v
+		Return Clone()
 	End
 
 	Method Normal:tlVector2()
@@ -152,20 +122,20 @@ Struct tlVector2
 		Return New tlVector2(y, -x)
 	End
 
-	Method Normalise()
+	Method Normalise:tlVector2()
 		Local length:Float = Length()
 		If length
-			x /= length
-			y /= length
+			Return New tlVector2(x/length, y/length) 
 		End If
+		Return self
 	End
 
-	Method NormaliseTo(v:Float = 1)
+	Method NormaliseTo:tlVector2(v:Float = 1)
 		Local length:Float = Length()
 		If length
-			x /= (length * v)
-			y /= (length * v)
+			return New tlVector2(x/(length*v),y/(length*v))
 		End If
+		return self
 	End
 
 	Method DotProduct:Float(v:tlVector2)

@@ -44,7 +44,7 @@ Class CollisionTest Extends Window
 		
 		canvas.PushMatrix()
 		
-		'poly.Rotate(0.01)
+		poly.Rotate(0.01)
 		
 		'some basic movement controls for the box
 		If Keyboard.KeyDown(Key.Up) Direction = DegRad(0)
@@ -56,9 +56,9 @@ Class CollisionTest Extends Window
 		If Keyboard.KeyDown(Key.Up) And Keyboard.KeyDown(Key.Right) Direction = DegRad(45)
 		If Keyboard.KeyDown(Key.Left) And Keyboard.KeyDown(Key.Up) Direction = DegRad(315)
 		If Keyboard.KeyDown(Key.Up) Or Keyboard.KeyDown(Key.Down) Or Keyboard.KeyDown(Key.Left) Or Keyboard.KeyDown(Key.Right)
-			VelVector.SetPosition(0, -speed)
+			VelVector = New tlVector2(0, -speed)
 		Else
-			VelVector.SetPosition(0, 0)
+			VelVector = New tlVector2(0, 0)
 		End If
 		VelMatrix.Set(Cos(Direction), Sin(Direction), -Sin(Direction), Cos(Direction))
 		VelVector = VelMatrix.TransformVector(VelVector).Unit()

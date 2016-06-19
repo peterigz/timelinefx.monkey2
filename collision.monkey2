@@ -70,28 +70,31 @@ Const tlLAYER_31:Int = 31
 #rem monkeydoc Class for storing the results of a collision
 #end
 Struct tlCollisionResult
-	
-	Public
-	
+
+	Private
 	Field willintersect:Int = True
 	Field intersecting:Int = True
 	Field rayorigininside:Int
 	Field translationvector:tlVector2
-	Field repelvector:tlVector2
 	Field surfacenormal:tlVector2
-	Field hassurfacenormal:Int = false
 	Field rayintersection:tlVector2
+	Field hassurfacenormal:Int = false
 	Field hasintersection:Int = false
 	Field raydistance:Float
+	Field nocollision:Int
+	
+	Public
+	
 	Field source:tlBox
 	Field target:tlBox
-	Field nocollision:Int
 	
 	#rem monkeydoc Find out if the last collision check is intersecting
 		Returns true if there was an intersection
 	#end
 	Property Intersecting:Int() 
 		Return intersecting
+	Setter(v:int)
+		intersecting = v
 	End
 	
 	#rem monkeydoc Find out if the last collision check found a collision
@@ -115,6 +118,8 @@ Struct tlCollisionResult
 	#end
 	Property WillIntersect:Int() 
 		Return willintersect
+	Setter (v:int)
+		willintersect = v
 	End
 	
 	#rem monkeydoc Get the distance from the ray origin to the instersection point
@@ -122,6 +127,8 @@ Struct tlCollisionResult
 	#end
 	Property RayDistance:Float() 
 		Return raydistance
+	Setter (v:float)
+		raydistance = v
 	End
 	
 	#rem monkeydoc Get the translation vector of the collision
@@ -132,6 +139,8 @@ Struct tlCollisionResult
 	#end
 	Property TranslationVector:tlVector2() 
 		Return translationvector
+	Setter(v:tlVector2)
+		translationvector = v
 	End
 	
 	#rem monkeydoc Get the intersection point of the raycast
@@ -210,6 +219,8 @@ Struct tlCollisionResult
 	#end
 	Property RayOriginInside:Int() 
 		Return rayorigininside
+	Setter (v:int)
+		rayorigininside = v
 	End
 End
 
@@ -235,7 +246,7 @@ Class tlBox
 	Field scale:tlVector2 = New tlVector2(1, 1)
 	Field velocity:tlVector2 = New tlVector2
 	
-	Field handle:tlVector2 = New tlVector2
+	Field handle:tlVector2 
 	Field worldhandle:tlVector2
 	
 	'colour
@@ -275,8 +286,7 @@ Class tlBox
 			h = Abs(h)
 		End If
 		vertices = New tlVector2[4]
-		handle.x = w / 2
-		handle.y = h / 2
+		handle = New tlVector2(w / 2, h / 2)
 		vertices[0] = New tlVector2(-handle.x, -handle.y)
 		vertices[1] = New tlVector2(-handle.x, h - handle.y)
 		vertices[2] = New tlVector2(w - handle.x, h - handle.y)
@@ -287,12 +297,11 @@ Class tlBox
 			normals[c] = New tlVector2
 			tformvertices[c] = New tlVector2
 		Next
-		handle.x = 0
-		handle.y = 0
+		handle = New tlVector2
 		tl_corner = New tlVector2(0, 0)
 		br_corner = New tlVector2(0, 0)
 		world = New tlVector2(x + w / 2, y + h / 2)
-		worldhandle = world.AddVector(handle)
+		worldhandle = world+handle
 		TForm()
 		UpdateNormals()
 		collisionlayer = layer
@@ -319,17 +328,14 @@ Class tlBox
 			y+=h
 			h = Abs(h)
 		End If
-		handle.x = w / 2
-		handle.y = h / 2
-		vertices[0].SetPosition(-handle.x, -handle.y)
-		vertices[1].SetPosition(-handle.x, h - handle.y)
-		vertices[2].SetPosition(w - handle.x, h - handle.y)
-		vertices[3].SetPosition(w - handle.x, -handle.y)
-		handle.x = 0
-		handle.y = 0
-		world.SetPosition(x + w / 2, y + h / 2)
-		worldhandle.x = world.x + handle.x
-		worldhandle.y = world.y + handle.y
+		handle = New tlVector2(w / 2, h / 2)
+		vertices[0] = New tlVector2(-handle.x, -handle.y)
+		vertices[1] = New tlVector2(-handle.x, h - handle.y)
+		vertices[2] = New tlVector2(w - handle.x, h - handle.y)
+		vertices[3] = New tlVector2(w - handle.x, -handle.y)
+		handle = New tlVector2
+		world = New tlVector2(x + w / 2, y + h / 2)
+		worldhandle = world + handle
 		TForm()
 		UpdateNormals()
 	End
@@ -361,12 +367,11 @@ Class tlBox
 		This sets the position of the top left corner of the bounding box. If the box is within quadtree it will automatically update itself
 		within it.
 	#end
-	Method SetPosition(x:Float, y:Float) Virtual
-		tl_corner.Move(x - world.x, y - world.y)
-		br_corner.Move(x - world.x, y - world.y)
-		world.SetPosition(x, y)
-		worldhandle.x = handle.x + world.x
-		worldhandle.y = handle.y + world.y
+	Method Position(x:Float, y:Float) Virtual
+		tl_corner = tl_corner.Move(x - world.x, y - world.y)
+		br_corner = br_corner.Move(x - world.x, y - world.y)
+		world = New tlVector2(x, y)
+		worldhandle = New tlVector2(handle.x + world.x, handle.y + world.y)
 		UpdateWithinQuadtree()
 	End
 	
@@ -375,10 +380,10 @@ Class tlBox
 		will automatically update itself within it.
 	#end
 	Method Move(x:Float, y:Float) Virtual
-		world.Move(x, y)
+		world = world.Move(x, y)
 		worldhandle = world.AddVector(handle)
-		tl_corner.Move(x, y)
-		br_corner.Move(x, y)
+		tl_corner = tl_corner.Move(x, y)
+		br_corner = br_corner.Move(x, y)
 		UpdateWithinQuadtree()
 	End
 	
@@ -386,7 +391,7 @@ Class tlBox
 		setting the handle let's you offset where the boundary exists in the world. By default the handle is located at the center of the boudary.
 	#end
 	Method SetHandlePosition(x:Float, y:Float)
-		handle.SetPosition(x, y)
+		handle = New tlVector2(x, y)
 		worldhandle = world.AddVector(handle)
 		TForm()
 	End
@@ -452,7 +457,7 @@ Class tlBox
 		to an entity in your game then you'll just need to match this to your entities velocity.
 	#end
 	Method SetVelocity(velocity_x:Float, velocity_y:Float)
-		velocity.SetPosition(velocity_x, velocity_y)
+		velocity = New tlVector2(velocity_x, velocity_y)
 	End
 	
 	#rem monkeydoc Set the velocity vector of the boundary
@@ -467,7 +472,7 @@ Class tlBox
 		This sets scale of the Box.
 	#end
 	Method SetScale(x:Float, y:Float) Virtual
-		scale.SetPosition(x, y)
+		scale = New tlVector2(x, y)
 		TForm()
 	End
 	
@@ -546,7 +551,7 @@ Class tlBox
 					
 					overlapdistance = IntervalDistance(min0, max0, min1, max1)
 					If overlapdistance > 0
-						result.intersecting = False
+						result.Intersecting = False
 					End If
 					
 					If velocity.y Or box.velocity.y
@@ -560,24 +565,24 @@ Class tlBox
 						End If
 						veloverlapdistance = IntervalDistance(min0, max0, min1, max1)
 						If veloverlapdistance > 0
-							result.willintersect = False
+							result.WillIntersect = False
 						Else
 							overlapdistance = veloverlapdistance
 						End If
 					Else
-						result.willintersect = False
+						result.WillIntersect = False
 					End If
 					
-					If Not result.intersecting And Not result.willintersect Return result
+					If Not result.Intersecting And Not result.WillIntersect Return result
 					
 					overlapdistance = Abs(overlapdistance)
 								
 					If overlapdistance < minoverlapdistance
 						minoverlapdistance = overlapdistance
 						If worldhandle.y > box.worldhandle.y
-							result.translationvector = New tlVector2(0, minoverlapdistance)
+							result.TranslationVector = New tlVector2(0, minoverlapdistance)
 						Else
-							result.translationvector = New tlVector2(0, -minoverlapdistance)
+							result.TranslationVector = New tlVector2(0, -minoverlapdistance)
 						End If
 					End If
 					
@@ -589,7 +594,7 @@ Class tlBox
 					
 					overlapdistance = IntervalDistance(min0, max0, min1, max1)
 					If overlapdistance > 0
-						result.intersecting = False
+						result.Intersecting = False
 					End If
 					
 					If velocity.x Or box.velocity.x
@@ -603,24 +608,24 @@ Class tlBox
 						End If
 						veloverlapdistance = IntervalDistance(min0, max0, min1, max1)
 						If veloverlapdistance > 0
-							result.willintersect = False
+							result.WillIntersect = False
 						Else
 							overlapdistance = veloverlapdistance
 						End If
 					Else
-						result.willintersect = False
+						result.WillIntersect = False
 					End If
 					
-					If Not result.intersecting And Not result.willintersect Return result
+					If Not result.Intersecting And Not result.WillIntersect Return result
 					
 					overlapdistance = Abs(overlapdistance)
 								
 					If overlapdistance < minoverlapdistance
 						minoverlapdistance = overlapdistance
 						If worldhandle.x > box.worldhandle.x
-							result.translationvector = New tlVector2(minoverlapdistance, 0)
+							result.TranslationVector = New tlVector2(minoverlapdistance, 0)
 						Else
-							result.translationvector = New tlVector2(-minoverlapdistance, 0)
+							result.TranslationVector = New tlVector2(-minoverlapdistance, 0)
 						End If
 					End If
 					
@@ -684,7 +689,7 @@ Class tlBox
 			
 			overlapdistance = IntervalDistance(min0, max0, min1, max1)
 			If overlapdistance > 0
-				result.intersecting = False
+				result.Intersecting = False
 			End If
 			
 			If velocity.x Or velocity.y Or circle.velocity.x Or circle.velocity.y
@@ -700,28 +705,28 @@ Class tlBox
 				End If
 				veloverlapdistance = IntervalDistance(min0, max0, min1, max1)
 				If veloverlapdistance > 0
-					result.willintersect = False
+					result.WillIntersect = False
 				Else
 					overlapdistance = veloverlapdistance
 				End If
 			Else
-				result.willintersect = False
+				result.WillIntersect = False
 			End If
 			
-			If Not result.intersecting And Not result.willintersect Return result
+			If Not result.Intersecting And Not result.WillIntersect Return result
 			
 			overlapdistance = Abs(overlapdistance)
 						
 			If overlapdistance < minoverlapdistance
 				minoverlapdistance = overlapdistance
-				result.surfacenormal = axis.Clone()
+				result.SurfaceNormal = axis.Clone()
 				Local polytopolyvec:tlVector2 = worldhandle.SubtractVector(circle.worldhandle)
-				If polytopolyvec.DotProduct(result.surfacenormal) < 0 result.surfacenormal.SetPosition(-result.surfacenormal.x, -result.surfacenormal.y)
+				If polytopolyvec.DotProduct(result.SurfaceNormal) < 0 result.SurfaceNormal = result.SurfaceNormal.Mirror()
 			End If
 			
 		Next
 		
-		result.translationvector = result.surfacenormal.Scale(minoverlapdistance)
+		result.TranslationVector = result.SurfaceNormal.Scale(minoverlapdistance)
 		result.source = Self
 		result.target = circle
 		Return result
@@ -777,7 +782,7 @@ Class tlBox
 			
 			overlapdistance = IntervalDistance(min0, max0, min1, max1)
 			If overlapdistance > 0
-				result.intersecting = False
+				result.Intersecting = False
 			End If
 			
 			If velocity.x Or velocity.y Or line.velocity.x Or line.velocity.y
@@ -793,28 +798,28 @@ Class tlBox
 				End If
 				veloverlapdistance = IntervalDistance(min0, max0, min1, max1)
 				If veloverlapdistance > 0
-					result.willintersect = False
+					result.WillIntersect = False
 				Else
 					overlapdistance = veloverlapdistance
 				End If
 			Else
-				result.willintersect = False
+				result.WillIntersect = False
 			End If
 			
-			If Not result.intersecting And Not result.willintersect Return result
+			If Not result.Intersecting And Not result.WillIntersect Return result
 			
 			overlapdistance = Abs(overlapdistance)
 						
 			If overlapdistance < minoverlapdistance
 				minoverlapdistance = overlapdistance
-				result.surfacenormal = axis.Clone()
+				result.SurfaceNormal = axis.Clone()
 				Local vec:tlVector2 = worldhandle.SubtractVector(line.worldhandle)
-				If vec.DotProduct(result.surfacenormal) < 0 result.surfacenormal.SetPosition(-result.surfacenormal.x, -result.surfacenormal.y)
+				If vec.DotProduct(result.SurfaceNormal) < 0 result.SurfaceNormal = result.SurfaceNormal.Mirror()
 			End If
 			
 		Next
 		
-		result.translationvector = result.surfacenormal.Scale(minoverlapdistance)
+		result.TranslationVector = result.SurfaceNormal.Scale(minoverlapdistance)
 		result.source = Self
 		result.target = line
 		Return result
@@ -869,7 +874,7 @@ Class tlBox
 			
 			overlapdistance = IntervalDistance(min0, max0, min1, max1)
 			If overlapdistance > 0
-				result.intersecting = False
+				result.Intersecting = False
 			End If
 			
 			If velocity.x Or velocity.y Or poly.velocity.x Or poly.velocity.y
@@ -885,27 +890,27 @@ Class tlBox
 				End If
 				veloverlapdistance = IntervalDistance(min0, max0, min1, max1)
 				If veloverlapdistance > 0
-					result.willintersect = False
+					result.WillIntersect = False
 				Else
 					overlapdistance = veloverlapdistance
 				End If
 			Else
-				result.willintersect = False
+				result.WillIntersect = False
 			End If
 			
-			If Not result.intersecting And Not result.willintersect Return result
+			If Not result.Intersecting And Not result.WillIntersect Return result
 			
 			overlapdistance = Abs(overlapdistance)
 						
 			If overlapdistance < minoverlapdistance
 				minoverlapdistance = overlapdistance
-				result.surfacenormal = axis.Clone()
+				result.SurfaceNormal = axis.Clone()
 				Local vec:tlVector2 = worldhandle.SubtractVector(poly.worldhandle)
-				If vec.DotProduct(result.surfacenormal) < 0 result.surfacenormal.SetPosition(-result.surfacenormal.x, -result.surfacenormal.y)
+				If vec.DotProduct(result.SurfaceNormal) < 0 result.SurfaceNormal = result.SurfaceNormal.Mirror()
 			End If
 			
 		Next
-		result.translationvector = result.surfacenormal.Scale(minoverlapdistance)
+		result.TranslationVector = result.SurfaceNormal.Scale(minoverlapdistance)
 		result.source = Self
 		result.target = poly
 		Return result
@@ -915,15 +920,15 @@ Class tlBox
 		Returns #tlCollisionResult with the results of the collision
 		You can use this to test for a collision with a ray. Pass the origin of the ray with px and py, and set the direction of the ray with dx and dy.
 		dx and dy will be normalised and extended infinitely, if maxdistance equals 0 (default), otherwise set maxdistance to how ever far you want the ray 
-		to extend to. If the ray starts inside the box then result.rayorigininside will be set to true.
+		to extend to. If the ray starts inside the box then result.RayOriginInside will be set to true.
 	#end
 	Method RayCollide:tlCollisionResult(px:Float, py:Float, dx:Float, dy:Float, maxdistance:Float = 0) Virtual
 		
 		Local result:tlCollisionResult = New tlCollisionResult
 		
 		If PointInside(px, py)
-			result.rayorigininside = True
-			result.rayintersection = New tlVector2(0, 0)
+			result.RayOriginInside = True
+			result.RayIntersection = New tlVector2(0, 0)
 			Return result
 		End If
 		
@@ -938,7 +943,7 @@ Class tlBox
 		Local intersect:tlVector2
 		Local distance:Float
 		
-		d.Normalise()
+		d = d.Normalise()
 		
 		For Local c:Int = 0 To 3
 			raydot = d.DotProduct(normals[c])
@@ -958,9 +963,9 @@ Class tlBox
 					End If
 					raydot = edge.DotProduct(iedge)
 					If raydot >= 0 And raydot <= edge.DotProduct(edge)
-						result.rayintersection = intersect
-						result.surfacenormal = normals[c]
-						result.raydistance = distance
+						result.RayIntersection = intersect
+						result.SurfaceNormal = normals[c]
+						result.RayDistance = distance
 						result.target = Self
 						Return result
 					End If
@@ -968,8 +973,8 @@ Class tlBox
 			End If
 		Next
 		
-		result.intersecting = False
-		result.willintersect = False
+		result.Intersecting = False
+		result.WillIntersect = False
 		
 		Return result
 	
@@ -1013,31 +1018,31 @@ Class tlBox
 	Method PreventOverlap(result:tlCollisionResult, push:Int = False)
 		If not result.NoCollision
 			If Not push
-				If result.willintersect
+				If result.WillIntersect
 					If Self = result.source
-						Move(result.translationvector.x, result.translationvector.y)
+						Move(result.TranslationVector.x, result.TranslationVector.y)
 					Else
-						result.target.Move(-result.translationvector.x, -result.translationvector.y)
+						result.target.Move(-result.TranslationVector.x, -result.TranslationVector.y)
 					End If
-				ElseIf result.intersecting
+				ElseIf result.Intersecting
 					If Self = result.source
-						Move(result.translationvector.x, result.translationvector.y)
+						Move(result.TranslationVector.x, result.TranslationVector.y)
 					Else
-						Move(-result.translationvector.x, -result.translationvector.y)
+						Move(-result.TranslationVector.x, -result.TranslationVector.y)
 					End If
 				End If
 			Else
-				If result.willintersect
+				If result.WillIntersect
 					If Self = result.source
-						result.target.Move(-result.translationvector.x, -result.translationvector.y)
+						result.target.Move(-result.TranslationVector.x, -result.TranslationVector.y)
 					Else
-						result.source.Move(result.translationvector.x, result.translationvector.y)
+						result.source.Move(result.TranslationVector.x, result.TranslationVector.y)
 					End If
-				ElseIf result.intersecting
+				ElseIf result.Intersecting
 					If Self = result.source
-						result.target.Move(-result.translationvector.x, -result.translationvector.y)
+						result.target.Move(-result.TranslationVector.x, -result.TranslationVector.y)
 					Else
-						result.source.Move(result.translationvector.x, result.translationvector.y)
+						result.source.Move(result.TranslationVector.x, result.TranslationVector.y)
 					End If
 				End If
 			End If
@@ -1052,31 +1057,31 @@ Class tlBox
 	Method Repel(result:tlCollisionResult, push:Int = False, factor:Float = 0.1)
 		If not result.NoCollision
 			If Not push
-				If result.willintersect
+				If result.WillIntersect
 					If Self = result.source
-						Move(result.translationvector.x * factor, result.translationvector.y * factor)
+						Move(result.TranslationVector.x * factor, result.TranslationVector.y * factor)
 					Else
-						result.target.Move(-result.translationvector.x * factor, -result.translationvector.y * factor)
+						result.target.Move(-result.TranslationVector.x * factor, -result.TranslationVector.y * factor)
 					End If
-				ElseIf result.intersecting
+				ElseIf result.Intersecting
 					If Self = result.source
-						Move(result.translationvector.x * factor, result.translationvector.y * factor)
+						Move(result.TranslationVector.x * factor, result.TranslationVector.y * factor)
 					Else
-						Move(-result.translationvector.x * factor, -result.translationvector.y * factor)
+						Move(-result.TranslationVector.x * factor, -result.TranslationVector.y * factor)
 					End If
 				End If
 			Else
-				If result.willintersect
+				If result.WillIntersect
 					If Self = result.source
-						result.target.Move(-result.translationvector.x * factor, -result.translationvector.y * factor)
+						result.target.Move(-result.TranslationVector.x * factor, -result.TranslationVector.y * factor)
 					Else
-						result.source.Move(result.translationvector.x * factor, result.translationvector.y * factor)
+						result.source.Move(result.TranslationVector.x * factor, result.TranslationVector.y * factor)
 					End If
-				ElseIf result.intersecting
+				ElseIf result.Intersecting
 					If Self = result.source
-						result.target.Move(-result.translationvector.x * factor, -result.translationvector.y * factor)
+						result.target.Move(-result.TranslationVector.x * factor, -result.TranslationVector.y * factor)
 					Else
-						result.source.Move(result.translationvector.x * factor, result.translationvector.y * factor)
+						result.source.Move(result.TranslationVector.x * factor, result.TranslationVector.y * factor)
 					End If
 				End If
 			End If
@@ -1089,63 +1094,14 @@ Class tlBox
 	#end
 	Method Separate(result:tlCollisionResult, sourcefactor:Float = 0.1, targetfactor:Float = 0.1)
 		If not result.NoCollision
-			If result.willintersect
-				result.target.Move(-result.translationvector.x * targetfactor, -result.translationvector.y * targetfactor)
-				result.source.Move(result.translationvector.x * sourcefactor, result.translationvector.y * sourcefactor)
-			ElseIf result.intersecting
-				result.target.Move(-result.translationvector.x * targetfactor, -result.translationvector.y * targetfactor)
-				result.source.Move(result.translationvector.x * sourcefactor, result.translationvector.y * sourcefactor)
+			If result.WillIntersect
+				result.target.Move(-result.TranslationVector.x * targetfactor, -result.TranslationVector.y * targetfactor)
+				result.source.Move(result.TranslationVector.x * sourcefactor, result.TranslationVector.y * sourcefactor)
+			ElseIf result.Intersecting
+				result.target.Move(-result.TranslationVector.x * targetfactor, -result.TranslationVector.y * targetfactor)
+				result.source.Move(result.TranslationVector.x * sourcefactor, result.TranslationVector.y * sourcefactor)
 			End If
 		End If
-	End
-	
-	#rem monkeydoc Get a poly represting the shadow of the box
-		Returns tList of tlPolygons representing each shadow cast by each line in the box
-		This will take a light located at Light:tlVector2 and create a list of tlPolygons representing a shadow cast by each line in the box.
-	#end
-	Method GetShadowPolys:List (Light:tlVector2, lType:Int = tlDIRECTIONAL_LIGHT, lengthfactor:Float = 1)
-	
-		Local sedge1:tlVector2
-		Local sedge2:tlVector2
-		Local lv1:tlVector2
-		Local lv2:tlVector2
-		Local shadows:List = CreateList()
-		Local lastc:Int = 3
-		
-		Select ltype
-			Case tlSPOT_LIGHT
-				lv1 = light.SubtractVector(tformvertices[3].AddVector(world))
-				For Local c:Int = 0 To 3
-					lv2 = light.SubtractVector(tformvertices[c].AddVector(world))
-					If lv2.DotProduct(normals[c]) < 0
-						sedge1 = tformvertices[lastc].AddVector(world).subtractVector(lv1.Scale(lengthfactor))
-						sedge2 = tformvertices[c].AddVector(world).subtractVector(lv2.Scale(lengthfactor))
-						shadows.AddLast(New tlPolygonPolyWorld(New Float[tformvertices[lastc].x + world.x, tformvertices[lastc].y + world.y,
-											  sedge1.x, sedge1.y,  
-											  sedge2.x, sedge2.y,  
-											  tformvertices[c].x + world.x, tformvertices[c].y + world.y]))
-					End If
-					lv1 = lv2
-					lastc=c
-				Next
-			Case tlDIRECTIONAL_LIGHT
-				light = light.Scale(-1)
-				For Local c:Int = 0 To 3
-					If light.DotProduct(normals[c]) < 0
-						sedge1 = tformvertices[lastc].AddVector(world).subtractVector(light.Scale(lengthfactor))
-						sedge2 = tformvertices[c].AddVector(world).subtractVector(light.Scale(lengthfactor))
-						shadows.AddLast(New tlPolygonPolyWorld(New Float[tformvertices[lastc].x + world.x, tformvertices[lastc].y + world.y,  
-											  sedge1.x, sedge1.y,  
-											  sedge2.x, sedge2.y,  
-											  tformvertices[c].x + world.x, tformvertices[c].y + world.y]))
-					End If
-					lv1 = lv2
-					lastc=c
-				Next
-		End Select
-		
-		Return shadows
-	
 	End
 	
 	Method SetQuad(q:tlQuadTreeNode)
@@ -1179,19 +1135,19 @@ Class tlBox
 		
 		If point.x < tl_corner.x And point.y < tl_corner.y
 			axis = point.SubtractVector(tl_corner)
-			axis.Normalise()
+			axis = axis.Normalise()
 			Return axis
 		ElseIf point.x > br_corner.x And point.y < tl_corner.y
 			axis = New tlVector2(point.x - br_corner.x, point.y - tl_corner.y)
-			axis.Normalise()
+			axis = axis.Normalise()
 			Return axis
 		ElseIf point.x < tl_corner.x And point.y > br_corner.y
 			axis = New tlVector2(point.x - tl_corner.x, point.y - br_corner.y)
-			axis.Normalise()
+			axis = axis.Normalise()
 			Return axis
 		ElseIf point.x > br_corner.x And point.y > br_corner.y
 			axis = point.SubtractVector(br_corner)
-			axis.Normalise()
+			axis = axis.Normalise()
 			Return axis
 		End If
 		
@@ -1225,8 +1181,8 @@ Class tlBox
 		Local v2:tlVector2
 		For Local c:Int = 0 To 3
 			v2 = tformvertices[c]
-			normals[c].SetPosition(-(v2.y - v1.y), v2.x - v1.x)
-			normals[c].Normalise()
+			normals[c] = New tlVector2(-(v2.y - v1.y), v2.x - v1.x)
+			normals[c] = normals[c].Normalise()
 			v1 = v2
 		Next
 	End
@@ -1258,7 +1214,7 @@ Class tlBox
 	Method TForm() Virtual
 		ResetBoundingBox()
 		For Local i:Int = 0 To 3
-			tformvertices[i].SetPosition(vertices[i].x + handle.x, vertices[i].y + handle.y)
+			tformvertices[i] = New tlVector2(vertices[i].x + handle.x, vertices[i].y + handle.y)
 			tformvertices[i].x*=scale.x
 			tformvertices[i].y*=scale.y
 			UpdateBoundingBox(tformvertices[i].x, tformvertices[i].y)
@@ -1269,10 +1225,8 @@ Class tlBox
 	
 	Method UpdateBoundingBox(x:Float, y:Float)
 		'When the scale/angle of the poly changes, its bounding box needs to be updated, and that's what happens here.
-		tl_corner.x = Min(tl_corner.x, x)
-		tl_corner.y = Min(tl_corner.y, y)
-		br_corner.x = Max(x, br_corner.x)
-		br_corner.y = Max(y, br_corner.y)
+		tl_corner = New tlVector2(Min(tl_corner.x, x), Min(tl_corner.y, y))
+		br_corner = New tlVector2(Max(x, br_corner.x), Max(y, br_corner.y))
 	End
 	
 	Method Project(axis:tlVector2, minv:Float Ptr, maxv:Float Ptr) Virtual
@@ -1409,7 +1363,7 @@ Class tlCircle Extends tlBox
 			
 			overlapdistance = IntervalDistance(min0, max0, min1, max1)
 			If overlapdistance > 0
-				result.intersecting = False
+				result.Intersecting = False
 			End If
 			
 			If velocity.x Or velocity.y Or box.velocity.x Or box.velocity.y
@@ -1425,28 +1379,28 @@ Class tlCircle Extends tlBox
 				End If
 				veloverlapdistance = IntervalDistance(min0, max0, min1, max1)
 				If veloverlapdistance > 0
-					result.willintersect = False
+					result.WillIntersect = False
 				Else
 					overlapdistance = veloverlapdistance
 				End If
 			Else
-				result.willintersect = False
+				result.WillIntersect = False
 			End If
 			
-			If Not result.intersecting And Not result.willintersect Return result
+			If Not result.Intersecting And Not result.WillIntersect Return result
 			
 			overlapdistance = Abs(overlapdistance)
 						
 			If overlapdistance < minoverlapdistance
 				minoverlapdistance = overlapdistance
-				result.surfacenormal = axis.Clone()
+				result.SurfaceNormal = axis.Clone()
 				Local polytopolyvec:tlVector2 = worldhandle.SubtractVector(box.worldhandle)
-				If polytopolyvec.DotProduct(result.surfacenormal) < 0 result.surfacenormal.SetPosition(-result.surfacenormal.x, -result.surfacenormal.y)
+				If polytopolyvec.DotProduct(result.SurfaceNormal) < 0 result.SurfaceNormal = result.SurfaceNormal.Mirror()
 			End If
 			
 		Next
 		
-		result.translationvector = result.surfacenormal.Scale(minoverlapdistance)
+		result.TranslationVector = result.SurfaceNormal.Scale(minoverlapdistance)
 		result.source = Self
 		result.target = box
 		Return result
@@ -1485,7 +1439,7 @@ Class tlCircle Extends tlBox
 		Local woffset:tlVector2 = New tlVector2(world.x - circle.world.x, world.y - circle.world.y)
 
 		axis = circle.world.SubtractVector(worldhandle)
-		axis.Normalise()
+		axis = axis.Normalise()
 		
 		dotoffset = axis.DotProduct(woffset)
 		
@@ -1497,7 +1451,7 @@ Class tlCircle Extends tlBox
 		
 		overlapdistance = IntervalDistance(min0, max0, min1, max1)
 		If overlapdistance > 0
-			result.intersecting = False
+			result.Intersecting = False
 		End If
 		
 		If velocity.x Or velocity.y Or circle.velocity.x Or circle.velocity.y
@@ -1513,26 +1467,26 @@ Class tlCircle Extends tlBox
 			End If
 			veloverlapdistance = IntervalDistance(min0, max0, min1, max1)
 			If veloverlapdistance > 0
-				result.willintersect = False
+				result.WillIntersect = False
 			Else
 				overlapdistance = veloverlapdistance
 			End If
 		Else
-			result.willintersect = False
+			result.WillIntersect = False
 		End If
 		
-		If Not result.intersecting And Not result.willintersect Return result
+		If Not result.Intersecting And Not result.WillIntersect Return result
 		
 		overlapdistance = Abs(overlapdistance)
 					
 		If overlapdistance < minoverlapdistance
 			minoverlapdistance = overlapdistance
-			result.surfacenormal = axis.Clone()
+			result.SurfaceNormal = axis.Clone()
 			Local vec:tlVector2 = worldhandle.SubtractVector(circle.worldhandle)
-			If vec.DotProduct(result.surfacenormal) < 0 result.surfacenormal.SetPosition(-result.surfacenormal.x, -result.surfacenormal.y)
+			If vec.DotProduct(result.SurfaceNormal) < 0 result.SurfaceNormal = result.SurfaceNormal.Mirror()
 		End If
 					
-		result.translationvector = result.surfacenormal.Scale(minoverlapdistance)
+		result.TranslationVector = result.SurfaceNormal.Scale(minoverlapdistance)
 		result.source = Self
 		result.target = circle
 		Return result
@@ -1592,7 +1546,7 @@ Class tlCircle Extends tlBox
 			
 			overlapdistance = IntervalDistance(min0, max0, min1, max1)
 			If overlapdistance > 0
-				result.intersecting = False
+				result.Intersecting = False
 			End If
 			
 			If velocity.x Or velocity.y Or line.velocity.x Or line.velocity.y
@@ -1608,28 +1562,28 @@ Class tlCircle Extends tlBox
 				End If
 				veloverlapdistance = IntervalDistance(min0, max0, min1, max1)
 				If veloverlapdistance > 0
-					result.willintersect = False
+					result.WillIntersect = False
 				Else
 					overlapdistance = veloverlapdistance
 				End If
 			Else
-				result.willintersect = False
+				result.WillIntersect = False
 			End If
 			
-			If Not result.intersecting And Not result.willintersect Return result
+			If Not result.Intersecting And Not result.WillIntersect Return result
 			
 			overlapdistance = Abs(overlapdistance)
 						
 			If overlapdistance < minoverlapdistance
 				minoverlapdistance = overlapdistance
-				result.surfacenormal = axis.Clone()
+				result.SurfaceNormal = axis.Clone()
 				Local polytocirclevec:tlVector2 = worldhandle.SubtractVector(line.worldhandle)
-				If polytocirclevec.DotProduct(result.surfacenormal) < 0 result.surfacenormal.SetPosition(-result.surfacenormal.x, -result.surfacenormal.y)
+				If polytocirclevec.DotProduct(result.SurfaceNormal) < 0 result.SurfaceNormal = result.SurfaceNormal.Mirror()
 			End If
 			
 		Next
 		
-		result.translationvector = result.surfacenormal.Scale(minoverlapdistance)
+		result.TranslationVector = result.SurfaceNormal.Scale(minoverlapdistance)
 		result.source = Self
 		result.target = line
 		Return result
@@ -1689,7 +1643,7 @@ Class tlCircle Extends tlBox
 			
 			overlapdistance = IntervalDistance(min0, max0, min1, max1)
 			If overlapdistance > 0
-				result.intersecting = False
+				result.Intersecting = False
 			End If
 			
 			If velocity.x Or velocity.y Or poly.velocity.x Or poly.velocity.y
@@ -1705,28 +1659,28 @@ Class tlCircle Extends tlBox
 				End If
 				veloverlapdistance = IntervalDistance(min0, max0, min1, max1)
 				If veloverlapdistance > 0
-					result.willintersect = False
+					result.WillIntersect = False
 				Else
 					overlapdistance = veloverlapdistance
 				End If
 			Else
-				result.willintersect = False
+				result.WillIntersect = False
 			End If
 			
-			If Not result.intersecting And Not result.willintersect Return result
+			If Not result.Intersecting And Not result.WillIntersect Return result
 			
 			overlapdistance = Abs(overlapdistance)
 						
 			If overlapdistance < minoverlapdistance
 				minoverlapdistance = overlapdistance
-				result.surfacenormal = axis.Clone()
+				result.SurfaceNormal = axis.Clone()
 				Local vec:tlVector2 = worldhandle.SubtractVector(poly.worldhandle)
-				If vec.DotProduct(result.surfacenormal) < 0 result.surfacenormal.SetPosition(-result.surfacenormal.x, -result.surfacenormal.y)
+				If vec.DotProduct(result.SurfaceNormal) < 0 result.SurfaceNormal = result.SurfaceNormal.Mirror()
 			End If
 			
 		Next
 		
-		result.translationvector = result.surfacenormal.Scale(minoverlapdistance)
+		result.TranslationVector = result.SurfaceNormal.Scale(minoverlapdistance)
 		result.source = Self
 		result.target = poly
 		Return result
@@ -1736,22 +1690,22 @@ Class tlCircle Extends tlBox
 		Returns #tlCollisionResult with the results of the collision
 		You can use this to test for a collision with a ray. Pass the origin of the ray with px and py, and set the direction of the ray with dx and dy.
 		dx and dy will be normalised and extended infinitely, if maxdistance equals 0 (default), otherwise set maxdistance to how ever far you want the ray 
-		to extend to. If the ray starts inside the poly then result.rayorigininside will be set to true.
+		to extend to. If the ray starts inside the poly then result.RayOriginInside will be set to true.
 	#end
 	Method RayCollide:tlCollisionResult(px:Float, py:Float, dx:Float, dy:Float, maxdistance:Float = 0) Override
 		
 		Local result:tlCollisionResult = New tlCollisionResult
 		
 		If PointInside(px, py)
-			result.rayorigininside = True
-			result.rayintersection = New tlVector2(0, 0)
+			result.RayOriginInside = True
+			result.RayIntersection = New tlVector2(0, 0)
 			Return result
 		End If
 		
 		Local p:tlVector2 = New tlVector2(px, py)
 		Local dv:tlVector2 = New tlVector2(dx, dy)
 		
-		dv.Normalise()
+		dv = dv.Normalise()
 
 		Local cp:tlVector2 = p.SubtractVector(worldhandle)
 		
@@ -1776,7 +1730,7 @@ Class tlCircle Extends tlBox
 				If u0 >= 0
 					u = u0
 				Else
-					result.intersecting = False
+					result.Intersecting = False
 				End If
 			ElseIf u0 < 0
 				u = u1
@@ -1788,19 +1742,19 @@ Class tlCircle Extends tlBox
 				EndIf
 			End If
 			
-			If result.intersecting And u <= maxdistance
-				result.rayintersection = New tlVector2(px + u * dx, py + u * dy)
-				result.surfacenormal = result.rayintersection.SubtractVector(worldhandle)
-				result.surfacenormal.Normalise()
-				result.raydistance = u
+			If result.Intersecting And u <= maxdistance
+				result.RayIntersection = New tlVector2(px + u * dx, py + u * dy)
+				result.SurfaceNormal = result.RayIntersection.SubtractVector(worldhandle)
+				result.SurfaceNormal = result.SurfaceNormal.Normalise()
+				result.RayDistance = u
 				result.target = Self
 				Return result
 			End If
 			
 		End If
 		
-		result.intersecting = False
-		result.willintersect = False
+		result.Intersecting = False
+		result.WillIntersect = False
 		
 		Return result
 	
@@ -1811,9 +1765,9 @@ Class tlCircle Extends tlBox
 	#end
 	Method SetCircle(x:Float, y:Float, _radius:Float)
 		radius = _radius
-		tl_corner.SetPosition(x - radius, y - radius)
-		br_corner.SetPosition(x + radius, y + radius)
-		world.SetPosition(x, y)
+		tl_corner = New tlVector2(x - radius, y - radius)
+		br_corner = New tlVector2(x + radius, y + radius)
+		world = New tlVector2(x, y)
 		worldhandle = world.AddVector(handle)
 		width = radius * 2
 		height = radius * 2
@@ -1838,8 +1792,8 @@ Class tlCircle Extends tlBox
 	
 	Method UpdateDimensions() Override
 		'If the scale of the poly has changed then the width and height values need to be updated
-		tl_corner.SetPosition(worldhandle.x - tformradius, worldhandle.y - tformradius)
-		br_corner.SetPosition(worldhandle.x + tformradius, worldhandle.y + tformradius)
+		tl_corner = New tlVector2(worldhandle.x - tformradius, worldhandle.y - tformradius)
+		br_corner = New tlVector2(worldhandle.x + tformradius, worldhandle.y + tformradius)
 		width = br_corner.x - tl_corner.x
 		height = br_corner.y - tl_corner.y
 	End
@@ -1888,7 +1842,7 @@ Class tlPolygon Extends tlBox
 		For Local c:Int = 0 To vertices.Length - 1
 			vertices[c] = vertices[c].SubtractVector(handle)
 		Next
-		handle.SetPosition(0, 0)
+		handle = New tlVector2(0, 0)
 		worldhandle = world.AddVector(handle)
 		collisiontype = tlPOLY_COLLISION
 		tformmatrix.Set(Cos(angle) * scale.x, Sin(angle) * scale.y, -Sin(angle) * scale.x, Cos(angle) * scale.y)
@@ -1925,7 +1879,7 @@ Class tlPolygon Extends tlBox
 		For Local c:Int = 0 To vertices.Length - 1
 			vertices[c] = vertices[c].SubtractVector(world)
 		Next
-		handle.SetPosition(0, 0)
+		handle = New tlVector2(0, 0)
 		worldhandle = handle.AddVector(handle)
 		collisiontype = tlPOLY_COLLISION
 		tformmatrix.Set(Cos(angle) * scale.x, Sin(angle) * scale.y, -Sin(angle) * scale.x, Cos(angle) * scale.y)
@@ -1978,10 +1932,10 @@ Class tlPolygon Extends tlBox
 		This sets the position of the top left corner of the bounding box. If the box is within quadtree it will automatically update itself
 		within it.
 	#end
-	Method SetPosition(x:Float, y:Float) Override
-		tl_corner.Move(x - world.x, y - world.y)
-		br_corner.Move(x - world.x, y - world.y)
-		world.SetPosition(x, y)
+	Method Position(x:Float, y:Float) Override
+		tl_corner = tl_corner.Move(x - world.x, y - world.y)
+		br_corner = br_corner.Move(x - world.x, y - world.y)
+		world = New tlVector2(x, y)
 		If handle.x Or handle.y
 			TForm()
 		Else
@@ -1995,13 +1949,13 @@ Class tlPolygon Extends tlBox
 		will automatically update itself within it.
 	#end
 	Method Move(x:Float, y:Float) Override
-		world.Move(x, y)
+		world = world.Move(x, y)
 		If handle.x Or handle.y
 			TForm()
 		Else
 			worldhandle = world.AddVector(handle)
-			tl_corner.Move(x, y)
-			br_corner.Move(x, y)
+			tl_corner = tl_corner.Move(x, y)
+			br_corner = br_corner.Move(x, y)
 		End If
 '		If needsmoving() quadtree.UpdateRect(Self)
 	End
@@ -2106,7 +2060,7 @@ Class tlPolygon Extends tlBox
 			
 			overlapdistance = IntervalDistance(min0, max0, min1, max1)
 			If overlapdistance > 0
-				result.intersecting = False
+				result.Intersecting = False
 			End If
 			
 			If velocity.x Or velocity.y Or Box.velocity.x Or Box.velocity.y
@@ -2122,27 +2076,27 @@ Class tlPolygon Extends tlBox
 				End If
 				veloverlapdistance = IntervalDistance(min0, max0, min1, max1)
 				If veloverlapdistance > 0
-					result.willintersect = False
+					result.WillIntersect = False
 				Else
 					overlapdistance = veloverlapdistance
 				End If
 			Else
-				result.willintersect = False
+				result.WillIntersect = False
 			End If
 			
-			If Not result.intersecting And Not result.willintersect Return result
+			If Not result.Intersecting And Not result.WillIntersect Return result
 			
 			overlapdistance = Abs(overlapdistance)
 						
 			If overlapdistance < minoverlapdistance
 				minoverlapdistance = overlapdistance
-				result.surfacenormal = axis.Clone()
+				result.SurfaceNormal = axis.Clone()
 				Local vec:tlVector2 = worldhandle.SubtractVector(Box.worldhandle)
-				If vec.DotProduct(result.surfacenormal) < 0 result.surfacenormal.SetPosition(-result.surfacenormal.x, -result.surfacenormal.y)
+				If vec.DotProduct(result.SurfaceNormal) < 0 result.SurfaceNormal = result.SurfaceNormal.Mirror()
 			End If
 			
 		Next
-		result.translationvector = result.surfacenormal.Scale(minoverlapdistance)
+		result.TranslationVector = result.SurfaceNormal.Scale(minoverlapdistance)
 		result.source = Self
 		result.target = Box
 		Return result
@@ -2202,7 +2156,7 @@ Class tlPolygon Extends tlBox
 			
 			overlapdistance = IntervalDistance(min0, max0, min1, max1)
 			If overlapdistance > 0
-				result.intersecting = False
+				result.Intersecting = False
 			End If
 			
 			If velocity.x Or velocity.y Or circle.velocity.x Or circle.velocity.y
@@ -2218,28 +2172,28 @@ Class tlPolygon Extends tlBox
 				End If
 				veloverlapdistance = IntervalDistance(min0, max0, min1, max1)
 				If veloverlapdistance > 0
-					result.willintersect = False
+					result.WillIntersect = False
 				Else
 					overlapdistance = veloverlapdistance
 				End If
 			Else
-				result.willintersect = False
+				result.WillIntersect = False
 			End If
 			
-			If Not result.intersecting And Not result.willintersect Return result
+			If Not result.Intersecting And Not result.WillIntersect Return result
 			
 			overlapdistance = Abs(overlapdistance)
 						
 			If overlapdistance < minoverlapdistance
 				minoverlapdistance = overlapdistance
-				result.surfacenormal = axis.Clone()
+				result.SurfaceNormal = axis.Clone()
 				Local polytocirclevec:tlVector2 = worldhandle.SubtractVector(circle.worldhandle)
-				If polytocirclevec.DotProduct(result.surfacenormal) < 0 result.surfacenormal.SetPosition(-result.surfacenormal.x, -result.surfacenormal.y)
+				If polytocirclevec.DotProduct(result.SurfaceNormal) < 0 result.SurfaceNormal = result.SurfaceNormal.Mirror()
 			End If
 			
 		Next
 		
-		result.translationvector = result.surfacenormal.Scale(minoverlapdistance)
+		result.TranslationVector = result.SurfaceNormal.Scale(minoverlapdistance)
 		result.source = Self
 		result.target = circle
 		Return result
@@ -2295,7 +2249,7 @@ Class tlPolygon Extends tlBox
 			
 			overlapdistance = IntervalDistance(min0, max0, min1, max1)
 			If overlapdistance > 0
-				result.intersecting = False
+				result.Intersecting = False
 			End If
 			
 			If velocity.x Or velocity.y Or Line.velocity.x Or Line.velocity.y
@@ -2311,28 +2265,28 @@ Class tlPolygon Extends tlBox
 				End If
 				veloverlapdistance = IntervalDistance(min0, max0, min1, max1)
 				If veloverlapdistance > 0
-					result.willintersect = False
+					result.WillIntersect = False
 				Else
 					overlapdistance = veloverlapdistance
 				End If
 			Else
-				result.willintersect = False
+				result.WillIntersect = False
 			End If
 			
-			If Not result.intersecting And Not result.willintersect Return result
+			If Not result.Intersecting And Not result.WillIntersect Return result
 			
 			overlapdistance = Abs(overlapdistance)
 						
 			If overlapdistance < minoverlapdistance
 				minoverlapdistance = overlapdistance
-				result.surfacenormal = axis.Clone()
+				result.SurfaceNormal = axis.Clone()
 				Local polytopolyvec:tlVector2 = worldhandle.SubtractVector(Line.worldhandle)
-				If polytopolyvec.DotProduct(result.surfacenormal) < 0 result.surfacenormal.SetPosition(-result.surfacenormal.x, -result.surfacenormal.y)
+				If polytopolyvec.DotProduct(result.SurfaceNormal) < 0 result.SurfaceNormal = result.SurfaceNormal.Mirror()
 			End If
 			
 		Next
 		
-		result.translationvector = result.surfacenormal.Scale(minoverlapdistance)
+		result.TranslationVector = result.SurfaceNormal.Scale(minoverlapdistance)
 		result.source = Self
 		result.target = Line
 		Return result
@@ -2388,7 +2342,7 @@ Class tlPolygon Extends tlBox
 			
 			overlapdistance = IntervalDistance(min0, max0, min1, max1)
 			If overlapdistance > 0
-				result.intersecting = False
+				result.Intersecting = False
 			End If
 			
 			If velocity.x Or velocity.y Or poly.velocity.x Or poly.velocity.y
@@ -2404,28 +2358,28 @@ Class tlPolygon Extends tlBox
 				End If
 				veloverlapdistance = IntervalDistance(min0, max0, min1, max1)
 				If veloverlapdistance > 0
-					result.willintersect = False
+					result.WillIntersect = False
 				Else
 					overlapdistance = veloverlapdistance
 				End If
 			Else
-				result.willintersect = False
+				result.WillIntersect = False
 			End If
 			
-			If Not result.intersecting And Not result.willintersect Return result
+			If Not result.Intersecting And Not result.WillIntersect Return result
 			
 			overlapdistance = Abs(overlapdistance)
 						
 			If overlapdistance < minoverlapdistance
 				minoverlapdistance = overlapdistance
-				result.surfacenormal = axis.Clone()
+				result.SurfaceNormal = axis.Clone()
 				Local polytopolyvec:tlVector2 = worldhandle.SubtractVector(poly.worldhandle)
-				If polytopolyvec.DotProduct(result.surfacenormal) < 0 result.surfacenormal.SetPosition(-result.surfacenormal.x, -result.surfacenormal.y)
+				If polytopolyvec.DotProduct(result.SurfaceNormal) < 0 result.SurfaceNormal = result.SurfaceNormal.Mirror()
 			End If
 			
 		Next
 		
-		result.translationvector = result.surfacenormal.Scale(minoverlapdistance)
+		result.TranslationVector = result.SurfaceNormal.Scale(minoverlapdistance)
 		result.source = Self
 		result.target = poly
 		Return result
@@ -2435,14 +2389,14 @@ Class tlPolygon Extends tlBox
 		Returns #tlCollisionResult with the results of the collision
 		You can use this to test for a collision with a ray. Pass the origin of the ray with px and py, and set the direction of the ray with dx and dy.
 		dx and dy will be normalised and extended infinitely, if maxdistance equals 0 (default), otherwise set maxdistance to how ever far you want the ray 
-		to extend to. If the ray starts inside the poly then result.rayorigininside will be set to true.
+		to extend to. If the ray starts inside the poly then result.RayOriginInside will be set to true.
 	#end
 	Method RayCollide:tlCollisionResult(px:Float, py:Float, dx:Float, dy:Float, maxdistance:Float = 0) Override
 		Local result:tlCollisionResult = New tlCollisionResult
 		
 		If PointInside(px, py)
-			result.rayorigininside = True
-			result.rayintersection = New tlVector2(0, 0)
+			result.RayOriginInside = True
+			result.RayIntersection = New tlVector2(0, 0)
 			Return result
 		End If
 		
@@ -2457,7 +2411,7 @@ Class tlPolygon Extends tlBox
 		Local intersect:tlVector2
 		Local distance:Float
 		
-		d.Normalise()
+		d = d.Normalise()
 		
 		For Local c:Int = 0 To vertices.Length - 1
 			raydot = d.DotProduct(normals[c])
@@ -2477,9 +2431,9 @@ Class tlPolygon Extends tlBox
 					End If
 					raydot = edge.DotProduct(iedge)
 					If raydot >= 0 And raydot <= edge.DotProduct(edge)
-						result.rayintersection = intersect
-						result.surfacenormal = normals[c]
-						result.raydistance = distance
+						result.RayIntersection = intersect
+						result.SurfaceNormal = normals[c]
+						result.RayDistance = distance
 						result.target = Self
 						Return result
 					End If
@@ -2487,8 +2441,8 @@ Class tlPolygon Extends tlBox
 			End If
 		Next
 		
-		result.intersecting = False
-		result.willintersect = False
+		result.Intersecting = False
+		result.WillIntersect = False
 		
 		Return result
 	
@@ -2517,11 +2471,11 @@ Class tlPolygon Extends tlBox
 		Local updateworldhandle:Int
 		If handle.x Or handle.y
 			updateworldhandle = True
-			worldhandle.SetPosition(0, 0)
+			worldhandle = New tlVector2(0, 0)
 		End If
 		ResetBoundingBox()
 		For Local i:Int = 0 To vertices.Length - 1
-			tformvertices[i].SetPosition(scale.x * vertices[i].x + handle.x, scale.y * vertices[i].y + handle.y)
+			tformvertices[i] = New tlVector2(scale.x * vertices[i].x + handle.x, scale.y * vertices[i].y + handle.y)
 			tformvertices[i] = tformmatrix.TransformVector(tformvertices[i])
 			UpdateBoundingBox(tformvertices[i].x, tformvertices[i].y)
 			If updateworldhandle
@@ -2544,8 +2498,8 @@ Class tlPolygon Extends tlBox
 		Local v2:tlVector2
 		For Local c:Int = 0 To tformvertices.Length - 1
 			v2 = tformvertices[c]
-			normals[c].SetPosition(-(v2.y - v1.y), v2.x - v1.x)
-			normals[c].Normalise()
+			normals[c] = New tlVector2(-(v2.y - v1.y), v2.x - v1.x)
+			normals[c] = normals[c].Normalise()
 			v1 = v2
 		Next
 	End
@@ -2570,7 +2524,7 @@ Class tlPolygon Extends tlBox
 				vc = point.SubtractVector(v2)
 				dot = edge.DotProduct(vc)
 				If dot < 0
-					vc.Normalise()
+					vc = vc.Normalise()
 					Return vc
 				End If
 			ElseIf dot < 0
@@ -2586,7 +2540,7 @@ Class tlPolygon Extends tlBox
 				vc = point.SubtractVector(v3)
 				dot = edge.DotProduct(vc)
 				If dot > edge.DotProduct(edge)
-					vc.Normalise()
+					vc = vc.Normalise()
 					Return vc
 				End If
 			Else
@@ -2640,13 +2594,12 @@ Class tlLine Extends tlPolygon
 			tformvertices[c] = New tlVector2(0, 0)
 			normals[c] = New tlVector2(0, 0)
 		Next
-		handle.x = vertices[1].x / 2
-		handle.y = vertices[1].y / 2
+		handle = New tlVector2(vertices[1].x / 2, vertices[1].y / 2)
 		For Local c:Int = 0 To vertices.Length - 1
 			vertices[c] = vertices[c].SubtractVector(handle)
 		Next
 		world = New tlVector2(x1 + handle.x, y1 + handle.y)
-		handle.SetPosition(0, 0)
+		handle = New tlVector2(0, 0)
 		worldhandle = world.AddVector(handle)
 		collisiontype = tlLINE_COLLISION
 		tformmatrix.Set(Cos(angle) * scale.x, Sin(angle) * scale.y, -Sin(angle) * scale.x, Cos(angle) * scale.y)
@@ -2706,7 +2659,7 @@ Class tlLine Extends tlPolygon
 			
 			overlapdistance = IntervalDistance(min0, max0, min1, max1)
 			If overlapdistance > 0
-				result.intersecting = False
+				result.Intersecting = False
 			End If
 			
 			If velocity.x Or velocity.y Or Box.velocity.x Or Box.velocity.y
@@ -2722,28 +2675,28 @@ Class tlLine Extends tlPolygon
 				End If
 				veloverlapdistance = IntervalDistance(min0, max0, min1, max1)
 				If veloverlapdistance > 0
-					result.willintersect = False
+					result.WillIntersect = False
 				Else
 					overlapdistance = veloverlapdistance
 				End If
 			Else
-				result.willintersect = False
+				result.WillIntersect = False
 			End If
 			
-			If Not result.intersecting And Not result.willintersect Return result
+			If Not result.Intersecting And Not result.WillIntersect Return result
 			
 			overlapdistance = Abs(overlapdistance)
 						
 			If overlapdistance < minoverlapdistance
 				minoverlapdistance = overlapdistance
-				result.surfacenormal = axis.Clone()
+				result.SurfaceNormal = axis.Clone()
 				Local vec:tlVector2 = world.SubtractVector(Box.world)
-				If vec.DotProduct(result.surfacenormal) < 0 result.surfacenormal.SetPosition(-result.surfacenormal.x, -result.surfacenormal.y)
+				If vec.DotProduct(result.SurfaceNormal) < 0 result.SurfaceNormal = result.SurfaceNormal.Mirror()
 			End If
 			
 		Next
 		
-		result.translationvector = result.surfacenormal.Scale(minoverlapdistance)
+		result.TranslationVector = result.SurfaceNormal.Scale(minoverlapdistance)
 		result.source = Self
 		result.target = Box
 		Return result
@@ -2803,7 +2756,7 @@ Class tlLine Extends tlPolygon
 			
 			overlapdistance = IntervalDistance(min0, max0, min1, max1)
 			If overlapdistance > 0
-				result.intersecting = False
+				result.Intersecting = False
 			End If
 			
 			If velocity.x Or velocity.y Or circle.velocity.x Or circle.velocity.y
@@ -2819,28 +2772,28 @@ Class tlLine Extends tlPolygon
 				End If
 				veloverlapdistance = IntervalDistance(min0, max0, min1, max1)
 				If veloverlapdistance > 0
-					result.willintersect = False
+					result.WillIntersect = False
 				Else
 					overlapdistance = veloverlapdistance
 				End If
 			Else
-				result.willintersect = False
+				result.WillIntersect = False
 			End If
 			
-			If Not result.intersecting And Not result.willintersect Return result
+			If Not result.Intersecting And Not result.WillIntersect Return result
 			
 			overlapdistance = Abs(overlapdistance)
 						
 			If overlapdistance < minoverlapdistance
 				minoverlapdistance = overlapdistance
-				result.surfacenormal = axis.Clone()
+				result.SurfaceNormal = axis.Clone()
 				Local polytocirclevec:tlVector2 = worldhandle.SubtractVector(circle.worldhandle)
-				If polytocirclevec.DotProduct(result.surfacenormal) < 0 result.surfacenormal.SetPosition(-result.surfacenormal.x, -result.surfacenormal.y)
+				If polytocirclevec.DotProduct(result.SurfaceNormal) < 0 result.SurfaceNormal = result.SurfaceNormal.Mirror()
 			End If
 			
 		Next
 		
-		result.translationvector = result.surfacenormal.Scale(minoverlapdistance)
+		result.TranslationVector = result.SurfaceNormal.Scale(minoverlapdistance)
 		result.source = Self
 		result.target = circle
 		Return result
@@ -2896,7 +2849,7 @@ Class tlLine Extends tlPolygon
 			
 			overlapdistance = IntervalDistance(min0, max0, min1, max1)
 			If overlapdistance > 0
-				result.intersecting = False
+				result.Intersecting = False
 			End If
 			
 			If velocity.x Or velocity.y Or line.velocity.x Or line.velocity.y
@@ -2912,28 +2865,28 @@ Class tlLine Extends tlPolygon
 				End If
 				veloverlapdistance = IntervalDistance(min0, max0, min1, max1)
 				If veloverlapdistance > 0
-					result.willintersect = False
+					result.WillIntersect = False
 				Else
 					overlapdistance = veloverlapdistance
 				End If
 			Else
-				result.willintersect = False
+				result.WillIntersect = False
 			End If
 			
-			If Not result.intersecting And Not result.willintersect Return result
+			If Not result.Intersecting And Not result.WillIntersect Return result
 			
 			overlapdistance = Abs(overlapdistance)
 						
 			If overlapdistance < minoverlapdistance
 				minoverlapdistance = overlapdistance
-				result.surfacenormal = axis.Clone()
+				result.SurfaceNormal = axis.Clone()
 				Local polytopolyvec:tlVector2 = worldhandle.SubtractVector(line.worldhandle)
-				If polytopolyvec.DotProduct(result.surfacenormal) < 0 result.surfacenormal.SetPosition(-result.surfacenormal.x, -result.surfacenormal.y)
+				If polytopolyvec.DotProduct(result.SurfaceNormal) < 0 result.SurfaceNormal = result.SurfaceNormal.Mirror()
 			End If
 			
 		Next
 		
-		result.translationvector = result.surfacenormal.Scale(minoverlapdistance)
+		result.TranslationVector = result.SurfaceNormal.Scale(minoverlapdistance)
 		result.source = Self
 		result.target = line
 		Return result
@@ -2989,7 +2942,7 @@ Class tlLine Extends tlPolygon
 			
 			overlapdistance = IntervalDistance(min0, max0, min1, max1)
 			If overlapdistance > 0
-				result.intersecting = False
+				result.Intersecting = False
 			End If
 			
 			If velocity.x Or velocity.y Or poly.velocity.x Or poly.velocity.y
@@ -3005,28 +2958,28 @@ Class tlLine Extends tlPolygon
 				End If
 				veloverlapdistance = IntervalDistance(min0, max0, min1, max1)
 				If veloverlapdistance > 0
-					result.willintersect = False
+					result.WillIntersect = False
 				Else
 					overlapdistance = veloverlapdistance
 				End If
 			Else
-				result.willintersect = False
+				result.WillIntersect = False
 			End If
 			
-			If Not result.intersecting And Not result.willintersect Return result
+			If Not result.Intersecting And Not result.WillIntersect Return result
 			
 			overlapdistance = Abs(overlapdistance)
 						
 			If overlapdistance < minoverlapdistance
 				minoverlapdistance = overlapdistance
-				result.surfacenormal = axis.Clone()
+				result.SurfaceNormal = axis.Clone()
 				Local polytopolyvec:tlVector2 = worldhandle.SubtractVector(poly.worldhandle)
-				If polytopolyvec.DotProduct(result.surfacenormal) < 0 result.surfacenormal.SetPosition(-result.surfacenormal.x, -result.surfacenormal.y)
+				If polytopolyvec.DotProduct(result.SurfaceNormal) < 0 result.SurfaceNormal = result.SurfaceNormal.Mirror()
 			End If
 			
 		Next
 		
-		result.translationvector = result.surfacenormal.Scale(minoverlapdistance)
+		result.TranslationVector = result.SurfaceNormal.Scale(minoverlapdistance)
 		result.source = Self
 		result.target = poly
 		Return result
@@ -3036,15 +2989,15 @@ Class tlLine Extends tlPolygon
 		Returns #tlCollisionResult with the results of the collision
 		You can use this to test for a collision with a ray. Pass the origin of the ray with px and py, and set the direction of the ray with dx and dy.
 		dx and dy will be normalised and extended infinitely, if maxdistance equals 0 (default), otherwise set maxdistance to how ever far you want the ray 
-		to extend to. If the ray starts inside the poly then result.rayorigininside will be set to true.
+		to extend to. If the ray starts inside the poly then result.RayOriginInside will be set to true.
 	#end
 	Method RayCollide:tlCollisionResult(px:Float, py:Float, dx:Float, dy:Float, maxdistance:Float = 0) Override
 		
 		Local result:tlCollisionResult = New tlCollisionResult
 		
 		If PointInside(px, py)
-			result.rayorigininside = True
-			result.rayintersection = New tlVector2(0, 0)
+			result.RayOriginInside = True
+			result.RayIntersection = New tlVector2(0, 0)
 			Return result
 		End If
 		
@@ -3059,7 +3012,7 @@ Class tlLine Extends tlPolygon
 		Local intersect:tlVector2
 		Local distance:Float
 		
-		d.Normalise()
+		d = d.Normalise()
 		
 		For Local c:Int = 0 To 1
 			raydot = d.DotProduct(normals[c])
@@ -3079,9 +3032,9 @@ Class tlLine Extends tlPolygon
 					End If
 					raydot = edge.DotProduct(iedge)
 					If raydot >= 0 And raydot <= edge.DotProduct(edge)
-						result.rayintersection = intersect
-						result.surfacenormal = normals[c]
-						result.raydistance = distance
+						result.RayIntersection = intersect
+						result.SurfaceNormal = normals[c]
+						result.RayDistance = distance
 						result.target = Self
 						Return result
 					End If
@@ -3089,8 +3042,8 @@ Class tlLine Extends tlPolygon
 			End If
 		Next
 		
-		result.intersecting = False
-		result.willintersect = False
+		result.Intersecting = False
+		result.WillIntersect = False
 		
 		Return result
 	
@@ -3111,10 +3064,10 @@ Class tlLine Extends tlPolygon
 		
 		If dot > edge.DotProduct(edge)
 			vc = point.SubtractVector(tformvertices[1])
-			vc.Normalise()
+			vc = vc.Normalise()
 			Return vc
 		ElseIf dot < 0
-			vc.Normalise()
+			vc = vc.Normalise()
 			Return vc
 		Else
 			Return New tlVector2(0, 0, true)
@@ -3128,10 +3081,10 @@ Class tlLine Extends tlPolygon
 		'This transforms the line according to the current scale/angle. Both local and transformed vertices are stored within the type, which
 		'while takes more memory, makes things a bit easier, and I think a bit faster!
 		ResetBoundingBox()
-		tformvertices[0].SetPosition(scale.x * vertices[0].x + handle.x, scale.x * vertices[0].y + handle.y)
+		tformvertices[0] = New tlVector2(scale.x * vertices[0].x + handle.x, scale.x * vertices[0].y + handle.y)
 		tformvertices[0] = tformmatrix.TransformVector(tformvertices[0])
 		UpdateBoundingBox(tformvertices[0].x, tformvertices[0].y)
-		tformvertices[1].SetPosition(scale.x * vertices[1].x + handle.x, scale.x * vertices[1].y + handle.y)
+		tformvertices[1] = New tlVector2(scale.x * vertices[1].x + handle.x, scale.x * vertices[1].y + handle.y)
 		tformvertices[1] = tformmatrix.TransformVector(tformvertices[1])
 		UpdateBoundingBox(tformvertices[1].x, tformvertices[1].y)
 		If handle.x Or handle.y
@@ -3145,10 +3098,10 @@ Class tlLine Extends tlPolygon
 	End
 	
 	Method UpdateNormals() Override
-		normals[0].SetPosition(-(tformvertices[1].y - tformvertices[0].y), tformvertices[1].x - tformvertices[0].x)
-		normals[1].SetPosition(-(tformvertices[0].y - tformvertices[1].y), tformvertices[0].x - tformvertices[1].x)
-		normals[0].Normalise()
-		normals[1].Normalise()
+		normals[0] = New tlVector2(-(tformvertices[1].y - tformvertices[0].y), tformvertices[1].x - tformvertices[0].x)
+		normals[1] = New tlVector2(-(tformvertices[0].y - tformvertices[1].y), tformvertices[0].x - tformvertices[1].x)
+		normals[0] = normals[0].Normalise()
+		normals[1] = normals[1].Normalise()
 	End
 	
 	Method Project(axis:tlVector2, minv:Float Ptr, maxv:Float Ptr) Override
@@ -3174,7 +3127,7 @@ End
 	You can use this to test for a collision with a ray and any type of boundary: #tlBox, #tlCircle, #tlLine and #tlPolygon. 
 	Pass the origin of the ray with px and py, and set the direction of the raycast with dx and dy vector. dx and dy will be normalised and extended 
 	infinitely if maxdistance equals 0 (default), otherwise set maxdistance to how ever far you want the ray to extend to before stopping. If the ray starts 
-	inside the poly then result.rayorigininside will be set to true. You can find the angle of reflection to bounce the ray using #GetReboundVector. 
+	inside the poly then result.RayOriginInside will be set to true. You can find the angle of reflection to bounce the ray using #GetReboundVector. 
 #end
 Function CheckRayCollision:tlCollisionResult(target:tlBox, px:Float, py:Float, dx:Float, dy:Float, maxdistance:Float = 0)
 	

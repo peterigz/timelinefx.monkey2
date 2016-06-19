@@ -69,7 +69,7 @@ Class Game Extends Window
 		'canvas.PushMatrix()		
 		canvas.BlendMode = BlendMode.Alpha
 		
-		player.SetPosition(Mouse.X, Mouse.Y)
+		player.Position(Mouse.X, Mouse.Y)
 
 		Local QueryTime:Int = Millisecs()
 		If Keyboard.KeyDown(Key.Space) QTree.ForEachObjectInArea(0, 0, Width, Height, Null, DrawScreen, New Int[](0, 1, 2))
@@ -115,7 +115,7 @@ Class DrawBoxAction Implements tlQuadTreeEvent
 		Local player:tlBox = Cast<tlBox>(data)
 		'Do a collision check and store the result
 		Local collisionresult:tlCollisionResult = CheckCollision(player, rect)
-		If collisionresult.intersecting = True
+		If collisionresult.Intersecting = True
 			If rect.CollisionType = tlPOLY_COLLISION
 				Cast<tlPolygon>(rect).RotateDegrees(1)
 			
