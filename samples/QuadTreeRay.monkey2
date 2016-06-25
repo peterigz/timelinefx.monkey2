@@ -82,7 +82,7 @@ Class Game Extends Window
 
 		'query the quadtree with the ray and run our call back if it hit. Otherwise draw the full length of the ray (300)
 		'we're using the data variable here to pass through the Point to the callback function	
-		If Not QTree.RayCast(point.x, point.y, ray.x, ray.y, 300.0, point, DrawRay, New Int[](0, 1, 2))
+		If Not QTree.RayCast(point.x, point.y, ray, 300.0, point, DrawRay, New Int[](0, 1, 2))
 			canvas.Color = New Color( 255, 0, 0 )
 			canvas.DrawLine (point.x, point.y, point.x + (ray.x * 300), point.y + (ray.y * 300))
 		End If

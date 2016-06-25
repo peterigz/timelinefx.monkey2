@@ -1,4 +1,4 @@
-#rem
+#Rem
 	Copyright (c) 2012 Peter J Rigby
 	
 	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -19,7 +19,7 @@
 	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 	THE SOFTWARE.
 
-#end
+#End
 
 Namespace timelinefx.collision
 
@@ -67,8 +67,8 @@ Const tlLAYER_29:Int = 29
 Const tlLAYER_30:Int = 30
 Const tlLAYER_31:Int = 31
 
-#rem monkeydoc Class for storing the results of a collision
-#end
+#Rem monkeydoc Class for storing the results of a collision
+#End
 Struct tlCollisionResult
 
 	Private
@@ -88,18 +88,18 @@ Struct tlCollisionResult
 	Field source:tlBox
 	Field target:tlBox
 	
-	#rem monkeydoc Find out if the last collision check is intersecting
+	#Rem monkeydoc Find out if the last collision check is intersecting
 		Returns true if there was an intersection
-	#end
+	#End
 	Property Intersecting:Int() 
 		Return intersecting
 	Setter(v:int)
 		intersecting = v
 	End
 	
-	#rem monkeydoc Find out if the last collision check found a collision
+	#Rem monkeydoc Find out if the last collision check found a collision
 		Returns true if there was a collision
-	#end
+	#End
 	Property IsColliding:Int() 
 		Return intersecting
 	End
@@ -110,43 +110,43 @@ Struct tlCollisionResult
 		nocollision = v
 	End
 	
-	#rem monkeydoc Find out if the last collision check is intersecting
+	#Rem monkeydoc Find out if the last collision check is intersecting
 		Returns true if there will be an intersection
 		knowing if there will be an intersection allows you to adjust the position of objects so that visually they will never overlap. To do this
 		you can use the information stored in the translation vector, which is the vector describing how much the objects need to move so that they no longer
 		overlap. See #GetTranslationVector
-	#end
+	#End
 	Property WillIntersect:Int() 
 		Return willintersect
 	Setter (v:int)
 		willintersect = v
 	End
 	
-	#rem monkeydoc Get the distance from the ray origin to the instersection point
+	#Rem monkeydoc Get the distance from the ray origin to the instersection point
 		Returns float value of distance the ray travelled, 0 if there was no intersection
-	#end
+	#End
 	Property RayDistance:Float() 
 		Return raydistance
 	Setter (v:float)
 		raydistance = v
 	End
 	
-	#rem monkeydoc Get the translation vector of the collision
+	#Rem monkeydoc Get the translation vector of the collision
 		
 		If the collision check finds that either the objects are intersecting, or they will intersect, then the translation vector hold exactly
 		how much they do or will overlap. This can then be used to move the 2 objects apart to prevent them overlapping. Handy if you have a wall that you don't
-		want a player to move through. See #PreventOverlap to automate this process further.
-	#end
+		want a player to move through. See _PreventOverlap_ to automate this process further.
+	#End
 	Property TranslationVector:tlVector2() 
 		Return translationvector
 	Setter(v:tlVector2)
 		translationvector = v
 	End
 	
-	#rem monkeydoc Get the intersection point of the raycast
+	#Rem monkeydoc Get the intersection point of the raycast
 		
-		If a ray cast has been performed and the ray successfully connected, then this will return the point of intersection as a #tlVector2.
-	#end
+		If a ray cast has been performed and the ray successfully connected, then this will return the point of intersection as a _tlVector2_.
+	#End
 	Property RayIntersection:tlVector2() 
 		Return rayintersection
 	Setter (vec:tlVector2)
@@ -154,9 +154,9 @@ Struct tlCollisionResult
 		hasintersection = True
 	End
 
-	#rem monkeydoc Get the surface normal of the collision
+	#Rem monkeydoc Get the surface normal of the collision
 
-	#end
+	#End
 	Property SurfaceNormal:tlVector2() 
 		Return surfacenormal
 	Setter (vec:tlVector2)
@@ -172,34 +172,34 @@ Struct tlCollisionResult
 		Return hassurfacenormal
 	End
 	
-	#rem monkeydoc Get the surface normal that the ray hits
+	#Rem monkeydoc Get the surface normal that the ray hits
 		
 		If a ray cast has been performed and the ray successfully connected, then this will return the normal vector of the surface being hit.
-	#end
+	#End
 	Property RaySurfaceNormal:tlVector2() 
 		Return surfacenormal
 	End
 	
-	#rem monkeydoc Gets the Source boundary of a collision check
-		Returns #tlBox Or null if no collision occurred
-	#end
+	#Rem monkeydoc Gets the Source boundary of a collision check
+		Returns _tlBox_ Or null if no collision occurred
+	#End
 	Property SourceBoundary:tlBox() 
 		Return source
 	End
 	
-	#rem monkeydoc Gets the Target boundary of a collision check
-		Returns #tlBox Or null if no collision occurred
-	#end
+	#Rem monkeydoc Gets the Target boundary of a collision check
+		Returns _tlBox_ Or null if no collision occurred
+	#End
 	Property TargetBoundary:tlBox() 
 		Return target
 	End
 
-	#rem monkeydoc Get the rebound vector
-		Returns New #tlVector2 with the resulting rebound vector
+	#Rem monkeydoc Get the rebound vector
+		Returns New _tlVector2_ with the resulting rebound vector
 		When an object collides with a surface you may want to know a resulting vector based on bounce and friction. So you can call this
 		and pass the velocity vector of the incoming object, and the amount of bounce and friction to have, where a bounce value of 1 and a friction value of 0
 		will result in a perfect bounce.
-	#end
+	#End
 	Method GetReboundVector:tlVector2(v:tlVector2, friction:Float = 0, bounce:Float = 1)
 		
 		If hassurfacenormal And (intersecting Or willintersect)
@@ -214,9 +214,9 @@ Struct tlCollisionResult
 		Return v
 	End
 	
-	#rem monkeydoc Find out if the last ray cast found that the ray originated inside the boundary
+	#Rem monkeydoc Find out if the last ray cast found that the ray originated inside the boundary
 		Returns true if the last ray check originated inside the boundary
-	#end
+	#End
 	Property RayOriginInside:Int() 
 		Return rayorigininside
 	Setter (v:int)
@@ -224,8 +224,8 @@ Struct tlCollisionResult
 	End
 End
 
-#rem monkeydoc Collision box class
-#end
+#Rem monkeydoc Collision box class
+#End
 Class tlBox
 
 	Private
@@ -317,8 +317,8 @@ Class tlBox
 		blue = b
 	End
 	
-	#rem monkeydoc Reset the dimensions of the box to a new width and height
-	#end
+	#Rem monkeydoc Reset the dimensions of the box to a new width and height
+	#End
 	Method ReDimension(x:Float, y:Float, w:Float, h:Float)
 		If w < 0
 			x += w
@@ -340,19 +340,19 @@ Class tlBox
 		UpdateNormals()
 	End
 	
-	#rem monkeydoc Assign an object to the boundary
+	#Rem monkeydoc Assign an object to the boundary
 		This can be handy to store extra custom info about the boundary. 
-	#end
+	#End
 	Property Data:Object() 
 		Return data
 	Setter (d:Object)
 		data = d
 	End
 	
-	#rem monkeydoc Get the collision layer that this boundary is on
+	#Rem monkeydoc Get the collision layer that this boundary is on
 		Returns The Collision layer flag
 		Every boundary can exist on a sepcific layer from 1-32 to make it easier to handle what objects you want to collide with each other.
-	#end
+	#End
 	Property CollisionLayer:Int()
 		Return collisionlayer
 	Setter (layer:Int) 
@@ -363,10 +363,10 @@ Class tlBox
 		Return tformvertices
 	End
 	
-	#rem monkeydoc Set the position of the bounding box.
+	#Rem monkeydoc Set the position of the bounding box.
 		This sets the position of the top left corner of the bounding box. If the box is within quadtree it will automatically update itself
 		within it.
-	#end
+	#End
 	Method Position(x:Float, y:Float) Virtual
 		tl_corner = tl_corner.Move(x - world.x, y - world.y)
 		br_corner = br_corner.Move(x - world.x, y - world.y)
@@ -375,10 +375,10 @@ Class tlBox
 		UpdateWithinQuadtree()
 	End
 	
-	#rem monkeydoc Move the bounding box by a given amount.
+	#Rem monkeydoc Move the bounding box by a given amount.
 		This sets the position of the top left corner of the bounding box by moving it by the x and y amount. If the box is within quadtree it 
 		will automatically update itself within it.
-	#end
+	#End
 	Method Move(x:Float, y:Float) Virtual
 		world = world.Move(x, y)
 		worldhandle = world.AddVector(handle)
@@ -387,9 +387,9 @@ Class tlBox
 		UpdateWithinQuadtree()
 	End
 	
-	#rem monkeydoc Set the handle of the boundary
+	#Rem monkeydoc Set the handle of the boundary
 		setting the handle let's you offset where the boundary exists in the world. By default the handle is located at the center of the boudary.
-	#end
+	#End
 	Method SetHandlePosition(x:Float, y:Float)
 		handle = New tlVector2(x, y)
 		worldhandle = world.AddVector(handle)
@@ -406,27 +406,27 @@ Class tlBox
 		return velocity
 	End
 	
-	#rem monkeydoc Update the position of the boundary
+	#Rem monkeydoc Update the position of the boundary
 		You can use this method to update it's position according to its current velocity vector
-	#end
+	#End
 	Method UpdatePosition()
 		Move(velocity.x, velocity.y)
 	End
 	
-	#rem monkeydoc Get the x world coordinate of the boundary
+	#Rem monkeydoc Get the x world coordinate of the boundary
 		Returns Float with the current x coordinate
-		You can use this to find out the current x coordinate of the boundary. This would be especially useful if you have just used #PreventOverlap
+		You can use this to find out the current x coordinate of the boundary. This would be especially useful if you have just used _PreventOverlap_
 		and need to know the new position of the object to update your game object.
-	#end
+	#End
 	Method GetWorldX:Float()
 		Return world.x
 	End
 	
-	#rem monkeydoc Get the y world coordinate of the boundary
+	#Rem monkeydoc Get the y world coordinate of the boundary
 		Returns Float with the current y coordinate
-		You can use this to find out the current y coordinate of the boundary. This would be especially useful if you have just used #PreventOverlap
+		You can use this to find out the current y coordinate of the boundary. This would be especially useful if you have just used _PreventOverlap_
 		and need to know the new position of the object to update your game object.
-	#end
+	#End
 	Method GetWorldY:Float()
 		Return world.y
 	End
@@ -435,64 +435,64 @@ Class tlBox
 		Return world
 	End
 	
-	#rem monkeydoc Get the current width of the box
+	#Rem monkeydoc Get the current width of the box
 		Returns The current width taking into account scale
-	#end
+	#End
 	Property Width:Float() 
 		Return width
 	End
 	
-	#rem monkeydoc Get the current height of the box
+	#Rem monkeydoc Get the current height of the box
 		Returns The current height taking into account scale
-	#end
+	#End
 	Property Height:Float() 
 		Return height
 	End
 	
-	#rem monkeydoc Get the collision type of the box
+	#Rem monkeydoc Get the collision type of the box
 		Returns The collision type, box, circle line or poly
-	#end
+	#End
 	Property CollisionType:Int() 
 		Return collisiontype
 	End
 	
-	#rem monkeydoc Set the velocity of the boundary
+	#Rem monkeydoc Set the velocity of the boundary
 		It's important to set the velocity of the boundary so that collisions can be more accurately calculated. If you're attaching this
 		to an entity in your game then you'll just need to match this to your entities velocity.
-	#end
+	#End
 	Method SetVelocity(velocity_x:Float, velocity_y:Float)
 		velocity = New tlVector2(velocity_x, velocity_y)
 	End
 	
-	#rem monkeydoc Set the velocity vector of the boundary
+	#Rem monkeydoc Set the velocity vector of the boundary
 		It's important to set the velocity of the boundary so that collisions can be more accurately calculated. If you're attaching this
 		to an entity in your game then you'll just need to match this to your entities velocity.
-	#end
+	#End
 	Method SetVelocityVector(vector:tlVector2)
 		velocity = vector
 	End
 	
-	#rem monkeydoc Set the scale of the Box
+	#Rem monkeydoc Set the scale of the Box
 		This sets scale of the Box.
-	#end
+	#End
 	Method SetScale(x:Float, y:Float) Virtual
 		scale = New tlVector2(x, y)
 		TForm()
 	End
 	
-	#rem monkeydoc Find out if a point is within the bounding box
+	#Rem monkeydoc Find out if a point is within the bounding box
 		Returns True if the point is within
-		Use this to find out if a point at x,y falls with the bounding box of this #tlBox
-	#end
+		Use this to find out if a point at x,y falls with the bounding box of this _tlBox_
+	#End
 	Method PointInside:Int(x:Float, y:Float) Virtual
 		Return x >= tl_corner.x And x <= br_corner.x And y >= tl_corner.y And y <= br_corner.y
 	End
 	
-	#rem monkeydoc Compare this #tlBox with another to see if they overlap
+	#Rem monkeydoc Compare this _tlBox_ with another to see if they overlap
 		Returns True if they do overlap
-		Use this to find out if this #tlBox overlaps the #tlBox you pass to it. This is a very simple overlap to see if the bounding box overlaps only
+		Use this to find out if this _tlBox_ overlaps the _tlBox_ you pass to it. This is a very simple overlap to see if the bounding box overlaps only
 		Set VelocityCheck to true if you want to see if they will overlap next frame based on their velocities.
-	#end
+	#End
 	Method BoundingBoxOverlap:Int(rect:tlBox, velocitycheck:Int = False) Virtual
 		Local check1:Int = tl_corner.x <= rect.br_corner.x And br_corner.x >= rect.tl_corner.x And tl_corner.y <= rect.br_corner.y And br_corner.y >= rect.tl_corner.y
 		If velocitycheck
@@ -502,19 +502,19 @@ Class tlBox
 		Return check1
 	End
 		
-	#rem monkeydoc Find out if a #tlBox lies within this objects bounding box
+	#Rem monkeydoc Find out if a _tlBox_ lies within this objects bounding box
 		Returns True if it is within
-		If you need to know whether a #tlBox you pass to this method, lies entirely with this #tlBox (no overlapping) then you can use this method. 
-		#remember, if you call this method from a poly, line or circle, it will only check against the bounding boxes.
-	#end
+		If you need to know whether a _tlBox_ you pass to this method, lies entirely with this _tlBox_ (no overlapping) then you can use this method. 
+		#Remember, if you call this method from a poly, line or circle, it will only check against the bounding boxes.
+	#End
 	Method RectWithin:Int(rect:tlBox) Virtual
 		Return tl_corner.x < rect.tl_corner.x And br_corner.x > rect.br_corner.x And tl_corner.y < rect.tl_corner.y And br_corner.y > rect.br_corner.y
 	End
 	
-	#rem monkeydoc Compare this #tlBox with a #tlCircle
+	#Rem monkeydoc Compare this _tlBox_ with a _tlCircle_
 		Returns True if they do overlap
-		This will perfrom a simple bounding box to circle collision check on the #tlCircle you pass to it. 
-	#end
+		This will perfrom a simple bounding box to circle collision check on the _tlCircle_ you pass to it. 
+	#End
 	Method CircleOverlap:Int(circle:tlCircle) Virtual
 		If Not BoundingBoxOverlap(circle) Return False
 		If PointInside(circle.worldhandle.x, circle.worldhandle.y) Return True
@@ -526,11 +526,11 @@ Class tlBox
 		Return False
 	End
 	
-	#rem monkeydoc Check for a collision with another #tlBox
-		Returns #tlCollisionResult type containing info about the collision
-		Use this to check for a collision with another #tlBox that you pass to the method. You can then use the information stored in 
-		#tlCollisionResult to perform various things based on the result of the collision check.
-	#end
+	#Rem monkeydoc Check for a collision with another _tlBox_
+		Returns _tlCollisionResult_ type containing info about the collision
+		Use this to check for a collision with another _tlBox_ that you pass to the method. You can then use the information stored in 
+		_tlCollisionResult_ to perform various things based on the result of the collision check.
+	#End
 	Method BoxCollide:tlCollisionResult(box:tlBox) Virtual
 		
 		Local result:tlCollisionResult = New tlCollisionResult
@@ -643,17 +643,17 @@ Class tlBox
 	
 	End
 	
-	#rem monkeydoc Check for a collision with a #tlCircle
-		Returns #tlCollisionResult type containing info about the collision
-		Use this to check for a collision with a #tlCircle that you pass to the method. You can then use the information stored in 
-		#tlCollisionResult to perform various things based on the result of the collision check.
-	#end
+	#Rem monkeydoc Check for a collision with a _tlCircle_
+		Returns _tlCollisionResult_ type containing info about the collision
+		Use this to check for a collision with a _tlCircle_ that you pass to the method. You can then use the information stored in 
+		_tlCollisionResult_ to perform various things based on the result of the collision check.
+	#End
 	Method CircleCollide:tlCollisionResult(circle:tlCircle) Virtual
 		Local result:tlCollisionResult = New tlCollisionResult
 		If Not BoundingBoxOverlap(circle, True) 
 			result.NoCollision = True
 			Return result
-		End
+		End If
 		
 		Local axis:tlVector2
 		
@@ -736,18 +736,18 @@ Class tlBox
 		Return result
 	End
 
-	#rem monkeydoc Check for a collision with a #tlLine
-		Returns #tlCollisionResult type containing info about the collision
-		Use this to check for a collision with a #tlLine that you pass to the method. You can then use the information stored in 
-		#tlCollisionResult to perform various things based on the result of the collision check.
-	#end
+	#Rem monkeydoc Check for a collision with a _tlLine_
+		Returns _tlCollisionResult_ type containing info about the collision
+		Use this to check for a collision with a _tlLine_ that you pass to the method. You can then use the information stored in 
+		_tlCollisionResult_ to perform various things based on the result of the collision check.
+	#End
 	Method LineCollide:tlCollisionResult(line:tlLine) Virtual
 		Local result:tlCollisionResult = New tlCollisionResult
 
 		If Not BoundingBoxOverlap(line, True)
 			result.NoCollision = True
 			Return result
-		End
+		End If
 		
 		Local axis:tlVector2
 		
@@ -829,18 +829,18 @@ Class tlBox
 		Return result
 	End
 
-	#rem monkeydoc Check for a collision with a #tlPolygon
-		Returns #tlCollisionResult type containing info about the collision
-		Use this to check for a collision with a #tlPolygon that you pass to the method. You can then use the information stored in 
-		#tlCollisionResult to perform various things based on the result of the collision check.
-	#end
+	#Rem monkeydoc Check for a collision with a _tlPolygon_
+		Returns _tlCollisionResult_ type containing info about the collision
+		Use this to check for a collision with a _tlPolygon_ that you pass to the method. You can then use the information stored in 
+		_tlCollisionResult_ to perform various things based on the result of the collision check.
+	#End
 	Method PolyCollide:tlCollisionResult(poly:tlPolygon) Virtual
 		Local result:tlCollisionResult = New tlCollisionResult
 
 		If Not BoundingBoxOverlap(poly, True)
 			result.NoCollision = True
 			Return result
-		End
+		End If
 		
 		Local axis:tlVector2
 		
@@ -920,12 +920,12 @@ Class tlBox
 		Return result
 	End
 	
-	#rem monkeydoc See is a ray collides with this #tlbox
-		Returns #tlCollisionResult with the results of the collision
+	#Rem monkeydoc See is a ray collides with this _tlbox_
+		Returns _tlCollisionResult_ with the results of the collision
 		You can use this to test for a collision with a ray. Pass the origin of the ray with px and py, and set the direction of the ray with dx and dy.
 		dx and dy will be normalised and extended infinitely, if maxdistance equals 0 (default), otherwise set maxdistance to how ever far you want the ray 
 		to extend to. If the ray starts inside the box then result.RayOriginInside will be set to true.
-	#end
+	#End
 	Method RayCollide:tlCollisionResult(px:Float, py:Float, dx:Float, dy:Float, maxdistance:Float = 0) Virtual
 		
 		Local result:tlCollisionResult = New tlCollisionResult
@@ -984,9 +984,9 @@ Class tlBox
 	
 	End
 	
-	#rem monkeydoc Draw this tlBox
+	#Rem monkeydoc Draw this tlBox
 		Use this if you need to draw the bounding box for debugging purposes
-	#end
+	#End
 	Method Draw(canvas:Canvas, offsetx:Float = 0, offsety:Float = 0, boundingbox:Int = False) Virtual
 		canvas.DrawLine(tl_corner.x - offsetx, tl_corner.y - offsety, br_corner.x - offsetx, tl_corner.y - offsety)
 		canvas.DrawLine(br_corner.x - offsetx, tl_corner.y - offsety, br_corner.x - offsetx, br_corner.y - offsety)
@@ -1015,18 +1015,18 @@ Class tlBox
 		wend
 	End
 	
-	#rem monkeydoc Get the collision type of the Box
+	#Rem monkeydoc Get the collision type of the Box
 		Returns Either tlBOX_COLLISION, tlCIRCLE_COLLISION, tlLINE_COLLISION or tlPOLY_COLLISION
 		the collision type can help you determine what type of collision you should be performing on objects calledback from quadtree queries.
-	#end
+	#End
 	Method GetCollisionType:Int()
 		Return collisiontype
 	End
 	
-	#rem monkeydoc Prevent the boundary from overlapping another based on the result of a collision.
-		When you check for a collision, the results of that collision are stored with a #tlCollisionResult. This can be passed to this method
+	#Rem monkeydoc Prevent the boundary from overlapping another based on the result of a collision.
+		When you check for a collision, the results of that collision are stored with a _tlCollisionResult_. This can be passed to this method
 		to prevent 2 boundaries from overlapping. If push is set to true, then the source boundary will push the target boundary along it's velocity vector.
-	#end
+	#End
 	Method PreventOverlap(result:tlCollisionResult, push:Int = False)
 		If not result.NoCollision
 			If Not push
@@ -1061,11 +1061,11 @@ Class tlBox
 		End If
 	End
 	
-	#rem monkeydoc Repel boundaries that overlap
+	#Rem monkeydoc Repel boundaries that overlap
 		Rather then simply preventing an overlap outright, this will ease a boundary away slowly until it no longer overlaps. This can 
-		be useful to separate groups of entities away from each other in a more smooth fashion. As with #PreventOverlap set push to true to push
+		be useful to separate groups of entities away from each other in a more smooth fashion. As with _PreventOverlap_ set push to true to push
 		the other entity away.
-	#end
+	#End
 	Method Repel(result:tlCollisionResult, push:Int = False, factor:Float = 0.1)
 		If not result.NoCollision
 			If Not push
@@ -1100,10 +1100,10 @@ Class tlBox
 		End If
 	End
 	
-	#rem monkeydoc Separate boundaries that overlap
+	#Rem monkeydoc Separate boundaries that overlap
 		This is slightly different to #Repel in that both objects will be moved away from each other according to the 2 factors
 		you pass to it. So you can either push them away from each other equally or you can weight one or the other.
-	#end
+	#End
 	Method Separate(result:tlCollisionResult, sourcefactor:Float = 0.1, targetfactor:Float = 0.1)
 		If not result.NoCollision
 			If result.WillIntersect
@@ -1257,18 +1257,18 @@ Class tlBox
 
 End
 
-#rem monkeydoc Collision circle class
-#end
+#Rem monkeydoc Collision circle class
+#End
 Class tlCircle Extends tlBox
 	
 	Field radius:Float
 	Field tformradius:Float
 	
-	#rem monkeydoc Create a #tlCircle
-		Returns New #tlCircle
-		Create a new #tlCircle at the given coordinates with the given radius. The coordinates will represent where the center of the circle is located
+	#Rem monkeydoc Create a _tlCircle_
+		Returns New _tlCircle_
+		Create a new _tlCircle_ at the given coordinates with the given radius. The coordinates will represent where the center of the circle is located
 		in the world. You can also assign some data to the boundary as handy way to store some extra info about the boundary.
-	#end
+	#End
 	Method New(x:Float, y:Float, radius:Float, layer:Int = tlLAYER_0, data:Object = Null)
 		self.radius = radius
 		tl_corner = New tlVector2(x - radius, y - radius)
@@ -1285,33 +1285,33 @@ Class tlCircle Extends tlBox
 		quadlist.Reserve(5)
 	End
 	
-	#rem monkeydoc Get the current radius of the box
+	#Rem monkeydoc Get the current radius of the box
 		Returns The current radius taking into account scale
-	#end
+	#End
 	Property Radius:Float() 
 		Return radius
 	End
 	
-	#rem monkeydoc Find out if a point is within the circle
+	#Rem monkeydoc Find out if a point is within the circle
 		Returns True if the point is within
-		Use this to find out if a point at x,y falls with the radius of this #tlCircle
-	#end
+		Use this to find out if a point at x,y falls with the radius of this _tlCircle_
+	#End
 	Method PointInside:Int(x:Float, y:Float) Override
 		Return GetDistance(x, y, worldhandle.x, worldhandle.y) <= radius
 	End
 	
-	#rem monkeydoc Compare this circle with another #tlCircle
+	#Rem monkeydoc Compare this circle with another _tlCircle_
 		Returns True if they do overlap
-		This will perfrom a simple circle to circle collision check on the #tlCircle you pass to it.
-	#end
+		This will perfrom a simple circle to circle collision check on the _tlCircle_ you pass to it.
+	#End
 	Method CircleOverlap:Int(circle:tlCircle) Override
 		Return GetDistance(worldhandle.x, worldhandle.y, circle.worldhandle.x, circle.worldhandle.y) <= radius + circle.radius
 	End
 	
-	#rem monkeydoc Compare this #tlCircle with a #tlBox
+	#Rem monkeydoc Compare this _tlCircle_ with a _tlBox_
 		Returns True if they do overlap
-		This will perfrom a simple circle to bounding box overlap check on the #tlBox you pass to it.
-	#end
+		This will perfrom a simple circle to bounding box overlap check on the _tlBox_ you pass to it.
+	#End
 	Method BoundingBoxOverlap:Int(rect:tlBox, velocitycheck:Int = False) Override
 		If Not Super.BoundingBoxOverlap(rect, velocitycheck) Return False
 		If worldhandle.x >= rect.tl_corner.x And worldhandle.x <= rect.br_corner.x And worldhandle.y >= rect.tl_corner.y And worldhandle.y <= rect.br_corner.y Return True
@@ -1323,18 +1323,18 @@ Class tlCircle Extends tlBox
 		Return false
 	End
 	
-	#rem monkeydoc Check for a collision with a #tlBox
-		Returns #tlCollisionResult type containing info about the collision
-		Use this to check for a collision with a #tlBox that you pass to the method. You can then use the information stored in 
-		#tlCollisionResult to perform various things based on the result of the collision check.
-	#end
+	#Rem monkeydoc Check for a collision with a _tlBox_
+		Returns _tlCollisionResult_ type containing info about the collision
+		Use this to check for a collision with a _tlBox_ that you pass to the method. You can then use the information stored in 
+		_tlCollisionResult_ to perform various things based on the result of the collision check.
+	#End
 	Method BoxCollide:tlCollisionResult(box:tlBox) Override
 		Local result:tlCollisionResult = New tlCollisionResult
 
 		If Not Super.BoundingBoxOverlap(box, True)
 			result.NoCollision = True
 			Return result
-		End
+		End If
 		
 		Local axis:tlVector2
 		
@@ -1416,18 +1416,18 @@ Class tlCircle Extends tlBox
 		Return result
 	End
 	
-	#rem monkeydoc Check for a collision with another #tlCircle
-		Returns #tlCollisionResult type containing info about the collision
-		Use this to check for a collision with another #tlCircle that you pass to the method. You can then use the information stored in 
-		#tlCollisionResult to perform various things based on the result of the collision check.
-	#end
+	#Rem monkeydoc Check for a collision with another _tlCircle_
+		Returns _tlCollisionResult_ type containing info about the collision
+		Use this to check for a collision with another _tlCircle_ that you pass to the method. You can then use the information stored in 
+		_tlCollisionResult_ to perform various things based on the result of the collision check.
+	#End
 	Method CircleCollide:tlCollisionResult(circle:tlCircle) Override
 		Local result:tlCollisionResult = New tlCollisionResult
 
 		If Not Super.BoundingBoxOverlap(circle, True)
 			result.NoCollision = True
 			Return result
-		End
+		End If
 		
 		Local axis:tlVector2
 		
@@ -1502,18 +1502,18 @@ Class tlCircle Extends tlBox
 		Return result
 	End
 
-	#rem monkeydoc Check for a collision with a #tlLine
-		Returns #tlCollisionResult type containing info about the collision
-		Use this to check for a collision with a #tlLine that you pass to the method. You can then use the information stored in 
-		#tlCollisionResult to perform various things based on the result of the collision check.
-	#end
+	#Rem monkeydoc Check for a collision with a _tlLine_
+		Returns _tlCollisionResult_ type containing info about the collision
+		Use this to check for a collision with a _tlLine_ that you pass to the method. You can then use the information stored in 
+		_tlCollisionResult_ to perform various things based on the result of the collision check.
+	#End
 	Method LineCollide:tlCollisionResult(line:tlLine) Override
 		Local result:tlCollisionResult = New tlCollisionResult
 
 		If Not Super.BoundingBoxOverlap(line, True)
 			result.NoCollision = True
 			Return result
-		End
+		End If
 		
 		Local axis:tlVector2
 		
@@ -1599,18 +1599,18 @@ Class tlCircle Extends tlBox
 		Return result
 	End
 	
-	#rem monkeydoc Check for a collision with a #tlPolygon
-		Returns #tlCollisionResult type containing info about the collision
-		Use this to check for a collision with another #tlPolygon that you pass to the method. You can then use the information stored in 
-		#tlCollisionResult to perform various things based on the result of the collision check.
-	#end
+	#Rem monkeydoc Check for a collision with a _tlPolygon_
+		Returns _tlCollisionResult_ type containing info about the collision
+		Use this to check for a collision with another _tlPolygon_ that you pass to the method. You can then use the information stored in 
+		_tlCollisionResult_ to perform various things based on the result of the collision check.
+	#End
 	Method PolyCollide:tlCollisionResult(poly:tlPolygon) Override
 		Local result:tlCollisionResult = New tlCollisionResult
 
 		If Not Super.BoundingBoxOverlap(poly, True)
 			result.NoCollision = True
 			Return result
-		End
+		End If
 		
 		Local axis:tlVector2
 		
@@ -1694,14 +1694,14 @@ Class tlCircle Extends tlBox
 		result.source = Self
 		result.target = poly
 		Return result
-	End
+	End If
 	
-	#rem monkeydoc See is a ray collides with this #tlCircle
-		Returns #tlCollisionResult with the results of the collision
+	#Rem monkeydoc See is a ray collides with this _tlCircle_
+		Returns _tlCollisionResult_ with the results of the collision
 		You can use this to test for a collision with a ray. Pass the origin of the ray with px and py, and set the direction of the ray with dx and dy.
 		dx and dy will be normalised and extended infinitely, if maxdistance equals 0 (default), otherwise set maxdistance to how ever far you want the ray 
 		to extend to. If the ray starts inside the poly then result.RayOriginInside will be set to true.
-	#end
+	#End
 	Method RayCollide:tlCollisionResult(px:Float, py:Float, dx:Float, dy:Float, maxdistance:Float = 0) Override
 		
 		Local result:tlCollisionResult = New tlCollisionResult
@@ -1770,9 +1770,9 @@ Class tlCircle Extends tlBox
 	
 	End
 	
-	#rem monkeydoc Set the Box of the circle
-		this lets you change the size and location of the #tlCircle
-	#end
+	#Rem monkeydoc Set the Box of the circle
+		this lets you change the size and location of the _tlCircle_
+	#End
 	Method SetCircle(x:Float, y:Float, _radius:Float)
 		radius = _radius
 		tl_corner = New tlVector2(x - radius, y - radius)
@@ -1784,9 +1784,9 @@ Class tlCircle Extends tlBox
 '		If needsmoving() quadtree.UpdateRect(Self)
 	End
 	
-	#rem monkeydoc Draw this tlBox
+	#Rem monkeydoc Draw this tlBox
 		Use this if you need to draw the bounding box for debugging purposes. Pass true of false to draw the bounding box as well.
-	#end
+	#End
 	Method Draw(canvas:Canvas, offsetx:Float = 0, offsety:Float = 0, boundingbox:Int = False) Override
 		canvas.DrawOval (worldhandle.x - tformradius - offsetx, worldhandle.y - tformradius - offsety, width, height)
 		If boundingbox Super.Draw(canvas, offsetx, offsety, boundingbox)
@@ -1814,8 +1814,8 @@ Class tlCircle Extends tlBox
 	End
 End
 
-#rem monkeydoc Collision polygon class
-#end
+#Rem monkeydoc Collision polygon class
+#End
 Class tlPolygon Extends tlBox
 		
 	Field angle:Float
@@ -1823,12 +1823,12 @@ Class tlPolygon Extends tlBox
 	Method New()
 	End
 	
-	#rem monkeydoc Create a #tlPolygon
-		Returns New #tlPolygon, or Null if verts[] contained the wrong amount.
-		Create a new #tlPolygon at the given coordinates with the given array of vertices. The coordinates will represent the center of the polygon, but this
+	#Rem monkeydoc Create a _tlPolygon_
+		Returns New _tlPolygon_, or Null if verts[] contained the wrong amount.
+		Create a new _tlPolygon_ at the given coordinates with the given array of vertices. The coordinates will represent the center of the polygon, but this
 		can be changed with #SetPolyHandle. The array must contain more then 5 values (2 per vertex) and be an even number or null will be returned. The coordinates of
 		the vertices in the array are arranged like so: [x,y,x,y,x,y  etc]. You can also assign some data to the boundary as handy way to store some extra info about the boundary.
-	#end
+	#End
 	Method New(x:Float, y:Float, verts:Float[], layer:Int = tlLAYER_0, data:Object = Null, centerhandle:Int = True)
 		world = New tlVector2(x, y)
 		vertices = New tlVector2[verts.Length / 2]
@@ -1863,12 +1863,12 @@ Class tlPolygon Extends tlBox
 		quadlist.Reserve(5)
 	End
 	
-	#rem monkeydoc Create a #tlPolygon
-		Returns New #tlPolygon, or Null if verts[] contained the wrong amount.
-		Create a new #tlPolygon at the given coordinates with the given array of vertices. The coordinates will represent the center of the polygon, but this
+	#Rem monkeydoc Create a _tlPolygon_
+		Returns New _tlPolygon_, or Null if verts[] contained the wrong amount.
+		Create a new _tlPolygon_ at the given coordinates with the given array of vertices. The coordinates will represent the center of the polygon, but this
 		can be changed with #SetPolyHandle. The array must contain more then 5 values (2 per vertex) and be an even number or null will be returned. The coordinates of
 		the vertices in the array are arranged like so: [x,y,x,y,x,y  etc]. You can also assign some data to the boundary as handy way to store some extra info about the boundary.
-	#end
+	#End
 	Method New(verts:Float[], layer:Int = tlLAYER_0, data:Object = Null)
 		world = New tlVector2(0, 0)
 		vertices = New tlVector2[verts.Length / 2]
@@ -1898,18 +1898,18 @@ Class tlPolygon Extends tlBox
 		self.data = data
 	End
 	
-	#rem monkeydoc Rotate the polygon 
+	#Rem monkeydoc Rotate the polygon 
 		This will rotate the polygon by the given amount
-	#end
+	#End
 	Method Rotate(angle:Float)
 		Self.angle += angle
 		tformmatrix.Set(Cos(Self.angle), Sin(Self.angle), -Sin(Self.angle), Cos(Self.angle))
 		TForm()
 	End
 
-	#rem monkeydoc Rotate the polygon 
+	#Rem monkeydoc Rotate the polygon 
 		This will rotate the polygon by the given amount
-	#end
+	#End
 	Method RotateDegrees(angle:double)
 		angle = DegRad(angle)
 		Self.angle += angle
@@ -1917,9 +1917,9 @@ Class tlPolygon Extends tlBox
 		TForm()
 	End
 	
-	#rem monkeydoc Set the angle of the polygon
+	#Rem monkeydoc Set the angle of the polygon
 		This will adjust the angle of the polygon by the given amount.
-	#end
+	#End
 	Method SetAngle(angle:Float)
 		self.angle = angle
 		tformmatrix.Set(Cos(angle), Sin(angle), -Sin(angle), Cos(angle))
@@ -1927,9 +1927,9 @@ Class tlPolygon Extends tlBox
 '		If needsmoving() quadtree.UpdateRect(Self)
 	End
 
-	#rem monkeydoc Set the angle of the polygon
+	#Rem monkeydoc Set the angle of the polygon
 		This will adjust the angle of the polygon by the given amount.
-	#end
+	#End
 	Method SetAngleDegrees(angle:Double)
 		angle = DegRad(angle)
 		self.angle = angle
@@ -1938,10 +1938,10 @@ Class tlPolygon Extends tlBox
 '		If needsmoving() quadtree.UpdateRect(Self)
 	End
 	
-	#rem monkeydoc Set the position of the bounding box.
+	#Rem monkeydoc Set the position of the bounding box.
 		This sets the position of the top left corner of the bounding box. If the box is within quadtree it will automatically update itself
 		within it.
-	#end
+	#End
 	Method Position(x:Float, y:Float) Override
 		tl_corner = tl_corner.Move(x - world.x, y - world.y)
 		br_corner = br_corner.Move(x - world.x, y - world.y)
@@ -1954,10 +1954,10 @@ Class tlPolygon Extends tlBox
 '		If needsmoving() quadtree.UpdateRect(Self)
 	End
 	
-	#rem monkeydoc Move the bounding box by a given amount.
+	#Rem monkeydoc Move the bounding box by a given amount.
 		This sets the position of the top left corner of the bounding box by moving it by the x and y amount. If the box is within quadtree it 
 		will automatically update itself within it.
-	#end
+	#End
 	Method Move(x:Float, y:Float) Override
 		world = world.Move(x, y)
 		If handle.x Or handle.y
@@ -1970,9 +1970,9 @@ Class tlPolygon Extends tlBox
 '		If needsmoving() quadtree.UpdateRect(Self)
 	End
 	
-	#rem monkeydoc Set the scale of the Polygon
+	#Rem monkeydoc Set the scale of the Polygon
 		This sets scale of the polygon.
-	#end
+	#End
 	Method SetScale(x:Float, y:Float) Override
 		ResetBoundingBox()
 		scale.x = x
@@ -1981,10 +1981,10 @@ Class tlPolygon Extends tlBox
 '		If needsmoving() quadtree.UpdateRect(Self)
 	End
 	
-	#rem monkeydoc Find out if a point resides withing the #tlPolygon
+	#Rem monkeydoc Find out if a point resides withing the _tlPolygon_
 		Returns True if they do overlap
 		Use this to check if a point with the given coordinates lies within the polygon
-	#end
+	#End
 	Method PointInside:Int(x:Float, y:Float) Override
 		
 		Local x1:Float = tformvertices[tformvertices.Length - 1].x + world.x
@@ -2021,18 +2021,18 @@ Class tlPolygon Extends tlBox
 		Return False
 	End
 	
-	#rem monkeydoc Check for a collision with a #tlBox
-		Returns #tlCollisionResult type containing info about the collision
-		Use this to check for a collision with a #tlBox that you pass to the method. You can then use the information stored in 
-		#tlCollisionResult to perform various things based on the result of the collision check.
-	#end
+	#Rem monkeydoc Check for a collision with a _tlBox_
+		Returns _tlCollisionResult_ type containing info about the collision
+		Use this to check for a collision with a _tlBox_ that you pass to the method. You can then use the information stored in 
+		_tlCollisionResult_ to perform various things based on the result of the collision check.
+	#End
 	Method BoxCollide:tlCollisionResult(Box:tlBox) Override
 		Local result:tlCollisionResult = New tlCollisionResult
 
 		If Not Super.BoundingBoxOverlap(Box, True)
 			result.NoCollision = True
 			Return result
-		End
+		End If
 		
 		Local axis:tlVector2
 		
@@ -2112,18 +2112,18 @@ Class tlPolygon Extends tlBox
 		Return result
 	End
 	
-	#rem monkeydoc Check for a collision with a #tlCircle
-		Returns #tlCollisionResult type containing info about the collision
-		Use this to check for a collision with a #tlCircle that you pass to the method. You can then use the information stored in 
-		#tlCollisionResult to perform various things based on the result of the collision check.
-	#end
+	#Rem monkeydoc Check for a collision with a _tlCircle_
+		Returns _tlCollisionResult_ type containing info about the collision
+		Use this to check for a collision with a _tlCircle_ that you pass to the method. You can then use the information stored in 
+		_tlCollisionResult_ to perform various things based on the result of the collision check.
+	#End
 	Method CircleCollide:tlCollisionResult(circle:tlCircle) Override
 		Local result:tlCollisionResult = New tlCollisionResult
 
 		If Not Super.BoundingBoxOverlap(circle, True)
 			result.NoCollision = True
 			Return result
-		End
+		End If
 		
 		Local axis:tlVector2
 		
@@ -2209,18 +2209,18 @@ Class tlPolygon Extends tlBox
 		Return result
 	End
 	
-	#rem monkeydoc Check for a collision with a #tlLine
-		Returns #tlCollisionResult type containing info about the collision
-		Use this to check for a collision with a #tlLine that you pass to the method. You can then use the information stored in 
-		#tlCollisionResult to perform various things based on the result of the collision check.
-	#end
+	#Rem monkeydoc Check for a collision with a _tlLine_
+		Returns _tlCollisionResult_ type containing info about the collision
+		Use this to check for a collision with a _tlLine_ that you pass to the method. You can then use the information stored in 
+		_tlCollisionResult_ to perform various things based on the result of the collision check.
+	#End
 	Method LineCollide:tlCollisionResult(Line:tlLine) Override
 		Local result:tlCollisionResult = New tlCollisionResult
 
 		If Not Super.BoundingBoxOverlap(Line, True)
 			result.NoCollision = True
 			Return result
-		End
+		End If
 		
 		Local axis:tlVector2
 		
@@ -2302,18 +2302,18 @@ Class tlPolygon Extends tlBox
 		Return result
 	End
 	
-	#rem monkeydoc Check for a collision with another #tlpolygon
-		Returns #tlCollisionResult type containing info about the collision
-		Use this to check for a collision with a #tlPolygon that you pass to the method. You can then use the information stored in 
-		#tlCollisionResult to perform various things based on the result of the collision check.
-	#end
+	#Rem monkeydoc Check for a collision with another _tlpolygon_
+		Returns _tlCollisionResult_ type containing info about the collision
+		Use this to check for a collision with a _tlPolygon_ that you pass to the method. You can then use the information stored in 
+		_tlCollisionResult_ to perform various things based on the result of the collision check.
+	#End
 	Method PolyCollide:tlCollisionResult(poly:tlPolygon) Override
 		Local result:tlCollisionResult = New tlCollisionResult
 
 		If Not Super.BoundingBoxOverlap(poly, True)
 			result.NoCollision = True
 			Return result
-		End
+		End If
 		
 		Local axis:tlVector2
 
@@ -2395,12 +2395,12 @@ Class tlPolygon Extends tlBox
 		Return result
 	End
 	
-	#rem monkeydoc See is a ray collides with this #tlpolygon
-		Returns #tlCollisionResult with the results of the collision
+	#Rem monkeydoc See is a ray collides with this _tlpolygon_
+		Returns _tlCollisionResult_ with the results of the collision
 		You can use this to test for a collision with a ray. Pass the origin of the ray with px and py, and set the direction of the ray with dx and dy.
 		dx and dy will be normalised and extended infinitely, if maxdistance equals 0 (default), otherwise set maxdistance to how ever far you want the ray 
 		to extend to. If the ray starts inside the poly then result.RayOriginInside will be set to true.
-	#end
+	#End
 	Method RayCollide:tlCollisionResult(px:Float, py:Float, dx:Float, dy:Float, maxdistance:Float = 0) Override
 		Local result:tlCollisionResult = New tlCollisionResult
 		
@@ -2458,9 +2458,9 @@ Class tlPolygon Extends tlBox
 	
 	End
 	
-	#rem monkeydoc Draw the polygon
+	#Rem monkeydoc Draw the polygon
 		You can use this for debugging purposes. Pass true of false to draw the bounding box as well.
-	#end
+	#End
 	Method Draw(canvas:Canvas, offsetx:Float = 0, offsety:Float = 0, boundingbox:Int = False) Override
 		Local v1:tlVector2 = tformvertices[tformvertices.Length - 1]
 		Local v2:tlVector2
@@ -2476,7 +2476,7 @@ Class tlPolygon Extends tlBox
 	'internal stuff---------------------------------
 	Method TForm() Override
 		'This transforms the polygon according to the current scale/angle. Both local and transformed vertices are stored within the type, which
-		'while takes more memory, makes things a bit easier, and I think a bit faster. The memory overhead is ext#remely low unless you have stupendously
+		'while takes more memory, makes things a bit easier, and I think a bit faster. The memory overhead is extrremely low unless you have stupendously
 		'complex polys!
 		Local updateworldhandle:Int
 		If handle.x Or handle.y
@@ -2582,16 +2582,16 @@ Class tlPolygon Extends tlBox
 	
 End
 
-#rem monkeydoc Collision line class
-#end
+#Rem monkeydoc Collision line class
+#End
 Class tlLine Extends tlPolygon
 	
-	#rem monkeydoc Create a #tlLine
-		Returns New #tlLine
-		Create a new #tlLine at the coordinates given, x1 and y1 being the start of the line and x2 and y2 being the end. The will placed exactly
+	#Rem monkeydoc Create a _tlLine_
+		Returns New _tlLine_
+		Create a new _tlLine_ at the coordinates given, x1 and y1 being the start of the line and x2 and y2 being the end. The will placed exactly
 		according to the coordinates you give, but it's worth bearing in mind that the handle of the line will be at the center point along the line. Therefore
 		the world coordinates will be set to half way point along the line. You can also assign some data to the boundary as handy way to store some extra info about the boundary.
-	#end
+	#End
 	Method New(x1:Float, y1:Float, x2:Float, y2:Float, layer:Int = tlLAYER_0, data:Object = Null)
 		vertices = New tlVector2[2]
 		tformvertices = New tlVector2[2]
@@ -2620,18 +2620,18 @@ Class tlLine Extends tlPolygon
 		quadlist.Reserve(5)
 	End
 	
-	#rem monkeydoc Check for a collision with a #tlBox
-		Returns #tlCollisionResult type containing info about the collision
-		Use this to check for a collision with a #tlBox that you pass to the method. You can then use the information stored in 
-		#tlCollisionResult to perform various things based on the result of the collision check.
-	#end
+	#Rem monkeydoc Check for a collision with a _tlBox_
+		Returns _tlCollisionResult_ type containing info about the collision
+		Use this to check for a collision with a _tlBox_ that you pass to the method. You can then use the information stored in 
+		_tlCollisionResult_ to perform various things based on the result of the collision check.
+	#End
 	Method BoxCollide:tlCollisionResult(Box:tlBox) Override
 		Local result:tlCollisionResult = New tlCollisionResult
 
 		If Not Super.BoundingBoxOverlap(Box, True)
 			result.NoCollision = True
 			Return result
-		End
+		End If
 		
 		Local axis:tlVector2
 		
@@ -2712,18 +2712,18 @@ Class tlLine Extends tlPolygon
 		Return result
 	End
 	
-	#rem monkeydoc Check for a collision with a #tlCircle
-		Returns #tlCollisionResult type containing info about the collision
-		Use this to check for a collision with a #tlCircle that you pass to the method. You can then use the information stored in 
-		#tlCollisionResult to perform various things based on the result of the collision check.
-	#end
+	#Rem monkeydoc Check for a collision with a _tlCircle_
+		Returns _tlCollisionResult_ type containing info about the collision
+		Use this to check for a collision with a _tlCircle_ that you pass to the method. You can then use the information stored in 
+		_tlCollisionResult_ to perform various things based on the result of the collision check.
+	#End
 	Method CircleCollide:tlCollisionResult(circle:tlCircle) Override
 		Local result:tlCollisionResult = New tlCollisionResult
 
 		If Not Super.BoundingBoxOverlap(circle, True)
 			result.NoCollision = True
 			Return result
-		End
+		End If
 		
 		Local axis:tlVector2
 		
@@ -2809,18 +2809,18 @@ Class tlLine Extends tlPolygon
 		Return result
 	End
 	
-	#rem monkeydoc Check for a collision with another #tlLine
-		Returns #tlCollisionResult type containing info about the collision
-		Use this to check for a collision with another #tlLine that you pass to the method. You can then use the information stored in 
-		#tlCollisionResult to perform various things based on the result of the collision check.
-	#end
+	#Rem monkeydoc Check for a collision with another _tlLine_
+		Returns _tlCollisionResult_ type containing info about the collision
+		Use this to check for a collision with another _tlLine_ that you pass to the method. You can then use the information stored in 
+		_tlCollisionResult_ to perform various things based on the result of the collision check.
+	#End
 	Method LineCollide:tlCollisionResult(line:tlLine) Override
 		Local result:tlCollisionResult = New tlCollisionResult
 
 		If Not Super.BoundingBoxOverlap(line, True)
 			result.NoCollision = True
 			Return result
-		End
+		End If
 		
 		Local axis:tlVector2
 		
@@ -2902,18 +2902,18 @@ Class tlLine Extends tlPolygon
 		Return result
 	End
 	
-	#rem monkeydoc Check for a collision with a #tlPoly
-		Returns #tlCollisionResult type containing info about the collision
-		Use this to check for a collision with a #tlPoly that you pass to the method. You can then use the information stored in 
-		#tlCollisionResult to perform various things based on the result of the collision check.
-	#end
+	#Rem monkeydoc Check for a collision with a _tlPolygon_
+		Returns _tlCollisionResult_ type containing info about the collision
+		Use this to check for a collision with a _tlPolygon_ that you pass to the method. You can then use the information stored in 
+		_tlCollisionResult_ to perform various things based on the result of the collision check.
+	#End
 	Method PolyCollide:tlCollisionResult(poly:tlPolygon) Override
 		Local result:tlCollisionResult = New tlCollisionResult
 
 		If Not Super.BoundingBoxOverlap(poly, True)
 			result.NoCollision = True
 			Return result
-		End
+		End If
 		
 		Local axis:tlVector2
 		
@@ -2995,12 +2995,12 @@ Class tlLine Extends tlPolygon
 		Return result
 	End
 	
-	#rem monkeydoc See is a ray collides with this #tlLine
-		Returns #tlCollisionResult with the results of the collision
+	#Rem monkeydoc See is a ray collides with this _tlLine_
+		Returns _tlCollisionResult_ with the results of the collision
 		You can use this to test for a collision with a ray. Pass the origin of the ray with px and py, and set the direction of the ray with dx and dy.
 		dx and dy will be normalised and extended infinitely, if maxdistance equals 0 (default), otherwise set maxdistance to how ever far you want the ray 
 		to extend to. If the ray starts inside the poly then result.RayOriginInside will be set to true.
-	#end
+	#End
 	Method RayCollide:tlCollisionResult(px:Float, py:Float, dx:Float, dy:Float, maxdistance:Float = 0) Override
 		
 		Local result:tlCollisionResult = New tlCollisionResult
@@ -3133,12 +3133,12 @@ End
 
 'Helper Functions
 #Rem monkeydoc See if a ray collides with a boundary
-	Returns #tlCollisionResult with the results of the collision
-	You can use this to test for a collision with a ray and any type of boundary: #tlBox, #tlCircle, #tlLine and #tlPolygon. 
+	Returns _tlCollisionResult_ with the results of the collision
+	You can use this to test for a collision with a ray and any type of boundary: _tlBox_, _tlCircle_, _tlLine_ and _tlPolygon_. 
 	Pass the origin of the ray with px and py, and set the direction of the raycast with dx and dy vector. dx and dy will be normalised and extended 
 	infinitely if maxdistance equals 0 (default), otherwise set maxdistance to how ever far you want the ray to extend to before stopping. If the ray starts 
-	inside the poly then result.RayOriginInside will be set to true. You can find the angle of reflection to bounce the ray using #GetReboundVector. 
-#end
+	inside the poly then result.RayOriginInside will be set to true. You can find the angle of reflection to bounce the ray using _GetReboundVector_. 
+#End
 Function CheckRayCollision:tlCollisionResult(target:tlBox, px:Float, py:Float, dx:Float, dy:Float, maxdistance:Float = 0)
 	
 	Return target.RayCollide(px, py, dx, dy, maxdistance)
@@ -3148,7 +3148,7 @@ End Function
 #Rem monkeydoc Do a Line to Circle collision check
 	Returns True if line and circle overlap
 	x1, y1 and x2, y2 represent the beginning and end line coordinates, and px, py and r represent the circle coordinates and radius. 
-#end
+#End
 Function LineToCircle:Int(x1:Float, y1:Float, x2:Float, y2:Float, px:Float, py:Float, r:Float)
 	
 	Local sx:Float = x2-x1
@@ -3169,10 +3169,11 @@ Function LineToCircle:Int(x1:Float, y1:Float, x2:Float, y2:Float, px:Float, py:F
 	Return False
 	
 End Function
+
 #Rem monkeydoc Do a Line to Line collision check
 	Returns True if lines overlap
 	x0, y0, x1, y1 is the first line and x2, y2, x3, y3 is the second line you want want check for an intersection
-#end
+#End
 Function LinesCross:Int(x0:Float, y0:Float, x1:Float, y1:Float, x2:Float, y2:Float, x3:Float, y3:Float)
 	  
 	Local n:Float=(y0-y2)*(x3-x2)-(x0-x2)*(y3-y2)
@@ -3196,7 +3197,7 @@ End Function
 #Rem monkeydoc Do a Line to Line collision check and return the point of intersection.
 	Returns True if lines overlap, and Sets X_Point and Y_Point to the point of interection.
 	x0, y0, x1, y1 is the first line and x2, y2, x3, y3 is the second line you want want check for an intersection
-#end
+#End
 Function LinesCrossAtPoint:Int(x0:Float, y0:Float, x1:Float, y1:Float, x2:Float, y2:Float, x3:Float, y3:Float, points:Float[])
 	  
 	Local n:Float=(y0-y2)*(x3-x2)-(x0-x2)*(y3-y2)
@@ -3223,7 +3224,7 @@ End Function
 
 #Rem monkeydoc Get the quad a vertex lies within
 	This will return the quad a vertex lies within according to the x and y axis you pass it.
-#end
+#End
 Function GetQuad:Int(axis_x:Float, axis_y:Float, vert_x:Float, vert_y:Float)
 	If vert_x<axis_x
 		If vert_y<axis_y
@@ -3243,7 +3244,7 @@ End Function
 
 #Rem monkeydoc Check if a point is with a field of view
 	Returns True if if point is withing observers fov, otherwise false
-#end
+#End
 Function WithinFieldOfView:Int(observer_x:Float, observer_y:Float, fov:Float, direction:Float, pointx:Float, pointy:Float)
 	Return (AngleDifference(GetDirection(observer_x, observer_y, pointx, pointy), direction) <= fov *.5)
 End Function
@@ -3251,7 +3252,7 @@ End Function
 #Rem monkeydoc Return the nearest point on a line to the center of a circle
 	Returns NearestPoint_x and NearestPoint_y
 	x1, y1 and x2, y2 represent the beginning and end line coordinates, and px, py and r represent the circle coordinates and radius. 
-#end
+#End
 Function NearestPointToCircle:Float[](x1:Float, y1:Float, x2:Float, y2:Float, px:Float, py:Float, r:Float, points:Float[])
 	
 	Local sx:Float = x2-x1
@@ -3271,7 +3272,7 @@ End Function
 
 #Rem monkeydoc Find the amount of overlap between 2 1D lines
 	Returns The amount of overlap. Any value less then 0 is not overlapping.
-#end
+#End
 Function IntervalDistance:Float(min0:Float, max0:Float, min1:Float, max1:Float)
 	If min0 < min1
 		Return min1 - max0
@@ -3282,54 +3283,54 @@ End Function
 
 #Rem monkeydoc Create a new tlBox
 	Returns New tlBox
-	Creates a new Bounding box that you can use for collision checking and adding to a #tlQuadTree. Use layer to specify a particular layer
+	Creates a new Bounding box that you can use for collision checking and adding to a _tlQuadTree_. Use layer to specify a particular layer
 	to place the box on so that you can more easily organise your collisions. You use tlLAYER_0, tlLAYER_1..and so on up to tlLAYER_31.
 	to place the boundary on all layers.
-#end
+#End
 Function CreateBox:tlBox(x:Float, y:Float, w:Float, h:Float, layer:Int = tlLAYER_0)
 	Return New tlBox(x, y, w, h, layer)
 End Function
 
 #Rem monkeydoc Create a tlCircle
 	Returns New tlCircle
-	Create a new #tlLine at the coordinates given, x1 and y1 being the start of the line and x2 and y2 being the end. The will placed exactly
+	Create a new _tlLine_ at the coordinates given, x1 and y1 being the start of the line and x2 and y2 being the end. The will placed exactly
 	according to the coordinates you give, but it's worth bearing in mind that the handle of the line will be at the center point along the line. Therefore
 	the world coordinates will be set to half way point along the line. Use layer to specify a particular layer
 	to place the box on so that you can more easily organise your collisions. You use tlLAYER_0, tlLAYER_1..and so on up to tlLAYER_31.
 	to place the boundary on all layers.
-#end
+#End
 Function CreateLine:tlLine(x1:Float, y1:Float, x2:Float, y2:Float, layer:Int = tlLAYER_0)
 	Return New tlLine(x1, y1, x2, y2, layer)
 End Function
 
-#Rem monkeydoc Create a #tlLine
-	Returns New #tlLine
-	Create a new #tlLine at the given coordinates with the given radius. The coordinates will represent the center of the circle. Use layer to specify a particular layer
+#Rem monkeydoc Create a _tlLine_
+	Returns New _tlLine_
+	Create a new _tlLine_ at the given coordinates with the given radius. The coordinates will represent the center of the circle. Use layer to specify a particular layer
 	to place the box on so that you can more easily organise your collisions. You use tlLAYER_0, tlLAYER_1..and so on up to tlLAYER_31.
 	to place the boundary on all layers.
-#end
+#End
 Function CreateCircle:tlCircle(x:Float, y:Float, radius:Float, layer:Int = tlLAYER_0)
 	Return New tlCircle(x, y, radius, layer)
 End Function
 
-#Rem monkeydoc Create a #tlPolygon
-	Returns New #tlPolygon, or Null if verts[] contained the wrong amount.
-	Create a new #tlPolygon at the given coordinates with the given array of vertices. The coordinates will represent the center of the polygon which is
+#Rem monkeydoc Create a _tlPolygon_
+	Returns New _tlPolygon_, or Null if verts[] contained the wrong amount.
+	Create a new _tlPolygon_ at the given coordinates with the given array of vertices. The coordinates will represent the center of the polygon which is
 	automatically calculated. The array must contain more then 5 values (2 per vertex) and be an even number or null will be returned. The coordinates of
 	the vertices in the array are arranged like so: [x,y,x,y,x,y .. etc]. Use layer to specify a particular layer
 	to place the box on so that you can more easily organise your collisions. You use tlLAYER_0, tlLAYER_1..and so on up to tlLAYER_31
 	to place the boundary on all layers.
-#end
+#End
 Function CreatePolygon:tlPolygon(x:Float, y:Float, verts:Float[], layer:Int = tlLAYER_0)
 	Return New tlPolygon(x, y, verts, layer)
 End Function
 
 #Rem monkeydoc Check for a collision between 2 Boundaries
-	returns: #tlCollisionResult.
-	about: You can use this function to check for collisions between any type of boundary: #tlBox, #tlCircle, #tlLine and #tlPolygon. The #tlCollisionResult
-	can then be used to determine what you want to do if a collision happened (or will happen). See #PreventOverlap to make boundaries block or push
+	returns: _tlCollisionResult_.
+	about: You can use this function to check for collisions between any type of boundary: _tlBox_, _tlCircle_, _tlLine_ and _tlPolygon_. The _tlCollisionResult_
+	can then be used to determine what you want to do if a collision happened (or will happen). See _PreventOverlap_ to make boundaries block or push
 	each other.
-#end
+#End
 Function CheckCollision:tlCollisionResult(source:tlBox, target:tlBox)
 	Select source.CollisionType
 		Case tlBOX_COLLISION
@@ -3381,14 +3382,14 @@ Function CheckCollision:tlCollisionResult(source:tlBox, target:tlBox)
 	Return null
 End Function
 
-#Rem monkeydoc Prevent boundaries from overlapping, based on a #tlCollisionResult
-	about: After you have retrieved a #tlCollisionResult from calling #CheckCollision you can call this function to separate 2 boundaries from each other.
+#Rem monkeydoc Prevent boundaries from overlapping, based on a _tlCollisionResult_
+	about: After you have retrieved a _tlCollisionResult_ from calling _CheckCollision_ you can call this function to separate 2 boundaries from each other.
 	If push is false (default) then the source boundary will be stopped by the target boundary, otherwsie the source bouandry will push the target boundary
 	along it's veloctity vector and the normal of the edge it's pushing against.
 	***NOTE*** Remember that after an overlap has been been prevented, the coordinates of the boundary wil have change in order to separate it from the other
 	boundary, so remember to update any other objects coordinates to match this (such as your game object). If your game object is dictating where the boundary 
 	is located then it might inadvertantly place the bouandary back inside the object it's colliding with causing strange things to happen.
-#end
+#End
 Function PreventOverlap(result:tlCollisionResult, push:Int = False)
 	If not result.NoCollision
 		If result.source
