@@ -60,10 +60,6 @@ Struct tlVector2
 	Method SubtractVector:tlVector2(v:tlVector2)
 		Return New tlVector2(x - v.x, y - v.y)
 	End
-	
-	Operator-:tlVector2( v:tlVector2 )
-	  Return New tlVector2( x - v.x,y - v.y )
-	End
 
 	Method AddVector:tlVector2(v:tlVector2)
 		Return New tlVector2(x + v.x, y + v.y)
@@ -71,6 +67,38 @@ Struct tlVector2
 	
 	Operator+:tlVector2( v:tlVector2 )
 	  Return New tlVector2( x + v.x, y + v.y )
+	End
+
+	Operator-:tlVector2( v:tlVector2 )
+	  Return New tlVector2( x - v.x,y - v.y )
+	End
+
+	Operator*:tlVector2( v:tlVector2 )
+	  Return New tlVector2( x * v.x,y * v.y )
+	End
+
+	Operator/:tlVector2( v:tlVector2 )
+	  Return New tlVector2( x / v.x,y / v.y )
+	End
+
+	Operator+=( v:tlVector2 )
+		x += v.x
+		y += v.y
+	End
+
+	Operator-=( v:tlVector2 )
+		x -= v.x
+		y -= v.y
+	End
+
+	Operator*=( v:tlVector2 )
+		x *= v.x
+		y *= v.y
+	End
+
+	Operator/=( v:tlVector2 )
+		x /= v.x
+		y /= v.y
 	End
 
 	Method Multiply:tlVector2(v:tlVector2)

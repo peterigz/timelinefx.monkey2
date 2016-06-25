@@ -146,7 +146,7 @@ Class tlQuadTree
 			rootnode[l] = New tlQuadTreeNode(x, y, w, h, Self, l)
 			For Local x:Int = 0 To dimension - 1
 				For Local y:Int = 0 To dimension - 1
-					map[l * x * y] = rootnode[l]
+					map[x + dimension * (y + dimension * l)] = rootnode[l]
 				Next
 			Next
 			rootnode[l].dimension = dimension
@@ -243,12 +243,12 @@ Class tlQuadTree
 	bbdoc: Query the quadtree to find objects within a #tlBox
 	about: This does the same thing as #ForEachObjectInArea except you can pass a #tlBox instead to query the quadtree.
 	#end
-	Method GetObjectsInBox:Stack(area:tlBox, Layer:Int[], GetData:Int = False)
+	Method GetObjectsInBox:Stack<tlBox>(area:tlBox, Layer:Int[], GetData:Int = False)
 		objectsfound = 0
 		areacheckindex+=1
 		AreaCheckCount[areacheckindex] = GetUniqueNumber()
-		Local list:Stack = CreateStack()
-		For Local c:Int = 0 To Layer.length - 1
+		Local list:Stack<tlBox> = New Stack<tlBox>
+		For Local c:Int = 0 To Layer.Length - 1
 			list = rootnode[Layer[c]].GetEachInArea(area, True, list, GetData)
 		Next
 		areacheckindex-=1
@@ -288,12 +288,12 @@ Class tlQuadTree
 	bbdoc: Query the quadtree to find objects within a #tlCircle
 	about: This does the same thing as #ForEachObjectWithinRange except you can pass a #tlCircle instead to query the quadtree.
 	#end
-	Method GetObjectsInCircle:Stack(circle:tlCircle, Layer:Int[], GetData:Int = False, Limit:Int = 0)
+	Method GetObjectsInCircle:Stack<Object>(circle:tlCircle, Layer:Int[], GetData:Int = False, Limit:Int = 0)
 		objectsfound = 0
 		areacheckindex+=1
 		AreaCheckCount[areacheckindex] = GetUniqueNumber()
-		Local list:Stack = CreateStack()
-		For Local c:Int = 0 To Layer.length - 1
+		Local list:= New Stack<Object>
+		For Local c:Int = 0 To Layer.Length - 1
 			rootnode[Layer[c]].GetEachInRange(circle, True, list, GetData, Limit)
 		Next
 		areacheckindex-=1
@@ -323,24 +323,22 @@ Class tlQuadTree
 		Local x1:Float = line.TFormVertices[0].x + line.World.x
 		Local y1:Float = line.TFormVertices[0].y + line.World.y
 
-		Local x:Int = x1 / min_nodewidth
-		Local y:Int = y1 / min_nodeheight
-		
-		Local wx:Float = x * min_nodewidth
-		Local wy:Float = y * min_nodeheight
-		
-		Local objectfound:Int
-			
 		For Local c:Int = 0 To Layer.Length - 1
-			Local tMaxX:Float
-			Local tMaxY:Float
+			Local tMaxX:Float = 0 
+			Local tMaxY:Float = 0
 			Local direction:Int
 			
-			Local StepX:Int
-			Local StepY:Int
+			Local StepX:Int = 0
+			Local StepY:Int = 0
 			
-			Local DeltaX:Float
-			Local DeltaY:Float
+			Local DeltaX:Float = 0
+			Local DeltaY:Float = 0
+
+			Local x:Int = x1 / min_nodewidth
+			Local y:Int = y1 / min_nodeheight
+
+			Local wx:Float = x * min_nodewidth
+			Local wy:Float = y * min_nodeheight
 			
 			If d.x < 0
 				StepX = -1
@@ -410,12 +408,12 @@ Class tlQuadTree
 			Select direction
 				Case 0
 					While x >= 0 And x < dimension And y >= 0 And y < dimension
-						If map[Layer[c]*x*y] <> lastquad
-							map[Layer[c]*x*y].ForEachObjectAlongLine(line, data, onFoundObject)
+						If map[x + dimension * (y + dimension * Layer[c])] <> lastquad
+							map[x + dimension * (y + dimension * Layer[c])].ForEachObjectAlongLine(line, data, onFoundObject)
 						End If
-						lastquad = map[Layer[c]*x*y]
+						lastquad = map[x + dimension * (y + dimension * Layer[c])]
 						
-						dv = New tlVector2(map[Layer[c]*x*y].Box.World.x - x1, map[Layer[c]*x*y].Box.World.x - x1)
+						dv = New tlVector2(map[x + dimension * (y + dimension * Layer[c])].Box.World.x - x1, map[x + dimension * (y + dimension * Layer[c])].Box.World.y - y1)
 						If endofline Exit
 						If dv.DotProduct(dv) > maxdistance endofline = True
 						
@@ -428,13 +426,13 @@ Class tlQuadTree
 						End If
 					Wend
 				Case 1	'vertically only
-					While y >= 0 And y < dimension And Not objectfound
-						If map[Layer[c]*x*y] <> lastquad
-							map[Layer[c]*x*y].ForEachObjectAlongLine(line, data, onFoundObject)
+					While y >= 0 And y < dimension
+						If map[x + dimension * (y + dimension * Layer[c])] <> lastquad
+							map[x + dimension * (y + dimension * Layer[c])].ForEachObjectAlongLine(line, data, onFoundObject)
 						End If
-						lastquad = map[Layer[c]*x*y]
+						lastquad = map[x + dimension * (y + dimension * Layer[c])]
 						
-						dv = New tlVector2(map[Layer[c]*x*y].Box.World.x - x1, map[Layer[c]*x*y].Box.World.x - x1)
+						dv = New tlVector2(map[x + dimension * (y + dimension * Layer[c])].Box.World.x - x1, map[x + dimension * (y + dimension * Layer[c])].Box.World.y - y1)
 						If endofline Exit
 						If dv.DotProduct(dv) > maxdistance endofline = True
 						
@@ -442,13 +440,13 @@ Class tlQuadTree
 						y+=StepY
 					Wend
 				Case 2	'horizontally only
-					While x >= 0 And x < dimension And Not objectfound
-						If map[Layer[c]*x*y] <> lastquad
-							map[Layer[c]*x*y].ForEachObjectAlongLine(line, data, onFoundObject)
+					While x >= 0 And x < dimension
+						If map[x + dimension * (y + dimension * Layer[c])] <> lastquad
+							map[x + dimension * (y + dimension * Layer[c])].ForEachObjectAlongLine(line, data, onFoundObject)
 						End If
-						lastquad = map[Layer[c]*x*y]
+						lastquad = map[x + dimension * (y + dimension * Layer[c])]
 						
-						dv = New tlVector2(map[Layer[c]*x*y].Box.World.x - x1, map[Layer[c]*x*y].Box.World.x - x1)
+						dv = New tlVector2(map[x + dimension * (y + dimension * Layer[c])].Box.World.x - x1, map[x + dimension * (y + dimension * Layer[c])].Box.World.y - y1)
 						If endofline Exit
 						If dv.DotProduct(dv) > maxdistance endofline = True
 						
@@ -460,12 +458,7 @@ Class tlQuadTree
 		
 		areacheckindex-=1
 		
-		If objectfound
-			objectsfound = 1
-			Return True
-		End
-		
-		Return False
+		Return True
 	End
 	
 	#rem
@@ -481,27 +474,29 @@ Class tlQuadTree
 		Local d:tlVector2 = New tlVector2(dx, dy)
 		d.Normalise()
 		If Not d.x And Not d.y
+			areacheckindex-=1
 			Return False
 		End If
-				
-		Local x:Int = px / min_nodewidth
-		Local y:Int = py / min_nodeheight
-		
-		Local wx:Float = x * min_nodewidth
-		Local wy:Float = y * min_nodeheight
 		
 		Local objectfound:Int
 		
 		For Local c:Int = 0 To Layer.Length - 1
-			Local tMaxX:Float
-			Local tMaxY:Float
+
+			Local tMaxX:Float = 0 
+			Local tMaxY:Float = 0
 			Local direction:Int
 			
-			Local StepX:Int
-			Local StepY:Int
+			Local StepX:Int = 0
+			Local StepY:Int = 0
 			
-			Local DeltaX:Float
-			Local DeltaY:Float
+			Local DeltaX:Float = 0
+			Local DeltaY:Float = 0
+
+			Local x:Int = px / min_nodewidth
+			Local y:Int = py / min_nodeheight
+
+			Local wx:Float = x * min_nodewidth
+			Local wy:Float = y * min_nodeheight
 			
 			If d.x < 0
 				StepX = -1
@@ -536,10 +531,10 @@ Class tlQuadTree
 			Select direction
 				Case 0
 					While x >= 0 And x < dimension And y >= 0 And y < dimension And Not objectfound
-						If map[Layer[c]*x*y] <> lastquad
-							objectfound = map[Layer[c]*x*y].RayCast(px, py, dx, dy, maxdistance, Data, onFoundObject)
+						If map[x + dimension * (y + dimension * Layer[c])] <> lastquad
+							objectfound = map[x + dimension * (y + dimension * Layer[c])].RayCast(px, py, dx, dy, maxdistance, Data, onFoundObject)
 						End If
-						lastquad = map[Layer[c]*x*y]
+						lastquad = map[x + dimension * (y + dimension * Layer[c])]
 						If(tMaxX < tMaxY)
 							tMaxX+=DeltaX
 							x = x + StepX
@@ -550,19 +545,19 @@ Class tlQuadTree
 					Wend
 				Case 1	'vertically only
 					While y >= 0 And y < dimension And Not objectfound
-						If map[Layer[c]*x*y] <> lastquad
-							objectfound = map[Layer[c]*x*y].RayCast(px, py, dx, dy, maxdistance, Data, onFoundObject)
+						If map[x + dimension * (y + dimension * Layer[c])] <> lastquad
+							objectfound = map[x + dimension * (y + dimension * Layer[c])].RayCast(px, py, dx, dy, maxdistance, Data, onFoundObject)
 						End If
-						lastquad = map[Layer[c]*x*y]
+						lastquad = map[x + dimension * (y + dimension * Layer[c])]
 						tMaxY+=DeltaY
 						y = y + StepY
 					Wend
 				Case 2	'horizontally only
 					While x >= 0 And x < dimension And Not objectfound
-						If map[Layer[c]*x*y] <> lastquad
-							objectfound = map[Layer[c]*x*y].RayCast(px, py, dx, dy, maxdistance, Data, onFoundObject)
+						If map[x + dimension * (y + dimension * Layer[c])] <> lastquad
+							objectfound = map[x + dimension * (y + dimension * Layer[c])].RayCast(px, py, dx, dy, maxdistance, Data, onFoundObject)
 						End If
-						lastquad = map[Layer[c]*x*y]
+						lastquad = map[x + dimension * (y + dimension * Layer[c])]
 						tMaxX+=DeltaX
 						x = x + StepX
 					Wend
@@ -725,7 +720,7 @@ Class tlQuadTreeNode
 			For Local c:Int = 0 To parenttree.maxLayers - 1
 				For Local x:Int = 0 To dimension - 1
 					For Local y:Int = 0 To dimension - 1
-						parenttree.map[c * (x + gridx) * (y + gridy)] = Self
+						parenttree.map[(x + gridx) + parenttree.dimension * ((y + gridy) + parenttree.dimension * c)] = Self
 					Next
 				Next
 			Next
@@ -757,13 +752,20 @@ Class tlQuadTreeNode
 		If partitioned
 			MoveRectDown(r)
 		Else
+			objects.Add(r)
+			numberofobjects+=1
+			r.AddQuad(Self)
 			If nodelevel < parenttree.Layerconfigs[Layer*MAX_NODE_LEVELS] And numberofobjects + 1 > parenttree.Layerconfigs[Layer*MAX_PER_NODE]
-				Partition()
-				AddBox(r)
-			Else
-				objects.Add(r)
-				numberofobjects+=1
-				r.AddQuad(Self)
+				If Not partitioned Partition()
+				local rects:=objects.All()
+				local box:tlBox
+				while not rects.AtEnd
+					box = rects.Current
+					box.RemoveQuad(self)
+					numberofobjects-=1
+					MoveRectDown(box)
+					rects.Erase()
+				End
 			End If
 		End If
 	End
@@ -838,21 +840,21 @@ Class tlQuadTreeNode
 		End If
 	End
 	
-	Method GetEachInArea:Stack(area:tlBox, velocitycheck:Int, list:Stack, GetData:Int)
+	Method GetEachInArea:Stack<tlBox>(area:tlBox, velocitycheck:Int, list:Stack<tlBox>, GetData:Int)
 		'run a callback on objects found within the nodes that the area overlaps
 		Local checkindex:Int = parenttree.areacheckindex
 		If Box.BoundingBoxOverlap(area, velocitycheck)
 			If partitioned
-				If Not objects.IsEmpty
-					Local last:Object = objects.Last()
+				If Not objects.Empty
+					Local last:Object = objects.Top
 					For Local r:tlBox = EachIn objects
 						If r.AreaCheckCount[checkindex] <> parenttree.AreaCheckCount[checkindex] And r <> area
 							If r.BoundingBoxOverlap(area, True)
 								Select GetData
 									Case True
-										list.AddLast(r._data)
+										list.Add(r)
 									Case False
-										list.AddLast(r)
+										list.Add(r)
 								End Select
 							End If
 							r.AreaCheckCount[checkindex] = parenttree.AreaCheckCount[checkindex]
@@ -867,16 +869,16 @@ Class tlQuadTreeNode
 				list = childnode[2].GetEachInArea(area, velocitycheck, list, GetData)
 				list = childnode[3].GetEachInArea(area, velocitycheck, list, GetData)
 			Else
-				If Not objects.IsEmpty
-					Local last:Object = objects.Last()
+				If Not objects.Empty
+					Local last:Object = objects.Top
 					For Local r:tlBox = EachIn objects
 						If r.AreaCheckCount[checkindex] <> parenttree.AreaCheckCount[checkindex] And r <> area
 							If r.BoundingBoxOverlap(area, True)
 								Select GetData
 									Case True
-										list.AddLast(r._data)
+										list.Add(r)
 									Case False
-										list.AddLast(r)
+										list.Add(r)
 								End Select
 							End If
 							r.AreaCheckCount[checkindex] = parenttree.AreaCheckCount[checkindex]
@@ -897,18 +899,25 @@ Class tlQuadTreeNode
 		If Box.CircleOverlap(Range)
 			If partitioned
 				If Not objects.Empty
-					Local last:Object = objects.Top
-					For Local r:tlBox = EachIn objects
-						If r.AreaCheckCount[checkindex] <> parenttree.AreaCheckCount[checkindex] And Range <> r
-							If Range.BoundingBoxOverlap(r, True)
+					local rects:=objects.All()
+					local r:tlBox
+					While not rects.AtEnd
+						r = rects.Current
+						If r.AreaCheckCount[checkindex] <> parenttree.AreaCheckCount[checkindex] And r <> Range
+							If r.CircleOverlap(Range)
 								onFoundObject.doAction(r, Data)
 							End If
 							r.AreaCheckCount[checkindex] = parenttree.AreaCheckCount[checkindex]
 							parenttree.objectsfound+=1
 							parenttree.objectsprocessed+=1
 						End If
-						If last = r Exit
-					Next
+						if r.remove
+							r.remove = False
+							rects.Erase()
+						Else
+							rects.Bump()
+						End If
+					Wend
 				End If
 				childnode[0].ForEachWithinRangeDo(Range, Data, onFoundObject)
 				childnode[1].ForEachWithinRangeDo(Range, Data, onFoundObject)
@@ -916,24 +925,31 @@ Class tlQuadTreeNode
 				childnode[3].ForEachWithinRangeDo(Range, Data, onFoundObject)
 			Else
 				If Not objects.Empty
-					Local last:Object = objects.Top
-					For Local r:tlBox = EachIn objects
-						If r.AreaCheckCount[checkindex] <> parenttree.AreaCheckCount[checkindex] And Range <> r
-							If Range.BoundingBoxOverlap(r, True)
+					local rects:=objects.All()
+					local r:tlBox
+					While not rects.AtEnd
+						r = rects.Current
+						If r.AreaCheckCount[checkindex] <> parenttree.AreaCheckCount[checkindex] And r <> Range
+							If r.CircleOverlap(Range)
 								onFoundObject.doAction(r, Data)
 							End If
 							r.AreaCheckCount[checkindex] = parenttree.AreaCheckCount[checkindex]
 							parenttree.objectsfound+=1
 							parenttree.objectsprocessed+=1
 						End If
-						If last = r Exit
-					Next
+						if r.remove
+							r.remove = False
+							rects.Erase()
+						Else
+							rects.Bump()
+						End If
+					Wend
 				End If
 			End If
 		End If
 	End
 	
-	Method GetEachInRange:Stack(Range:tlCircle, velocitycheck:Int, list:Stack, GetData:Int, Limit:Int)
+	Method GetEachInRange:Stack<Object>(Range:tlCircle, velocitycheck:Int, list:Stack<Object>, GetData:Int, Limit:Int)
 		'run a callback on objects found within the nodes that the circle overlaps
 		Local checkindex:Int = parenttree.areacheckindex
 		If Limit > 0 And parenttree.objectsfound >= Limit
@@ -941,16 +957,16 @@ Class tlQuadTreeNode
 		End If
 		If Box.CircleOverlap(Range)
 			If partitioned
-				If Not objects.IsEmpty
+				If Not objects.Empty
 					Local last:Object = objects.Top
 					For Local r:tlBox = EachIn objects
 						If r.AreaCheckCount[checkindex] <> parenttree.AreaCheckCount[checkindex] And Range <> r
-							If range.BoundingBoxOverlap(r, True)
+							If Range.BoundingBoxOverlap(r, True)
 								Select GetData
 									Case True
-										list.AddLast(r._data)
+										list.Add(r.Data)
 									Case False
-										list.AddLast(r)
+										list.Add(r)
 								End Select
 							End If
 							r.AreaCheckCount[checkindex] = parenttree.AreaCheckCount[checkindex]
@@ -968,16 +984,16 @@ Class tlQuadTreeNode
 				list = childnode[2].GetEachInRange(Range, velocitycheck, list, GetData, Limit)
 				list = childnode[3].GetEachInRange(Range, velocitycheck, list, GetData, Limit)
 			Else
-				If Not objects.IsEmpty
+				If Not objects.Empty
 					Local last:Object = objects.Top
 					For Local r:tlBox = EachIn objects
 						If r.AreaCheckCount[checkindex] <> parenttree.AreaCheckCount[checkindex] And Range <> r
-							If range.BoundingBoxOverlap(r, True)
+							If Range.BoundingBoxOverlap(r, True)
 								Select GetData
 									Case True
-										list.AddLast(r._data)
+										list.Add(r.Data)
 									Case False
-										list.AddLast(r)
+										list.Add(r)
 								End Select
 							End If
 							r.AreaCheckCount[checkindex] = parenttree.AreaCheckCount[checkindex]
@@ -998,19 +1014,30 @@ Class tlQuadTreeNode
 	Method ForEachObjectAlongLine(Line:tlLine, Data:Object, onFoundObject:tlQuadTreeEvent)
 		Local result:tlCollisionResult
 		Local checkindex:Int = parenttree.areacheckindex
-		For Local r:tlBox = EachIn objects
-			If r.AreaCheckCount[checkindex] <> parenttree.AreaCheckCount[checkindex] And Line <> r
-				result = r.LineCollide(Line)
-				If not result.NoCollision
-					If result.Intersecting Or result.WillIntersect
-						onFoundObject.doAction(r, Data, result)
-						r.AreaCheckCount[checkindex] = parenttree.AreaCheckCount[checkindex]
-						parenttree.objectsfound+=1
-						parenttree.objectsprocessed+=1
+		if not objects.Empty
+			local rects:=objects.All()
+			local r:tlBox
+			While not rects.AtEnd
+				r = rects.Current
+				If r.AreaCheckCount[checkindex] <> parenttree.AreaCheckCount[checkindex] And Line <> r
+					result = r.LineCollide(Line)
+					If not result.NoCollision
+						If result.Intersecting Or result.WillIntersect
+							onFoundObject.doAction(r, Data, result)
+							r.AreaCheckCount[checkindex] = parenttree.AreaCheckCount[checkindex]
+							parenttree.objectsfound+=1
+							parenttree.objectsprocessed+=1
+						End If
 					End If
 				End If
-			End If
-		Next
+				if r.remove
+					r.remove = False
+					rects.Erase()
+				Else
+					rects.Bump()
+				End If
+			wend
+		End
 	End
 	
 	Method RayCast:Int(px:Float, py:Float, dx:Float, dy:Float, maxdistance:Int, Data:Object, onFoundObject:tlQuadTreeEvent)
@@ -1020,20 +1047,31 @@ Class tlQuadTreeNode
 		Local nearestresult:tlCollisionResult
 		Local mindistance:Float = $7fffffff
 		
-		For Local r:tlBox = EachIn objects
-			result = r.RayCollide(px, py, dx, dy, maxdistance)
-			If result.RayOriginInside
-				mindistance = result.RayDistance
-				nearestresult = result
-				nearestobject = r
-				Exit
-			End If
-			If result.RayDistance < mindistance And result.HasIntersection
-				mindistance = result.RayDistance
-				nearestresult = result
-				nearestobject = r
-			End If
-		Next
+		if not objects.Empty
+			local rects:=objects.All()
+			local r:tlBox
+			While not rects.AtEnd
+				r = rects.Current
+				result = r.RayCollide(px, py, dx, dy, maxdistance)
+				If result.RayOriginInside
+					mindistance = result.RayDistance
+					nearestresult = result
+					nearestobject = r
+					Exit
+				End If
+				If result.RayDistance < mindistance And result.HasIntersection
+					mindistance = result.RayDistance
+					nearestresult = result
+					nearestobject = r
+				End If
+				if r.remove
+					r.remove = False
+					rects.Erase()
+				Else
+					rects.Bump()
+				End If
+			Wend
+		End If
 		
 		If nearestobject
 			onFoundObject.doAction(nearestobject, Data, nearestresult)

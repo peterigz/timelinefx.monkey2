@@ -993,18 +993,26 @@ Class tlBox
 		canvas.DrawLine(br_corner.x - offsetx, br_corner.y - offsety, tl_corner.x - offsetx, br_corner.y - offsety)
 		canvas.DrawLine(tl_corner.x - offsetx, br_corner.y - offsety, tl_corner.x - offsetx, tl_corner.y - offsety)
 	End
-	
 
 	Method RemoveFromQuadTree()
 		If quadtree
 			Local nodes:=quadlist.All()
 			While not nodes.AtEnd
 				local q:=nodes.Current
+				q.numberofobjects-=1
 				q.objects.Remove(Self)
 				nodes.Erase()
 			wend
 			quadtree.totalobjectsintree -= 1
 		End If
+	End
+
+	Method EmptyQuadList()
+		Local nodes:=quadlist.All()
+		While not nodes.AtEnd
+			local q:=nodes.Current
+			nodes.Erase()
+		wend
 	End
 	
 	#rem monkeydoc Get the collision type of the Box
@@ -1203,10 +1211,8 @@ Class tlBox
 		'After the bounding box is updated, it needs to be moved into world space.
 		boxoffset.x = tl_corner.x
 		boxoffset.y = tl_corner.y
-		tl_corner.x+=world.x
-		tl_corner.y+=world.y
-		br_corner.x+=world.x
-		br_corner.y+=world.y
+		tl_corner+=world
+		br_corner+=world
 	End
 	
 	Method UpdateDimensions() Virtual
