@@ -81,6 +81,7 @@ Class CollisionTest Extends Window
 		
 		'if the result shows an intersection and it wasn't insise the shape
 		If result.HasIntersection And Not result.RayOriginInside
+
 			'draw the ray upto the intersection point
 			canvas.DrawLine(point.x, point.y, result.RayIntersection.x, result.RayIntersection.y)
 			canvas.DrawOval(result.RayIntersection.x - 4, result.RayIntersection.y - 4, 8, 8)

@@ -1059,6 +1059,7 @@ Class tlQuadTreeNode
 	Method ForEachObjectAlongLine(Line:tlLine, Data:Object, onFoundObject:tlQuadTreeEvent)
 		Local result:tlCollisionResult
 		Local checkindex:Int = parenttree.areacheckindex
+
 		if not objects.Empty
 			local rects:=objects.All()
 			local r:tlBox
@@ -1091,7 +1092,7 @@ Class tlQuadTreeNode
 		Local nearestobject:tlBox
 		Local nearestresult:tlCollisionResult
 		Local mindistance:Float = $7fffffff
-		
+
 		if not objects.Empty
 			local rects:=objects.All()
 			local r:tlBox

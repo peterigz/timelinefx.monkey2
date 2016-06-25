@@ -72,6 +72,7 @@ Const tlLAYER_31:Int = 31
 Struct tlCollisionResult
 
 	Private
+
 	Field willintersect:Int = True
 	Field intersecting:Int = True
 	Field rayorigininside:Int
@@ -121,8 +122,17 @@ Struct tlCollisionResult
 	Setter (v:int)
 		willintersect = v
 	End
-	
-	#Rem monkeydoc Get the distance from the ray origin to the instersection point
+
+	#rem monkeydoc Find out if the last ray cast found that the ray originated inside the boundary
+		Returns true if the last ray check originated inside the boundary
+	#end
+	Property RayOriginInside:Int() 
+		Return rayorigininside
+	Setter (v:int)
+		rayorigininside = v
+	End
+
+	#rem monkeydoc Get the distance from the ray origin to the instersection point
 		Returns float value of distance the ray travelled, 0 if there was no intersection
 	#End
 	Property RayDistance:Float() 
@@ -212,15 +222,6 @@ Struct tlCollisionResult
 		EndIf
 		
 		Return v
-	End
-	
-	#Rem monkeydoc Find out if the last ray cast found that the ray originated inside the boundary
-		Returns true if the last ray check originated inside the boundary
-	#End
-	Property RayOriginInside:Int() 
-		Return rayorigininside
-	Setter (v:int)
-		rayorigininside = v
 	End
 End
 
@@ -576,8 +577,9 @@ Class tlBox
 					Else
 						result.WillIntersect = False
 					End If
-					
+				
 					If Not result.Intersecting And Not result.WillIntersect Return result
+
 					
 					overlapdistance = Abs(overlapdistance)
 								
@@ -619,8 +621,9 @@ Class tlBox
 					Else
 						result.WillIntersect = False
 					End If
-					
+			
 					If Not result.Intersecting And Not result.WillIntersect Return result
+
 					
 					overlapdistance = Abs(overlapdistance)
 								
@@ -718,6 +721,7 @@ Class tlBox
 			End If
 			
 			If Not result.Intersecting And Not result.WillIntersect Return result
+
 			
 			overlapdistance = Abs(overlapdistance)
 						
@@ -725,12 +729,15 @@ Class tlBox
 				minoverlapdistance = overlapdistance
 				result.SurfaceNormal = axis.Clone()
 				Local polytopolyvec:tlVector2 = worldhandle.SubtractVector(circle.worldhandle)
+
 				If polytopolyvec.DotProduct(result.SurfaceNormal) < 0 result.SurfaceNormal = result.SurfaceNormal.Mirror()
+
 			End If
 			
 		Next
 		
 		result.TranslationVector = result.SurfaceNormal.Scale(minoverlapdistance)
+
 		result.source = Self
 		result.target = circle
 		Return result
@@ -811,6 +818,7 @@ Class tlBox
 			End If
 			
 			If Not result.Intersecting And Not result.WillIntersect Return result
+
 			
 			overlapdistance = Abs(overlapdistance)
 						
@@ -818,12 +826,15 @@ Class tlBox
 				minoverlapdistance = overlapdistance
 				result.SurfaceNormal = axis.Clone()
 				Local vec:tlVector2 = worldhandle.SubtractVector(line.worldhandle)
+
 				If vec.DotProduct(result.SurfaceNormal) < 0 result.SurfaceNormal = result.SurfaceNormal.Mirror()
+
 			End If
 			
 		Next
 		
 		result.TranslationVector = result.SurfaceNormal.Scale(minoverlapdistance)
+
 		result.source = Self
 		result.target = line
 		Return result
@@ -903,6 +914,7 @@ Class tlBox
 			End If
 			
 			If Not result.Intersecting And Not result.WillIntersect Return result
+
 			
 			overlapdistance = Abs(overlapdistance)
 						
@@ -915,6 +927,7 @@ Class tlBox
 			
 		Next
 		result.TranslationVector = result.SurfaceNormal.Scale(minoverlapdistance)
+
 		result.source = Self
 		result.target = poly
 		Return result
@@ -1406,11 +1419,13 @@ Class tlCircle Extends tlBox
 				result.SurfaceNormal = axis.Clone()
 				Local polytopolyvec:tlVector2 = worldhandle.SubtractVector(box.worldhandle)
 				If polytopolyvec.DotProduct(result.SurfaceNormal) < 0 result.SurfaceNormal = result.SurfaceNormal.Mirror()
+
 			End If
 			
 		Next
-		
+
 		result.TranslationVector = result.SurfaceNormal.Scale(minoverlapdistance)
+
 		result.source = Self
 		result.target = box
 		Return result
@@ -1497,6 +1512,7 @@ Class tlCircle Extends tlBox
 		End If
 					
 		result.TranslationVector = result.SurfaceNormal.Scale(minoverlapdistance)
+
 		result.source = Self
 		result.target = circle
 		Return result
@@ -1589,11 +1605,13 @@ Class tlCircle Extends tlBox
 				result.SurfaceNormal = axis.Clone()
 				Local polytocirclevec:tlVector2 = worldhandle.SubtractVector(line.worldhandle)
 				If polytocirclevec.DotProduct(result.SurfaceNormal) < 0 result.SurfaceNormal = result.SurfaceNormal.Mirror()
+
 			End If
 			
 		Next
 		
 		result.TranslationVector = result.SurfaceNormal.Scale(minoverlapdistance)
+
 		result.source = Self
 		result.target = line
 		Return result
@@ -1686,11 +1704,13 @@ Class tlCircle Extends tlBox
 				result.SurfaceNormal = axis.Clone()
 				Local vec:tlVector2 = worldhandle.SubtractVector(poly.worldhandle)
 				If vec.DotProduct(result.SurfaceNormal) < 0 result.SurfaceNormal = result.SurfaceNormal.Mirror()
+
 			End If
 			
 		Next
 		
 		result.TranslationVector = result.SurfaceNormal.Scale(minoverlapdistance)
+
 		result.source = Self
 		result.target = poly
 		Return result
@@ -1702,6 +1722,7 @@ Class tlCircle Extends tlBox
 		dx and dy will be normalised and extended infinitely, if maxdistance equals 0 (default), otherwise set maxdistance to how ever far you want the ray 
 		to extend to. If the ray starts inside the poly then result.RayOriginInside will be set to true.
 	#End
+
 	Method RayCollide:tlCollisionResult(px:Float, py:Float, dx:Float, dy:Float, maxdistance:Float = 0) Override
 		
 		Local result:tlCollisionResult = New tlCollisionResult
@@ -1756,6 +1777,7 @@ Class tlCircle Extends tlBox
 				result.RayIntersection = New tlVector2(px + u * dx, py + u * dy)
 				result.SurfaceNormal = result.RayIntersection.SubtractVector(worldhandle)
 				result.SurfaceNormal = result.SurfaceNormal.Normalise()
+
 				result.RayDistance = u
 				result.target = Self
 				Return result
@@ -2107,6 +2129,7 @@ Class tlPolygon Extends tlBox
 			
 		Next
 		result.TranslationVector = result.SurfaceNormal.Scale(minoverlapdistance)
+
 		result.source = Self
 		result.target = Box
 		Return result
@@ -2199,11 +2222,13 @@ Class tlPolygon Extends tlBox
 				result.SurfaceNormal = axis.Clone()
 				Local polytocirclevec:tlVector2 = worldhandle.SubtractVector(circle.worldhandle)
 				If polytocirclevec.DotProduct(result.SurfaceNormal) < 0 result.SurfaceNormal = result.SurfaceNormal.Mirror()
+
 			End If
 			
 		Next
 		
 		result.TranslationVector = result.SurfaceNormal.Scale(minoverlapdistance)
+
 		result.source = Self
 		result.target = circle
 		Return result
@@ -2292,11 +2317,13 @@ Class tlPolygon Extends tlBox
 				result.SurfaceNormal = axis.Clone()
 				Local polytopolyvec:tlVector2 = worldhandle.SubtractVector(Line.worldhandle)
 				If polytopolyvec.DotProduct(result.SurfaceNormal) < 0 result.SurfaceNormal = result.SurfaceNormal.Mirror()
+
 			End If
 			
 		Next
 		
 		result.TranslationVector = result.SurfaceNormal.Scale(minoverlapdistance)
+
 		result.source = Self
 		result.target = Line
 		Return result
@@ -2385,6 +2412,7 @@ Class tlPolygon Extends tlBox
 				result.SurfaceNormal = axis.Clone()
 				Local polytopolyvec:tlVector2 = worldhandle.SubtractVector(poly.worldhandle)
 				If polytopolyvec.DotProduct(result.SurfaceNormal) < 0 result.SurfaceNormal = result.SurfaceNormal.Mirror()
+
 			End If
 			
 		Next
@@ -2705,7 +2733,7 @@ Class tlLine Extends tlPolygon
 			End If
 			
 		Next
-		
+
 		result.TranslationVector = result.SurfaceNormal.Scale(minoverlapdistance)
 		result.source = Self
 		result.target = Box
