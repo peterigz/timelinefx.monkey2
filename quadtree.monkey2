@@ -243,11 +243,11 @@ Class tlQuadTree
 	bbdoc: Query the quadtree to find objects within a #tlBox
 	about: This does the same thing as #ForEachObjectInArea except you can pass a #tlBox instead to query the quadtree.
 	#end
-	Method GetObjectsInBox:Stack<tlBox>(area:tlBox, Layer:Int[], GetData:Int = False)
+	Method GetObjectsInBox:Stack<Object>(area:tlBox, Layer:Int[], GetData:Int = False)
 		objectsfound = 0
 		areacheckindex+=1
 		AreaCheckCount[areacheckindex] = GetUniqueNumber()
-		Local list:Stack<tlBox> = New Stack<tlBox>
+		Local list:Stack<Object> = New Stack<Object>
 		For Local c:Int = 0 To Layer.Length - 1
 			list = rootnode[Layer[c]].GetEachInArea(area, True, list, GetData)
 		Next
@@ -840,7 +840,7 @@ Class tlQuadTreeNode
 		End If
 	End
 	
-	Method GetEachInArea:Stack<tlBox>(area:tlBox, velocitycheck:Int, list:Stack<tlBox>, GetData:Int)
+	Method GetEachInArea:Stack<Object>(area:tlBox, velocitycheck:Int, list:Stack<Object>, GetData:Int)
 		'run a callback on objects found within the nodes that the area overlaps
 		Local checkindex:Int = parenttree.areacheckindex
 		If Box.BoundingBoxOverlap(area, velocitycheck)
@@ -852,7 +852,7 @@ Class tlQuadTreeNode
 							If r.BoundingBoxOverlap(area, True)
 								Select GetData
 									Case True
-										list.Add(r)
+										list.Add(r.Data)
 									Case False
 										list.Add(r)
 								End Select
@@ -876,7 +876,7 @@ Class tlQuadTreeNode
 							If r.BoundingBoxOverlap(area, True)
 								Select GetData
 									Case True
-										list.Add(r)
+										list.Add(r.Data)
 									Case False
 										list.Add(r)
 								End Select
