@@ -26,9 +26,15 @@ Using timelinefx.collision..
 Using std.collections..
 Using std.random..
 
+#Rem monkeydoc @hidden
+#End
 Const MAX_NODE_LEVELS:Int = 1
+#Rem monkeydoc @hidden
+#End
 Const MAX_PER_NODE:Int = 2
 
+#Rem monkeydoc Interface for creating events where you can control what happens when objects are found in the quadtree
+#End
 Interface tlQuadTreeEvent
 	Method doAction:Void(ReturnedObject:Object, Data:Object)
 	Method doAction:Void(ReturnedObject:Object, Data:Object, Result:tlCollisionResult)
