@@ -40,8 +40,7 @@ Interface tlQuadTreeEvent
 	Method doAction:Void(ReturnedObject:Object, Data:Object, Result:tlCollisionResult)
 End
 
-#Rem
-	monkeydoc Quadtree type for managing a quadtree
+#Rem monkeydoc Quadtree type for managing a quadtree
 
 	_Some of these docs are out of date, will remove this message when I've modified them. See samples folder for more examples_
 
@@ -153,8 +152,7 @@ Class tlQuadTree
 
 	Field restack:Stack<tlBox>
 	
-	#Rem
-		monkeydoc Create a new tlQuadTree
+	#Rem monkeydoc Create a new tlQuadTree
 		Creates a new quad tree with the coordinates and dimensions given. _maxlevels determines how many times the quadtree can be sub divided. A
 		quadtreenode is only subdivided when a certain amount of objects have been added, which is set by passing _maxpernode. There's no optimum values for
 		these, it largely depends on your specific needs, so you will probably do well to experiment. Set maxLayers to determine exactly how many Layers
@@ -190,8 +188,7 @@ Class tlQuadTree
 		restack = New Stack<tlBox>
 	End
 	
-	#Rem
-		monkeydoc Configure a Layer of the quadtree
+	#Rem monkeydoc Configure a Layer of the quadtree
 		As the quadtree is broken up into Layers, this means you can configure each Layer to have a specific number of maximum levels
 		and objects per node. This helps you to be more specific about how you optimise your quadtree. You should configure the Layers immediately
 		after creating the quadtree and before anything is added to the tree. Layers can not be reconfigured once the quadtree has had objects added
@@ -209,8 +206,7 @@ Class tlQuadTree
 		End If
 	End
 	
-	#Rem
-		monkeydoc Add a new bounding box to the Quadtree
+	#Rem monkeydoc Add a new bounding box to the Quadtree
 		A quadtree isn't much use without any objects. Use this to add a _tlBox_ to the quadtree. If the bounding box does not overlap the
 		quadtree then null is returned.
 		@param: box The box to be added to the quadtree
@@ -227,8 +223,7 @@ Class tlQuadTree
 		Return False
 	End
 		
-	#Rem
-		monkeydoc Query the Quadtree to find objects with an area
+	#Rem monkeydoc Query the Quadtree to find objects with an area
 		When you want to find objects within a particular area of the quadtree you can use this method.  Pass the area coordinates and dimensions
 		that you want to check, an object that can be anything that you want to pass through to the callback function, and the function callback that you want
 		to perform whatever tasks you need on the objects that are found within the area.
@@ -254,8 +249,7 @@ Class tlQuadTree
 		ReAddBoxes()
 	End
 	
-	#Rem
-		monkeydoc Query the quadtree to find objects within a _tlBox_
+	#Rem monkeydoc Query the quadtree to find objects within a _tlBox_
 		This does the same thing as _ForEachObjectInArea_ except you can pass a _tlBox_ instead to query the quadtree.
 		@param area A tlBox that will be used to define the area that is searched
 		@param Data any object object to pass to the query
@@ -273,8 +267,7 @@ Class tlQuadTree
 		ReAddBoxes()
 	End
 	
-	#Rem
-		monkeydoc Query the quadtree to find objects within a _tlBox_
+	#Rem monkeydoc Query the quadtree to find objects within a _tlBox_
 		This does the same thing as _ForEachObjectInBox_ except it returns a stack of objects that it finds
 		@param area A tlBox that will be used to define the area that is searched
 		@param Layer Array of layers in the quadtree that you want to search
@@ -293,8 +286,7 @@ Class tlQuadTree
 		Return list
 	End
 	
-	#Rem
-		monkeydoc Query the quadtree to find objects within a certain radius
+	#Rem monkeydoc Query the quadtree to find objects within a certain radius
 		This will query the quadtree and do a callback on any objects it finds within a given radius.
 		@param x x coordinate of range
 		@param y y coordinate of range
@@ -314,8 +306,7 @@ Class tlQuadTree
 		areacheckindex-=1
 	End
 	
-	#Rem
-		monkeydoc Query the quadtree to find objects within a _tlCircle_
+	#Rem monkeydoc Query the quadtree to find objects within a _tlCircle_
 		@param circle A tlCircle that will be used to define the area that is searched
 		@param Data any object object to pass to the query
 		@param onFoundObject A tlQuadTreeEvent interface that contains the event that will be called for any objects found in the area
@@ -331,8 +322,7 @@ Class tlQuadTree
 		areacheckindex-=1
 	End
 	
-	#Rem
-		monkeydoc Query the quadtree to find objects within a _tlCircle_
+	#Rem monkeydoc Query the quadtree to find objects within a _tlCircle_
 		@param circle A tlCircle that will be used to define the area that is searched
 		@param Layer Array of layers in the quadtree that you want to search
 		@param GetData If set to true then the Data field within the tlBox will be returned rather than the box itself
@@ -350,8 +340,7 @@ Class tlQuadTree
 		Return list
 	End
 	
-	#Rem
-		monkeydoc Query a quadtree with a _tlLine_
+	#Rem monkeydoc Query a quadtree with a _tlLine_
 		This will query the quadtree with a line and perform a callback on all the objects the _tlLine_ intersects. Pass the quadtree to do the query on, the
 		_tlLine_ to query with, an object you want to pass through to the callback, and the callback itself. It's worth noting that the callback also requires
 		you have a _tlCollisionResult_ parameter which will be passed to the callback function with information about the results of the raycast.
@@ -515,8 +504,7 @@ Class tlQuadTree
 		Return True
 	End
 	
-	#Rem
-		monkeydoc Query a quadtree with a ray of given length
+	#Rem monkeydoc Query a quadtree with a ray of given length
 		This will query the quadtree with a raycast and perform a callback on the first object hit by the ray with a _tlQuadTreeEvent_ interface
 		@param px x coordinate of the starting point of the ray
 		@param py y coordinate of the starting point of the ray
@@ -639,8 +627,7 @@ Class tlQuadTree
 		
 	End
 	
-	#Rem
-		monkeydoc Find out how many objects were found on the last query
+	#Rem monkeydoc Find out how many objects were found on the last query
 		Use this to retrieve the amount of object that were found when the last query was run.
 		@return: Number of objects found.
 	#End
@@ -648,8 +635,7 @@ Class tlQuadTree
 		Return objectsfound
 	End
 	
-	#Rem
-		monkeydoc Find out how many objects are currently in the quadtree
+	#Rem monkeydoc Find out how many objects are currently in the quadtree
 		Use this to retrieve the total amount of objects that are stored in the quadtree.
 		@return: Number of Total Objects in Tree
 	#End
@@ -657,24 +643,21 @@ Class tlQuadTree
 		Return totalobjectsintree
 	End
 	
-	#Rem
-		monkeydoc Get the width of the _tlQuadtree_
+	#Rem monkeydoc Get the width of the _tlQuadtree_
 		@return: Overal width of the quadtree
 	#End
 	Method GetWidth:Int()
 		Return Box.Width
 	End
 	
-	#Rem
-		monkeydoc Get the height of the _tlQuadtree_
+	#Rem monkeydoc Get the height of the _tlQuadtree_
 		@return: Overal height of the quadtree
 	#End
 	Method GetHeight:Int()
 		Return Box.Height
 	End
 	
-	#Rem
-		monkeydoc Perform some house keeping on the quadtree
+	#Rem monkeydoc Perform some house keeping on the quadtree
 		This will search the quadtree on the specified Layers for any empty quad tree nodes and unpartition them if necessary.
 	#End
 	Method RunMaintenance(Layer:Int[])
@@ -683,8 +666,7 @@ Class tlQuadTree
 		Next
 	End
 	
-	#Rem
-		monkeydoc Draw a Layer of the quadtree
+	#Rem monkeydoc Draw a Layer of the quadtree
 		This can be used for debugging purposes. *Warning: This will be very slow if the quadtree has more then 6 or 7 levels!*
 	#End
 	Method Draw(canvas:Canvas, offsetx:Float = 0, offsety:Float = 0, Layer:Int)
@@ -738,8 +720,7 @@ Class tlQuadTree
 	End
 End
 
-#Rem
-	monkeydoc tlQuadTreeNode Class for containing objects within the QuadTree
+#Rem monkeydoc tlQuadTreeNode Class for containing objects within the QuadTree
 	This Classis use internally by _tlQuadTree_ so you shouldn't have to worry about it.
 #End
 Class tlQuadTreeNode
@@ -761,8 +742,7 @@ Class tlQuadTreeNode
 	
 	'Internal Stuff------------------------------------
 	'This whole type should be handled automatically by the quadtree it belongs to, so you don't have to worry about it.
-	#Rem
-		monkeydoc Create a new tlQuadTreeNode
+	#Rem monkeydoc Create a new tlQuadTreeNode
 		This will create a new node within the quad tree. You shouldn't have to worry about this, as it's performed automatically as objects are
 		added to the quadtree.
 	#End
