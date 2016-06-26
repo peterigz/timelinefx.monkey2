@@ -1,27 +1,31 @@
+'Import the TimelineFX Module
 Namespace collisiontest
 
-#Import "<std>"
-#Import "<mojo>"
 #Import "<timelinefx>"
 
+'We need the following namespaces (std and mojo are already imported in timelinefx module so that's why you don't need to import them above)
 Using std..
 Using mojo..
 Using timelinefx..
 
+'Create a class that extends mojo Window where we can set the test
 Class CollisionTest Extends Window
 
+	'some fields to store our objects to test the ray collision with
 	Field box:tlBox
 	Field poly:tlPolygon
 	Field line:tlLine
 	Field circle:tlCircle
 	
+	'our ray only needs to be a vector describing the direction of the ray
 	Field ray:tlVector2 = New tlVector2(0, 0)
-	Field result:tlCollisionResult = New tlCollisionResult
+	'a point that will represent the origin of the ray
 	Field point:tlVector2 = New tlVector2(0, 0)
+	'something to store the result of our collision
+	Field result:tlCollisionResult = New tlCollisionResult
 	
+	'can use this to iterate through our shapes
 	Field shape:Int
-	
-	Private
 
 	Method New()
 		box = new tlBox(400, 300, 100, 100)
@@ -36,8 +40,6 @@ Class CollisionTest Extends Window
 		App.RequestRender()
 	
 		canvas.Clear( New Color(0,0,0,1))
-		
-		canvas.PushMatrix()
 		
 		'set the ray vector based on the point->mouse vector
 		If Mouse.ButtonDown(MouseButton.Left) point = New tlVector2(Mouse.X, Mouse.Y)
@@ -66,6 +68,7 @@ Class CollisionTest Extends Window
 				result = CheckRayCollision(poly, point.x, point.y, ray.x, ray.y)
 		End Select
 		
+		'draw the shape
 		Select shape
 			Case 0
 				box.Draw(canvas)
@@ -77,6 +80,7 @@ Class CollisionTest Extends Window
 				poly.Draw(canvas)
 		End Select
 		
+		'draw the origin of the vector as a small square
 		canvas.DrawRect(point.x - 5, point.y - 5, 10, 10)
 		
 		'if the result shows an intersection and it wasn't insise the shape
@@ -87,12 +91,12 @@ Class CollisionTest Extends Window
 			'find the rebound vector
 			Local rebound:tlVector2 = result.GetReboundVector(ray)
 			'draw the rebounded ray
-			canvas.DrawLine (result.RayIntersection.x, result.RayIntersection.y,
-					result.RayIntersection.x + rebound.x * 500, result.RayIntersection.y + rebound.y * 500)
-		ElseIf result.RayOriginInside
+			canvas.DrawLine (result.RayIntersection.x, result.RayIntersection.y, result.RayIntersection.x + rebound.x * 500, result.RayIntersection.y + rebound.y * 500)
+		Elseif result.RayOriginInside
+			'if the ray is inside the notify
 			canvas.DrawText ("Ray starts inside object!", 10, 30)
 		Else
-			'no intersection, draw a line for the ray
+			'no intersection so just draw a line for the ray
 			canvas.DrawLine (point.x, point.y, point.x + ray.x * 1000, point.y + ray.y * 1000)
 		EndIf
 		

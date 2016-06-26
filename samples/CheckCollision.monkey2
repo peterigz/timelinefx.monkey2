@@ -1,15 +1,15 @@
-Namespace collisiontest
-
-#Import "<std>"
-#Import "<mojo>"
+'Import the TimelineFX Module
 #Import "<timelinefx>"
 
+'We need the following namespaces (std and mojo are already imported in timelinefx module so that's why you don't need to import them above)
 Using std..
 Using mojo..
 Using timelinefx..
 
+'Create a class that extends mojo Window where we can set the test
 Class CollisionTest Extends Window
 
+	'field for a polygon
 	Field poly:tlPolygon
 	
 	'create a box to move about
@@ -18,31 +18,24 @@ Class CollisionTest Extends Window
 	'a local collision result to store the result of the collision test
 	Field result:tlCollisionResult = New tlCollisionResult
 	
-	'some velocity vectors to move the box about
+	'some velocity vectors to control our box
 	Field VelVector:tlVector2 = New tlVector2(0, 0)
 	Field VelMatrix:tlMatrix2 = New tlMatrix2
 	Field Direction:Float
 	Field speed:Float = 4
-	
-	Private
-	
-	Field _fps:Int
-	Field _tick:Int
-	Field _fpscount:Int
 
 	Method New()
+		'When the window is created, make out box and poly
 		Local verts:= New Float[](0.0, 0.0, -150.0, 100.0, 50.0, 150.0, 185.0, 100.0, 300.0, 0.0)
 		poly = CreatePolygon(400, 200, verts)
 		box = CreateBox(100, 100, 20, 20)
 	End
 	
 	Method OnRender( canvas:Canvas ) Override
-	
+		
 		App.RequestRender()
 	
 		canvas.Clear( New Color(0,0,0,1))
-		
-		canvas.PushMatrix()
 		
 		poly.Rotate(0.01)
 		
@@ -64,30 +57,22 @@ Class CollisionTest Extends Window
 		VelVector = VelMatrix.TransformVector(VelVector).Unit()
 		'set the box velocity so that the collision check can see whether the 2 objects will collide
 		'the next frame. You don't *have* to do this, but it makes for more accurate collisions
+		'when preventing an overlap
 		box.SetVelocityVector(VelVector.Scale(speed))
 		
 		'check for a collision with the poly
 		result = CheckCollision(box, poly)
 		
-		'prevent the box from overlapping the poly
+		'prevent the box from overlapping the poly. This will automatically move the objects apart.
 		PreventOverlap(result)
 		
 		'move the box. Important to do this after the collision check, but only if you're setting
 		'the box velicity.
 		box.UpdatePosition()
 		
+		'draw the box and poly
 		box.Draw(canvas)
 		poly.Draw(canvas)
-		
-		If Millisecs() - _tick > 1008
-			_fps = _fpscount
-			_tick = Millisecs()
-			_fpscount=0
-		Else
-			_fpscount +=1
-		End
-		
-		canvas.DrawText(_fps, 10, 10)
 	
 	End
 
