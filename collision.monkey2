@@ -1714,7 +1714,7 @@ Class tlCircle Extends tlBox
 		result.source = Self
 		result.target = poly
 		Return result
-	End If
+	End
 	
 	#Rem monkeydoc See is a ray collides with this _tlCircle_
 		Returns _tlCollisionResult_ with the results of the collision

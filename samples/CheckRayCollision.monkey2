@@ -24,7 +24,7 @@ Class CollisionTest Extends Window
 	Private
 
 	Method New()
-		box = new tlBox(0, 0, 100, 100)
+		box = new tlBox(400, 300, 100, 100)
 		Local verts:=New Float[](-100.0, 0.0, -150.0, 100.0, 50.0, 150.0, 185.0, 100.0, 300.0, 0.0)
 		poly = New tlPolygon(400, 200, verts)
 		line = New tlLine(200, 500, 800, 100)
@@ -81,7 +81,6 @@ Class CollisionTest Extends Window
 		
 		'if the result shows an intersection and it wasn't insise the shape
 		If result.HasIntersection And Not result.RayOriginInside
-
 			'draw the ray upto the intersection point
 			canvas.DrawLine(point.x, point.y, result.RayIntersection.x, result.RayIntersection.y)
 			canvas.DrawOval(result.RayIntersection.x - 4, result.RayIntersection.y - 4, 8, 8)

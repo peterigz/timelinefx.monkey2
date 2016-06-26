@@ -191,7 +191,7 @@ Class tlQuadTree
 	Method AddBox:Int(box:tlBox)
 		If Box.BoundingBoxOverlap(box)
 			box.quadtree = Self
-			rootnode[r.CollisionLayer].AddBox(box)
+			rootnode[box.CollisionLayer].AddBox(box)
 			totalobjectsintree += 1
 			Return True
 		End if
@@ -498,11 +498,14 @@ Class tlQuadTree
 		@param Layer Array of layers in the quadtree that you want to search
 		@return: False If no objects were hit, otherwise returns true
 	#End
-	Method RayCast:Int(px:Float, py:Float, d:tlVector, maxdistance:Float = 0, Data:Object, onFoundObject:tlQuadTreeEvent, Layer:Int[])
+	Method RayCast:Int(px:Float, py:Float, d:tlVector2, maxdistance:Float = 0, Data:Object, onFoundObject:tlQuadTreeEvent, Layer:Int[])
 
 		objectsfound = 0
 		areacheckindex+=1
 		AreaCheckCount[areacheckindex] = GetUniqueNumber()
+
+		local dx:float = d.x
+		local dy:float = d.y
 		
 		d = d.Normalise()
 
@@ -655,7 +658,7 @@ Class tlQuadTree
 	#Rem
 		monkeydoc Draw a Layer of the quadtree
 		This can be used for debugging purposes. *Warning: This will be very slow if the quadtree has more then 6 or 7 levels!*
-	=#End
+	#End
 	Method Draw(canvas:Canvas, offsetx:Float = 0, offsety:Float = 0, Layer:Int)
 		If Layer >= 0 And Layer < maxLayers
 			rootnode[Layer].Draw(canvas, offsetx, offsety)

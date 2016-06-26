@@ -12,16 +12,13 @@ Class Game Extends Window
 
 	Field QTree:tlQuadTree
 	Field player:tlBox
-	Field DrawBox:DrawBoxAction
 	Field DrawScreen:DrawScreenAction
 	Field currentCanvas:Canvas
 
 	Method New()
 		QTree = New tlQuadTree(0, 0, Width, Height, 5, 10)
-		DrawBox = New DrawBoxAction
 		DrawScreen = New DrawScreenAction
 		
-		DrawBox.thegame = Self
 		DrawScreen.thegame = Self
 		
 		'Populate the quadtree with a bunch of objects
