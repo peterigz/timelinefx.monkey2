@@ -209,8 +209,8 @@ Class tlQuadTree
 	#Rem monkeydoc Add a new bounding box to the Quadtree
 		A quadtree isn't much use without any objects. Use this to add a _tlBox_ to the quadtree. If the bounding box does not overlap the
 		quadtree then null is returned.
-		@param: box The box to be added to the quadtree
-		@return: False if the box doesn't overlap the qaudtree, otherwise True.
+		@param box The box to be added to the quadtree
+		@return False if the box doesn't overlap the qaudtree, otherwise True.
 	#End
 	Method AddBox:Int(box:tlBox)
 		If Box.BoundingBoxOverlap(box)
@@ -348,7 +348,7 @@ Class tlQuadTree
 		@param Data any object object to pass to the query
 		@param onFoundObject A tlQuadTreeEvent interface that contains the event that will be called for any objects found in the area
 		@param Layer Array of layers in the quadtree that you want to search
-		@return: False if the line has no length, otherwise if it successfully runs the query
+		@return False if the line has no length, otherwise if it successfully runs the query
 	#End
 	Method ForEachObjectAlongLine:Int(line:tlLine, data:Object, onFoundObject:tlQuadTreeEvent, Layer:Int[])
 		Local d:tlVector2 = New tlVector2(line.TFormVertices[1].x - line.TFormVertices[0].x, line.TFormVertices[1].y - line.TFormVertices[0].y)
@@ -512,7 +512,7 @@ Class tlQuadTree
 		@param maxdistance The maximum distance of the ray cast, or 0 for infinite
 		@param onFoundObject A tlQuadTreeEvent interface that contains the event that will be called for any objects found in the area
 		@param Layer Array of layers in the quadtree that you want to search
-		@return: False If no objects were hit, otherwise returns true
+		@return False If no objects were hit, otherwise returns true
 	#End
 	Method RayCast:Int(px:Float, py:Float, d:tlVector2, maxdistance:Float = 0, Data:Object, onFoundObject:tlQuadTreeEvent, Layer:Int[])
 
@@ -629,7 +629,7 @@ Class tlQuadTree
 	
 	#Rem monkeydoc Find out how many objects were found on the last query
 		Use this to retrieve the amount of object that were found when the last query was run.
-		@return: Number of objects found.
+		@return Number of objects found.
 	#End
 	Method GetObjectsFound:Int()
 		Return objectsfound
@@ -637,21 +637,21 @@ Class tlQuadTree
 	
 	#Rem monkeydoc Find out how many objects are currently in the quadtree
 		Use this to retrieve the total amount of objects that are stored in the quadtree.
-		@return: Number of Total Objects in Tree
+		@return Number of Total Objects in Tree
 	#End
 	Method GetTotalObjects:Int()
 		Return totalobjectsintree
 	End
 	
 	#Rem monkeydoc Get the width of the _tlQuadtree_
-		@return: Overal width of the quadtree
+		@return Overal width of the quadtree
 	#End
 	Method GetWidth:Int()
 		Return Box.Width
 	End
 	
 	#Rem monkeydoc Get the height of the _tlQuadtree_
-		@return: Overal height of the quadtree
+		@return Overal height of the quadtree
 	#End
 	Method GetHeight:Int()
 		Return Box.Height
@@ -677,6 +677,8 @@ Class tlQuadTree
 		End If
 	End
 
+	#Rem monkeydoc @hidden
+	#End
 	Method CountAllObjects:Int()
 		Local amount:int = 0
 		For Local c:Int = 0 To rootnode.Length - 1
@@ -687,6 +689,8 @@ Class tlQuadTree
 	End
 
 	'Internal Stuff-----------------------------------
+	#Rem monkeydoc @hidden
+	#End
 	Method UpdateRect(r:tlBox)
 		'This is run automatically when a tlBox decides it needs to be moved within the quadtree
 		'r.RemoveFromQuadTree()
@@ -694,6 +698,8 @@ Class tlQuadTree
 		restack.Add(r)
 	End
 
+	#Rem monkeydoc @hidden
+	#End
 	Method ReAddBoxes()
 		For Local r:=Eachin restack
 			r.RemoveFromQuadTree()
@@ -702,10 +708,14 @@ Class tlQuadTree
 		restack.Clear()
 	End
 
+	#Rem monkeydoc @hidden
+	#End
 	Method AddBoxRestack(r:tlBox)
 		restack.Add(r)
 	End
 
+	#Rem monkeydoc @hidden
+	#End
 	Method GetQuadNode:tlQuadTreeNode(x:Float, y:Float, Layer:Int)
 		Local tx:Int = x / min_nodewidth
 		Local ty:Int = y / min_nodeheight
@@ -715,13 +725,14 @@ Class tlQuadTree
 		Return Null
 	End
 
+	#Rem monkeydoc @hidden
+	#End
 	Method GetUniqueNumber:Int()
 		Return Rnd(-2147483647, 2147483647)
 	End
 End
 
-#Rem monkeydoc tlQuadTreeNode Class for containing objects within the QuadTree
-	This Classis use internally by _tlQuadTree_ so you shouldn't have to worry about it.
+#Rem monkeydoc @hidden
 #End
 Class tlQuadTreeNode
 	Field parenttree:tlQuadTree
@@ -742,9 +753,7 @@ Class tlQuadTreeNode
 	
 	'Internal Stuff------------------------------------
 	'This whole type should be handled automatically by the quadtree it belongs to, so you don't have to worry about it.
-	#Rem monkeydoc Create a new tlQuadTreeNode
-		This will create a new node within the quad tree. You shouldn't have to worry about this, as it's performed automatically as objects are
-		added to the quadtree.
+	#Rem monkeydoc @hidden
 	#End
 	Method New(x:Float, y:Float, w:Float, h:Float, _parenttree:tlQuadTree, _Layer:Int, parentnode:tlQuadTreeNode = Null, gridref:Int = -1)
 		Box = New tlBox(x, y, w, h)
@@ -783,6 +792,8 @@ Class tlQuadTreeNode
 		End If
 	End
 
+	#Rem monkeydoc @hidden
+	#End
 	Method CountObjects:Int()
 		Local amount:Int = 0
 		amount += objects.Length
@@ -794,6 +805,8 @@ Class tlQuadTreeNode
 		Return amount
 	End
 	
+	#Rem monkeydoc @hidden
+	#End
 	Method Partition()
 		'When this quadtreenode contains more objects then parenttree.maxpernode it is partitioned
 		childnode[0] = New tlQuadTreeNode(Box.tl_corner.x, Box.tl_corner.y, Box.Width / 2, Box.Height / 2, parenttree, Layer, Self, 0)
@@ -802,7 +815,9 @@ Class tlQuadTreeNode
 		childnode[3] = New tlQuadTreeNode(Box.tl_corner.x + Box.Width / 2, Box.tl_corner.y + Box.Height / 2, Box.Width / 2, Box.Height / 2, parenttree, Layer, Self, 3)
 		partitioned = True
 	End
-	
+
+	#Rem monkeydoc @hidden
+	#End
 	Method AddBox(r:tlBox)
 		'Adds a new bounding box to the node, and partitions/moves objects down the tree as necessary.
 		If partitioned
@@ -825,13 +840,17 @@ Class tlQuadTreeNode
 			End If
 		End If
 	End
-	
+
+	#Rem monkeydoc @hidden
+	#End
 	Method RemoveRect(r:tlBox, listRemove:Int = true)
 		'Mark the Box for removal
 		r.remove = true
 		numberofobjects-=1
 	End
-	
+
+	#Rem monkeydoc @hidden
+	#End
 	Method MoveRectDown(r:tlBox)
 		'moves a bounding box down the quadtree to any children it overlaps
 		If childnode[0].Box.BoundingBoxOverlap(r) childnode[0].AddBox(r)
@@ -839,7 +858,9 @@ Class tlQuadTreeNode
 		If childnode[2].Box.BoundingBoxOverlap(r) childnode[2].AddBox(r)
 		If childnode[3].Box.BoundingBoxOverlap(r) childnode[3].AddBox(r)
 	End
-	
+
+	#Rem monkeydoc @hidden
+	#End
 	Method ForEachInAreaDo(area:tlBox, Data:Object, onFoundObject:tlQuadTreeEvent, velocitycheck:Int)
 		'run a callback on objects found within the nodes that the area overlaps
 		Local checkindex:Int = parenttree.areacheckindex
@@ -895,7 +916,9 @@ Class tlQuadTreeNode
 			End If
 		End If
 	End
-	
+
+	#Rem monkeydoc @hidden
+	#End
 	Method GetEachInArea:Stack<Object>(area:tlBox, velocitycheck:Int, list:Stack<Object>, GetData:Int)
 		'run a callback on objects found within the nodes that the area overlaps
 		Local checkindex:Int = parenttree.areacheckindex
@@ -948,7 +971,9 @@ Class tlQuadTreeNode
 		End If
 		Return list
 	End
-	
+
+	#Rem monkeydoc @hidden
+	#End
 	Method ForEachWithinRangeDo(Range:tlCircle, Data:Object, onFoundObject:tlQuadTreeEvent)
 		'run a callback on objects found within the nodes that the circle overlaps
 		Local checkindex:Int = parenttree.areacheckindex
@@ -1004,7 +1029,9 @@ Class tlQuadTreeNode
 			End If
 		End If
 	End
-	
+
+	#Rem monkeydoc @hidden
+	#End
 	Method GetEachInRange:Stack<Object>(Range:tlCircle, velocitycheck:Int, list:Stack<Object>, GetData:Int, Limit:Int)
 		'run a callback on objects found within the nodes that the circle overlaps
 		Local checkindex:Int = parenttree.areacheckindex
@@ -1066,7 +1093,9 @@ Class tlQuadTreeNode
 		End If
 		Return list
 	End
-	
+
+	#Rem monkeydoc @hidden
+	#End
 	Method ForEachObjectAlongLine(Line:tlLine, Data:Object, onFoundObject:tlQuadTreeEvent)
 		Local result:tlCollisionResult
 		Local checkindex:Int = parenttree.areacheckindex
@@ -1096,7 +1125,9 @@ Class tlQuadTreeNode
 			wend
 		End If
 	End
-	
+
+	#Rem monkeydoc @hidden
+	#End
 	Method RayCast:Int(px:Float, py:Float, dx:Float, dy:Float, maxdistance:Int, Data:Object, onFoundObject:tlQuadTreeEvent)
 		
 		Local result:tlCollisionResult
@@ -1138,7 +1169,9 @@ Class tlQuadTreeNode
 		Return False
 		
 	End
-	
+
+	#Rem monkeydoc @hidden
+	#End
 	Method UnpartitionEmptyQuads()
 		'This is run when RunMaintenance is run in the quadtree type.
 		If partitioned
@@ -1150,7 +1183,9 @@ Class tlQuadTreeNode
 			If parent parent.DeleteEmptyPartitions()
 		End If
 	End
-	
+
+	#Rem monkeydoc @hidden
+	#End
 	Method DeleteEmptyPartitions()
 		'deletes the partitions from this node
 		If childnode[0].numberofobjects + childnode[1].numberofobjects + childnode[2].numberofobjects + childnode[3].numberofobjects = 0
@@ -1163,7 +1198,9 @@ Class tlQuadTreeNode
 			End If
 		End If
 	End
-	
+
+	#Rem monkeydoc @hidden
+	#End
 	Method Draw(canvas:Canvas, offsetx:Float = 0, offsety:Float = 0)
 		'called when the draw method is called in tlQuadTreeNode
 		Box.Draw(canvas, offsetx, offsety)
@@ -1175,6 +1212,8 @@ Class tlQuadTreeNode
 		End If
 	End
 
+	#Rem monkeydoc @hidden
+	#End
 	Method ToString:string()
 		return gridx + ", " + gridy
 	End
