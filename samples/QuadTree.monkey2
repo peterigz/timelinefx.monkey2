@@ -41,7 +41,7 @@ Class Game Extends Window
 		DrawScreen.thegame = Self
 		
 		'Populate the quadtree with a bunch of objects
-		For Local c:Int = 1 To 1000
+		For Local c:Int = 1 To 10000
 			Local t:Int = Rnd(3)
 			Local rect:tlBox
 			Local x:Float = Rnd() * Width 
@@ -49,14 +49,14 @@ Class Game Extends Window
 			Select t
 				Case 0
 					'Create a Basic bounding box boundary
-					rect = New tlBox(x, y, 10, 10, tlLAYER_0)
+					rect = New tlBox(x, y, 10, 10, 0)
 				Case 1
 					'Create a circle Boundary
-					rect = New tlCircle(x, y, 5, tlLAYER_0)
+					rect = New tlCircle(x, y, 5, 0)
 				Case 2
 					'Create a polygon boundary
 					Local verts:= New Float[](- 10.0, -10.0, -15.0, 0.0, -10.0, 10.0, 10.0, 10.0, 15.0, 0.0, 10.0, -10.0)
-					rect = New tlPolygon(x, y, verts, tlLAYER_0)
+					rect = New tlPolygon(x, y, verts, 0)
 			End Select
 			'Add the boundary to the quadtree
 			QTree.AddBox(rect)
@@ -77,7 +77,7 @@ Class Game Extends Window
 		
 		'position the player box
 		player.Position(Mouse.X, Mouse.Y)
-
+	Local time:=App.Millisecs
 		'when space is pressed, draw everything on the screen. We do this by calling "ForEachObjectInArea", and define the area as the screen size. We also
 		'pass the DrawScreen interface which will be called by the quadtree if it finds something in the are. We also pass the layers that we want to check.
 		If Keyboard.KeyDown(Key.Space) QTree.ForEachObjectInArea(0, 0, Width, Height, Null, DrawScreen, New Int[](0, 1, 2))
@@ -89,6 +89,9 @@ Class Game Extends Window
 		
 		'Draw the player box
 		player.Draw(canvas)
+		time = App.Millisecs - time
+		
+		canvas.DrawText(time, 10, 10)
 	
 	End
 

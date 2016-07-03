@@ -48,6 +48,8 @@ Struct tlVector2
 	#End
 	Property Invalid:int()
 		return invalid
+	Setter(v:Int)
+		invalid = true
 	End
 	
 	#Rem monkeydoc Clone the vector

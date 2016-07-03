@@ -30,6 +30,8 @@
 #Import "matrix"
 #Import "collision"
 #Import "quadtree"
+#import "shape2"
+#Import "gameobject"
 
 Using std..
 Using mojo..

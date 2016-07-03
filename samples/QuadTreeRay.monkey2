@@ -61,14 +61,14 @@ Class Game Extends Window
 			Select t
 				Case 0
 					'Create a Basic bounding box boundary
-					rect = New tlBox(x, y, 10, 10, tlLAYER_0)
+					rect = New tlBox(x, y, 10, 10, 0)
 				Case 1
 					'Create a circle Boundary
-					rect = New tlCircle(x, y, 5, tlLAYER_0)
+					rect = New tlCircle(x, y, 5, 0)
 				Case 2
 					'Create a polygon boundary
 					Local verts:= New Float[](- 10.0, -10.0, -15.0, 0.0, -10.0, 10.0, 10.0, 10.0, 15.0, 0.0, 10.0, -10.0)
-					rect = New tlPolygon(x, y, verts, tlLAYER_0)
+					rect = New tlPolygon(x, y, verts, 0)
 			End Select
 			'Add the boundary to the quadtree
 			QTree.AddBox(rect)
