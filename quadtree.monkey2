@@ -182,8 +182,8 @@ Class tlQuadTree
 				Next
 			Next
 			rootnode[l].dimension = dimension
-			Layerconfigs[l * MAX_NODE_LEVELS] = maxlevels
-			Layerconfigs[l * MAX_PER_NODE] = maxpernode
+			Layerconfigs[l] = maxlevels
+			Layerconfigs[l + maxLayers] = maxpernode
 		Next
 		restack = New Stack<tlBox>
 	End
@@ -199,8 +199,8 @@ Class tlQuadTree
 	#End
 	Method SetLayerConfig(Layer:Int, maxlevels:Int, maxpernode:Int)
 		If Layer < maxLayers And Layer >= 0
-			Layerconfigs[Layer * MAX_NODE_LEVELS] = maxlevels
-			Layerconfigs[Layer * MAX_PER_NODE] = maxpernode
+			Layerconfigs[Layer] = maxlevels
+			Layerconfigs[Layer + maxLayers] = maxpernode
 		Else
 			Print "Layer does not exist"
 		End If
@@ -826,7 +826,7 @@ Class tlQuadTreeNode
 			objects.Add(r)
 			numberofobjects+=1
 			r.AddQuad(Self)
-			If nodelevel < parenttree.Layerconfigs[Layer*MAX_NODE_LEVELS] And numberofobjects + 1 > parenttree.Layerconfigs[Layer*MAX_PER_NODE]
+			If nodelevel < parenttree.Layerconfigs[Layer] And numberofobjects + 1 > parenttree.Layerconfigs[Layer+parenttree.maxLayers]
 				If Not partitioned Partition()
 				local rects:=objects.All()
 				local box:tlBox
