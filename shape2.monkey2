@@ -21,6 +21,8 @@
 
 #END
 
+Namespace timelinefx.shape
+
 Class tlShape
 	
 	Private

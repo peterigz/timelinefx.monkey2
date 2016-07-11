@@ -77,7 +77,7 @@ Class Game Extends Window
 		
 		'position the player box
 		player.Position(Mouse.X, Mouse.Y)
-	Local time:=App.Millisecs
+		Local time:=App.Millisecs
 		'when space is pressed, draw everything on the screen. We do this by calling "ForEachObjectInArea", and define the area as the screen size. We also
 		'pass the DrawScreen interface which will be called by the quadtree if it finds something in the are. We also pass the layers that we want to check.
 		If Keyboard.KeyDown(Key.Space) QTree.ForEachObjectInArea(0, 0, Width, Height, Null, DrawScreen, New Int[](0, 1, 2))

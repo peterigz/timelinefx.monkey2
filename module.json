@@ -1,0 +1,8 @@
+{
+	"module":"timelinefx",
+	"version":"0.0.3",
+	"about":"Particle Effects module",
+	"author":"Peter Rigby",
+	"support":"http://www.rigzsoft.co.uk",
+	"depends":["std","mojo"]
+}

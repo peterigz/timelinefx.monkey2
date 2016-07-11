@@ -1,4 +1,4 @@
-'Import the TimelineFX Module
+cd'Import the TimelineFX Module
 #Import "<timelinefx>"
 #Import "assets/explosion.png"
 
@@ -85,7 +85,7 @@ Class CollisionTest Extends Window
 		poly.Draw(canvas)
 		testobject.Update()
 		testobject.SetPosition(box.WorldX(), box.WorldY())
-		testobject.Rotate(0.05)
+		'testobject.Rotate(0.05)
 		testobject.SetScale(2)
 		testobject.Render(canvas, 1)
 	

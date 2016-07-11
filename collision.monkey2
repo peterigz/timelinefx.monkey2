@@ -1277,8 +1277,10 @@ Class tlBox
 		'After the bounding box is updated, it needs to be moved into world space.
 		boxoffset.x = tl_corner.x
 		boxoffset.y = tl_corner.y
-		tl_corner+=world
-		br_corner+=world
+		tl_corner.x+=world.x
+		tl_corner.y+=world.y
+		br_corner.x+=world.x
+		br_corner.y+=world.y
 	End
 	
 	#Rem monkeydoc @hidden

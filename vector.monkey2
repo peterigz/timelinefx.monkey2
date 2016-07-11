@@ -29,9 +29,21 @@ Struct tlVector2
 	
 	Public
 	
-	Field x:Float
-	Field y:Float
+	Field _x:Float
+	Field _y:Float
 	Field invalid:Int
+
+	Property x:float()
+		return _x
+	Setter(v:float)
+		_x = v
+	End
+
+	Property y:float()
+		return _y
+	Setter(v:float)
+		_y = v
+	End
 
 	#Rem monkeydoc Make a new vector
 		@param x
@@ -132,6 +144,12 @@ Struct tlVector2
 	#End
 	Operator*:tlVector2( v:tlVector2 )
 	  Return New tlVector2( x * v.x,y * v.y )
+	End
+
+	#Rem monkeydoc @hidden
+	#End
+	Operator*:tlVector2( v:float )
+	  Return New tlVector2( x * v,y * v )
 	End
 
 	#Rem monkeydoc @hidden

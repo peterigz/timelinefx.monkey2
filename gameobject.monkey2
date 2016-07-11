@@ -21,11 +21,15 @@
 
 #END
 
+Namespace timelinefx.gameobject
+
+Using timelinefx..
+
 Const tlCAPTURE_SELF:Int = 0
 Const tlCAPTURE_ALL:Int = 1
 Const tlCAPTURE_NONE:Int = 2
 
-Class tlGameObject
+Class tlGameObject Virtual
 	
 	Private
 	
@@ -182,26 +186,38 @@ Class tlGameObject
 	
 	Property LocalVector:tlVector2() 
 		Return local_vec
+	Setter(v:tlVector2)
+		local_vec = v
 	End
 	
 	Property WorldVector:tlVector2() 
 		Return world_vec
+	Setter (v:tlVector2)
+		world_vec = v
 	End
 	
 	Property OldWorldVector:tlVector2() 
 		Return oldworld_vec
+	Setter (v:tlVector2)
+		oldworld_vec = v
 	End
 	
 	Property ScaleVector:tlVector2() 
 		Return scale_vec
+	Setter (v:tlVector2)
+		scale_vec = v
 	End
 	
 	Property WorldScaleVector:tlVector2() 
 		Return world_scale_vec
+	Setter (v:tlVector2)
+		world_scale_vec = v
 	End
 	
 	Property OldWorldScaleVector:tlVector2() 
 		Return oldworldscale_vec
+	Setter (v:tlVector2)
+		oldworldscale_vec = v
 	End
 	
 	Property HandleVector:tlVector2() 
@@ -807,7 +823,7 @@ Class tlGameObject
 	Method TForm()
 		'set the matrix if it is relative to the parent
 		If relative
-			matrix.Set(Cos(local_rotation), Sin(local_rotation), -Sin(local_rotation), Cos(local_rotation))
+			matrix = New tlMatrix2( Cos(local_rotation), Sin(local_rotation), -Sin(local_rotation), Cos(local_rotation) )
 		End If
 		
 		'calculate where the entity is in the world
@@ -856,6 +872,9 @@ Class tlComponent Abstract
 	Field name:String
 	
 	'Public
+
+	Method New()
+	End
 	
 	Method New(name:String)
 		Self.name = name
@@ -876,7 +895,7 @@ Class tlComponent Abstract
 		
 	End
 	
-	Method Destroy()
+	Method Destroy() Virtual
 		parent = Null
 	End
 	
