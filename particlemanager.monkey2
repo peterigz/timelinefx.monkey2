@@ -106,8 +106,9 @@ Class tlParticleManager
 
 	Private
 
-	Field InUse:List<tlParticle>[][]
+	Field InUse:List<tlParticle>[,]
 	Field UnUsed:List<tlParticle>
+	field _layers:int
 	
 	Field unusedcount:Int
 	Field inusecount:Int
@@ -215,12 +216,14 @@ Class tlParticleManager
 		screenbox = New tlBox(0, 0, 1, 1)
 		center = New tlVector2(0, 0)
 		camvec = New tlVector2(0, 0)
-		For Local el:Int = 0 To 8
-			InUse[el] = New List<tlParticle>[9]
-			For Local l:Int = 0 To 8
-				InUse[el][l] = New List<tlParticle>
-			Next
+		InUse = New List<tlParticle>[layers,9]
+		effects = New List<tlEffect>[layers]
+		_layers = layers
+		For Local el:Int = 0 To _layers - 1
 			effects[el] = New List<tlEffect>
+			For Local l:Int = 0 To 8
+				InUse[el, l] = New List<tlParticle>
+			Next
 		Next
 		UnUsed = New List<tlParticle>
 		For Local c:Int = 1 To particles
@@ -244,20 +247,25 @@ Class tlParticleManager
 	#END
 	Method Update()
 		If Not paused
-			CurrentTime += tp_UPDATE_TIME
-			second += tp_UPDATE_TIME
+			CurrentTime += 16.6666667
+			second += 16.6666667
 			If second > 1000
-				second=0
+				second = 0
 				particlesspawned = 0
 			EndIf
-			For Local el:Int = 0 To 8
-				For Local e:tlEffect = EachIn effects[el]
+			For Local el:Int = 0 To _layers - 1
+				Local ei:= effects[el].All()
+				Local e:tlEffect
+				While not ei.AtEnd
 					'e.ParticleManager=Self
+					e = ei.Current
 					e.Update()
 					If e.IsDestroyed
-						RemoveEffect(e)
+						ei.Erase()
+					else
+						ei.Bump()
 					End If
-				Next
+				Wend
 			Next
 			oldorigin += origin
 			oldzoom = zoom
@@ -355,9 +363,9 @@ Class tlParticleManager
 		camvec.x = -TweenValues(oldorigin.x, origin.x, tween)
 		camvec.y = -TweenValues(oldorigin.y, origin.y, tween)
 		camzoom = TweenValues(oldzoom, zoom, tween)
-		For Local el:Int = 0 To 8
+		For Local el:Int = 0 To _layers -1
 			For Local l:Int = 0 To 8
-				For Local e:tlParticle = EachIn InUse[el][l]
+				For Local e:tlParticle = EachIn InUse[el, l]
 					DrawParticle(canvas, e, tween)
 				Next
 			Next
@@ -386,12 +394,13 @@ Class tlParticleManager
 			Local p:tlParticle = Cast<tlParticle>(UnUsed.First)
 			If p
 				p.layer = layer
-				InUse[effect.EffectLayer][layer].AddLast(p)
+				InUse[effect.EffectLayer, layer].AddLast(p)
 				'_UnUsed.Remove p
 				p.link.Remove()
-				p.link = InUse[effect.EffectLayer][layer].LastNode()
+				p.link = InUse[effect.EffectLayer, layer].LastNode()
 				unusedcount -= 1
 				inusecount += 1
+				p.Removed = false
 				Return p
 			End If
 		End If
@@ -438,6 +447,7 @@ Class tlParticleManager
 				End If
 				Local tx:Float = TweenValues(e.OldWorldScaleVector.x, e.WorldScaleVector.x, tween)
 				Local ty:Float = TweenValues(e.OldWorldScaleVector.y, e.WorldScaleVector.y, tween)
+
 				tv = TweenValues(e.OldZoom, e.Zoom, tween)
 				If tv = 1
 					tx *= camzoom
@@ -478,11 +488,3 @@ End
 Function CreateParticleManager:tlParticleManager(particles:Int = tlPARTICLE_LIMIT)
 	Return New tlParticleManager(particles)
 End Function
-
-Class ArrayUtil<T>
-    Function CreateArray:T[,](rows:Int,cols:Int)
-        Local a:T[,] = New T[rows,cols]
-        
-        Return a
-    End       
-End

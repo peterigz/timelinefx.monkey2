@@ -20,9 +20,9 @@
 	THE SOFTWARE.
 
 #End
-Namespace timelinefx.collision
+Namespace timelinefx
 
-Using timelinefx.collision..
+Using timelinefx..
 Using std.collections..
 Using std.random..
 

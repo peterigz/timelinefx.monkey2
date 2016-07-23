@@ -46,8 +46,8 @@ Namespace timelinefx
 #Import "spawncomponents"
 #Import "graphmath"
 #Import "library"
-#Import "xml/arrays"
-#Import "xml/stringbuilder"
+#Import "xml"
+#Import "loaders"
 
 Using std..
 Using mojo..
@@ -159,7 +159,8 @@ Const tlLOOKUP_FREQUENCY_OVERTIME:Float = 1
 Const tlNORMAL_GRAPH:Int = 0
 Const tlOVERTIME_GRAPH:Int = 1
 
-Private
-
-Function Main()
+Function SetUpdateFrequency(freq:float)
+	tp_UPDATE_FREQUENCY = freq ' times per second
+	tp_UPDATE_TIME = 1000 / tp_UPDATE_FREQUENCY
+	tp_CURRENT_UPDATE_TIME = tp_UPDATE_FREQUENCY
 End

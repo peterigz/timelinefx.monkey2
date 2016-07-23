@@ -21,7 +21,7 @@
 
 #END
 
-Namespace timelinefx.gameobject
+Namespace timelinefx
 
 Using timelinefx..
 
@@ -114,6 +114,7 @@ Class tlGameObject Virtual
 	Field dead:Int
 	Field dying:Int
 	Field destroyed:Int
+	field removed:int
 	
 	'components
 	Field components:Stack<tlComponent> = New Stack<tlComponent>
@@ -136,6 +137,12 @@ Class tlGameObject Virtual
 		Return dead
 	Setter(v:Int)
 		dead = v
+	End
+
+	Property Removed:Int() 
+		Return removed
+	Setter(v:Int)
+		removed = v
 	End
 	
 	Property DoB:Int() 
@@ -558,7 +565,7 @@ Class tlGameObject Virtual
 	End
 	
 	Method RemoveChild(o:tlGameObject)
-		children.Remove(o)
+		o.removed = true
 		o.parent = Null
 		o.rootparent = Null
 		o.attached = False
@@ -738,11 +745,12 @@ Class tlGameObject Virtual
 	Method Animate()
 		'update animation frame
 '		If currentanimseq And _animating
+		if image
 			currentframe += framerate / updatetime
 			if currentframe >= image.Frames
 				currentframe = 0
 			End if
-'		End If
+		End If
 	End
 	
 	Method UpdateImageBox()
@@ -850,9 +858,17 @@ Class tlGameObject Virtual
 	End
 	
 	Method UpdateChildren()
-		For Local o:tlGameObject = EachIn children
+		Local c:=children.All()
+		Local o:tlGameObject
+		While Not c.AtEnd
+			local o:=c.Current
 			o.Update()
-		Next
+			if o.removed
+				c.Erase()
+			Else
+				c.Bump()
+			End if
+		Wend
 	End
 	
 	Method UpdateComponents()

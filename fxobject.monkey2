@@ -23,7 +23,7 @@
 
 #END
 
-Namespace timelinefx.gameobject
+Namespace timelinefx
 
 Using timelinefx..
 

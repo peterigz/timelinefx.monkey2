@@ -307,7 +307,7 @@ Class tlEffectComponent_AreaWidth Extends tlGraphComponent
 	Method Update() Override
 		If Not effect.OverrideAreaSize
 			effect.currentareawidth = Get(effect.CurrentFrame)
-			If effect.HandleCenter effect.HandleVector.x = effect.currentareawidth * 0.5
+			If effect.HandleCenter effect.HandleVector = New tlVector2(effect.currentareawidth *.5, effect.HandleVector.y)
 		End If
 	End Method
 	
@@ -331,7 +331,7 @@ Class tlEffectComponent_AreaHeight Extends tlGraphComponent
 	Method Update() Override
 		If Not effect.OverrideAreaSize
 			effect.currentareaheight = Get(effect.CurrentFrame)
-			If effect.HandleCenter effect.HandleVector.y = effect.currentareaheight *.5
+			If effect.HandleCenter effect.HandleVector = New tlVector2(effect.HandleVector.x, effect.currentareaheight *.5)
 		End If
 	End Method
 	

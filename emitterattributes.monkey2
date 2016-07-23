@@ -394,7 +394,7 @@ Class tlEC_ScaleXOvertime Extends tlGraphComponent
 	End
 		
 	Method ControlParticle(p:tlParticle) Override
-		p.ScaleVector.x = (Get_Overtime(p.Age, p.lifetime) * p.gsizex * p.width) / p.sprite.Width
+		p.ScaleVector = New tlVector2((Get_Overtime(p.Age, p.lifetime) * p.gsizex * p.width) / p.sprite.Width, p.ScaleVector.y)
 	End
 	
 	Method Clone:tlGraphComponent(Effect:tlEffect = Null, Emitter:tlEmitter = Null, CopyNodes:Int = False) Override
@@ -419,7 +419,7 @@ Class tlEC_ScaleYOvertime Extends tlGraphComponent
 	End
 	
 	Method ControlParticle(p:tlParticle) Override
-		p.ScaleVector.y = (Get_Overtime(p.Age, p.lifetime) * p.gsizey * p.height) / p.sprite.Height
+		p.ScaleVector = New tlVector2(p.ScaleVector.x, (Get_Overtime(p.Age, p.lifetime) * p.gsizey * p.height) / p.sprite.Height)
 	End
 	
 	Method Clone:tlGraphComponent(Effect:tlEffect = Null, Emitter:tlEmitter = Null, CopyNodes:Int = False) Override
@@ -444,8 +444,8 @@ Class tlEC_UniformScale Extends tlGraphComponent
 	End
 	
 	Method ControlParticle(p:tlParticle) Override
-		p.ScaleVector.x = (Get_Overtime(p.Age, p.lifetime) * p.gsizex * p.width) / p.sprite.Width
-		p.ScaleVector.y = p.ScaleVector.x
+		local scale:float = (Get_Overtime(p.Age, p.lifetime) * p.gsizex * p.width) / p.sprite.Width
+		p.ScaleVector = New tlVector2(scale, scale)
 	End
 	
 	Method Clone:tlGraphComponent(Effect:tlEffect = Null, Emitter:tlEmitter = Null, CopyNodes:Int = False) Override
@@ -529,18 +529,18 @@ Class tlEC_StretchOvertime Extends tlGraphComponent
 				p.speed_vec.y = -p.gravity
 			End If
 			If emitter.Uniform
-				p.ScaleVector.y = (emitter.scalex_component.Get_Overtime(p.Age, p.lifetime) * p.gsizex * (p.width + (GetDistance(0, 0, p.speed_vec.x, p.speed_vec.y) * Get_Overtime(p.Age, p.lifetime) * effect.currentstretch))) / p.sprite.Width
+				p.ScaleVector = New tlVector2(p.ScaleVector.x, (emitter.scalex_component.Get_Overtime(p.Age, p.lifetime) * p.gsizex * (p.width + (GetDistance(0, 0, p.speed_vec.x, p.speed_vec.y) * Get_Overtime(p.Age, p.lifetime) * effect.currentstretch))) / p.sprite.Width)
 			Else
-				p.ScaleVector.y = (emitter.scaley_component.Get_Overtime(p.Age, p.lifetime) * p.gsizey * (p.height + (GetDistance(0, 0, p.speed_vec.x, p.speed_vec.y) * Get_Overtime(p.Age, p.lifetime) * effect.currentstretch))) / p.sprite.Height
+				p.ScaleVector = New tlVector2(p.ScaleVector.x, (emitter.scaley_component.Get_Overtime(p.Age, p.lifetime) * p.gsizey * (p.height + (GetDistance(0, 0, p.speed_vec.x, p.speed_vec.y) * Get_Overtime(p.Age, p.lifetime) * effect.currentstretch))) / p.sprite.Height)
 			End If
 		Else
 			If emitter.Uniform
-				p.ScaleVector.y = (emitter.scalex_component.Get_Overtime(p.Age, p.lifetime) * p.gsizex * (p.width + (Abs(p.speed) * Get_Overtime(p.Age, p.lifetime) * effect.currentstretch))) / p.sprite.Width
+				p.ScaleVector = New tlVector2(p.ScaleVector.x, (emitter.scalex_component.Get_Overtime(p.Age, p.lifetime) * p.gsizex * (p.width + (Abs(p.speed) * Get_Overtime(p.Age, p.lifetime) * effect.currentstretch))) / p.sprite.Width)
 			Else
-				p.ScaleVector.y = (emitter.scaley_component.Get_Overtime(p.Age, p.lifetime) * p.gsizey * (p.height + (Abs(p.speed) * Get_Overtime(p.Age, p.lifetime) * effect.currentstretch))) / p.sprite.Height
+				p.ScaleVector = New tlVector2(p.ScaleVector.x, (emitter.scaley_component.Get_Overtime(p.Age, p.lifetime) * p.gsizey * (p.height + (Abs(p.speed) * Get_Overtime(p.Age, p.lifetime) * effect.currentstretch))) / p.sprite.Height)
 			End If
 		EndIf
-		If p.ScaleVector.y < p.ScaleVector.x p.ScaleVector.y = p.ScaleVector.x
+		If p.ScaleVector.y < p.ScaleVector.x p.ScaleVector = New tlVector2(p.ScaleVector.x, p.ScaleVector.x)
 	End
 	
 	Method Clone:tlGraphComponent(Effect:tlEffect = Null, Emitter:tlEmitter = Null, CopyNodes:Int = False) Override
@@ -697,7 +697,7 @@ Class tlEC_DirectionOvertime Extends tlGraphComponent
 			If effect.EffectClass = tlLINE_EFFECT
 				If effect.DistanceSetByLife
 					Local life:Float = p.Age / p.lifetime
-					p.LocalVector.x = (life * effect.currentareawidth) - effect.HandleVector.x
+					p.LocalVector = New tlVector2((life * effect.currentareawidth) - effect.HandleVector.x, p.LocalVector.y)
 				Else
 					Select effect.EndBehaviour
 						Case tlEND_KILL
@@ -706,17 +706,15 @@ Class tlEC_DirectionOvertime Extends tlGraphComponent
 							End If
 						Case tlEND_LOOPAROUND
 							If p.LocalVector.x > effect.currentareawidth - effect.HandleVector.x
-								p.LocalVector.x = -effect.HandleVector.x
+								p.LocalVector = New tlVector2(-effect.HandleVector.x, p.LocalVector.y)
 								p.TForm()
 								'p.oldx = p.LocalVector.x
-								p.OldWorldVector.x = p.WorldVector.x
-								p.OldWorldVector.y = p.WorldVector.y
+								p.OldWorldVector = p.WorldVector.Clone()
 							ElseIf p.LocalVector.x < 0 - effect.HandleVector.x
-								p.LocalVector.x = effect.currentareawidth - effect.HandleVector.x
+								p.LocalVector = New tlVector2(effect.currentareawidth - effect.HandleVector.x, p.LocalVector.y)
 								p.TForm()
 								'p.oldx = p.LocalVector.x
-								p.OldWorldVector.x = p.WorldVector.x
-								p.OldWorldVector.y = p.WorldVector.y
+								p.OldWorldVector = p.WorldVector.Clone()
 							End If
 					End Select
 				End If

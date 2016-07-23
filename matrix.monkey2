@@ -21,9 +21,9 @@
 
 #end
 
-Namespace timelinefx.matrix
+Namespace timelinefx
 
-Using timelinefx.vector..
+Using timelinefx..
 
 Struct tlMatrix2
 	

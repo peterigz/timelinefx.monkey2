@@ -1,9 +1,11 @@
-Namespace timelinefx.xml
+Namespace timelinefx
 
 #Import "<std>"
 
 Using std..
 
+#Rem monkeydoc @hidden
+#End
 Enum ReadStatus
 	None = 0
 	OpenTag = 1
@@ -15,6 +17,8 @@ Enum ReadStatus
 	Skip = 7
 End
 
+#Rem monkeydoc @hidden
+#End
 Enum DataType
 	Discard = 0
 	Node = 1
@@ -23,6 +27,8 @@ Enum DataType
 	CloseNode = 4
 End
 
+#Rem monkeydoc @hidden
+#End
 Class XMLParser
 	
 	Private 
@@ -33,22 +39,13 @@ Class XMLParser
 	Field _this:ReadStatus = ReadStatus.None
 	Field _next:String
 	Field _data:DataType
-	Field _root:Node
-	Field _currentnode:Node
-	Field _parsestack:Stack<Node>
+	Field _root:XMLElement
+	Field _currentnode:XMLElement
+	Field _parsestack:Stack<XMLElement>
 	Field _readpair:Int
 	
 	Method New()
-		_parsestack = New Stack<Node>
-	End
-	
-	Function ParseFile:XMLParser(path:String)
-		Local parser:XMLParser = New XMLParser
-		parser._file = Stream.Open(path, "r")
-
-		parser.Parse()
-		parser._file.Close()
-		Return parser
+		_parsestack = New Stack<XMLElement>
 	End
 	
 	Method Parse:XMLParser()
@@ -145,7 +142,7 @@ Class XMLParser
 		Select _data
 			Case DataType.Node
 				Local nodedata:= _buffer.Split(" ")
-				Local node:= New Node(nodedata[0].Trim(), _currentnode)
+				Local node:= New XMLElement(nodedata[0].Trim(), _currentnode)
 				If _currentnode
 					_currentnode._children.Add(node)
 				End If
@@ -180,35 +177,56 @@ Class XMLParser
 				_buffer = ""
 		End
 	End
+
+	Public
+
+	Function ParseFile:XMLParser(path:String)
+		Print path
+		Local parser:XMLParser = New XMLParser
+		parser._file = Stream.Open(path, "r")
+
+
+		Assert( parser._file, "Could not open the effect library" )
+		parser.Parse()
+		parser._file.Close()
+
+		Return parser
+	End
 	
 	Method ToString:String()
 		Return "<?xml version=~q1.0~q encoding=~qISO-8859-1~q?>" + _root.ToString()
 	End
 	
-	Property Root:Node()
+	Property Root:XMLElement()
 		Return _root
 	End
 	
 End
 
-Class Node
+#Rem monkeydoc @hidden
+#End
+Class XMLElement
 	Field _name:String
 	Field _data:String
-	Field _parent:Node
-	Field _children:List<Node>
+	Field _parent:XMLElement
+	Field _children:List<XMLElement>
 	Field _attributes:StringMap<String>
 	
-	Method New(name:String, parent:Node = Null)
+	Method New(name:String, parent:XMLElement = Null)
 		_name = name
 		_parent = parent
 		_attributes = New StringMap<String>
-		_children = New List<Node>
+		_children = New List<XMLElement>
 	End
 	
 	Property Value:String()
 		Return _data
 	Setter(v:String)
 		_data = v
+	End
+
+	Property Name:String()
+		Return _name
 	End
 	
 	Method ToString:String()
@@ -240,18 +258,11 @@ Class Node
 		Return output
 	End
 	
-	Property Children:List<Node>()
+	Property Children:List<XMLElement>()
 		Return _children
 	End
 	
 	Method GetAttribute:String(attr:String)
 		Return _attributes.Get(attr)
 	End
-End
-
-Function Main()
-
-	Local parser:=XMLParser.ParseFile("c:/monkey2/modules/timelinefx/samples/assets/data.xml")
-	Print parser.ToString()
-
 End

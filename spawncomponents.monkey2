@@ -257,11 +257,9 @@ Class tlSpawnComponent_Splatter Extends tlSpawnComponent
 				splaty = Rnd(-emitter.currentsplatter, emitter.currentsplatter)
 			Wend
 			If emitter.Zoom = 1 Or e.Relative
-				e.LocalVector.x += splatx
-				e.LocalVector.y += splaty
+				e.LocalVector = New tlVector2(splatx + e.LocalVector.x, splaty + e.LocalVector.y)
 			Else
-				e.LocalVector.x += splatx * emitter.Zoom
-				e.LocalVector.y += splaty * emitter.Zoom
+				e.LocalVector = New tlVector2(e.LocalVector.x + (splatx * emitter.Zoom), e.LocalVector.y + (splaty * emitter.Zoom))
 			End If
 		End If
 	End
@@ -402,20 +400,20 @@ Class tlSpawnComponent_SizeVariation Extends tlSpawnComponent
 	
 	Method Setup(e:tlParticle) Override
 		Local scaletemp:Float
-		Local sizetemp:Float
+		Local sizetempx:Float, sizetempy:Float
 		If emitter.Uniform
 			scaletemp = emitter.scalex_component.c_nodes.changes[0]
 			e.scalevariationx = Rnd(emitter.currentsizexvariation)
 			e.width = e.scalevariationx + emitter.currentbasesizex
 			If scaletemp
-				sizetemp = (e.width / e.sprite.Width) * scaletemp * e.gsizex
+				sizetempx = (e.width / e.sprite.Width) * scaletemp * e.gsizex
 			Else
-				sizetemp = 0
+				sizetempx = 0
 			End If
-			e.SetScale(sizetemp, sizetemp)
+			e.SetScale(sizetempx, sizetempx)
 			If e.speed And emitter.stretch_component.c_nodes.changes[0]
-				e.ScaleVector.y = (emitter.scalex_component.c_nodes.changes[0] * e.gsizex * (e.width + (Abs(e.speed) * emitter.stretch_component.c_nodes.changes[0] * parenteffect.currentstretch))) / e.sprite.Width
-				If e.ScaleVector.y < e.ScaleVector.x e.ScaleVector.y = e.ScaleVector.x
+				e.ScaleVector = New tlVector2(e.ScaleVector.x, (emitter.scalex_component.c_nodes.changes[0] * e.gsizex * (e.width + (Abs(e.speed) * emitter.stretch_component.c_nodes.changes[0] * parenteffect.currentstretch))) / e.sprite.Width)
+				If e.ScaleVector.y < e.ScaleVector.x e.ScaleVector = New tlVector2(e.ScaleVector.x, e.ScaleVector.x)
 			End If
 		Else
 			'width
@@ -423,24 +421,23 @@ Class tlSpawnComponent_SizeVariation Extends tlSpawnComponent
 			e.scalevariationx = Rnd(emitter.currentsizexvariation)
 			e.width = e.scalevariationx + emitter.currentbasesizex
 			If scaletemp
-				sizetemp = (e.width / e.sprite.Width) * scaletemp * e.gsizex
+				sizetempx = (e.width / e.sprite.Width) * scaletemp * e.gsizex
 			Else
-				sizetemp = 0
+				sizetempx = 0
 			End If
-			e.ScaleVector.x = sizetemp
 			'height
 			scaletemp = emitter.scaley_component.c_nodes.changes[0]
 			e.scalevariationy = Rnd(emitter.currentsizeyvariation)
 			e.height = e.scalevariationy + emitter.currentbasesizey
 			If scaletemp
-				sizetemp = (e.height / e.sprite.Height) * scaletemp * e.gsizey
+				sizetempy = (e.height / e.sprite.Height) * scaletemp * e.gsizey
 			Else
-				sizetemp = 0
+				sizetempy = 0
 			End If
-			e.ScaleVector.y = sizetemp
+			e.ScaleVector = New tlVector2(sizetempx, sizetempy)
 			If e.speed And emitter.stretch_component.c_nodes.changes[0]
-				e.ScaleVector.y = (emitter.scaley_component.c_nodes.changes[0] * e.gsizey * (e.height + (Abs(e.speed) * emitter.stretch_component.c_nodes.changes[0] * parenteffect.currentstretch))) / e.sprite.Height
-				If e.ScaleVector.y < e.ScaleVector.x e.ScaleVector.y = e.ScaleVector.x
+				e.ScaleVector = New tlVector2(e.ScaleVector.x, (emitter.scaley_component.c_nodes.changes[0] * e.gsizey * (e.height + (Abs(e.speed) * emitter.stretch_component.c_nodes.changes[0] * parenteffect.currentstretch))) / e.sprite.Height)
+				If e.ScaleVector.y < e.ScaleVector.x e.ScaleVector = New tlVector2(e.ScaleVector.x, e.ScaleVector.x)
 			End If
 		End If
 	End
@@ -463,20 +460,20 @@ Class tlSpawnComponent_Size Extends tlSpawnComponent
 	
 	Method Setup(e:tlParticle) Override
 		Local scaletemp:Float
-		Local sizetemp:Float
+		Local sizetempx:Float, sizetempy:float
 		If emitter.Uniform
 			scaletemp = emitter.scalex_component.c_nodes.changes[0]
 			e.scalevariationx = 0
 			e.width = emitter.currentbasesizex
 			If scaletemp
-				sizetemp = (e.width / e.sprite.Width) * scaletemp * e.gsizex
+				sizetempx = (e.width / e.sprite.Width) * scaletemp * e.gsizex
 			Else
-				sizetemp = 0
+				sizetempx = 0
 			End If
-			e.SetScale(sizetemp, sizetemp)
+			e.SetScale(sizetempx, sizetempx)
 			If e.speed And emitter.stretch_component.c_nodes.changes[0]
-				e.ScaleVector.y = (emitter.scalex_component.c_nodes.changes[0] * e.gsizex * (e.width + (Abs(e.speed) * emitter.stretch_component.c_nodes.changes[0] * parenteffect.currentstretch))) / e.sprite.Width
-				If e.ScaleVector.y < e.ScaleVector.x e.ScaleVector.y = e.ScaleVector.x
+				e.ScaleVector = New tlVector2(e.ScaleVector.x, (emitter.scalex_component.c_nodes.changes[0] * e.gsizex * (e.width + (Abs(e.speed) * emitter.stretch_component.c_nodes.changes[0] * parenteffect.currentstretch))) / e.sprite.Width)
+				If e.ScaleVector.y < e.ScaleVector.x e.ScaleVector = New tlVector2(e.ScaleVector.x, e.ScaleVector.x)
 			End If
 		Else
 			'width
@@ -484,24 +481,23 @@ Class tlSpawnComponent_Size Extends tlSpawnComponent
 			e.scalevariationx = 0
 			e.width = emitter.currentbasesizex
 			If scaletemp
-				sizetemp = (e.width / e.sprite.Width) * scaletemp * e.gsizex
+				sizetempx = (e.width / e.sprite.Width) * scaletemp * e.gsizex
 			Else
-				sizetemp = 0
+				sizetempx = 0
 			End If
-			e.ScaleVector.x = sizetemp
 			'height
 			scaletemp = emitter.scaley_component.c_nodes.changes[0]
 			e.scalevariationy = 0
 			e.height = emitter.currentbasesizey
 			If scaletemp
-				sizetemp = (e.height / e.sprite.Height) * scaletemp * e.gsizey
+				sizetempy = (e.height / e.sprite.Height) * scaletemp * e.gsizey
 			Else
-				sizetemp = 0
+				sizetempy = 0
 			End If
-			e.ScaleVector.y = sizetemp
+			e.ScaleVector = New tlVector2(sizetempx, sizetempy)
 			If e.speed And emitter.stretch_component.c_nodes.changes[0]
-				e.ScaleVector.y = (emitter.scaley_component.c_nodes.changes[0] * e.gsizey * (e.height + (Abs(e.speed) * emitter.stretch_component.c_nodes.changes[0] * parenteffect.currentstretch))) / e.sprite.Height
-				If e.ScaleVector.y < e.ScaleVector.x e.ScaleVector.y = e.ScaleVector.x
+				e.ScaleVector = New tlVector2(e.ScaleVector.x, (emitter.scaley_component.c_nodes.changes[0] * e.gsizey * (e.height + (Abs(e.speed) * emitter.stretch_component.c_nodes.changes[0] * parenteffect.currentstretch))) / e.sprite.Height)
+				If e.ScaleVector.y < e.ScaleVector.x e.ScaleVector = New tlVector2(e.ScaleVector.x, e.ScaleVector.x)
 			End If
 		End If
 	End

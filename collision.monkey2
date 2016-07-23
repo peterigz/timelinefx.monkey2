@@ -21,11 +21,9 @@
 
 #End
 
-Namespace timelinefx.collision
+Namespace timelinefx
 
-using timelinefx.vector..
-using timelinefx.matrix..
-using timelinefx.math..
+using timelinefx..
 
 'Types of collision
 #Rem monkeydoc Used as the value representing a Box collision

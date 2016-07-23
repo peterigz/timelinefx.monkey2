@@ -21,7 +21,7 @@
 
 #end
 
-Namespace timelinefx.vector
+Namespace timelinefx
 
 #Rem monkeydoc A 2d vector class
 #End
@@ -29,21 +29,9 @@ Struct tlVector2
 	
 	Public
 	
-	Field _x:Float
-	Field _y:Float
+	Field x:Float
+	Field y:Float
 	Field invalid:Int
-
-	Property x:float()
-		return _x
-	Setter(v:float)
-		_x = v
-	End
-
-	Property y:float()
-		return _y
-	Setter(v:float)
-		_y = v
-	End
 
 	#Rem monkeydoc Make a new vector
 		@param x
@@ -181,6 +169,13 @@ Struct tlVector2
 
 	#Rem monkeydoc @hidden
 	#End
+	Operator*=( v:float )
+		x *= v
+		y *= v
+	End
+
+	#Rem monkeydoc @hidden
+	#End
 	Operator/=( v:tlVector2 )
 		x /= v.x
 		y /= v.y
@@ -294,7 +289,7 @@ Struct tlVector2
 	#Rem monkeydoc Get the string representation of the vector
 		@return String
 	#End
-	Method toString:String()
+	Method ToString:String()
 		Return x + ", " + y
 	End
 	

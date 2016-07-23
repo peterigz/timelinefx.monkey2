@@ -386,7 +386,7 @@ Class tlEmitter Extends tlFXObject
 					Case tlOVERTIME_GRAPH
 						 Cast<tlGraphComponent>(graph).Compile_Overtime()
 				End Select
-			End
+			End If
 		Next
 		
 		scalex_component.Compile_Overtime()

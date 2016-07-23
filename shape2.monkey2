@@ -21,7 +21,7 @@
 
 #END
 
-Namespace timelinefx.shape
+Namespace timelinefx
 
 Class tlShape
 	

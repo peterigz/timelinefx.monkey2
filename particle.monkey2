@@ -195,10 +195,10 @@ Class tlParticle Extends tlGameObject
 			If WorldRotation > 360 WorldRotation = WorldRotation Mod 360
 		Else
 			WorldRotation = LocalRotation
-			WorldVector.SetPositionByVector(LocalVector)
+			WorldVector = New tlVector2(LocalVector.x, LocalVector.y)
 		End If
 		
-		WorldScaleVector.SetPositionByVector(ScaleVector)
+		WorldScaleVector = New tlVector2(ScaleVector.x, ScaleVector.y)
 		
 	End Method
 	

@@ -69,15 +69,13 @@ Class tlEffectCoreComponent Extends tlComponent
 				effect.currentareaheight = 0
 			Case tlLINE_EFFECT
 				effect.currentareaheight = 0
-				effect.HandleVector.y = 0
+				effect.HandleVector = New tlVector2(effect.HandleVector.x, 0)
 		End Select
 		
 		If effect.HandleCenter And effect.EffectClass <> tlPOINT_EFFECT
-			effect.HandleVector.x = effect.CurrentAreaWidth / 2
-			effect.HandleVector.y = effect.CurrentAreaHeight / 2
+			effect.HandleVector = New tlVector2(effect.CurrentAreaWidth / 2, effect.CurrentAreaHeight / 2)
 		ElseIf effect.HandleCenter
-			effect.HandleVector.x = 0
-			effect.HandleVector.y = 0
+			effect.HandleVector = New tlVector2
 		End If
 
 		effect.CurrentFrame = effect.Age / tp_LOOKUP_FREQUENCY
@@ -235,27 +233,22 @@ Class tlEmitterCoreComponent Extends tlComponent
 							Else
 								tween = c / intcounter
 								If Parenteffect.HandleCenter Or Parenteffect.HandleVector.x + Parenteffect.HandleVector.y = 0
-									e.LocalVector.x = TweenValues(emitter.OldWorldVector.x, emitter.WorldVector.x, tween)
-									e.LocalVector.y = TweenValues(emitter.OldWorldVector.y, emitter.WorldVector.y, tween)
+									e.LocalVector = New tlVector2(TweenValues(emitter.OldWorldVector.x, emitter.WorldVector.x, tween), TweenValues(emitter.OldWorldVector.y, emitter.WorldVector.y, tween))
+
 									If emitter.Zoom <> 1
-										e.WorldVector.x = e.LocalVector.x - Parenteffect.HandleVector.x * emitter.Zoom
-										e.WorldVector.y = e.LocalVector.y - Parenteffect.HandleVector.y * emitter.Zoom
+										e.WorldVector = e.LocalVector - Parenteffect.HandleVector * emitter.Zoom
 									Else
-										e.WorldVector.x = e.LocalVector.x - Parenteffect.HandleVector.x
-										e.WorldVector.y = e.LocalVector.y - Parenteffect.HandleVector.y
+										e.WorldVector = e.LocalVector - Parenteffect.HandleVector
 									End If
 								Else
-									e.LocalVector.x = 0 - Parenteffect.HandleVector.x
-									e.LocalVector.y = 0 - Parenteffect.HandleVector.y
+									e.LocalVector = Parenteffect.HandleVector.Mirror()
 									rotvec = Parenteffect.Matrix.TransformVector(New tlVector2(e.LocalVector.x, e.LocalVector.y))
-									e.LocalVector.x = TweenValues(emitter.OldWorldVector.x, emitter.WorldVector.x, tween) + rotvec.x
-									e.LocalVector.y = TweenValues(emitter.OldWorldVector.y, emitter.WorldVector.y, tween) + rotvec.y
+									e.LocalVector = New tlVector2(TweenValues(emitter.OldWorldVector.x, emitter.WorldVector.x, tween) + rotvec.x, TweenValues(emitter.OldWorldVector.y, emitter.WorldVector.y, tween) + rotvec.y)
+
 									If emitter.Zoom <> 1
-										e.WorldVector.x = e.LocalVector.x * emitter.Zoom
-										e.WorldVector.y = e.LocalVector.y * emitter.Zoom
+										e.WorldVector = e.LocalVector * emitter.Zoom
 									Else
-										e.WorldVector.x = e.LocalVector.x
-										e.WorldVector.y = e.LocalVector.y
+										e.WorldVector = e.LocalVector.Clone()
 									End If
 								End If
 							End If
@@ -271,16 +264,18 @@ Class tlEmitterCoreComponent Extends tlComponent
 										End If
 									End If
 								End If
+								local x:float, y:float
 								If Parenteffect.MaxGX > 1
-									e.LocalVector.x = (gx / (Parenteffect.MaxGX - 1) * Parenteffect.currentareawidth) - Parenteffect.HandleVector.x
+									x = (gx / (Parenteffect.MaxGX - 1) * Parenteffect.currentareawidth) - Parenteffect.HandleVector.x
 								Else
-									e.LocalVector.x = -Parenteffect.HandleVector.x
+									x = -Parenteffect.HandleVector.x
 								End If
 								If Parenteffect.MaxGY > 1
-									e.LocalVector.y = (gy / (Parenteffect.MaxGY - 1) * Parenteffect.currentareaheight) - Parenteffect.HandleVector.y
+									y = (gy / (Parenteffect.MaxGY - 1) * Parenteffect.currentareaheight) - Parenteffect.HandleVector.y
 								Else
-									e.LocalVector.y = -Parenteffect.HandleVector.y
+									y = -Parenteffect.HandleVector.y
 								End If
+								e.LocalVector = New tlVector2(x, y)
 								If Parenteffect.SpawnDirection = 1
 									gx+=Parenteffect.SpawnDirection
 									If gx >= Parenteffect.MaxGX
@@ -292,17 +287,14 @@ Class tlEmitterCoreComponent Extends tlComponent
 									End If
 								End If
 							Else
-								e.LocalVector.x = Rnd(Parenteffect.currentareawidth) - Parenteffect.HandleVector.x
-								e.LocalVector.y = Rnd(Parenteffect.currentareaheight) - Parenteffect.HandleVector.y
+								e.LocalVector = New tlVector2(Rnd(Parenteffect.currentareawidth) - Parenteffect.HandleVector.x, Rnd(Parenteffect.currentareaheight) - Parenteffect.HandleVector.y)
 							End If
 							If Not e.Relative
 								rotvec = Parenteffect.Matrix.TransformVector(New tlVector2(e.LocalVector.x, e.LocalVector.y))
 								If emitter.Zoom <> 1
-									e.LocalVector.x = Parenteffect.WorldVector.x + rotvec.x * emitter.Zoom
-									e.LocalVector.y = Parenteffect.WorldVector.y + rotvec.y * emitter.Zoom
+									e.LocalVector = Parenteffect.WorldVector + rotvec * emitter.Zoom
 								Else
-									e.LocalVector.x = Parenteffect.WorldVector.x + rotvec.x
-									e.LocalVector.y = Parenteffect.WorldVector.y + rotvec.y
+									e.LocalVector = Parenteffect.WorldVector + rotvec
 								End If
 							End If
 						Case tlELLIPSE_EFFECT
@@ -328,25 +320,21 @@ Class tlEmitterCoreComponent Extends tlComponent
 								
 								th = gx * (Parenteffect.EllipseArc / Parenteffect.MaxGX) + Parenteffect.EllipseOffset
 								
-								e.LocalVector.x = Cos(th) * tx - Parenteffect.HandleVector.x + tx
-								e.LocalVector.y = -Sin(th) * ty - Parenteffect.HandleVector.y + ty
+								e.LocalVector = New tlVector2(Cos(th) * tx - Parenteffect.HandleVector.x + tx, -Sin(th) * ty - Parenteffect.HandleVector.y + ty)
 							Else
 								tx = Parenteffect.currentareawidth / 2
 								ty = Parenteffect.currentareaheight / 2
 							
 								th = Rnd(Parenteffect.EllipseArc) + Parenteffect.EllipseOffset
 								
-								e.LocalVector.x = Cos(th) * tx - Parenteffect.HandleVector.x + tx
-								e.LocalVector.y = -Sin(th) * ty - Parenteffect.HandleVector.y + ty
+								e.LocalVector = New tlVector2(Cos(th) * tx - Parenteffect.HandleVector.x + tx, -Sin(th) * ty - Parenteffect.HandleVector.y + ty)
 							End If
 							If Not e.Relative
 								rotvec = Parenteffect.Matrix.TransformVector(New tlVector2(e.LocalVector.x, e.LocalVector.y))
 								If emitter.Zoom <> 1
-									e.LocalVector.x = Parenteffect.WorldVector.x + rotvec.x * emitter.Zoom
-									e.LocalVector.y = Parenteffect.WorldVector.y + rotvec.y * emitter.Zoom
+									e.LocalVector = Parenteffect.WorldVector + rotvec * emitter.Zoom
 								Else
-									e.LocalVector.x = Parenteffect.WorldVector.x + rotvec.x 
-									e.LocalVector.y = Parenteffect.WorldVector.y + rotvec.y
+									e.LocalVector = Parenteffect.WorldVector + rotvec
 								End If
 							End If
 						Case tlLINE_EFFECT
@@ -358,12 +346,13 @@ Class tlEmitterCoreComponent Extends tlComponent
 											gx = Parenteffect.MaxGX - 1
 										End If
 									End If
+									local x:float
 									If Parenteffect.MaxGX > 1
-										e.LocalVector.x = (gx / (Parenteffect.MaxGX - 1) * Parenteffect.currentareawidth) - Parenteffect.HandleVector.x
+										x = (gx / (Parenteffect.MaxGX - 1) * Parenteffect.currentareawidth) - Parenteffect.HandleVector.x
 									Else
-										e.LocalVector.x = -Parenteffect.HandleVector.x
+										x = -Parenteffect.HandleVector.x
 									End If
-									e.LocalVector.y = -Parenteffect.HandleVector.y
+									e.LocalVector = New tlVector2(x, -Parenteffect.HandleVector.y)
 									If Parenteffect.SpawnDirection = 1
 										gx+=Parenteffect.SpawnDirection
 										If gx >= Parenteffect.MaxGX
@@ -371,14 +360,12 @@ Class tlEmitterCoreComponent Extends tlComponent
 										End If
 									End If
 								Else
-									e.LocalVector.x = Rnd(Parenteffect.currentareawidth) - Parenteffect.HandleVector.x
-									e.LocalVector.y = -Parenteffect.HandleVector.y
+									e.LocalVector = New tlVector2(Rnd(Parenteffect.currentareawidth) - Parenteffect.HandleVector.x, -Parenteffect.HandleVector.y)
 								End If
 							Else
 								e.Relative = True
 								If Parenteffect.DistanceSetByLife
-									e.LocalVector.x = -Parenteffect.HandleVector.x
-									e.LocalVector.y = -Parenteffect.HandleVector.y
+									e.LocalVector = Parenteffect.HandleVector.Mirror()
 								Else
 									If Parenteffect.EmitatPoints
 										
@@ -388,12 +375,13 @@ Class tlEmitterCoreComponent Extends tlComponent
 												gx = Parenteffect.MaxGX - 1
 											End If
 										End If
+										local x:float
 										If Parenteffect.MaxGX > 1
-											e.LocalVector.x = (gx / (Parenteffect.MaxGX - 1) * Parenteffect.currentareawidth) - Parenteffect.HandleVector.x
+											x = (gx / (Parenteffect.MaxGX - 1) * Parenteffect.currentareawidth) - Parenteffect.HandleVector.x
 										Else
-											e.LocalVector.x = -Parenteffect.HandleVector.x
+											x = -Parenteffect.HandleVector.x
 										End If
-										e.LocalVector.y = -Parenteffect.HandleVector.y
+										e.LocalVector = New tlVector2(x, -Parenteffect.HandleVector.y)
 										If Parenteffect.SpawnDirection = 1
 											gx+=Parenteffect.SpawnDirection
 											If gx >= Parenteffect.MaxGX
@@ -401,8 +389,7 @@ Class tlEmitterCoreComponent Extends tlComponent
 											End If
 										End If
 									Else
-										e.LocalVector.x = Rnd(Parenteffect.currentareawidth) - Parenteffect.HandleVector.x
-										e.LocalVector.y = -Parenteffect.HandleVector.y
+										e.LocalVector = New tlVector2(Rnd(Parenteffect.currentareawidth) - Parenteffect.HandleVector.x, -Parenteffect.HandleVector.y)
 									End If
 								End If
 							End If
@@ -410,11 +397,9 @@ Class tlEmitterCoreComponent Extends tlComponent
 							If Not e.Relative
 								rotvec = Parenteffect.Matrix.TransformVector(New tlVector2(e.LocalVector.x, e.LocalVector.y))
 								If emitter.Zoom <> 1
-									e.LocalVector.x = Parenteffect.WorldVector.x + rotvec.x * emitter.Zoom
-									e.LocalVector.y = Parenteffect.WorldVector.y + rotvec.y * emitter.Zoom
+									e.LocalVector = Parenteffect.WorldVector + rotvec * emitter.Zoom
 								Else
-									e.LocalVector.x = Parenteffect.WorldVector.x + rotvec.x
-									e.LocalVector.y = Parenteffect.WorldVector.y + rotvec.y
+									e.LocalVector = Parenteffect.WorldVector + rotvec
 								End If
 							End If
 					End Select
@@ -525,15 +510,14 @@ Class tlParticleCoreComponent Extends tlComponent
 		'update speed
 		If particle.speed
 			Local pixelspersecond:Float = particle.speed / tp_CURRENT_UPDATE_TIME
-			particle.speed_vec.x = Sin(particle.direction) * pixelspersecond
-			particle.speed_vec.y = Cos(particle.direction) * pixelspersecond
+			particle.speed_vec = New tlVector2(Sin(particle.direction) * pixelspersecond, Cos(particle.direction) * pixelspersecond)
 			If particle.Relative
-				particle.LocalVector = New tlVector2(particle.speed_vec.x, -particle.speed_vec.y)
+				particle.LocalVector += particle.speed_vec
 			Else
 				If emitter.Zoom <> 1
-					particle.LocalVector = New tlVector2(particle.speed_vec.x * emitter.Zoom, -particle.speed_vec.y * emitter.Zoom)
+					particle.LocalVector = New tlVector2(particle.LocalVector.x + particle.speed_vec.x * emitter.Zoom, particle.LocalVector.y - particle.speed_vec.y * emitter.Zoom)
 				Else
-					particle.LocalVector = New tlVector2(particle.speed_vec.x, -particle.speed_vec.y)
+					particle.LocalVector = New tlVector2(particle.LocalVector.x + particle.speed_vec.x, particle.LocalVector.y - particle.speed_vec.y)
 				End If
 			End If
 		End If

@@ -21,7 +21,7 @@
 
 #end
 
-Namespace timelinefx.math
+Namespace timelinefx
 
 #rem
 	bbdoc: get the direction from 1 point to another
