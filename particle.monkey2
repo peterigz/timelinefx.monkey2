@@ -192,7 +192,6 @@ Class tlParticle Extends tlGameObject
 				WorldVector = Parent.WorldVector + RotateVector * Zoom
 			End If
 			WorldRotation = Parent.WorldRotation + LocalRotation
-			If WorldRotation > 360 WorldRotation = WorldRotation Mod 360
 		Else
 			WorldRotation = LocalRotation
 			WorldVector = New tlVector2(LocalVector.x, LocalVector.y)

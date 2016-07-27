@@ -299,7 +299,6 @@ Class tlEmitterCoreComponent Extends tlComponent
 							End If
 						Case tlELLIPSE_EFFECT
 							If Parenteffect.EmitatPoints
-								
 								cellsizew = Parenteffect.currentareawidth / 2
 								cellsizeh = Parenteffect.currentareaheight / 2
 								
@@ -320,14 +319,14 @@ Class tlEmitterCoreComponent Extends tlComponent
 								
 								th = gx * (Parenteffect.EllipseArc / Parenteffect.MaxGX) + Parenteffect.EllipseOffset
 								
-								e.LocalVector = New tlVector2(Cos(th) * tx - Parenteffect.HandleVector.x + tx, -Sin(th) * ty - Parenteffect.HandleVector.y + ty)
+								e.LocalVector = New tlVector2(Sin(th) * tx - Parenteffect.HandleVector.x + tx, Cos(th) * ty - Parenteffect.HandleVector.y + ty)
 							Else
 								tx = Parenteffect.currentareawidth / 2
 								ty = Parenteffect.currentareaheight / 2
 							
 								th = Rnd(Parenteffect.EllipseArc) + Parenteffect.EllipseOffset
 								
-								e.LocalVector = New tlVector2(Cos(th) * tx - Parenteffect.HandleVector.x + tx, -Sin(th) * ty - Parenteffect.HandleVector.y + ty)
+								e.LocalVector = New tlVector2(Sin(th) * tx - Parenteffect.HandleVector.x + tx, Cos(th) * ty - Parenteffect.HandleVector.y + ty)
 							End If
 							If Not e.Relative
 								rotvec = Parenteffect.Matrix.TransformVector(New tlVector2(e.LocalVector.x, e.LocalVector.y))
@@ -438,7 +437,6 @@ Class tlEmitterCoreComponent Extends tlComponent
 					'Direction and Rotation
 					If Parenteffect.TraverseEdge And Parenteffect.EffectClass = tlLINE_EFFECT
 						e.directionlocked = True
-						e.direction = 90
 					End If
 					'Colour
 					If emitter.RandomColor
@@ -510,14 +508,14 @@ Class tlParticleCoreComponent Extends tlComponent
 		'update speed
 		If particle.speed
 			Local pixelspersecond:Float = particle.speed / tp_CURRENT_UPDATE_TIME
-			particle.speed_vec = New tlVector2(Sin(particle.direction) * pixelspersecond, Cos(particle.direction) * pixelspersecond)
+			particle.speed_vec = New tlVector2(Sin(particle.direction) * pixelspersecond, -Cos(particle.direction) * pixelspersecond)
 			If particle.Relative
 				particle.LocalVector += particle.speed_vec
 			Else
 				If emitter.Zoom <> 1
-					particle.LocalVector = New tlVector2(particle.LocalVector.x + particle.speed_vec.x * emitter.Zoom, particle.LocalVector.y - particle.speed_vec.y * emitter.Zoom)
+					particle.LocalVector = particle.LocalVector + particle.speed_vec * emitter.Zoom
 				Else
-					particle.LocalVector = New tlVector2(particle.LocalVector.x + particle.speed_vec.x, particle.LocalVector.y - particle.speed_vec.y)
+					particle.LocalVector = particle.LocalVector + particle.speed_vec
 				End If
 			End If
 		End If
@@ -545,9 +543,9 @@ Class tlParticleCoreComponent Extends tlComponent
 			Else
 				If particle.weight Or particle.direction
 					If particle.OldWorldVector.x <> particle.WorldVector.x And particle.OldWorldVector.y <> particle.WorldVector.y
-						particle.LocalRotation = -GetDirection(particle.OldWorldVector.x, particle.OldWorldVector.y, particle.WorldVector.x, particle.WorldVector.y)
-						If Abs(particle.OldLocalRotation - particle.LocalRotation) > 180
-							If particle.OldLocalRotation > particle.LocalRotation particle.OldLocalRotation -= 360 Else particle.OldLocalRotation += 360
+						particle.LocalRotation = -GetDirection(particle.OldWorldVector.x, particle.OldWorldVector.y, particle.WorldVector.x, particle.WorldVector.y) + 3.14159
+						If Abs(particle.OldLocalRotation - particle.LocalRotation) > 3.14159
+							If particle.OldLocalRotation > particle.LocalRotation particle.OldLocalRotation -= 6.28319 Else particle.OldLocalRotation += 6.28319
 						End If
 					End If
 				Else
@@ -555,7 +553,7 @@ Class tlParticleCoreComponent Extends tlComponent
 				End If
 			End If
 		Else
-			particle.LocalRotation += particle.spin
+			particle.LocalRotation -= particle.spin
 		End If
 		
 		'If dead=2 then that means its reached the end of the line (in kill mode) for line traversal effects

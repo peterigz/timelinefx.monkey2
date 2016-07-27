@@ -43,7 +43,7 @@ Class tlEffect Extends tlFXObject
 	Field maxgy:Int
 	Field emission_type:Int
 	Field ellipsearc:Float
-	Field ellipseoffset:Int
+	Field ellipseoffset:Float
 	Field effectlength:Int
 	Field uniform:Int
 	Field traverseedge:Int

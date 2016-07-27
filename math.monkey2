@@ -30,7 +30,7 @@ Namespace timelinefx
 #end
 Function GetDirection:Float(fromx:Float, fromy:Float, tox:Float, toy:Float)
 
-	Return(ATan2(toy - fromy, tox - fromx) + 450) Mod 360
+	Return ATan2(toy - fromy, tox - fromx) - 1.5708
 	
 End Function
 
@@ -109,6 +109,7 @@ Function GetNearestPowerOf2:Int(n:Int)
 	Return t
 End Function
 
-Function DegRad:double(angle:double)
-	Return angle * Pi / 180
+''
+Function DegRad:Float(angle:Float)
+	Return (angle * Pi / 180)
 End

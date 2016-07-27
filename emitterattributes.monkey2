@@ -693,7 +693,7 @@ Class tlEC_DirectionOvertime Extends tlGraphComponent
 	
 	Method ControlParticle(p:tlParticle) Override
 		If p.directionlocked
-			p.direction = 90
+			'p.direction = 90
 			If effect.EffectClass = tlLINE_EFFECT
 				If effect.DistanceSetByLife
 					Local life:Float = p.Age / p.lifetime

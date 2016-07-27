@@ -45,7 +45,7 @@ Class tlEmitter Extends tlFXObject
 	Field animationdirection:Int
 	Field uniform:Int
 	Field angletype:Int
-	Field angleoffset:Int
+	Field angleoffset:Float
 	Field lockangle:Int
 	Field anglerelative:Int
 	Field useeffectemission:Int
@@ -266,9 +266,9 @@ Class tlEmitter Extends tlFXObject
 	Setter (v:Int)
 		angletype = v
 	End
-	Property AngleOffset:Int()
+	Property AngleOffset:Float()
 		Return angleoffset
-	Setter (v:Int)
+	Setter (v:Float)
 		angleoffset = v
 	End
 	Property LockAngle:Int()

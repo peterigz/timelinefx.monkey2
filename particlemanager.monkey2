@@ -433,14 +433,14 @@ Class tlParticleManager
 				Local tv:Float
 				Local ta:Float
 				If e.emitter.AngleRelative
-					If Abs( (e.OldWorldRotation) - (e.WorldRotation)) > 180
-						ta = -TweenValues(Abs(e.OldWorldRotation - 360), e.WorldRotation, tween)
+					If Abs( (e.OldWorldRotation) - (e.WorldRotation)) > 3.14159
+						ta = -TweenValues(Abs(e.OldWorldRotation - 6.28319), e.WorldRotation, tween)
 					Else
 						ta = -TweenValues(e.OldWorldRotation, e.WorldRotation, tween)
 					End If
 				Else
-					If Abs(e.OldLocalRotation - e.LocalRotation) > 180
-						ta = TweenValues(Abs(e.OldLocalRotation - 360), e.LocalRotation, tween)
+					If Abs(e.OldLocalRotation - e.LocalRotation) > 3.14159
+						ta = TweenValues(Abs(e.OldLocalRotation - 6.28319), e.LocalRotation, tween)
 					Else
 						ta = TweenValues(e.OldLocalRotation, e.LocalRotation, tween)
 					End If
@@ -475,6 +475,7 @@ Class tlParticleManager
 				Else
 					e.Sprite.image[tv].Handle = New Vec2f( float(e.HandleVector.x) / e.sprite.Width, float(e.HandleVector.y) / e.sprite.Height )
 				End If
+				
 				canvas.DrawImage (e.Sprite.image[tv], px, py, ta, tx, ty)
 			End If
 		End If

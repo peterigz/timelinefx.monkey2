@@ -86,9 +86,9 @@ Class tlShape
 		frames = value
 	End
 	
-	Function LoadFrames:Image[] (path:String, numFrames:Int, cellWidth:Int, cellHeight:Int, padded:Bool = False, flags:TextureFlags = TextureFlags.Filter|TextureFlags.Mipmap, shader:Shader = Null)
-	
-		Local material:=Image.Load( path,flags|TextureFlags.Filter, shader )
+	Function LoadFrames:Image[] (path:String, numFrames:Int, cellWidth:Int, cellHeight:Int, padded:Bool = False, flags:TextureFlags = TextureFlags.Filter, shader:Shader = Null)
+		if (flags & TextureFlags.Filter) And (flags & TextureFlags.Mipmap) Print "Both shape"
+		Local material:=Image.Load( path, flags, shader )
 		If Not material Return New Image[0]
 		
 		If cellWidth * cellHeight * numFrames > material.Width * material.Height Return New Image[0]
@@ -132,13 +132,14 @@ Class tlShape
 
 End
 
-Function LoadShape:tlShape(url:String, width:Int, height:Int, frames:Int)
+Function LoadShape:tlShape(url:String, width:Int, height:Int, frames:Int, flags:TextureFlags = TextureFlags.Filter)
+	if (flags & TextureFlags.Filter) And (flags & TextureFlags.Mipmap) Print "Both"
 	Local shape:tlShape = New tlShape
 	If frames = 1
 		shape.image = New Image[1]
-		shape.image[0] = Image.Load(url)
+		shape.image[0] = Image.Load(url, flags)
 	Else
-		shape.image = tlShape.LoadFrames(url, frames, width, height)
+		shape.image = tlShape.LoadFrames(url, frames, width, height, false, flags)
 	EndIf
 
 	shape.Width = width

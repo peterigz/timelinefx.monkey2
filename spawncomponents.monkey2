@@ -77,8 +77,7 @@ Class tlSpawnComponent_Speed Extends tlSpawnComponent
 	End
 	
 	Method Setup(e:tlParticle) Override
-		e.speed_vec.x = 0
-		e.speed_vec.y = 0
+		e.speed_vec = New tlVector2
 		e.speed = emitter.velocity_component.c_nodes.changes[0]
 		e.velvariation = Rnd(-emitter.currentvelocityvariation, emitter.currentvelocityvariation)
 		e.basespeed = (emitter.currentbasespeed + e.velvariation) * parenteffect.currentvelocity
@@ -175,7 +174,7 @@ Class tlSpawnComponent_Emission Extends tlSpawnComponent
 		If parenteffect.EffectClass <> tlPOINT_EFFECT
 			Select parenteffect.EmissionType
 				Case tlEMISSION_INWARDS
-					e.emissionangle = emitter.currentemissionangle
+					e.emissionangle = emitter.currentemissionangle + 3.14159
 					If e.Relative
 						e.emissionangle += GetDirection(0, 0, e.LocalVector.x, e.LocalVector.y)
 					Else

@@ -101,7 +101,7 @@ Function LoadEffectXMLTree:tlEffect(effectschild:XMLElement, effectslib:tlEffect
 	e.MaxGX = Cast <Int>(effectschild.GetAttribute("MAXGX"))
 	e.MaxGY = Cast <Int>(effectschild.GetAttribute("MAXGY"))
 	e.EmissionType = Cast <Int>(effectschild.GetAttribute("EMISSION_TYPE"))
-	e.EllipseArc = Cast <Float>(effectschild.GetAttribute("ELLIPSE_ARC"))
+	e.EllipseArc = DegRad(Cast <Float>(effectschild.GetAttribute("ELLIPSE_ARC")))
 	e.EffectLength = Cast <Int>(effectschild.GetAttribute("EFFECT_LENGTH"))
 	e.Uniform = Cast <Int>(effectschild.GetAttribute("UNIFORM"))
 	e.Name = effectschild.GetAttribute("NAME")
@@ -267,7 +267,7 @@ Function LoadEffectXMLTree:tlEffect(effectschild:XMLElement, effectslib:tlEffect
 					Next
 				End If
 			Case "EMISSIONANGLE"
-				ec = New tlAttributeNode(Cast <Float>(effectchild.GetAttribute("FRAME")), Cast <Float>(effectchild.GetAttribute("VALUE")))
+				ec = New tlAttributeNode(Cast <Float>(effectchild.GetAttribute("FRAME")), DegRad(Cast <Float>(effectchild.GetAttribute("VALUE"))))
 				emissionangle.AddLast(ec)
 				Local attlist:List<XMLElement> = effectchild.Children
 				If attlist
@@ -282,7 +282,7 @@ Function LoadEffectXMLTree:tlEffect(effectschild:XMLElement, effectslib:tlEffect
 					Next
 				End If
 			Case "EMISSIONRANGE"
-				ec = New tlAttributeNode(Cast <Float>(effectchild.GetAttribute("FRAME")), Cast <Float>(effectchild.GetAttribute("VALUE")))
+				ec = New tlAttributeNode(Cast <Float>(effectchild.GetAttribute("FRAME")), DegRad(Cast <Float>(effectchild.GetAttribute("VALUE"))))
 				emissionrange.AddLast(ec)
 				Local attlist:List<XMLElement> = effectchild.Children
 				If attlist
@@ -327,7 +327,7 @@ Function LoadEffectXMLTree:tlEffect(effectschild:XMLElement, effectslib:tlEffect
 					Next
 				End If
 			Case "ANGLE"
-				ec = New tlAttributeNode(Cast <Float>(effectchild.GetAttribute("FRAME")), Cast <Float>(effectchild.GetAttribute("VALUE")))
+				ec = New tlAttributeNode(Cast <Float>(effectchild.GetAttribute("FRAME")), DegRad(Cast <Float>(effectchild.GetAttribute("VALUE"))))
 				angle.AddLast(ec)
 				Local attlist:List<XMLElement> = effectchild.Children
 				If attlist
@@ -572,8 +572,9 @@ Function LoadEmitterXMLTree:tlEmitter(effectchild:XMLElement, effectslib:tlEffec
 			p.BlendMode = BlendMode.Alpha
 		Case 4
 			p.BlendMode = BlendMode.Additive
+		Default
+			p.BlendMode = BlendMode.Alpha
 	End
-	'Print p.BlendMode
 	p.ParticleRelative = Cast <Int>(effectchild.GetAttribute("RELATIVE"))
 	p.RandomColor = Cast <Int>(effectchild.GetAttribute("RANDOM_COLOR"))
 	p.Layer = Cast <Int>(effectchild.GetAttribute("LAYER"))
@@ -586,7 +587,7 @@ Function LoadEmitterXMLTree:tlEmitter(effectchild:XMLElement, effectslib:tlEffec
 	p.AnimationDirection = Cast <Int>(effectchild.GetAttribute("ANIMATION_DIRECTION"))
 	p.Uniform = Cast <Int>(effectchild.GetAttribute("UNIFORM"))
 	p.AngleType = Cast <Int>(effectchild.GetAttribute("ANGLE_TYPE"))
-	p.AngleOffset = Cast <Int>(effectchild.GetAttribute("ANGLE_OFFSET"))
+	p.AngleOffset = -DegRad(Cast <Float>(effectchild.GetAttribute("ANGLE_OFFSET")))
 	p.LockAngle = Cast <Int>(effectchild.GetAttribute("LOCK_ANGLE"))
 	p.AngleRelative = Cast <Int>(effectchild.GetAttribute("ANGLE_RELATIVE"))
 	p.UseEffectEmission = Cast <Int>(effectchild.GetAttribute("USE_EFFECT_EMISSION"))
@@ -638,7 +639,7 @@ Function LoadEmitterXMLTree:tlEmitter(effectchild:XMLElement, effectslib:tlEffec
 			Case "ANGLE_TYPE"
 				p.AngleType = Cast <Int>(particlechild.GetAttribute("VALUE"))
 			Case "ANGLE_OFFSET"
-				p.AngleOffset = Cast <Int>(particlechild.GetAttribute("VALUE"))
+				p.AngleOffset = -DegRad(Cast <Float>(particlechild.GetAttribute("VALUE")))
 			Case "LOCK_ANGLE"
 				p.LockAngle = Cast <Int>(particlechild.GetAttribute("VALUE"))
 			Case "ANGLE_RELATIVE"
@@ -746,7 +747,7 @@ Function LoadEmitterXMLTree:tlEmitter(effectchild:XMLElement, effectslib:tlEffec
 					Next
 				End If
 			Case "BASE_SPIN"
-				ec = New tlAttributeNode(Cast <Float>(particlechild.GetAttribute("FRAME")), Cast <Float>(particlechild.GetAttribute("VALUE")))
+				ec = New tlAttributeNode(Cast <Float>(particlechild.GetAttribute("FRAME")), DegRad(Cast <Float>(particlechild.GetAttribute("VALUE"))))
 				basespin.AddLast(ec)
 				Local attlist:List<XMLElement> = particlechild.Children
 				If attlist
@@ -866,7 +867,7 @@ Function LoadEmitterXMLTree:tlEmitter(effectchild:XMLElement, effectslib:tlEffec
 					Next
 				End If
 			Case "SPIN_VARIATION"
-				ec = New tlAttributeNode(Cast <Float>(particlechild.GetAttribute("FRAME")), Cast <Float>(particlechild.GetAttribute("VALUE")))
+				ec = New tlAttributeNode(Cast <Float>(particlechild.GetAttribute("FRAME")), DegRad(Cast <Float>(particlechild.GetAttribute("VALUE"))))
 				spinvariation.AddLast(ec)
 				Local attlist:List<XMLElement> = particlechild.Children
 				If attlist
@@ -986,7 +987,7 @@ Function LoadEmitterXMLTree:tlEmitter(effectchild:XMLElement, effectslib:tlEffec
 					Next
 				End If
 			Case "DIRECTION"
-				ec = New tlAttributeNode(Cast <Float>(particlechild.GetAttribute("FRAME")), Cast <Float>(particlechild.GetAttribute("VALUE")))
+				ec = New tlAttributeNode(Cast <Float>(particlechild.GetAttribute("FRAME")), DegRad(Cast <Float>(particlechild.GetAttribute("VALUE"))))
 				direction.AddLast(ec)
 				Local attlist:List<XMLElement> = particlechild.Children
 				If attlist
@@ -1070,7 +1071,7 @@ Function LoadEmitterXMLTree:tlEmitter(effectchild:XMLElement, effectslib:tlEffec
 					Next
 				End If
 			Case "EMISSION_ANGLE"
-				ec = New tlAttributeNode(Cast <Float>(particlechild.GetAttribute("FRAME")), Cast <Float>(particlechild.GetAttribute("VALUE")))
+				ec = New tlAttributeNode(Cast <Float>(particlechild.GetAttribute("FRAME")), DegRad(Cast <Float>(particlechild.GetAttribute("VALUE"))))
 				emissionangle.AddLast(ec)
 				Local attlist:= particlechild.Children
 				If attlist
@@ -1085,7 +1086,7 @@ Function LoadEmitterXMLTree:tlEmitter(effectchild:XMLElement, effectslib:tlEffec
 					Next
 				End If
 			Case "EMISSION_RANGE"
-				ec = New tlAttributeNode(Cast <Float>(particlechild.GetAttribute("FRAME")), Cast <Float>(particlechild.GetAttribute("VALUE")))
+				ec = New tlAttributeNode(Cast <Float>(particlechild.GetAttribute("FRAME")), DegRad(Cast <Float>(particlechild.GetAttribute("VALUE"))))
 				emissionrange.AddLast(ec)
 				Local attlist:= particlechild.Children
 				If attlist
