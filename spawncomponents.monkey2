@@ -174,18 +174,18 @@ Class tlSpawnComponent_Emission Extends tlSpawnComponent
 		If parenteffect.EffectClass <> tlPOINT_EFFECT
 			Select parenteffect.EmissionType
 				Case tlEMISSION_INWARDS
-					e.emissionangle = emitter.currentemissionangle + 3.14159
-					If e.Relative
-						e.emissionangle += GetDirection(0, 0, e.LocalVector.x, e.LocalVector.y)
-					Else
-						e.emissionangle += GetDirection(emitter.WorldVector.x, emitter.WorldVector.y, e.WorldVector.x, e.WorldVector.y)
-					End If
-				Case tlEMISSION_OUTWARDS
-					e.emissionangle = emitter.currentemissionangle
+					e.emissionangle = emitter.currentemissionangle 
 					If e.Relative
 						e.emissionangle += GetDirection(e.LocalVector.x, e.LocalVector.y, 0, 0)
 					Else
 						e.emissionangle += GetDirection(e.WorldVector.x, e.WorldVector.y, emitter.WorldVector.x, emitter.WorldVector.y)
+					End If
+				Case tlEMISSION_OUTWARDS
+					e.emissionangle = emitter.currentemissionangle
+					If e.Relative
+						e.emissionangle += GetDirection(0, 0, e.LocalVector.x, e.LocalVector.y)
+					Else
+						e.emissionangle += GetDirection(emitter.WorldVector.x, emitter.WorldVector.y, e.WorldVector.x, e.WorldVector.y)
 					End If
 				Case tlEMISSION_IN_AND_OUT
 					e.emissionangle = emitter.currentemissionangle

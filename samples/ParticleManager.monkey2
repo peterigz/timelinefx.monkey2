@@ -2,18 +2,10 @@
 #Import "<mojo>"
 #Import "<std>"
 #Import "<timelinefx>"
-#Import "assets/explosions/data.xml@/explosions"
-#Import "assets/explosions/Flare7.png@/explosions"
-#Import "assets/explosions/Flare10.png@/explosions"
-#Import "assets/explosions/Fog-Group.png@/explosions"
-#Import "assets/explosions/Plume1.png@/explosions"
-#Import "assets/explosions/toonCloud.png@/explosions"
-#Import "assets/explosions/tooncollumn.png@/explosions"
-#Import "assets/test/data.xml@/test"
-#Import "assets/test/smoketoon2.png@/test"
 #import "assets/examples/6starfilled.png@/examples"
 #import "assets/examples/8starfilled.png@/examples"
 #import "assets/examples/8starhollow.png@/examples"
+#Import "assets/examples/arrow.png@/examples"
 #import "assets/examples/Circle.png@/examples"
 #import "assets/examples/circlesymbol1.png@/examples"
 #import "assets/examples/ElectricGroup1.png@/examples"
@@ -52,11 +44,10 @@ Class FXexample Extends Window
 	'Create some fields to store an effects libray, effect, and a particle manager. 
 	Field MyEffects:tlEffectsLibrary
 	Field MyEffect:tlEffect
-	Field MyEffect2:tlEffect
-	Field MyEffect3:tlEffect
-	Field MyEffect4:tlEffect
 	Field MyParticleManager:tlParticleManager
-	Field Paused:int
+	Field Paused:Int
+	Field EffectNames:String[]
+	Field CurrentEffect:int
 
 	'In the OnCreate method you can load your effects 
 	'library and set up the particle manager.
@@ -64,15 +55,9 @@ Class FXexample Extends Window
 		Super.New( title, width, height )
 		'load the effects file. See the docs on LoadEffects on how to 
 		'prepare an effects library for use in monkey.
-		'MyEffects = LoadEffects("asset::test")
 		MyEffects = LoadEffects("asset::examples")
 		
 		'Use GetEffect, to retrieve an effect from the library.
-		'MyEffect = MyEffects.GetEffect("dv")
-		'MyEffect = MyEffects.GetEffect("toon explosion arms &amp; trails")
-		'MyEffect2 = MyEffects.GetEffect("toon explosion arms")
-		'MyEffect3 = MyEffects.GetEffect("toon explosion 2")
-		'MyEffect4 = MyEffects.GetEffect("toon smoke puff ring")
 		MyEffect = MyEffects.GetEffect("smokey explosion")
 		
 		'create a particle manager to manage all the effects and particles
@@ -88,39 +73,51 @@ Class FXexample Extends Window
 		'Set the origin so that we can use mouse coords to place effects on screen
 		MyParticleManager.SetOrigin(Width / 2, Height / 2)
 		
+		Local effects:=MyEffects.Effects
+		
+		EffectNames = New String[effects.Count()]
+		Local i:int
+		For Local name:=Eachin effects.Keys
+			If Not name.Contains("/")
+				EffectNames[i] = name
+				i+=1
+			End If
+		Next
+		EffectNames = EffectNames.Slice(0, i-1)
+		Print EffectNames.Length
 	End
 	
 	'Use the OnRender method to render all particles
 	Method OnRender(canvas:Canvas) Override
 		'lets create an effect everytime the mouse is clicked
+		If Keyboard.KeyHit(Key.Z) 
+			CurrentEffect-=1
+			If CurrentEffect < 0 CurrentEffect = EffectNames.Length-1
+		End If
+		If Keyboard.KeyHit(Key.X) 
+			CurrentEffect+=1
+			If CurrentEffect > EffectNames.Length-1 CurrentEffect = 0
+		End If
 		If Mouse.ButtonHit(MouseButton.Left)
 			'Copy the effect *Important! Dont just add an effect directly from the 
 			'library, make a copy of it first*
-			Local rndeffect:Int=Rnd(4)
 			Local tempeffect:tlEffect
-			'Select rndeffect
-			'	Case 0
-			'		tempeffect = CopyEffect(MyEffect, MyParticleManager)
-			'	Case 1
-			'		tempeffect = CopyEffect(MyEffect2, MyParticleManager)
-			'	Case 2
-			'		tempeffect = CopyEffect(MyEffect3, MyParticleManager)
-			'	Case 3
-			'		tempeffect = CopyEffect(MyEffect4, MyParticleManager)
-			'End Select
+			MyEffect = MyEffects.GetEffect(EffectNames[CurrentEffect])
 			tempeffect = CopyEffect(MyEffect, MyParticleManager)
-			
-			
+
 			'Position the effect where we want it
 			tempeffect.SetPosition(Mouse.X, Mouse.Y)
 			
 			'Add the effect to the particle manager
 			MyParticleManager.AddEffect(tempeffect)
-				
 		EndIf
 		
 		If Keyboard.KeyHit(Key.P)
 			Paused = ~Paused
+		End If
+		
+		If Keyboard.KeyHit(Key.Space)
+			MyParticleManager.ClearAll()
 		End If
 		
 		Local updatetime:= Millisecs()
@@ -132,12 +129,15 @@ Class FXexample Extends Window
 
 		App.RequestRender()
 		canvas.Clear( New Color(0,0,0,1) )
-		'canvas.TextureFilteringEnabled = false
 		
 		'draw the particles
+		Local rendertime:= Millisecs()
 		MyParticleManager.DrawParticles(canvas)
+		rendertime = Millisecs() - rendertime
 		
-		canvas.DrawText (updatetime, 10, 10)
+		canvas.Color = New Color(1,1,1,1)
+		canvas.DrawText ("Press space to clear particles", 10, 10)
+		canvas.DrawText ("Current Effect (use z & x to change): " + EffectNames[CurrentEffect], 10, 30)
 		
 	End
 End

@@ -247,8 +247,8 @@ Class tlParticleManager
 	#END
 	Method Update()
 		If Not paused
-			CurrentTime += 16.6666667
-			second += 16.6666667
+			CurrentTime += tp_UPDATE_TIME
+			second += tp_UPDATE_TIME
 			If second > 1000
 				second = 0
 				particlesspawned = 0
@@ -286,6 +286,39 @@ Class tlParticleManager
 	#END
 	Method RemoveEffect(e:tlEffect)
 		effects[e.EffectLayer].Remove (e)
+	End Method
+	#Rem
+		summary: Clear all particles in use
+		Call this method to empty the list of in use particles and move them to the un used list.
+	#End
+	Method ClearInUse()
+		For Local el:Int = 0 To _layers - 1
+			For Local l:Int = 0 To 8
+				Local pi:= InUse[el, l].All()
+				Local p:tlParticle
+				While not pi.AtEnd
+					p = pi.Current
+					UnUsed.Add(p)
+					unusedcount += 1
+					inusecount -= 1
+					p.Reset()
+					pi.Erase()
+				Wend
+			Next
+		Next
+	End Method
+	#Rem
+	summary: Remove all effects and clear all particles in use
+	If you want to remove all effects and particles from the manager then use this command. Every effect will instantly stop being rendered.
+	#end
+	Method ClearAll()
+		For Local el:Int = 0 To _layers - 1
+			For Local e:tlEffect = EachIn effects[el]
+				e.Destroy()
+			Next
+			effects[el].Clear()
+		Next
+		ClearInUse()
 	End Method
 	#Rem
 		summary: Pause and unpause the particle manager
@@ -390,7 +423,7 @@ Class tlParticleManager
 	End Method
 	
 	Method GrabParticle:tlParticle(effect:tlEffect, layer:Int = 0)
-		If unusedcount
+		If Not UnUsed.Empty
 			Local p:tlParticle = Cast<tlParticle>(UnUsed.First)
 			If p
 				p.layer = layer

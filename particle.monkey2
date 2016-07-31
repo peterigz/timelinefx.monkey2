@@ -107,7 +107,15 @@ Class tlParticle Extends tlGameObject
 	
 	Method Reset()
 		Age = 0
-		WorldVector = new tlVector2(0, 0)
+		WorldVector = new tlVector2
+		LocalVector = New tlVector2
+		RotateVector = New tlVector2
+		ScaleVector = New tlVector2
+		WorldScaleVector = New tlVector2
+		Matrix = New tlMatrix2
+
+		LocalRotation = 0
+		WorldRotation = 0
 		Zoom = 1
 		Image = Null
 		'Sprite = Null
@@ -140,6 +148,7 @@ Class tlParticle Extends tlGameObject
 		corecomponent.emitter = Null
 		emitter = Null
 		Destroyed = False
+		Capture()
 	End Method
 	
 	Method Update()
@@ -198,7 +207,6 @@ Class tlParticle Extends tlGameObject
 		End If
 		
 		WorldScaleVector = New tlVector2(ScaleVector.x, ScaleVector.y)
-		
 	End Method
 	
 	Method Destroy()

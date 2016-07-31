@@ -30,7 +30,7 @@ Namespace timelinefx
 #end
 Function GetDirection:Float(fromx:Float, fromy:Float, tox:Float, toy:Float)
 
-	Return ATan2(toy - fromy, tox - fromx) - 1.5708
+	Return ATan2(toy - fromy, tox - fromx) + 1.5708
 	
 End Function
 

@@ -325,7 +325,6 @@ Class tlEmitterCoreComponent Extends tlComponent
 								ty = Parenteffect.currentareaheight / 2
 							
 								th = Rnd(Parenteffect.EllipseArc) + Parenteffect.EllipseOffset
-								
 								e.LocalVector = New tlVector2(Sin(th) * tx - Parenteffect.HandleVector.x + tx, Cos(th) * ty - Parenteffect.HandleVector.y + ty)
 							End If
 							If Not e.Relative
@@ -543,7 +542,7 @@ Class tlParticleCoreComponent Extends tlComponent
 			Else
 				If particle.weight Or particle.direction
 					If particle.OldWorldVector.x <> particle.WorldVector.x And particle.OldWorldVector.y <> particle.WorldVector.y
-						particle.LocalRotation = -GetDirection(particle.OldWorldVector.x, particle.OldWorldVector.y, particle.WorldVector.x, particle.WorldVector.y) + 3.14159
+						particle.LocalRotation = -GetDirection(particle.OldWorldVector.x, particle.OldWorldVector.y, particle.WorldVector.x, particle.WorldVector.y) + emitter.AngleOffset
 						If Abs(particle.OldLocalRotation - particle.LocalRotation) > 3.14159
 							If particle.OldLocalRotation > particle.LocalRotation particle.OldLocalRotation -= 6.28319 Else particle.OldLocalRotation += 6.28319
 						End If
