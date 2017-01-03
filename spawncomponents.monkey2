@@ -27,6 +27,8 @@ Namespace timelinefx
 
 Using timelinefx..
 
+#Rem monkeydoc @hidden
+#end
 Class tlSpawnComponent Extends tlComponent
 	
 	Field emitter:tlEmitter
@@ -67,6 +69,8 @@ Class tlSpawnComponent Extends tlComponent
 	End
 
 End
+#Rem monkeydoc @hidden
+#end
 Class tlSpawnComponent_Speed Extends tlSpawnComponent
 	Method New()
 		Super.New()
@@ -92,6 +96,8 @@ Class tlSpawnComponent_Speed Extends tlSpawnComponent
 	End
 
 End
+#Rem monkeydoc @hidden
+#end
 Class tlSpawnComponent_Spin Extends tlSpawnComponent
 	Method New()
 		Super.New()
@@ -115,6 +121,8 @@ Class tlSpawnComponent_Spin Extends tlSpawnComponent
 	End
 
 End
+#Rem monkeydoc @hidden
+#end
 Class tlSpawnComponent_Weight Extends tlSpawnComponent
 	Method New()
 		Super.New()
@@ -137,6 +145,8 @@ Class tlSpawnComponent_Weight Extends tlSpawnComponent
 	End
 
 End
+#Rem monkeydoc @hidden
+#end
 Class tlSpawnComponent_DirectionVariation Extends tlSpawnComponent
 	Method New()
 		Super.New()
@@ -159,6 +169,8 @@ Class tlSpawnComponent_DirectionVariation Extends tlSpawnComponent
 	End
 
 End
+#Rem monkeydoc @hidden
+#end
 Class tlSpawnComponent_Emission Extends tlSpawnComponent
 	Method New()
 		Super.New()
@@ -218,6 +230,8 @@ Class tlSpawnComponent_Emission Extends tlSpawnComponent
 	End
 
 End
+#Rem monkeydoc @hidden
+#end
 Class tlSpawnComponent_EmissionRange Extends tlSpawnComponent
 	Method New()
 		Super.New()
@@ -238,6 +252,8 @@ Class tlSpawnComponent_EmissionRange Extends tlSpawnComponent
 	End
 
 End
+#Rem monkeydoc @hidden
+#end
 Class tlSpawnComponent_Splatter Extends tlSpawnComponent
 	Method New()
 		Super.New()
@@ -270,6 +286,8 @@ Class tlSpawnComponent_Splatter Extends tlSpawnComponent
 	End
 
 End
+#Rem monkeydoc @hidden
+#end
 Class tlSpawnComponent_TForm Extends tlSpawnComponent
 	Method New()
 		Super.New()
@@ -290,6 +308,8 @@ Class tlSpawnComponent_TForm Extends tlSpawnComponent
 	End
 
 End
+#Rem monkeydoc @hidden
+#end
 Class tlSpawnComponent_LockedAngle Extends tlSpawnComponent
 	Method New()
 		Super.New()
@@ -301,11 +321,10 @@ Class tlSpawnComponent_LockedAngle Extends tlSpawnComponent
 	
 	Method Setup(e:tlParticle) Override
 		e.direction = e.emissionangle + emitter.direction_component.c_nodes.changes[0]
-		e.LocalRotation = GetDirection(0, 0, Sin(e.direction), -Cos(e.direction))
 		If parenteffect.TraverseEdge
 			e.LocalRotation = parenteffect.WorldRotation + emitter.AngleOffset
 		Else
-			e.LocalRotation = e.direction + emitter.WorldRotation + emitter.AngleOffset
+			e.LocalRotation = -e.direction + emitter.WorldRotation + emitter.AngleOffset
 		End If
 	End
 	
@@ -316,6 +335,8 @@ Class tlSpawnComponent_LockedAngle Extends tlSpawnComponent
 	End
 
 End
+#Rem monkeydoc @hidden
+#end
 Class tlSpawnComponent_Angle Extends tlSpawnComponent
 	Method New()
 		Super.New()
@@ -348,6 +369,8 @@ Class tlSpawnComponent_Angle Extends tlSpawnComponent
 	End
 
 End
+#Rem monkeydoc @hidden
+#end
 Class tlSpawnComponent_LifeVariation Extends tlSpawnComponent
 	Method New()
 		Super.New()
@@ -368,6 +391,8 @@ Class tlSpawnComponent_LifeVariation Extends tlSpawnComponent
 	End
 
 End
+#Rem monkeydoc @hidden
+#end
 Class tlSpawnComponent_Life Extends tlSpawnComponent
 	Method New()
 		Super.New()
@@ -388,6 +413,8 @@ Class tlSpawnComponent_Life Extends tlSpawnComponent
 	End
 
 End
+#Rem monkeydoc @hidden
+#end
 Class tlSpawnComponent_SizeVariation Extends tlSpawnComponent
 	Method New()
 		Super.New()
@@ -448,6 +475,8 @@ Class tlSpawnComponent_SizeVariation Extends tlSpawnComponent
 	End
 
 End
+#Rem monkeydoc @hidden
+#end
 Class tlSpawnComponent_Size Extends tlSpawnComponent
 	Method New()
 		Super.New()

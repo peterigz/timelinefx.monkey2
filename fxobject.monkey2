@@ -27,6 +27,8 @@ Namespace timelinefx
 
 Using timelinefx..
 
+#rem monkeydoc @hidden
+#End
 Class tlFXObject extends tlGameObject
 	
 	Private
@@ -87,9 +89,9 @@ Class tlFXObject extends tlGameObject
 			Matrix = Matrix.Transform(Parent.Matrix)
 			RotateVector = Parent.Matrix.TransformVector(LocalVector)
 			If Zoom = 1
-				WorldVector = Parent.WorldVector + RotateVector
+				WorldVector = WorldVector.SetPositionByVector(Parent.WorldVector.AddVector(RotateVector))
 			Else
-				WorldVector = (Parent.WorldVector + RotateVector) * Zoom
+				WorldVector = WorldVector.SetPositionByVector(Parent.WorldVector.AddVector(RotateVector.Scale(Zoom)))
 			End If
 			WorldRotation = Parent.WorldRotation + LocalRotation
 		Else

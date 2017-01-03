@@ -27,6 +27,9 @@ Namespace timelinefx
 
 Using timelinefx..
 
+#Rem monkeydoc Emitter Class.
+	More docs to come soon as this is still missing some methods to build effects within code (you can still use the editor though)
+#end
 Class tlEmitter Extends tlFXObject
 	'lists
 	Private
@@ -86,96 +89,204 @@ Class tlEmitter Extends tlFXObject
 	Public
 	
 	'Temp variables
+	#Rem monkeydoc @hidden
+	#End
 	Field currentbasespeed:Float
+	#Rem monkeydoc @hidden
+	#End
 	Field currentbaseweight:Float
+	#Rem monkeydoc @hidden
+	#End
 	Field currentbasesizex:Float
+	#Rem monkeydoc @hidden
+	#End
 	Field currentbasesizey:Float
+	#Rem monkeydoc @hidden
+	#End
 	Field currentbasespin:Float
+	#Rem monkeydoc @hidden
+	#End
 	Field currentsplatter:Float
+	#Rem monkeydoc @hidden
+	#End
 	Field currentlifevariation:Float
+	#Rem monkeydoc @hidden
+	#End
 	Field currentamountvariation:Float
+	#Rem monkeydoc @hidden
+	#End
 	Field currentvelocityvariation:Float
+	#Rem monkeydoc @hidden
+	#End
 	Field currentweightvariation:Float
+	#Rem monkeydoc @hidden
+	#End
 	Field currentsizexvariation:Float
+	#Rem monkeydoc @hidden
+	#End
 	Field currentsizeyvariation:Float
+	#Rem monkeydoc @hidden
+	#End
 	Field currentspinvariation:Float
+	#Rem monkeydoc @hidden
+	#End
 	Field currentdirectionvariation:Float
+	#Rem monkeydoc @hidden
+	#End
 	Field currentalphaovertime:Float
+	#Rem monkeydoc @hidden
+	#End
 	Field currentvelocityovertime:Float
+	#Rem monkeydoc @hidden
+	#End
 	Field currentweightovertime:Float
+	#Rem monkeydoc @hidden
+	#End
 	Field currentscalexovertime:Float
+	#Rem monkeydoc @hidden
+	#End
 	Field currentscaleyovertime:Float
+	#Rem monkeydoc @hidden
+	#End
 	Field currentspinovertime:Float
+	#Rem monkeydoc @hidden
+	#End
 	Field currentdirection:Float
+	#Rem monkeydoc @hidden
+	#End
 	Field currentdirectionvariationot:Float
+	#Rem monkeydoc @hidden
+	#End
 	Field currentframerateovertime:Float
+	#Rem monkeydoc @hidden
+	#End
 	Field currentstretchovertime:Float
+	#Rem monkeydoc @hidden
+	#End
 	Field currentredovertime:Float
+	#Rem monkeydoc @hidden
+	#End
 	Field currentgreenovertime:Float
+	#Rem monkeydoc @hidden
+	#End
 	Field currentblueovertime:Float
+	#Rem monkeydoc @hidden
+	#End
 	Field currentglobalvelocity:Float
+	#Rem monkeydoc @hidden
+	#End
 	Field currentemissionangle:Float
+	#Rem monkeydoc @hidden
+	#End
 	Field currentemissionrange:Float
+	#Rem monkeydoc @hidden
+	#End
 	
 	'Quick acccess variables to graph components
 	Field scalex_component:tlEC_ScaleXOvertime
+	#Rem monkeydoc @hidden
+	#End
 	Field scaley_component:tlEC_ScaleYOvertime
+	#Rem monkeydoc @hidden
+	#End
 	Field uscale_component:tlEC_UniformScale
+	#Rem monkeydoc @hidden
+	#End
 	Field velocity_component:tlEC_VelocityOvertime
+	#Rem monkeydoc @hidden
+	#End
 	Field stretch_component:tlEC_StretchOvertime
+	#Rem monkeydoc @hidden
+	#End
 	Field globalvelocity_component:tlEC_GlobalVelocity
+	#Rem monkeydoc @hidden
+	#End
 	Field alpha_component:tlEC_AlphaOvertime
+	#Rem monkeydoc @hidden
+	#End
 	Field red_component:tlEC_RedOvertime
+	#Rem monkeydoc @hidden
+	#End
 	Field green_component:tlEC_GreenOvertime
+	#Rem monkeydoc @hidden
+	#End
 	Field blue_component:tlEC_BlueOvertime
+	#Rem monkeydoc @hidden
+	#End
 	Field direction_component:tlEC_DirectionOvertime
+	#Rem monkeydoc @hidden
+	#End
 	Field dvovertime_component:tlEC_DirectionVariationOvertime
+	#Rem monkeydoc @hidden
+	#End
 	Field spin_component:tlEC_SpinOvertime
+	#Rem monkeydoc @hidden
+	#End
 	Field weight_component:tlEC_WeightOvertime
+	#Rem monkeydoc @hidden
+	#End
 	Field framerate_component:tlEC_FramerateOvertime
-	
-	'properties	
+
+	'properties		
+	#Rem monkeydoc Get the current parent effect
+	#End
 	Property ParentEffect:tlEffect()
 		Return parenteffect
 	Setter(v:tlEffect)
 		parenteffect = v
 	End
+	#Rem monkeydoc @hidden
+	#End
 	Property RunVelocity:Int()
 		Return run_velocity
 	Setter(v:Int)
 		run_velocity = v
 	End
+	#Rem monkeydoc Get the List of sub effects within this emitter.
+	#End
 	Property Effects:List<tlEffect>()
 		Return effects
 	End
+	#Rem monkeydoc Get/Set the [[tlShape]] assigned to this emitter
+	#End
 	Property Sprite:tlShape()
 		Return sprite
 	Setter(v:tlShape)
 		sprite = v
 	End
+	#Rem monkeydoc Get whether particles are being spawned from the old effect coordinates to the new.
+		@return Either TRUE or FALSE
+	#End
 	Property TweenSpawns:Int()
 		Return tweenspawns
 	Setter(v:Int)
 		tweenspawns = v
 	End
+	#Rem monkeydoc Get/Set the visibility status of the emitter
+	#End
 	Property Visible:Int()
 		Return visible
 	Setter(v:Int)
 		visible = v
 	End
+	#Rem monkeydoc @hidden
+	#End
 	Property SpawnComponents:List<tlSpawnComponent>()
 		Return spawncomponents
 	Setter(v:List<tlSpawnComponent>)
 		spawncomponents = v
 	End
 
+	#Rem monkeydoc [[tlEmitter]] Constructor
+	#End
 	Method New()
 		AddComponent(New tlEmitterCoreComponent("Core"))
 		spawncomponents = New List<tlSpawnComponent>
 		effects = New List<tlEffect>
 		DoNotRender = True
 	End
-	
+	#Rem monkeydoc Destroy the emitter and safely ceanup objects
+	#End
 	Method Destroy()
 		parenteffect = Null
 		Image = Null
@@ -211,96 +322,159 @@ Class tlEmitter Extends tlFXObject
 	End
 	
 	'Emitter Settings Getters
+	#Rem monkeydoc Get/Set whether the particles spawned by this emitter remain relative to the containg effect.
+	#End	
 	Property ParticleRelative:Int()
 		Return particlerelative
 	Setter (v:Int)
 		particlerelative = v
 	End
+	#Rem monkeydoc Sets whether the particle chooses a random colour from the colour attributes.
+	#End	
 	Property RandomColor:Int()
 		Return randomcolor
 	Setter (v:Int)
 		randomcolor = v
 	End
+	#Rem monkeydoc Set the z layer.
+		Emitters can be set to draw on different layers depending on what kind of effect you need. By default everything is drawn on layer 0, higher layers
+		makes those particles spawned by that emitter drawn on top of emitters below them in layers. The layer value can range from 0-8 giving a total of 9 layers.
+	#End	
 	Property Layer:Int()
 		Return layer
 	Setter (v:Int)
 		layer = v
 	End
+	#Rem monkeydoc Get/Set Single Particle.
+		You can have particles that do not age and will only be spawned once for point emitters, or just for one frame with area, line and ellipse emitters.
+		Single particles will remain until they are destroyed and will one behave according the values stored in the first temmiterchange nodes - in otherwords they
+		will not change at all over time.
+	#End	
 	Property SingleParticle:Int()
 		Return singleparticle
 	Setter (v:Int)
 		singleparticle = v
 	End
+	#Rem monkeydoc Get/Set whether the particle should animate.
+		Only applies if the particle's image has more then one frame of animation.
+	#End	
 	Property Animating:Int()
 		Return animate
 	Setter (v:Int)
 		animate = v
 	End
+	#Rem monkeydoc Get/Set whether the particle should run through the animation sequence once only.
+		Only applies if the particle's image has more then one frame of animation.
+	#End	
 	Property AnimateOnce:Int()
 		Return animateonce
 	Setter (v:Int)
 		animateonce = v
 	End
+	#Rem monkeydoc Get/Set the image frame.
+		If the image has more then one frame then setting this can determine which frame the particle uses to draw itself.
+	#End	
 	Property Frame:Int()
 		Return frame
 	Setter (v:Int)
 		frame = v
 	End
+	#Rem monkeydoc Get/Set the particles to spawn with a random frame.
+		Only applies if the particle has more then one frame of animation
+	#End	
 	Property RandomStartFrame:Int()
 		Return randomstartframe
 	Setter (v:Int)
 		randomstartframe = v
 	End
+	#Rem monkeydoc Set the direction the animation plays in.
+		Set to 1 for forwards playback and set to -1 for reverse playback of the image animation
+	#End	
 	Property AnimationDirection:Int()
 		Return animationdirection
 	Setter (v:Int)
 		animationdirection = v
 	End
+	#Rem monkeydoc Get/Set Uniform.
+		Dictates whether the particles size scales uniformally. Set to either TRUE or FALSE.
+	#End	
 	Property Uniform:Int()
 		Return uniform
 	Setter (v:Int)
 		uniform = v
 	End
+	#Rem monkeydoc Set the angle type.
+		Angle type tells the particle how it show orientate itself when spawning. Either tlANGLE_ALIGN, tlANGLE_RANDOM or tlANGLE_SPECIFY.
+		*tlANGLE_ALIGN: Force the particle to align itself with the direction that it's travelling in.
+		*tlANGLE_RANDOM: Choose a random angle.
+		*tlANGLE_SPECIFY: Specify the angle that the particle spawns with.
+		Use [[AngleOffset]] to control the either both the specific angle, random range of angles and an offset if aligning.
+	#End	
 	Property AngleType:Int()
 		Return angletype
 	Setter (v:Int)
 		angletype = v
 	End
+	#Rem monkeydoc Set the angle offset or variation.
+		Depending on the value of [[AngleType]] (tlANGLE_ALIGN, tlANGLE_RANDOM or tlANGLE_SPECIFY), this will either set the angle offset of the particle in the 
+		case of tlANGLE_ALIGN and tlANGLE_SPECIFY, or act as the range of degrees for tlANGLE_RANDOM.
+	#End	
 	Property AngleOffset:Float()
 		Return angleoffset
 	Setter (v:Float)
 		angleoffset = v
 	End
+	#Rem monkeydoc Get/Set to TRUE to make the particles spawned have their angle of rotation locked to direction.
+	#End	
 	Property LockAngle:Int()
 		Return lockangle
 	Setter (v:Int)
 		lockangle = v
 	End
+	#Rem monkeydoc Set to TRUE to make th particles spawned have their angle of rotation relative to the parent effect.
+	#End	
 	Property AngleRelative:Int()
 		Return anglerelative
 	Setter (v:Int)
 		anglerelative = v
 	End
+	#Rem monkeydoc Set Use effect emission.
+		Set to TRUE by default, this tells the emitter to take the emission range and emission angle attributes from the parent effect, otherwise if set to FALSE it
+		will take the values from the emitters own emission attributes.
+	#End	
 	Property UseEffectEmission:Int()
 		Return useeffectemission
 	Setter (v:Int)
 		useeffectemission = v
 	End
+	#Rem monkeydoc Set to the number of times the colour should cycle within the particle lifetime.
+		Timeline Particles editor allows values from 1 to 10. 1 is the default.
+	#End	
 	Property ColorRepeat:Int()
 		Return colorrepeat
 	Setter (v:Int)
 		colorrepeat = v
 	End
+	#Rem monkeydoc Set to the number of times the alpha of the particle should cycle within the particle lifetime.
+		Timeline Particles editor allows values from 1 to 10. 1 is the default.
+	#End	
 	Property AlphaRepeat:Int()
 		Return alpharepeat
 	Setter (v:Int)
 		alpharepeat = v
 	End
+	#Rem monkeydoc Make a particle a one shot particle or not.
+		Emitters that have this set to true will only spawn one particle and that particle will just play out once and die. This is only relevant if
+		[[SingleParticle]] is also set to true.
+	#End	
 	Property OneShot:Int()
 		Return oneshot
 	Setter (v:Int)
 		oneshot = v
 	End
+	#Rem monkeydoc Sets the current state of whether spawned particles are added to the particle managers pool, or the emitters own pool.
+		True means that	they're grouped together under each emitter
+	#End	
 	Property GroupParticles:Int()
 		Return groupparticles
 	Setter (v:Int)
@@ -308,49 +482,57 @@ Class tlEmitter Extends tlFXObject
 	End
 	
 	'Base attribute setters
+	#Rem monkeydoc Set the base width of the particle
+	#End	
 	Method SetBaseWidth(v:Float)
 		currentbasesizex = v
 	End
+	#Rem monkeydoc Set the base height of the particle
+	#End	
 	Method SetBaseHeight(v:Float)
 		currentbasesizey = v
 	End
+	#Rem monkeydoc Set the base width and height of the particle
+	#End	
 	Method SetBaseSize(v:Float)
 		currentbasesizex = v
 		currentbasesizey = v
 	End
+	#Rem monkeydoc Set the base width variation of the particle
+	#End	
 	Method SetBaseWidthVariation(v:Float)
 		currentsizexvariation = v
 	End
+	#Rem monkeydoc Set the base height variation of the particle
+	#End	
 	Method SetBaseHeightVariation(v:Float)
 		currentsizeyvariation = v
 	End
+	#Rem monkeydoc Set the base width and height variation of the particle
+	#End	
 	Method SetBaseSizeVariation(v:Float)
 		currentsizexvariation = v
 		currentsizeyvariation = v
 	End
 	
-	#Rem
-		bbdoc: Add an effect to the emitters list of effects.
+	#Rem monkeydoc Add an effect to the emitters list of effects.
 		about: Effects that are in the effects list are basically sub effects that are added to any particles that this emitter spawns which in turn should
 		contain their own emitters that spawn more particles and so on.</p>
 	#END
 	Method AddEffect(e:tlEffect)
 		effects.AddLast(e)
 	End
-	#Rem
-		bbdoc: Get the parenteffect value in this tlEmitter object.
+	#Rem monkeydoc Get the parenteffect value in this [[tlEmitter]].
 	#END
 	Method GetParentEffect:tlEffect()
 		Return parenteffect
 	End
-	#Rem
-		bbdoc: Set the parenteffect value for this tlEmitter object.
+	#Rem monkeydoc Set the parenteffect value for this [[tlEmitter]].
 	#END
 	Method SetParentEffect(v:tlEffect)
 		parenteffect = v
 	End
-	#Rem
-		bbdoc:Update the #tlGameObject
+	#Rem monkeydoc Update the Emitter
 	#END
 	Method Update()
 		Capture()
@@ -376,7 +558,10 @@ Class tlEmitter Extends tlFXObject
 
 		UpdateImageBox()
 	End
+
 	'Compilers
+	#Rem monkeydoc @hidden
+	#End
 	Method CompileAll()
 		For Local graph:tlComponent = EachIn Components
 			If Cast<tlGraphComponent>(graph)
@@ -463,6 +648,8 @@ Class tlEmitter Extends tlFXObject
 			e.CompileAll()
 		Next
 	End
+	#Rem monkeydoc @hidden
+	#End
 	Method InitSpawnComponents()
 		'life
 		If GetComponent("LifeVariation") Or currentlifevariation
@@ -516,7 +703,8 @@ Class tlEmitter Extends tlFXObject
 			spawncomponents.AddLast(New tlSpawnComponent_Spin("Spin", parenteffect, Self))
 		End If
 	End
-	
+	#Rem monkeydoc @hidden
+	#End
 	Method ControlParticle(p:tlParticle)
 		If run_uniform
 			uscale_component.ControlParticle(p)
@@ -541,6 +729,10 @@ Class tlEmitter Extends tlFXObject
 	End
 End
 
+#Rem monkeydoc Makes a copy of the emitter passed to it
+	Generally you will want to copy an effect, which will in turn copy all emitters within it recursively
+	@return A new clone of the emitter
+#End
 Function CopyEmitter:tlEmitter(e:tlEmitter, ParentEffect:tlEffect, ParticleManager:tlParticleManager)
 	Local clone:tlEmitter = New tlEmitter
 	clone.DoB = ParticleManager.CurrentTime

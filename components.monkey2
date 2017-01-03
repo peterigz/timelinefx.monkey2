@@ -1,4 +1,4 @@
-#REM
+#Rem
 	TimelineFX Module by Peter Rigby
 	
 	Copyright (c) 2012 Peter J Rigby
@@ -21,15 +21,14 @@
 	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 	THE SOFTWARE.
 
-#END
+#end
 
 Namespace timelinefx
 
 Using timelinefx..
 
-#REM
-	bbdoc: The core component of a #tlEffect.
-#END
+#Rem monkeydoc @hidden
+#end
 Class tlEffectCoreComponent Extends tlComponent
 
 	Private
@@ -111,9 +110,8 @@ Class tlEffectCoreComponent Extends tlComponent
 
 End
 
-#REM
-	bbdoc: The core component of a #tlEmitter.
-#END
+#Rem monkeydoc @hidden
+#end
 Class tlEmitterCoreComponent Extends tlComponent
 
 	Private
@@ -147,9 +145,9 @@ Class tlEmitterCoreComponent Extends tlComponent
 		pm = Parenteffect.ParticleManager
 	End Method
 
-	#REM
+	#Rem
 		bbdoc:Insert your update code here
-	#END
+	#end
 	Method Update() Override
 		
 		emitter.Dying = emitter.ParentEffect.Dying
@@ -436,6 +434,7 @@ Class tlEmitterCoreComponent Extends tlComponent
 					'Direction and Rotation
 					If Parenteffect.TraverseEdge And Parenteffect.EffectClass = tlLINE_EFFECT
 						e.directionlocked = True
+						e.direction = 1.5707963268
 					End If
 					'Colour
 					If emitter.RandomColor
@@ -474,9 +473,8 @@ Class tlEmitterCoreComponent Extends tlComponent
 
 End
 
-#REM
-	bbdoc: The core component of a #tlParticle.
-#END
+#Rem monkeydoc @hidden
+#end
 Class tlParticleCoreComponent Extends tlComponent
 	Field emitter:tlEmitter
 	Field particle:tlParticle
@@ -487,9 +485,9 @@ Class tlParticleCoreComponent Extends tlComponent
 		particle = Null
 	End Method
 	
-	#REM
+	#Rem
 		bbdoc:Insert your update code here
-	#END
+	#end
 	Method Update() Override
 		If emitter.Dying = 1 Or emitter.OneShot Or particle.Dead particle.releasesingleparticle = True
 		
@@ -527,7 +525,7 @@ Class tlParticleCoreComponent Extends tlComponent
 			Else
 				If emitter.Zoom <> 1
 					particle.gravity += particle.weight / tp_CURRENT_UPDATE_TIME
-					particle.LocalVector = New tlVector2(particle.LocalVector.x, (particle.LocalVector.y + particle.gravity / tp_CURRENT_UPDATE_TIME) * emitter.Zoom)
+					particle.LocalVector = New tlVector2(particle.LocalVector.x, particle.LocalVector.y + ((particle.gravity / tp_CURRENT_UPDATE_TIME) * emitter.Zoom))
 				Else
 					particle.gravity += particle.weight / tp_CURRENT_UPDATE_TIME
 					particle.LocalVector = New tlVector2(particle.LocalVector.x, particle.LocalVector.y + particle.gravity / tp_CURRENT_UPDATE_TIME)
@@ -580,7 +578,8 @@ Class tlParticleCoreComponent Extends tlComponent
 
 End
 
-'Effects Attribute Components
+#Rem monkeydoc @hidden
+#end
 Class tlGraphComponent Extends tlComponent
 
 	Field nodes:List<tlAttributeNode>
@@ -845,6 +844,8 @@ Class tlGraphComponent Extends tlComponent
 	End Method
 End
 
+#Rem monkeydoc @hidden
+#end
 Function CopyAttributeNodes:List<tlAttributeNode>(e:List<tlAttributeNode>)
 	Local ec:List<tlAttributeNode> = New List<tlAttributeNode>
 	For Local ecs:tlAttributeNode = EachIn e

@@ -2,10 +2,12 @@
 	This sample shows how to query a quadtree and return objects in a stack which you could use to perform various things.
 #End
 
+#Import "<mojo>"
+#Import "<std>"   
 'Import the TimelineFX Module
-#Import "<timelinefx>"
+#Import "<timelinefx>" 
 
-'We need the following namespaces (std and mojo are already imported in timelinefx module so that's why you don't need to import them above)
+'We need the following namespaces
 Using std..
 Using mojo..
 Using timelinefx..
@@ -18,9 +20,6 @@ Class Game Extends Window
 	
 	Field player:tlBox
 	
-	'Field to store our interface which are used to do something when objects are found in the quadtree
-	Field DrawScreen:DrawScreenAction
-	
 	Field currentCanvas:Canvas
 
 	Method New()
@@ -28,9 +27,6 @@ Class Game Extends Window
 		'be subdivided is 5, and it will sub divide a when 10 objects are added to a quad. These numbers you can change To tweak performance
 		'It will vary depending on how you use the quadtree
 		QTree = New tlQuadTree(0, 0, Width, Height, 5, 10)
-		DrawScreen = New DrawScreenAction
-		
-		DrawScreen.thegame = Self
 		
 		'Populate the quadtree with a bunch of objects
 		For Local c:Int = 1 To 1000
@@ -41,14 +37,14 @@ Class Game Extends Window
 			Select t
 				Case 0
 					'Create a Basic bounding box boundary
-					rect = New tlBox(x, y, 10, 10, tlLAYER_0)
+					rect = New tlBox(x, y, 10, 10, 0)
 				Case 1
 					'Create a circle Boundary
-					rect = New tlCircle(x, y, 5, tlLAYER_0)
+					rect = New tlCircle(x, y, 5, 0)
 				Case 2
 					'Create a polygon boundary
 					Local verts:= New Float[](- 10.0, -10.0, -15.0, 0.0, -10.0, 10.0, 10.0, 10.0, 15.0, 0.0, 10.0, -10.0)
-					rect = New tlPolygon(x, y, verts, tlLAYER_0)
+					rect = New tlPolygon(x, y, verts, 0)
 			End Select
 			'Add the boundary to the quadtree
 			QTree.AddBox(rect)
@@ -71,8 +67,8 @@ Class Game Extends Window
 		player.Position(Mouse.X, Mouse.Y)
 
 		'when space is pressed, draw everything on the screen. We do this by calling "ForEachObjectInArea", and define the area as the screen size. We also
-		'pass the DrawScreen interface which will be called by the quadtree if it finds something in the are. We also pass the layers that we want to check.
-		If Keyboard.KeyDown(Key.Space) QTree.ForEachObjectInArea(0, 0, Width, Height, Null, DrawScreen, New Int[](0, 1, 2))
+		'pass the DrawScreenCallback function which will be called by the quadtree if it finds something in the area. We also pass the layers that we want to check.
+		If Keyboard.KeyDown(Key.Space) QTree.ForEachObjectInArea(0, 0, Width, Height, self, DrawScreenCallBack, New Int[](0, 1, 2))
 		
 		'Check for objects within a box using "GetObjectsInBox", passing our player box. This will return all the objects it finds in that area stored in a stack.
 		Local objects:=QTree.GetObjectsInBox(player, New Int[](0, 1, 2))
@@ -100,19 +96,15 @@ Class Game Extends Window
 
 End
 
-'These are our interface objects which are used so that we can program what happens when the quadtree finds things in the area that we're checking.
-'There are 2 versions of the doAction method that need to be overridden, depending on the query being run. See docs for a list of which queries need which 
-'method
-Class DrawScreenAction Implements tlQuadTreeEvent
-	Field thegame:Game
-	Method doAction:Void(o:Object, data:Object)
-		Local rect:tlBox = Cast<tlBox>(o)
-		thegame.currentCanvas.Color = New Color(0.5, 0.5, 0.5)
-		rect.Draw(thegame.currentCanvas)
-	End
-	Method doAction:Void(ReturnedObject:Object, Data:Object, Result:tlCollisionResult)
-		
-	End
+'This is our call back fuction where we can decide what to do with each object found in the quadtree query.
+'The parameters will contain the object found and any data that you pass through to the query. In this case the
+'Game object is passed so we can easily get the canvas.
+Function DrawScreenCallBack:Void(o:Object, data:Object)
+	Local rect:tlBox = Cast<tlBox>(o)
+	Local thegame:=Cast<Game>(data)
+	
+	thegame.currentCanvas.Color = New Color(0.5, 0.5, 0.5)
+	rect.Draw(thegame.currentCanvas)
 End
 
 Function Main()

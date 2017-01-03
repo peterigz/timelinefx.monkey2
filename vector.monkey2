@@ -283,7 +283,7 @@ Struct tlVector2
 		@return tlVector
 	#End
 	Method Angle:Float()
-		Return (ATan2(y, x) + 450) Mod 360
+		Return ATan2(x, y) 
 	End
 
 	#Rem monkeydoc Get the string representation of the vector

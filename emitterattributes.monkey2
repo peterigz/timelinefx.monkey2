@@ -27,6 +27,8 @@ Namespace timelinefx
 
 Using timelinefx..
 
+#Rem monkeydoc @hidden
+#end
 Class tlEC_Amount Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -49,6 +51,8 @@ Class tlEC_Amount Extends tlGraphComponent
 	End Method
 
 End
+#Rem monkeydoc @hidden
+#end
 Class tlEC_Life Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -71,6 +75,8 @@ Class tlEC_Life Extends tlGraphComponent
 	End Method
 	
 End
+#Rem monkeydoc @hidden
+#end
 Class tlEC_LifeVariation Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -93,6 +99,8 @@ Class tlEC_LifeVariation Extends tlGraphComponent
 	End Method
 	
 End
+#Rem monkeydoc @hidden
+#end
 Class tlEC_AmountVariation Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -115,6 +123,8 @@ Class tlEC_AmountVariation Extends tlGraphComponent
 	End Method
 	
 End
+#Rem monkeydoc @hidden
+#end
 Class tlEC_BaseSizeX Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -137,6 +147,8 @@ Class tlEC_BaseSizeX Extends tlGraphComponent
 	End Method
 	
 End
+#Rem monkeydoc @hidden
+#end
 Class tlEC_BaseSizeY Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -159,6 +171,8 @@ Class tlEC_BaseSizeY Extends tlGraphComponent
 	End Method
 	
 End
+#Rem monkeydoc @hidden
+#end
 Class tlEC_BaseSpeed Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -181,6 +195,8 @@ Class tlEC_BaseSpeed Extends tlGraphComponent
 	End Method
 	
 End
+#Rem monkeydoc @hidden
+#end
 Class tlEC_BaseSpin Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -203,6 +219,8 @@ Class tlEC_BaseSpin Extends tlGraphComponent
 	End Method
 	
 End
+#Rem monkeydoc @hidden
+#end
 Class tlEC_BaseWeight Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -225,6 +243,8 @@ Class tlEC_BaseWeight Extends tlGraphComponent
 	End Method
 	
 End
+#Rem monkeydoc @hidden
+#end
 Class tlEC_Splatter Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -247,6 +267,8 @@ Class tlEC_Splatter Extends tlGraphComponent
 	End Method
 	
 End
+#Rem monkeydoc @hidden
+#end
 Class tlEC_SizeXVariation Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -269,6 +291,8 @@ Class tlEC_SizeXVariation Extends tlGraphComponent
 	End Method
 	
 End
+#Rem monkeydoc @hidden
+#end
 Class tlEC_SizeYVariation Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -291,6 +315,8 @@ Class tlEC_SizeYVariation Extends tlGraphComponent
 	End Method
 	
 End
+#Rem monkeydoc @hidden
+#end
 Class tlEC_DirectionVariation Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -313,6 +339,8 @@ Class tlEC_DirectionVariation Extends tlGraphComponent
 	End Method
 	
 End
+#Rem monkeydoc @hidden
+#end
 Class tlEC_VelocityVariation Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -335,6 +363,8 @@ Class tlEC_VelocityVariation Extends tlGraphComponent
 	End Method
 	
 End
+#Rem monkeydoc @hidden
+#end
 Class tlEC_SpinVariation Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -357,6 +387,8 @@ Class tlEC_SpinVariation Extends tlGraphComponent
 	End Method
 	
 End
+#Rem monkeydoc @hidden
+#end
 Class tlEC_WeightVariation Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -379,6 +411,8 @@ Class tlEC_WeightVariation Extends tlGraphComponent
 	End Method
 	
 End
+#Rem monkeydoc @hidden
+#end
 Class tlEC_ScaleXOvertime Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -404,6 +438,8 @@ Class tlEC_ScaleXOvertime Extends tlGraphComponent
 	End Method
 		
 End
+#Rem monkeydoc @hidden
+#end
 Class tlEC_ScaleYOvertime Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -429,6 +465,8 @@ Class tlEC_ScaleYOvertime Extends tlGraphComponent
 	End Method
 	
 End
+#Rem monkeydoc @hidden
+#end
 Class tlEC_UniformScale Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -455,6 +493,8 @@ Class tlEC_UniformScale Extends tlGraphComponent
 	End Method
 
 End
+#Rem monkeydoc @hidden
+#end
 Class tlEC_VelocityOvertime Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -480,6 +520,8 @@ Class tlEC_VelocityOvertime Extends tlGraphComponent
 	End Method
 	
 End
+#Rem monkeydoc @hidden
+#end
 Class tlEC_GlobalVelocity Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -505,6 +547,8 @@ Class tlEC_GlobalVelocity Extends tlGraphComponent
 	End Method
 
 End
+#Rem monkeydoc @hidden
+#end
 Class tlEC_StretchOvertime Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -550,6 +594,8 @@ Class tlEC_StretchOvertime Extends tlGraphComponent
 	End Method
 
 End
+#Rem monkeydoc @hidden
+#end
 Class tlEC_AlphaOvertime Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -584,6 +630,8 @@ Class tlEC_AlphaOvertime Extends tlGraphComponent
 	End Method
 	
 End
+#Rem monkeydoc @hidden
+#end
 Class tlEC_RedOvertime Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -619,6 +667,8 @@ Class tlEC_RedOvertime Extends tlGraphComponent
 	
 End
 
+#Rem monkeydoc @hidden
+#end
 Class tlEC_GreenOvertime Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -648,6 +698,8 @@ Class tlEC_GreenOvertime Extends tlGraphComponent
 	End Method
 	
 End
+#Rem monkeydoc @hidden
+#end
 Class tlEC_BlueOvertime Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -677,6 +729,8 @@ Class tlEC_BlueOvertime Extends tlGraphComponent
 	End Method
 	
 End
+#Rem monkeydoc @hidden
+#end
 Class tlEC_DirectionOvertime Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -731,6 +785,8 @@ Class tlEC_DirectionOvertime Extends tlGraphComponent
 	End Method
 	
 End
+#Rem monkeydoc @hidden
+#end
 Class tlEC_DirectionVariationOvertime Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -770,6 +826,8 @@ Class tlEC_DirectionVariationOvertime Extends tlGraphComponent
 	End Method
 	
 End
+#Rem monkeydoc @hidden
+#end
 Class tlEC_SpinOvertime Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -795,6 +853,8 @@ Class tlEC_SpinOvertime Extends tlGraphComponent
 	End Method
 	
 End
+#Rem monkeydoc @hidden
+#end
 Class tlEC_WeightOvertime Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -821,6 +881,8 @@ Class tlEC_WeightOvertime Extends tlGraphComponent
 	
 End
 
+#Rem monkeydoc @hidden
+#end
 Class tlEC_FramerateOvertime Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -847,6 +909,8 @@ Class tlEC_FramerateOvertime Extends tlGraphComponent
 	
 End
 
+#Rem monkeydoc @hidden
+#end
 Class tlEC_EmissionAngle Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -871,6 +935,8 @@ Class tlEC_EmissionAngle Extends tlGraphComponent
 	End Method
 
 End
+#Rem monkeydoc @hidden
+#end
 Class tlEC_EmissionRange Extends tlGraphComponent
 	Method New()
 		Super.New()

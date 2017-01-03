@@ -1,37 +1,8 @@
-'The minimum we need to import is mojo and of course timelinefx!
+'The minimum we need to import is mojo, std and of course timelinefx!
 #Import "<mojo>"
 #Import "<std>"
 #Import "<timelinefx>"
-#import "assets/examples/6starfilled.png@/examples"
-#import "assets/examples/8starfilled.png@/examples"
-#import "assets/examples/8starhollow.png@/examples"
-#Import "assets/examples/arrow.png@/examples"
-#import "assets/examples/Circle.png@/examples"
-#import "assets/examples/circlesymbol1.png@/examples"
-#import "assets/examples/ElectricGroup1.png@/examples"
-#import "assets/examples/fire7Copy.png@/examples"
-#import "assets/examples/FlameArc8.png@/examples"
-#import "assets/examples/Flare1.png@/examples"
-#import "assets/examples/Flare10.png@/examples"
-#import "assets/examples/Flare3.png@/examples"
-#import "assets/examples/Flare5.png@/examples"
-#import "assets/examples/FogGroup.png@/examples"
-#import "assets/examples/Gradient.png@/examples"
-#import "assets/examples/Halo1.png@/examples"
-#import "assets/examples/Halo3.png@/examples"
-#import "assets/examples/lines.png@/examples"
-#import "assets/examples/numbersverdana.png@/examples"
-#import "assets/examples/pixel.png@/examples"
-#import "assets/examples/Plume2.png@/examples"
-#import "assets/examples/smokeball.png@/examples"
-#import "assets/examples/Snow1.png@/examples"
-#import "assets/examples/sparkleflare.png@/examples"
-#import "assets/examples/sparkleflare2.png@/examples"
-#import "assets/examples/Splash3.png@/examples"
-#import "assets/examples/Splash4.png@/examples"
-#import "assets/examples/thinlines.png@/examples"
-#import "assets/examples/triangle.png@/examples"
-#Import "assets/examples/data.xml@/examples"
+#import "assets/effects/"
 
 Using mojo..
 Using std..
@@ -47,7 +18,8 @@ Class FXexample Extends Window
 	Field MyParticleManager:tlParticleManager
 	Field Paused:Int
 	Field EffectNames:String[]
-	Field CurrentEffect:int
+	Field CurrentEffect:Int
+	Field stop:int
 
 	'In the OnCreate method you can load your effects 
 	'library and set up the particle manager.
@@ -55,10 +27,10 @@ Class FXexample Extends Window
 		Super.New( title, width, height )
 		'load the effects file. See the docs on LoadEffects on how to 
 		'prepare an effects library for use in monkey.
-		MyEffects = LoadEffects("asset::examples")
+		MyEffects = LoadEffects("asset::explosions")
 		
 		'Use GetEffect, to retrieve an effect from the library.
-		MyEffect = MyEffects.GetEffect("smokey explosion")
+		MyEffect = MyEffects.GetEffect("glowing explosion")
 		
 		'create a particle manager to manage all the effects and particles
 		MyParticleManager = CreateParticleManager(5000)
@@ -75,6 +47,7 @@ Class FXexample Extends Window
 		
 		Local effects:=MyEffects.Effects
 		
+		'Get the effect names in the library so we can loop through them
 		EffectNames = New String[effects.Count()]
 		Local i:int
 		For Local name:=Eachin effects.Keys
@@ -98,10 +71,15 @@ Class FXexample Extends Window
 			CurrentEffect+=1
 			If CurrentEffect > EffectNames.Length-1 CurrentEffect = 0
 		End If
+		If stop
+			'DebugStop()
+			stop = False
+		End If
 		If Mouse.ButtonHit(MouseButton.Left)
 			'Copy the effect *Important! Dont just add an effect directly from the 
 			'library, make a copy of it first*
 			Local tempeffect:tlEffect
+
 			MyEffect = MyEffects.GetEffect(EffectNames[CurrentEffect])
 			tempeffect = CopyEffect(MyEffect, MyParticleManager)
 
@@ -110,6 +88,8 @@ Class FXexample Extends Window
 			
 			'Add the effect to the particle manager
 			MyParticleManager.AddEffect(tempeffect)
+			
+			stop = True
 		EndIf
 		
 		If Keyboard.KeyHit(Key.P)
@@ -138,6 +118,7 @@ Class FXexample Extends Window
 		canvas.Color = New Color(1,1,1,1)
 		canvas.DrawText ("Press space to clear particles", 10, 10)
 		canvas.DrawText ("Current Effect (use z & x to change): " + EffectNames[CurrentEffect], 10, 30)
+		canvas.DrawText ( App.FPS, 10, 50)
 		
 	End
 End

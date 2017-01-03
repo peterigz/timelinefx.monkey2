@@ -1,7 +1,7 @@
-#rem
+#Rem
 	TimelineFX Module by Peter Rigby
 	
-	Copyright (c) 2010 Peter J Rigby
+	Copyright (c) 2017 Peter J Rigby
 	
 	Permission is hereby granted, free of charge, to any person obtaining a copy
 	of this software and associated documentation files (the "Software"), to deal
@@ -21,16 +21,15 @@
 	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 	THE SOFTWARE.
 
-#END
+#End
 
 Namespace timelinefx
 
 Using timelinefx..
 
-#REM
-	summary: Effects library for storing a list of effects and particle images/animations
+#Rem monkeydoc Effects library for storing a list of effects and particle images/animations.
 	When using LoadEffects, all the effects and images that go with them are stored in this type.
-#END
+#End
 Class tlEffectsLibrary
 	Private
 	
@@ -41,34 +40,37 @@ Class tlEffectsLibrary
 	
 	Public
 	
-	'summary: add a shape to the library
+	#Rem monkeydoc Add a shape to the library
+		@param [[tlShape]]
+	#End
 	Method AddShape:Bool(shape:tlShape)
 		Local key:int = shape.LargeIndex
 		return shapelist.Add(key, shape)
 	End
 	
-	'summary: add an effect to the library
+	#Rem monkeydoc add an effect to the library
+		@param [[tlEffect]]
+	#End
 	Method AddEffect:Void(e:tlEffect)
 		effects.Add(e.Path.ToUpper(), e)
 		For Local em:tlGameObject = EachIn e.GetChildren()
 			AddEmitter(Cast<tlEmitter>(em))
 		Next
 	End
-	#REM
-		summary: Add a new emitter to the library. 
-		Emitters are stored using a map and can be retrieved using #GetEmitter. Generally you don't want to call this at all unless you're building your effects manually, 
-		just use [a #AddEffect]AddEffect[/a] and all its emitters will be added also.
-	#END
+	#Rem monkeydoc Add a new emitter to the library. 
+		Emitters are stored using a map and can be retrieved using [[GetEmitter]]. Generally you don't want to call this at all unless you're building your effects manually, 
+		just use [[AddEffect]] and all its emitters will be added also.
+	#End
 	Method AddEmitter:Void(e:tlEmitter)
 		emitters.Add(e.Path.ToUpper(), e)
 		For Local ef:tlEffect = EachIn e.Effects
 			AddEffect(ef)
 		Next
 	End
-	#REM
-	summary: Clear all effects in the library
-	Use this to empty the library of all effects and shapes.
-	#END
+
+	#Rem monkeydoc Clear all effects in the library
+		Use this to empty the library of all effects and shapes.
+	#End
 	Method ClearAll:Void()
 		Self.name = ""
 		For Local e:tlEffect = EachIn effects.Values
@@ -79,60 +81,64 @@ Class tlEffectsLibrary
 		Self.shapelist.Clear()
 		Self.shapelist = Null
 	End
-	#REM
-	summary: Retrieve an effect from the library
+	#Rem monkeydoc Retrieve an effect from the library
 	Use this to get an effect from the library by passing the name of the effect you want. Example:
 	
-	[code]
+	@example
 	local explosion:tlEffect=MyEffectsLibrary.GetEffect("explosion")
-	[/code]
+	@end
+
+	You should always use [[timelinefx.CopyEffect]] if you plan on adding the effect to a [[tlParticleManager]]
 	
-	All effects and emitters are stored using a directory like path structure so to get at sub effects you can do:</p>
+	All effects and emitters are stored using a directory like path structure so to get at sub effects you can do:
 	
-	[code]
+	@example
 	local explosion:tlEffect=MyEffectsLibrary.GetEffect("Effect/Emitter/Sub Effect/Another Emitter/A deeper sub effect")}
-	[/code]
+	@end
 	
 	Note that you should always use forward slashes.
-	#END
+	@return [[tlEffect]]
+	#End
 	Method GetEffect:tlEffect(name:String)
 		If Cast<tlEffect>(effects.Get(name.ToUpper()))
 			Return Cast<tlEffect>(effects.Get(name.ToUpper()))
 		End If
 		return Null
 	End
-	#REM
-	summary: Retrieve an emitter from the library
+
+	#Rem monkeydoc Retrieve an emitter from the library
 	Use this To get an emitter from the library by passing the name of the emitter you want. All effects And emitters are
 	stored using a map with a directory like path structure. So retrieving an emitter called blast wave inside an effect called explosion
 	would be done like so:
 	
-	[code]
+	@example
 	local blastwave:tlemitter=MyEffectsLibrary.GetEmitter("explosion/blast wave")
-	[/code]
+	@end
 	
 	Note that you should always use forward slashes.
-	#END
+
+	@return [[tlEmitter]]
+	#End
 	Method GetEmitter:tlEmitter(name:String)
 		Return Cast<tlEmitter>(emitters.Get(name.ToUpper()))
 	End
-	#REM
-		summary: Get a Shape (#tlResource) from the library
-	#END
+	#Rem monkeydoc Get a Shape from the library
+	@return [[tlShape]]
+	#End
 	Method GetShape:tlShape(index:Int)
 		Return Cast<tlShape>(shapelist.Get(index))
 	End
 	
-	#REM
-		summary: Get the name of the effects library
-	#END
+	#Rem monkeydoc Get the name of the effects library
+	@return String
+	#End
 	Property Name:String() 
 		Return name
 	End
 	
-	#REM
-		summary: Return the list of effects stored in the library
-	#END	
+	#Rem monkeydoc Return the list of effects stored in the library
+	@return StringMap
+	#End	
 	Property Effects:StringMap<tlEffect>() 
 		Return effects
 	End

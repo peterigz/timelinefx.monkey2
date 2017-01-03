@@ -23,6 +23,9 @@
 
 Namespace timelinefx
 
+#Rem monkeydoc A shape class for storing and working with [[mojo.image]] 
+	Use [[LoadShape]] to load a shape from the assets directory. [[tlShape]] can also be used to store and play animations stored on sprite sheets.
+#End
 Class tlShape
 	
 	Private
@@ -40,55 +43,73 @@ Class tlShape
 	
 	Field image:Image[]
 	
+	#Rem monkeydoc Get/Set the path of the loaded image, eg "asset::myimage.png"
+	#End
 	Property Url:String()
 		Return url
 	Setter (value:String)
 		url = value
 	End
 	
+	#Rem monkeydoc Get/Set the name of the image
+	#End
 	Property Name:String() 
 		Return name
 	Setter (value:String)
 		name = value
 	End
 	
+	#Rem monkeydoc Get the image
+		@return [[mojo.Image]]
+	#End
 	Method GetImage:Image(frame:int)
 		Return image[frame]
 	End
 	
+	#Rem monkeydoc Get/Set width of the image
+	#End
 	Property Width:Int()
 		Return width
 	Setter (value:Int)
 		width = value
 	End
-	
+
+	#Rem monkeydoc Get/Set the height of the image
+	#End
 	Property Height:Int()
 		Return height
 	Setter (value:Int)
 		height = value
 	End
 	
+	#Rem monkeydoc @hidden
+	#End
 	Property MaxRadius:Float()
 		Return maxradius
 	Setter (value:Float)
 		maxradius = value
 	End
 	
+	#Rem monkeydoc @hidden
+	#End
 	Property LargeIndex:Int()
 		Return largeindex
 	Setter (value:Int)
 		largeindex = value
 	End
 	
+	#Rem monkeydoc Get/Set the number of frames in the image
+	#End
 	Property Frames:Int()
 		Return frames
 	Setter (value:Int)
 		frames = value
 	End
 	
-	Function LoadFrames:Image[] (path:String, numFrames:Int, cellWidth:Int, cellHeight:Int, padded:Bool = False, flags:TextureFlags = TextureFlags.Filter, shader:Shader = Null)
-		if (flags & TextureFlags.Filter) And (flags & TextureFlags.Mipmap) Print "Both shape"
-		Local material:=Image.Load( path, flags, shader )
+	#Rem monkeydoc @hidden
+	#End
+	Function LoadFrames:Image[] (path:String, numFrames:Int, cellWidth:Int, cellHeight:Int, padded:Bool = False)
+		Local material:=Image.Load( path, null )
 		If Not material Return New Image[0]
 		
 		If cellWidth * cellHeight * numFrames > material.Width * material.Height Return New Image[0]
@@ -117,9 +138,9 @@ Class tlShape
 				height -= 2
 			End If
 			
-			For Local i:=0 Until numFrames
+			For Local i:= 0 Until numFrames
 				Local fx:Int = i Mod columns * cellWidth
-				Local fy:Int = i / columns * cellHeight
+				Local fy:Int = Int(i / columns) * cellHeight
 
 				local rect:= New Recti(fx + x, fy + y, fx + x + width, fy + y + height)
 				frames[i] = New Image(material, rect)
@@ -132,20 +153,51 @@ Class tlShape
 
 End
 
-Function LoadShape:tlShape(url:String, width:Int, height:Int, frames:Int, flags:TextureFlags = TextureFlags.Filter)
-	if (flags & TextureFlags.Filter) And (flags & TextureFlags.Mipmap) Print "Both"
+#Rem monkeydoc Load a [[tlShape]]
+	@param url String of the path where the image is stored
+	@param width Int width of the image
+	@param height Int height of the image
+	@param frames Int number of frames in the image
+	@param padding True or False whether to add padding around each frame.
+	@return [[tlShape]]
+#End
+Function LoadShape:tlShape(url:String, width:Int = 0, height:Int = 0, frames:Int = 1, padding:int = false)
 	Local shape:tlShape = New tlShape
 	If frames = 1
 		shape.image = New Image[1]
-		shape.image[0] = Image.Load(url, flags)
+		shape.image[0] = Image.Load(url)
 	Else
-		shape.image = tlShape.LoadFrames(url, frames, width, height, false, flags)
+		shape.image = tlShape.LoadFrames(url, frames, width, height, padding)
 	EndIf
 
 	shape.Width = width
 	shape.Height = height
 	shape.Frames = frames
 	shape.Url = url
+	
+	Return shape
+
+End
+
+#Rem monkeydoc Load a [[tlShape]] sequence of images. 
+	@param directory String of the director where the images are stored
+	@param array String array of all the images in the sequence to load
+	@param width Int width of the images
+	@param height Int height of the images
+	@return [[tlShape]]
+#End
+Function LoadAnimation:tlShape(directory:string, url:String[], width:Int = 0, height:Int = 0)
+	Local shape:tlShape = New tlShape
+	shape.image = New Image[url.Length]
+	Local i:int = 0
+	For Local file:=eachin url
+		shape.image[i] = Image.Load(directory + file)
+		i+=1
+	Next
+
+	shape.Width = width
+	shape.Height = height
+	shape.Frames = url.Length
 	
 	Return shape
 

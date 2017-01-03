@@ -1,6 +1,7 @@
-'Import the TimelineFX Module
 Namespace collisiontest
 
+#Import "<std>"
+#Import "<mojo>"
 #Import "<timelinefx>"
 
 'We need the following namespaces (std and mojo are already imported in timelinefx module so that's why you don't need to import them above)

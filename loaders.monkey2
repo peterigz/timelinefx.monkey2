@@ -23,30 +23,21 @@
 
 Namespace timelinefx
 
-#REM
-	Summary: Load a TimelineFX Library
-	In order to load in an effects library, you need to do a little preparation first. Monkey applications currently cannot unpack zip files, and TimelineFX .EFF files are essentially that.
-	What you need to do first is unpack the .eff file into a folder of the same name inside tthe "data" folder of your monkey app. For example, if you have an EFF file called explosions, then unpack this
-	into your data folder in a folder called explosions (You might find it easier to rename the extension to .zip). So the folder structure should be
+#REM monkeydoc Load a TimelineFX Library
+	In order to load in an effects library, you need to do a little preparation first. Monkey 2 applications currently cannot unpack zip files to memory so it's easier to just unzip the effect file
+	to your assets folder.
+
+	Export the effects library from the TimelineFX editor and then unpack the .zip file into a folder of the same name inside the "assets" folder of your monkey app. For example, if you have an ZIP file called explosions, then unpack this
+	into your assets folder in a folder called explosions. So the folder structure should be
 	
-	MyApp.Data/explosions/
-	
-	Inside this explosions folder you should see a DATA.XML file and a bunch of PNG files (tt will also have a thumbnails folder which you can delete if you want to save space as it's not needed). 
-	It's import that your App is ready to accept files with an XML extension so you need to make sure your #TEXT_FILES (either set at the top of your app, or in your config file) variable looks something like:
-	
-	[code]
-	#TEXT_FILES="*.txt|*.XML|*.json"
-	[/code]
-	
-	Note that XML is in caps, this is because it is case sensitive and by default the timelineFX editor saves in caps. However monkey might change this to lower, I'm not sure, if in doubt, rename DATA.XML
-	into lower case! 
+	assets/explosions/
 	
 	Once that is done you can load the effects with:
 	
-	[code]
+	@example
 	Local MyEffects:tlEffectsLibrary
-	MyEffects = LoadEffects("explosions")
-	[/code]
+	MyEffects = LoadEffects("asset::explosions")
+	@end
 #END
 Function LoadEffects:tlEffectsLibrary(filename:String)
 
@@ -560,7 +551,8 @@ Function LoadFolderXMLTree(folderchild:XMLElement, effectslib:tlEffectsLibrary)
 		Next
 	End If
 End Function
-
+#Rem monkeydoc @hidden
+#end
 Function LoadEmitterXMLTree:tlEmitter(effectchild:XMLElement, effectslib:tlEffectsLibrary, e:tlEffect)
 	Local particlechildren:= effectchild.Children
 	Local p:tlEmitter = New tlEmitter

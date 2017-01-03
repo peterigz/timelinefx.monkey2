@@ -1,5 +1,5 @@
-#rem
-	Copyright (c) 2012 Peter J Rigby
+#Rem
+	Copyright (c) 2017 Peter J Rigby
 	
 	Permission is hereby granted, free of charge, to any person obtaining a copy
 	of this software and associated documentation files (the "Software"), to deal
@@ -18,13 +18,14 @@
 	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 	THE SOFTWARE.
-
-#end
+#End
 
 Namespace timelinefx
 
 Using timelinefx..
 
+#Rem monkeydoc A simple 2D matrix class
+#End
 Struct tlMatrix2
 	
 	Private
@@ -34,10 +35,9 @@ Struct tlMatrix2
 	
 	Public
 	
-	#rem
-		bbdoc: Create a new matrix
-		returns: New matrix type
-	#end
+	#Rem monkeydoc Create a new matrix
+		@return New matrix type
+	#End
 	Method New(aa:Float = 1, ab:Float = 0, ba:Float = 0, bb:Float = 1)
 		Self.aa = aa
 		Self.ab = ab
@@ -45,13 +45,12 @@ Struct tlMatrix2
 		Self.bb = bb
 	End
 	
-	#rem
-		bbdoc: Set the matrix to a new set of values
-		about: Use this to prepare the matrix for a new transform. For example if you wanted to to rotate a vector, then you could do 
-		&{<matrix.set(cos(angle),sin(angle),-sin(angle),cos(angle))}
+	#Rem monkeydoc Set the matrix to a new set of values
+		Use this to prepare the matrix for a new transform. For example if you wanted to to rotate a vector, then you could do 
+		`matrix.set(cos(angle),sin(angle),-sin(angle),cos(angle))`
 		and then transform the vector with 
-		&{matrix.transformvector(vector)}
-	#end
+		`matrix.transformvector(vector)`
+	#End
 	Method Set(_aa:Float = 1, _ab:Float = 0, _ba:Float = 0, _bb:Float = 1)
 		aa = _aa
 		ab = _ab
@@ -59,18 +58,16 @@ Struct tlMatrix2
 		bb = _bb
 	End
 	
-	#rem
-		bbdoc: Transpose the matrix
-	#end
+	#Rem monkeydoc Transpose the matrix
+	#End
 	Method Transpose()
 		Local abt:Float = ab
 		ab = ba
 		ba = abt
 	End
 	
-	#rem
-		bbdoc: Scale the matrix by a given amount
-	#end
+	#Rem monkeydoc Scale the matrix by a given amount
+	#End
 	Method Scale(s:Float)
 		aa *= s
 		ab *= s
@@ -78,11 +75,10 @@ Struct tlMatrix2
 		bb *= s
 	End
 	
-	#rem
-		bbdoc: Transfrom the matrix
-		about: Multiplies 2 matrices together
-		returns: New transformed matrix
-	#end
+	#Rem monkeydoc Transfrom the matrix
+		Multiplies 2 matrices together
+		@return New transformed matrix
+	#End
 	Method Transform:tlMatrix2(m:tlMatrix2)
 		Local r:tlMatrix2 = New tlMatrix2
 		r.aa = aa * m.aa + ab * m.ba;r.ab = aa * m.ab + ab * m.bb
@@ -90,11 +86,10 @@ Struct tlMatrix2
 		Return r
 	End
 	
-	#rem
-		bbdoc: Transfrom a vector with the matrix
-		returns: New transformed vector
-		about: You can use this to transfrom a vector, rotating it, scaling it etc.
-	#end
+	#Rem monkeydoc Transfrom a vector with the matrix
+		You can use this to transfrom a vector, rotating it, scaling it etc.
+		@return New transformed vector
+	#End
 	Method TransformVector:tlVector2(v:tlVector2)
 		Local tv:tlVector2 = New tlVector2(0, 0)
 		tv.x = v.x * aa + v.y * ba
@@ -102,11 +97,10 @@ Struct tlMatrix2
 		Return tv
 	End
 	
-	#rem
-		bbdoc: Transfrom a point
-		returns: New coordinates for the tranformed point in p[0] and p[1]
-		about: This will transform a point (x,y) and appply the new coordinates into p[0] and p[1].
-	#end
+	#Rem monkeydoc Transfrom a point
+		This will transform a point (x,y) and appply the new coordinates into p[0] and p[1].
+		@return New coordinates for the tranformed point in p[0] and p[1]
+	#End
 	Method TransformPoint(x:Float, y:Float, p:Float[])
 		p[0] = x * aa + y * ba
 		p[1] = x * ab + y * bb

@@ -23,10 +23,8 @@
 
 Namespace timelinefx
 
-#rem
-	bbdoc: get the direction from 1 point to another
-	returns: Angle of difference
-	about: Thanks to "Snarkbait" for this little code snippit
+#rem monkeydoc get the direction from 1 point to another.
+	@return Angle of difference
 #end
 Function GetDirection:Float(fromx:Float, fromy:Float, tox:Float, toy:Float)
 
@@ -34,8 +32,8 @@ Function GetDirection:Float(fromx:Float, fromy:Float, tox:Float, toy:Float)
 	
 End Function
 
-#rem
-	bbdoc: Get the difference between 2 angles
+#rem monkeydoc Get the difference between 2 angles.
+	Out of date! still uses degrees not radians
 #end
 Function AngleDifference:Float(Angle1:Float, Angle2:Float)
 	Local diff:Float = Abs((Angle1 + 180 - Angle2) Mod 360 - 180)
@@ -44,9 +42,8 @@ Function AngleDifference:Float(Angle1:Float, Angle2:Float)
 	Return 0
 End Function
 
-#rem
-	bbdoc: The distance between 1 point and another
-	returns: The distance between the 2 points
+#rem monkeydoc The distance between 1 point and another.
+	@return The distance between the 2 points
 #end
 Function GetDistance:Float(fromx:Float, fromy:Float, tox:Float, toy:Float)
 
@@ -56,9 +53,8 @@ Function GetDistance:Float(fromx:Float, fromy:Float, tox:Float, toy:Float)
 	Return Sqrt(w * w + h * h)
 	
 End Function
-#rem
-	bbdoc: This gets the distance but doesn't perform a square root
-	returns: Can be useful if you just want to compare 2 distances without needed the accuracy
+#rem monkeydoc This gets the distance but doesn't perform a square root.
+	@return Can be useful if you just want to compare 2 distances without needed the accuracy
 #end
 Function GetDistanceFast:Float(fromx:Float, fromy:Float, tox:Float, toy:Float)
 
@@ -69,9 +65,8 @@ Function GetDistanceFast:Float(fromx:Float, fromy:Float, tox:Float, toy:Float)
 	
 End Function
 
-#rem
-	bbdoc: Count the number of bits that are set in a number
-	about: For example if you want to know how many bits are set in %1001010101101 this function will return 7.
+#rem monkeydoc Count the number of bits that are set in a number.
+	For example if you want to know how many bits are set in %1001010101101 this function will return 7.
 #end
 Function CountBits:Int(bits:Int)
 	Local c:Int
@@ -82,24 +77,21 @@ Function CountBits:Int(bits:Int)
 	Return c
 End Function
 
-#rem
-	bbdoc: rounds a number to the nearest int
-	returns: Rounded Int
+#rem monkeydoc rounds a number to the nearest int.
+	@return Rounded Int
 #end
 Function Round:Int(v:Float)
 	Return Int(v + (Sgn(v) * 0.5))
 End Function
 
-#rem
-	bbdoc: Interpolate between 2 values
-	about: This is the function used to achieve render tweening by taking the old and new values and interpolating between the 2
+#rem monkeydoc Interpolate between 2 values.
+	This is the function used to achieve render tweening by taking the old and new values and interpolating between the 2
 #end
 Function TweenValues:Float(oldValue:Float, value:Float, tween:Float)
 	Return oldValue + (value - oldValue) * tween
 End Function
 
-#rem 
-	bbdoc: Round up to the nearest power of 2
+#rem monkeydoc Round up to the nearest power of 2.
 #end
 Function GetNearestPowerOf2:Int(n:Int)
 	Local t:Int = 1
@@ -109,7 +101,8 @@ Function GetNearestPowerOf2:Int(n:Int)
 	Return t
 End Function
 
-''
+#rem monkeydoc Convert degrees to radians
+#end
 Function DegRad:Float(angle:Float)
 	Return (angle * Pi / 180)
 End

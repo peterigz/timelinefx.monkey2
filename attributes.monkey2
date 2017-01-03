@@ -25,6 +25,8 @@ Namespace timelinefx
 
 Using timelinefx..
 
+#Rem monkeydoc @hidden
+#End
 Class tlAttributeNode
 
 	Private
@@ -81,10 +83,9 @@ Class tlAttributeNode
 	End
 	
 End
-#Rem
-	bbdoc: An attribute array type
-	about: This Type stores the Attribute node graphs inside arrays for a faster lookup rather then having to interpolate in real-time. See #Compile_All
-#END
+
+#Rem monkeydoc @hidden
+#End
 Class tlEmitterArray
 	Field changes:Float[]
 	Field lastframe:Int

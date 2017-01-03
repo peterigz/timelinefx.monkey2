@@ -27,6 +27,8 @@ Namespace timelinefx
 
 Using timelinefx..
 
+#Rem monkeydoc @hidden
+#End
 Class tlEffectComponent_Amount Extends tlGraphComponent
 
 	Method New()
@@ -36,9 +38,7 @@ Class tlEffectComponent_Amount Extends tlGraphComponent
 		Super.New(name)
 	End
 	
-	#REM
-		bbdoc:Insert your Update code here
-	#END
+
 	Method Update() Override
 		If Not effect.OverrideAmount
 			If effect.Parent
@@ -56,6 +56,8 @@ Class tlEffectComponent_Amount Extends tlGraphComponent
 	End Method
 
 End
+#Rem monkeydoc @hidden
+#End
 Class tlEffectComponent_Life Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -64,9 +66,7 @@ Class tlEffectComponent_Life Extends tlGraphComponent
 		Super.New(name)
 	End
 
-	#REM
-		bbdoc:Insert your Update code here
-	#END
+
 	Method Update() Override
 		If Not effect.OverrideLife
 			If effect.Parent
@@ -84,6 +84,8 @@ Class tlEffectComponent_Life Extends tlGraphComponent
 	End Method
 	
 End
+#Rem monkeydoc @hidden
+#End
 Class tlEffectComponent_SizeX Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -91,9 +93,7 @@ Class tlEffectComponent_SizeX Extends tlGraphComponent
 	Method New(name:String)
 		Super.New(name)
 	End
-	#REM
-		bbdoc:Insert your Update code here
-	#END
+
 	Method Update() Override
 		If Not effect.OverrideSizeX
 			If effect.Parent
@@ -114,6 +114,8 @@ Class tlEffectComponent_SizeX Extends tlGraphComponent
 	End Method
 	
 End
+#Rem monkeydoc @hidden
+#End
 Class tlEffectComponent_SizeY Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -121,9 +123,7 @@ Class tlEffectComponent_SizeY Extends tlGraphComponent
 	Method New(name:String)
 		Super.New(name)
 	End
-	#REM
-		bbdoc:Insert your Update code here
-	#END
+
 	Method Update() Override
 		If Not effect.OverrideSizeY
 			If effect.Parent
@@ -141,6 +141,8 @@ Class tlEffectComponent_SizeY Extends tlGraphComponent
 	End Method
 	
 End
+#Rem monkeydoc @hidden
+#End
 Class tlEffectComponent_Velocity Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -148,9 +150,7 @@ Class tlEffectComponent_Velocity Extends tlGraphComponent
 	Method New(name:String)
 		Super.New(name)
 	End
-	#REM
-		bbdoc:Insert your Update code here
-	#END
+
 	Method Update() Override
 		If Not effect.OverrideVelocity
 			If effect.Parent
@@ -168,6 +168,8 @@ Class tlEffectComponent_Velocity Extends tlGraphComponent
 	End Method
 
 End
+#Rem monkeydoc @hidden
+#End
 Class tlEffectComponent_Weight Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -175,9 +177,7 @@ Class tlEffectComponent_Weight Extends tlGraphComponent
 	Method New(name:String)
 		Super.New(name)
 	End
-	#REM
-		bbdoc:Insert your Update code here
-	#END
+
 	Method Update() Override
 		If Not effect.OverrideWeight
 			If effect.Parent
@@ -194,6 +194,8 @@ Class tlEffectComponent_Weight Extends tlGraphComponent
 		Return copy
 	End Method
 End
+#Rem monkeydoc @hidden
+#End
 Class tlEffectComponent_Spin Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -201,9 +203,7 @@ Class tlEffectComponent_Spin Extends tlGraphComponent
 	Method New(name:String)
 		Super.New(name)
 	End
-	#REM
-		bbdoc:Insert your Update code here
-	#END
+
 	Method Update() Override
 		If Not effect.OverrideSpin
 			If effect.Parent
@@ -221,6 +221,8 @@ Class tlEffectComponent_Spin Extends tlGraphComponent
 	End Method
 	
 End
+#Rem monkeydoc @hidden
+#End
 Class tlEffectComponent_Alpha Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -228,9 +230,7 @@ Class tlEffectComponent_Alpha Extends tlGraphComponent
 	Method New(name:String)
 		Super.New(name)
 	End
-	#REM
-		bbdoc:Insert your Update code here
-	#END
+
 	Method Update() Override
 		If Not effect.OverrideAlpha
 			If effect.Parent
@@ -248,6 +248,8 @@ Class tlEffectComponent_Alpha Extends tlGraphComponent
 	End Method
 
 End
+#Rem monkeydoc @hidden
+#End
 Class tlEffectComponent_EmissionAngle Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -255,9 +257,7 @@ Class tlEffectComponent_EmissionAngle Extends tlGraphComponent
 	Method New(name:String)
 		Super.New(name)
 	End
-	#REM
-		bbdoc:Insert your Update code here
-	#END
+
 	Method Update() Override
 		If Not effect.OverrideEmissionAngle
 			effect.currentemissionangle = Get(effect.CurrentFrame)
@@ -271,6 +271,8 @@ Class tlEffectComponent_EmissionAngle Extends tlGraphComponent
 	End Method
 
 End
+#Rem monkeydoc @hidden
+#End
 Class tlEffectComponent_EmissionRange Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -278,9 +280,7 @@ Class tlEffectComponent_EmissionRange Extends tlGraphComponent
 	Method New(name:String)
 		Super.New(name)
 	End
-	#REM
-		bbdoc:Insert your Update code here
-	#END
+
 	Method Update() Override
 		If Not effect.OverrideEmissionRange
 			effect.currentemissionrange = Get(effect.CurrentFrame)
@@ -294,6 +294,8 @@ Class tlEffectComponent_EmissionRange Extends tlGraphComponent
 	End Method
 
 End
+#Rem monkeydoc @hidden
+#End
 Class tlEffectComponent_AreaWidth Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -301,9 +303,7 @@ Class tlEffectComponent_AreaWidth Extends tlGraphComponent
 	Method New(name:String)
 		Super.New(name)
 	End
-	#REM
-		bbdoc:Insert your Update code here
-	#END
+
 	Method Update() Override
 		If Not effect.OverrideAreaSize
 			effect.currentareawidth = Get(effect.CurrentFrame)
@@ -318,6 +318,8 @@ Class tlEffectComponent_AreaWidth Extends tlGraphComponent
 	End Method
 
 End
+#Rem monkeydoc @hidden
+#End
 Class tlEffectComponent_AreaHeight Extends tlGraphComponent 
 	Method New()
 		Super.New()
@@ -325,9 +327,7 @@ Class tlEffectComponent_AreaHeight Extends tlGraphComponent
 	Method New(name:String)
 		Super.New(name)
 	End
-	#REM
-		bbdoc:Insert your Update code here
-	#END
+
 	Method Update() Override
 		If Not effect.OverrideAreaSize
 			effect.currentareaheight = Get(effect.CurrentFrame)
@@ -342,6 +342,8 @@ Class tlEffectComponent_AreaHeight Extends tlGraphComponent
 	End Method
 
 End
+#Rem monkeydoc @hidden
+#End
 Class tlEffectComponent_Angle Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -349,9 +351,7 @@ Class tlEffectComponent_Angle Extends tlGraphComponent
 	Method New(name:String)
 		Super.New(name)
 	End
-	#REM
-		bbdoc:Insert your Update code here
-	#END
+
 	Method Update() Override
 		If Not effect.OverrideAngle
 			effect.LocalRotation = Interpolate(effect.Age)
@@ -365,6 +365,8 @@ Class tlEffectComponent_Angle Extends tlGraphComponent
 	End Method
 
 End
+#Rem monkeydoc @hidden
+#End
 Class tlEffectComponent_Stretch Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -372,9 +374,7 @@ Class tlEffectComponent_Stretch Extends tlGraphComponent
 	Method New(name:String)
 		Super.New(name)
 	End
-	#REM
-		bbdoc:Insert your Update code here
-	#END
+
 	Method Update() Override
 		If Not effect.OverrideStretch
 			If effect.Parent
@@ -392,6 +392,8 @@ Class tlEffectComponent_Stretch Extends tlGraphComponent
 	End Method
 
 End
+#Rem monkeydoc @hidden
+#End
 Class tlEffectComponent_GlobalZoom Extends tlGraphComponent
 	Method New()
 		Super.New()
@@ -399,9 +401,7 @@ Class tlEffectComponent_GlobalZoom Extends tlGraphComponent
 	Method New(name:String)
 		Super.New(name)
 	End
-	#REM
-		bbdoc:Insert your Update code here
-	#END
+
 	Method Update() Override
 		If Not effect.OverrideGlobalZoom
 			If effect.Parent

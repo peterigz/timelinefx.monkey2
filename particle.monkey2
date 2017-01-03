@@ -27,8 +27,12 @@ Namespace timelinefx
 
 Using timelinefx..
 
+#Rem monkeydoc @hidden
+#end
 Alias Node:List<tlParticle>.Node
 
+#Rem monkeydoc @hidden
+#end
 Class tlParticle Extends tlGameObject
 
 	Public
@@ -79,6 +83,7 @@ Class tlParticle Extends tlGameObject
 	Field effectlayer:Int								'The effect layer the particle belongs too in the particle manager
 	Field emitter:tlEmitter								'tlemitter it belongs to
 	Field corecomponent:tlParticleCoreComponent			'quick access the core component
+	Field releaseme:Int 								'if true then the particle will be erased from the particle manager inuse list next parse
 	Field link:Node
 	
 	Method New()
@@ -144,6 +149,7 @@ Class tlParticle Extends tlGameObject
 		releasesingleparticle = 0
 		gravity = 0
 		weight = 0
+		baseweight = 0
 		spin = 0
 		corecomponent.emitter = Null
 		emitter = Null
@@ -196,9 +202,9 @@ Class tlParticle Extends tlGameObject
 			Matrix = Matrix.Transform(Parent.Matrix)
 			RotateVector = Parent.Matrix.TransformVector(LocalVector)
 			If Zoom = 1
-				WorldVector = Parent.WorldVector + RotateVector
+				WorldVector = WorldVector.SetPositionByVector(Parent.WorldVector.AddVector(RotateVector))
 			Else
-				WorldVector = Parent.WorldVector + RotateVector * Zoom
+				WorldVector = WorldVector.SetPositionByVector(Parent.WorldVector.AddVector(RotateVector.Scale(Zoom)))
 			End If
 			WorldRotation = Parent.WorldRotation + LocalRotation
 		Else

@@ -1,7 +1,7 @@
 #rem
 	TimelineFX Module by Peter Rigby
 	
-	Copyright (c) 2012 Peter J Rigby
+	Copyright (c) 2017 Peter J Rigby
 	
 	Permission is hereby granted, free of charge, to any person obtaining a copy
 	of this software and associated documentation files (the "Software"), to deal
@@ -25,8 +25,12 @@
 
 Namespace timelinefx
 
+#Rem monkeydoc @hidden
+#End
 Const BEZIER_ACCURACY:Float = 0.01
 
+#Rem monkeydoc @hidden
+#End
 Function GetQuadBezier:tlPoint(p0:tlPoint, p1:tlPoint, p2:tlPoint, t:Float, ymin:Float, ymax:Float, clamp:Int = True)
 	Local b:tlPoint = New tlPoint
 	b.x = Pow( (1 - t), 2) * p0.x + 2 * t * (1 - t) * p1.x + Pow(t, 2) * p2.x
@@ -40,6 +44,8 @@ Function GetQuadBezier:tlPoint(p0:tlPoint, p1:tlPoint, p2:tlPoint, t:Float, ymin
 	Return b
 End Function
 
+#Rem monkeydoc @hidden
+#End
 Function GetCubicBezier:tlPoint(p0:tlPoint, p1:tlPoint, p2:tlPoint, p3:tlPoint, t:Float, ymin:Float, ymax:Float, clamp:Int = True)
 	Local b:tlPoint = New tlPoint
 	b.x = Pow( (1 - t), 3) * p0.x + 3 * t * Pow( (1 - t), 2) * p1.x + 3 * Pow(t, 2) * (1 - t) * p2.x + Pow(t, 3) * p3.x
@@ -53,6 +59,8 @@ Function GetCubicBezier:tlPoint(p0:tlPoint, p1:tlPoint, p2:tlPoint, p3:tlPoint, 
 	Return b
 End Function
 
+#Rem monkeydoc @hidden
+#End
 Class tlPoint
 	
 	Field x:Float

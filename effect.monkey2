@@ -1,4 +1,4 @@
-#rem
+#Rem
 	TimelineFX Module by Peter Rigby
 	
 	Copyright (c) 2012 Peter J Rigby
@@ -21,17 +21,16 @@
 	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 	THE SOFTWARE.
 
-#END
+#End
 
 Namespace timelinefx
 
 Using timelinefx..
 
-#REM
-	summary: The effect class which is the main parent class for emitters
-	Effect types are the main containers for emitters and has a set of global attributes that can effect any emitters it stores.
+#Rem monkeydoc The effect class which is the main parent class for emitters.
+	Effect types are the main containers for emitters and has a set of global attributes that can affect any emitters it stores.
 	The basic entity structure of an effect is: Effect -> Emitter(s) -> Particle(s)
-#END
+#End
 Class tlEffect Extends tlFXObject
 	
 	Private
@@ -103,19 +102,45 @@ Class tlEffect Extends tlFXObject
 	
 	'Temp attribute values
 	'There's no current angle becuase that sets the game object's local_rotation field
+	#Rem monkeydoc @hidden
+	#End
 	Field currentsizex:Float
+	#Rem monkeydoc @hidden
+	#End
 	Field currentsizey:Float
+	#Rem monkeydoc @hidden
+	#End
 	Field currentvelocity:Float
+	#Rem monkeydoc @hidden
+	#End
 	Field currentspin:Float
+	#Rem monkeydoc @hidden
+	#End
 	Field currentweight:Float
+	#Rem monkeydoc @hidden
+	#End
 	Field currentareawidth:Float
+	#Rem monkeydoc @hidden
+	#End
 	Field currentareaheight:Float
+	#Rem monkeydoc @hidden
+	#End
 	Field currentalpha:Float
+	#Rem monkeydoc @hidden
+	#End
 	Field currentemissionangle:Float
+	#Rem monkeydoc @hidden
+	#End
 	Field currentemissionrange:Float
+	#Rem monkeydoc @hidden
+	#End
 	Field currentstretch:Float
+	#Rem monkeydoc @hidden
+	#End
 	Field currentglobalzoom:Float
 	
+	#Rem monkeydoc Constructor for the effect. Use this to create a new effect from scratch.
+	#End
 	Method New()
 		Super.New()
 		Local core:tlEffectCoreComponent = New tlEffectCoreComponent("Core")
@@ -125,307 +150,495 @@ Class tlEffect Extends tlFXObject
 		DoNotRender = True
 	End
 	
-	'properties	
+	#Rem monkeydoc @hidden
+	#End
 	Property EffectLayer:Int()
 		Return effectlayer
 	Setter(v:Int)
 		effectlayer = v
 	End
+	#Rem monkeydoc Get the Particle number of particles within this effect.
+	#End
 	Property ParticleCount:Int() 
 		Return particlecount
 	Setter(v:Int)
 		particlecount = v	
 	End
+	#Rem monkeydoc Get/Set whehter or not the effect times out
+		By default, if an effect is no longer spawning particles, it will automatically be removed from the [[tlParticleManager]]. If you don't want this behaviour though, you 
+		can can this to true to prevent it.
+	#End
 	Property DoNotTimeOut:Int() 
 		Return donottimeout
 	Setter(v:Int)
 		donottimeout = v	
 	End
+	#Rem monkeydoc Set the amount of time before idle effects are deleted from the particle manager
+		Any effects that have no active particles being drawn on the screen will be automatically removed from the particle manager after a given time set by this function.
+	#End
 	Property IdleTime:Int() 
 		Return idletime
 	Setter(v:Int)
 		idletime = v	
 	End
+
+	#Rem monkeydoc Get the effect directory
+		The directory is a string map that contains a reference to all of the emitters and sub-effects in the effect, so you can access them and change them as you need.
+	#End
 	Property Directory:StringMap<tlGameObject>() 
 		Return directory
 	Setter(v:StringMap<tlGameObject>)
 		directory = v	
 	End
+	#Rem monkeydoc Retrieve an effect from the directory of the effect
+		Use this to get an effect from the effect directory by passing the name of the effect you want. Example
+		@example 
+		local explosion:=MyEffectsLibrary.Geteffect("explosion")
+		@end
+		All effects and emitters are stored using a directory like path structure so to get at sub effects you can do:
+		@example
+		local explosion:=MyEffectsLibrary.Geteffect("Effect/Emitter/Sub Effect/Another Emitter/A deeper sub effect")
+		@end
+		Note that you should always use forward slashes.
+		@param name The name of the effect
+		@return tlEffect
+	#End
+	Method GetEffect:tlEffect(name:String)
+		Return Cast<tlEffect>(directory.Get(name.ToUpper()))
+	End Method
+	#Rem monkeydoc Retrieve an emitter from the directory of the effect
+		Use this To get an emitter from the effect directory by passing the name of the emitter you want. All effects And emitters are
+		stored using a map with a directory like path structure. So retrieving an emitter called blast wave inside an effect called explosion
+		would be done like so:
+		@example
+		local blastwave:=MyEffectsLibrary.GetEmitter("explosion/blast wave")
+		@end
+		Note that you should always use forward slashes.
+		@param name the name of the emitter
+		@return tlEmitter
+	#End
+	Method GetEmitter:tlEmitter(name:String)
+		Return Cast<tlEmitter>(directory.Get(name.ToUpper()))
+	End Method
+
+	#Rem monkeydoc @hidden
+	#End
 	Method AddEffectToDirectory(e:tlEffect)
 		directory.Add(e.Path.ToUpper(), e)
 		For Local em:tlGameObject = EachIn e.GetChildren()
 			AddEmitterToDirectory(Cast<tlEmitter>(em))
 		Next
 	End
+
+	#Rem monkeydoc @hidden
+	#End
 	Method AddEmitterToDirectory(e:tlEmitter)
 		directory.Add(e.Path, e)
 		For Local ef:tlGameObject = EachIn e.Effects
 			AddEffectToDirectory(Cast<tlEffect>(ef))
 		Next
 	End
+
+	#Rem monkeydoc @hidden
+	#End
 	Method AddEffect(e:tlEffect)
 		directory.Add(e.Path.ToUpper(), e)
 		For Local em:tlGameObject = EachIn e.GetChildren()
 			AddEmitter(Cast<tlEmitter>(em))
 		Next
 	End
+
+	#Rem monkeydoc @hidden
+	#End
 	Method AddEmitter(e:tlEmitter)
 		directory.Add(e.Path.ToUpper(), e)
 		For Local ef:tlGameObject = EachIn e.Effects
 			AddEffect(Cast<tlEffect>(ef))
 		Next
 	End
+
+	#Rem monkeydoc Get the parent emitter of the effect
+	#End
 	Property ParentEmitter:tlEmitter() 
 		Return parentemitter
 	Setter(v:tlEmitter)
 		parentemitter = v
 	End
+
+	#Rem monkeydoc The effect class, being one of tlPOINT_EFFECT, tlLINE_EFFECT, tlAREA_EFFECT, tlELLIPSE_EFFECT
+	#End
 	Property EffectClass:Int() 
 		Return _class
 	Setter(v:Int)
 		_class = v
 	End
+	#Rem monkeydoc Sets whether the effect should emit at points
+		If set to true then the particles within the effect will emit from evenly spaced points with the area, line or ellipse. The number of points is determined
+		by [[MaxGX]] and [[MaxGY]]. The value is not applicable to point effects.
+	#End
 	Property EmitatPoints:Int() 
 		Return emitatpoints
 	Setter(v:Int)
 		emitatpoints = v
 	End
+	#Rem monkeydoc Get/Set maximum width grid points
+	In area and ellipse effects this value represents the number of grid points along the width, in the case of area and line effect, or around the 
+	circumference, in the case of ellipses.
+	#end
 	Property MaxGX:Int() 
 		Return maxgx
 	Setter(v:Int)
 		maxgx = v
 	End
+	#Rem monkeydoc Get/Set maximum height grid points
+	In area and ellipse effects this value represents the number of grid points along the height, in the case of area and line effect, or around the 
+	circumference, in the case of ellipses.
+	#end
 	Property MaxGY:Int() 
 		Return maxgy
 	Setter(v:Int)
 		maxgy = v
 	End
+	#Rem monkeydoc Set the emission type
+	In area, line and ellipse effects the emission type determines the direction that the particles travel once spawned. Use the following consts to determine
+	the direction:
+	* tlEMISSION_INWARDS: Particles will emit towards the handle of the effect.
+	* tlEMISSION_OUTWARDS: Particles will emit away from the handle of the effect.
+	* tlEMISSION_SPECIFIED: Particles will emit in the direction specified by the _emission_angle_ and _emission_range_ attributes.
+	* tlEMISSION_IN_AND_OUT: Particles will alternative between emitting towards and away from the handle of the effect.
+	#end
 	Property EmissionType:Int() 
 		Return emissiontype
 	Setter(v:Int)
 		emissiontype = v
 	End
+	#Rem monkeydoc Set range in degrees of the arc
+		When an effect uses an ellipse as its effect type, you can adjust how far round the ellipse particles will spawn
+		by setting the ellipse arc. 360 degrees will spawn around the full amount.
+	#end
 	Property EllipseArc:Float() 
 		Return ellipsearc
 	Setter(v:Float)
 		ellipsearc = v
 	End
+	#Rem monkeydoc Offset where the ellipse arc starts from.
+	#end
 	Property EllipseOffset:Int() 
 		Return ellipseoffset
 	Setter(v:Int)
 		ellipseoffset = v
 	End
+	#Rem monkeydoc Set the length of the effect
+		Effects can be looped by setting the effect length. Just pass it the length in milliseconds that you want it to loop by or set to 0 if 
+		you don't want the effect to loop.
+	#end
 	Property EffectLength:Int() 
 		Return effectlength
 	Setter(v:Int)
 		effectlength = v
 	End
+	#Rem monkeydoc Set Uniform
+		Dictates whether the particles size scales uniformally. Set to either TRUE or FALSE.
+	#end
 	Property Uniform:Int() 
 		Return uniform
 	Setter(v:Int)
 		uniform = v
 	End
+	#Rem monkeydoc Set to true for particles to traverse line type effects
+		Only applying to line effects, setting this to true makes the particles travel along the length of the line always remaining relative to it. Great for laser beam effects.
+	#end
 	Property TraverseEdge:Int() 
 		Return traverseedge
 	Setter(v:Int)
 		traverseedge = v
 	End
+	#Rem monkeydoc Set the end behaviour of particles traversing a line
+		If an effect if set so that particles traverse the edge of the line, then this makes the particles behave in one of 3 ways when they reach 
+		the end of the line.  By passing it either of the following const they can:
+		*tlEND_LOOPAROUND:* The particles will loop back round to the beginning of the line.
+		*tlEND_KILL:* The particles will be killed even if they haven't reached the end of their lifetimes yet.
+		*tlLET_FREE:* The particles will be free to continue on their merry way.
+	#end
 	Property EndBehaviour:Int() 
 		return endbehaviour
 	Setter(v:Int)
 		endbehaviour = v
 	End
+	#Rem monkeydoc Set to true to make the distance travelled determined by the life of the particle.
+		When [[TraverseEdge]] is set to true and [[EndBehaviour]] is set to true then the distance travelled along the line will be determined by the 
+		age of the particle.
+	#end
 	Property DistanceSetByLife:Int() 
 		Return distancesetbylife
 	Setter(v:Int)
 		distancesetbylife = v
 	End
+	#Rem monkeydoc Set the order particles spawn
+		A value of true means that in area, line and ellipse effects, particles will spawn from right to left or anti-clockwise.
+	#end
 	Property ReverseSpawnDirection:Int() 
 		Return reversespawndirection 
 	Setter(v:Int)
 		reversespawndirection = v
 	End
+	#Rem monkeydoc This sets the direction particles are spawned.
+		Theres no need to call this, as its called internally by the emitter depending on the reverse spawn flag. see [[ReverseSpawnDirection]].
+	#end
 	Property SpawnDirection:Int() 
 		Return spawndirection
 	Setter(v:Int)
 		spawndirection = v
 	End
+	#Rem monkeydoc @hidden
+	#end
 	Property AnimWidth:Int() 
 		Return animwidth
 	Setter(v:Int)
 		animwidth = v
 	End
+	#Rem monkeydoc @hidden
+	#end
 	Property AnimHeight:Int() 
 		Return animheight
 	Setter(v:Int)
 		animheight = v
 	End
+	#Rem monkeydoc @hidden
+	#end
 	Property AnimX:Int() 
 		Return animx
 	Setter(v:Int)
 		animx = v
 	End
+	#Rem monkeydoc @hidden
+	#end
 	Property AnimY:Int() 
 		Return animy
 	Setter(v:Int)
 		animy = v
 	End
+	#Rem monkeydoc @hidden
+	#end
 	Property Seed:Int() 
 		Return seed
 	Setter(v:Int)
 		seed = v
 	End
+	#Rem monkeydoc @hidden
+	#end
 	Property Looped:Int() 
 		Return looped
 	Setter(v:Int)
 		looped = v
 	End
+	#Rem monkeydoc @hidden
+	#end
 	Property FrameOffset:Int() 
 		Return frameoffset
 	Setter(v:Int)
 		frameoffset = v
 	End
+	#Rem monkeydoc @hidden
+	#end
 	Property AnimZoom:Float()
 		Return animzoom
 	Setter(v:Int)
 		animzoom = v
 	End
+	#Rem monkeydoc 
+	#end
 	Property CurrentSizeX:Float()
 		Return currentsizex
 	Setter(v:Float)
 		currentsizex = v
 	End
+	#Rem monkeydoc @hidden
+	#end
 	Property CurrentSizeY:Float()
 		Return currentsizey
 	Setter(v:Float)
 		currentsizey = v
 	End
+	#Rem monkeydoc @hidden
+	#end
 	Property CurrentVelocity:Float()
 		Return currentvelocity
 	Setter(v:Float)
 		currentvelocity = v
 	End
+	#Rem monkeydoc @hidden
+	#end
 	Property CurrentSpin:Float()
 		Return currentspin
 	Setter(v:Float)
 		currentspin = v
 	End
+	#Rem monkeydoc @hidden
+	#end	
 	Property CurrentWeight:Float()
 		Return currentweight
 	Setter(v:Float)
 		currentweight = v
 	End
+	#Rem monkeydoc @hidden
+	#end	
 	Property CurrentAreaWidth:Float()
 		Return currentareawidth
 	Setter(v:Float)
 		currentareawidth = v
 	End
+	#Rem monkeydoc @hidden
+	#end	
 	Property CurrentAreaHeight:Float()
 		Return currentareaheight
 	Setter(v:Float)
 		currentareaheight = v
 	End
+	#Rem monkeydoc @hidden
+	#end	
 	Property CurrentAlpha:Float()
 		Return currentalpha
 	Setter(v:Float)
 		currentalpha = v
 	End
+	#Rem monkeydoc @hidden
+	#end	
 	Property CurrentEmissionAngle:Float()
 		Return currentemissionangle
 	Setter(v:Float)
 		currentemissionangle = v
 	End
+	#Rem monkeydoc @hidden
+	#end	
 	Property CurrentEmissionRange:Float()
 		Return currentemissionrange
 	Setter(v:Float)
 		currentemissionrange = v
 	End
+	#Rem monkeydoc @hidden
+	#end	
 	Property CurrentStretch:Float()
 		Return currentstretch
 	Setter(v:Float)
 		currentstretch = v
 	End
+	#Rem monkeydoc @hidden
+	#end	
 	Property CurrentGlobalZoom:Float()
 		Return currentglobalzoom
 	Setter(v:Float)
 		currentglobalzoom = v
 	End
+	#Rem monkeydoc Use this to store and retrieve some data in the effect
+	#end	
 	Property Data:Object()
 		Return data
 	Setter(v:Object)
 		data = v
 	End
 	
+	#Rem monkeydoc @hidden
+	#end	
 	Property OverrideAreaSize:Int() 
 		Return overrideareasize
 	Setter(v:Int)
 		overrideareasize = v
 	End
+	#Rem monkeydoc @hidden
+	#end	
 	Property OverrideEmissionAngle:Int() 
 		Return overrideemissionangle
 	Setter(v:Int)
 		overrideemissionangle = v
 	End
+	#Rem monkeydoc @hidden
+	#end	
 	Property OverrideEmissionRange:Int() 
 		Return overrideemissionrange
 	Setter(v:Int)
 		overrideemissionrange = v
 	End
+	#Rem monkeydoc @hidden
+	#end	
 	Property OverrideAngle:Int() 
 		Return overrideangle
 	Setter(v:Int)
 		overrideangle = v
 	End
+	#Rem monkeydoc @hidden
+	#end	
 	Property OverrideLife:Int() 
 		Return overridelife
 	Setter(v:Int)
 		overridelife = v
 	End
+	#Rem monkeydoc @hidden
+	#end	
 	Property OverrideAmount:Int() 
 		Return overrideamount
 	Setter(v:Int)
 		overrideamount = v
 	End
+	#Rem monkeydoc @hidden
+	#end	
 	Property OverrideVelocity:Int() 
 		Return overridevelocity
 	Setter(v:Int)
 		overridevelocity = v
 	End
+	#Rem monkeydoc @hidden
+	#end	
 	Property OverrideSpin:Int() 
 		Return overridespin
 	Setter(v:Int)
 		overridespin = v
 	End
+	#Rem monkeydoc @hidden
+	#end	
 	Property OverrideSizeX:Int() 
 		Return overridesizex
 	Setter(v:Int)
 		overridesizex = v
 	End
+	#Rem monkeydoc @hidden
+	#end	
 	Property OverrideSizeY:Int() 
 		Return overridesizey
 	Setter(v:Int)
 		overridesizey = v
 	End
+	#Rem monkeydoc @hidden
+	#end	
 	Property OverrideWeight:Int() 
 		Return overrideweight
 	Setter(v:Int)
 		overrideweight = v
 	End
+	#Rem monkeydoc @hidden
+	#end	
 	Property OverrideAlpha:Int() 
 		Return overridealpha
 	Setter(v:Int)
 		overridealpha = v
 	End
+	#Rem monkeydoc @hidden
+	#end	
 	Property OverrideStretch:Int() 
 		Return overridestretch
 	Setter(v:Int)
 		overridestretch = v
 	End
+	#Rem monkeydoc @hidden
+	#end	
 	Property OverrideGlobalZoom:Int() 
 		Return overrideglobalzoom
 	Setter(v:Int)
 		overrideglobalzoom = v
 	End
+	#Rem monkeydoc Set the effects particle manager
+		Every effect needs a particle manager. For more info see [[tlParticleManager]]
+	#end	
 	Property ParticleManager:tlParticleManager() 
 		Return pm
 	Setter(v:tlParticleManager)
@@ -434,160 +647,144 @@ Class tlEffect Extends tlFXObject
 	
 	'Main Effect Setters
 	
-	#REM
-		summary: Set the area size of the effect
+	#Rem monkeydoc Set the area size of the effect
 		If the effect is Area or Elipse then you can use this to change the dimensions of it.
-	#END
+	#End
 	Method SetAreaSize(Width:Float, Height:Float)
 		overrideareasize = True
 		currentareawidth = Width
 		currentareaheight = Height
 	End
 	
-	#Rem
-		summary: Set the line length of the effect
+	#Rem monkeydoc Set the line length of the effect
 		For line effects, use this function to override the graph and set the length of the line to whatever you want.
-	#END
+	#End
 	Method SetLineLength(Length:Float)
 		overrideareasize = True
 		currentareawidth = Length
 	End
-	#Rem
-		summary: Set the Emission Angle of the effect
-		This overides whatever angle is set on the graph and sets the emission angle of the effect. This won't effect emitters that have <i>UseEffectEmission</i> set
+	#Rem monkeydoc Set the Emission Angle of the effect
+		This overides whatever angle is set on the graph and sets the emission angle of the effect. This won't effect emitters that have _UseEffectEmission_ set
 		to FALSE.
-	#END
+	#End
 	Method SetEmissionAngle(angle:Float)
 		overrideemissionangle = True
 		currentemissionangle = angle
 	End
-	#Rem
-		summary: Set the Angle of the effect
+	#Rem monkeydoc Set the Angle of the effect
 		This overides the whatever angle is set on the graph and sets the angle of the effect.
-	#END
+	#End
 	Method SetEffectAngle(Angle:Float)
-		If Angle < 0 Angle += 360
+		If Angle < 0 Angle += 6.28319
 		overrideangle = True
 		LocalRotation = Angle
 	End
-	#Rem
-		summary: Set the Global attribute Life of the effect
+	#Rem monkeydoc Set the Global attribute Life of the effect
 		This overides the graph the effect uses to set the Global Attribute Life
-	#END
+	#End
 	Method SetLife(life:Float)
 		overridelife = True
 		currentlife = life
 	End
-	#Rem
-		summary: Set the Global attribute Amount of the effect
+	#Rem monkeydoc Set the Global attribute Amount of the effect
 		This overides the graph the effect uses to set the Global Attribute Amount
-	#END
+	#End
 	Method SetAmount(amount:Float)
 		overrideamount = True
 		currentamount = amount
 	End
-	#Rem
-		summary: Set the Global attribute velocity of the effect
+	#Rem monkeydoc Set the Global attribute velocity of the effect
 		This overides the graph the effect uses to set the Global Attribute velocity
-	#END
+	#End
 	Method SetVelocity(velocity:Float)
 		overridevelocity = True
 		currentvelocity = velocity
 	End
-	#Rem
-		summary: Set the Global attribute Spin of the effect
+	#Rem monkeydoc Set the Global attribute Spin of the effect
 		This overides the graph the effect uses to set the Global Attribute Spin
-	#END
+	#End
 	Method SetSpin(spin:Float)
 		overridespin = True
 		currentspin = spin
 	End
-	#Rem
-	summary: Set the Global attribute Weight of the effect
+	#Rem monkeydoc Set the Global attribute Weight of the effect
 	This overides the graph the effect uses to set the Global Attribute Weight
-	#END
+	#End
 	Method SetWeight(Weight:Float)
 		overrideweight = True
 		currentweight = Weight
 	End
-	#Rem
-		summary: Set the Global attribute Sizex of the effect
+	#Rem monkeydoc Set the Global attribute Sizex of the effect
 		This overides the graph the effect uses to set the Global Attribute Sizex and sizey
-	#END
+	#End
 	Method SetEffectParticleSize(Sizex:Float, Sizey:Float)
 		overridesizex = True
 		overridesizey = True
 		currentsizex = Sizex
 		currentsizey = Sizey
 	End
-	#Rem
-		summary: Set the Global attribute Sizex and Sizey of the effect
+	#Rem monkeydoc Set the Global attribute Sizex and Sizey of the effect
 		This overides the graph the effect uses to set the Global Attribute Sizex and Sizey. You can use this method if your effect changes particle sizes uniformly. Although even if it doesn't you can still
 		use this effect it will just change both sizex and size to the same values.
-	#END
+	#End
 	Method SetSize(Size:Float)
 		overridesizex = True
 		overridesizey = True
 		currentsizex = Size
 		currentsizey = Size
 	End
-	#Rem
-		summary: Set the Global attribute Sizex of the effect
+	#Rem monkeydoc Set the Global attribute Sizex of the effect
 		This overides the graph the effect uses to set the Global Attribute Sizex
-	#END
+	#End
 	Method SetSizeX(Sizex:Float)
 		overridesizex = True
 		currentsizex = Sizex
 	End
-	#Rem
-		summary: Set the Global attribute Sizey of the effect
+	#Rem monkeydoc Set the Global attribute Sizey of the effect
 		This overides the graph the effect uses to set the Global Attribute Sizey. Note that if 
-	#END
+	#End
 	Method SetSizeY(Sizey:Float)
 		overridesizey = True
 		currentsizey = Sizey
 	End
-	#Rem
-		summary: Set the Global attribute Alpha of the effect
+	#Rem monkeydoc Set the Global attribute Alpha of the effect
 		This overides the graph the effect uses to set the Global Attribute Alpha
-	#END
+	#End
 	Method SetEffectAlpha(Alpha:Float)
 		overridealpha = True
 		currentalpha = Alpha
 	End
-	#Rem
-		summary: Set the Global attribute EmissionRange of the effect
+	#Rem monkeydoc Set the Global attribute EmissionRange of the effect
 		This overides the graph the effect uses to set the Global Attribute EmissionRange
-	#END
+	#End
 	Method SetEffectEmissionRange(EmissionRange:Float)
 		overrideemissionrange = True
 		currentemissionrange = EmissionRange
 	End
-	#Rem
-			Set the current zoom level of the effect
-			This overides the graph the effect uses to set the Global Attribute Global Zoom and can be used to scale the size of the whole effect.
-	#END
+	#Rem monkeydoc Set the current zoom level of the effect
+		This overides the graph the effect uses to set the Global Attribute Global Zoom and can be used to scale the size of the whole effect.
+	#End
 	Method SetZ(v:Float)
 		overrideglobalzoom = True
 		Zoom = v
 	End
-	#Rem
-			Set the current zoom level of the effect
-			This overides the graph the effect uses to set the Global Attribute Global Zoom
-	#END
+	#Rem monkeydoc Set the current zoom level of the effect
+		This overides the graph the effect uses to set the Global Attribute Global Zoom
+	#End
 	Method SetGlobalZoom(v:Float)
 		overrideglobalzoom = True
 		Zoom = v
 	End
-	#Rem
-		summary: Set the Global attribute Stretch of the effect
+	#Rem monkeydoc Set the Global attribute Stretch of the effect
 		This overides the graph the effect uses to set the Global Attribute Stretch
-	#END
+	#End
 	Method SetStretch(v:Float)
 		overridestretch = True
 		currentstretch = v
 	End
-	
+
+	#Rem monkeydoc @hidden
+	#End
 	Method SetSpawnDirection()
 		If reversespawndirection
 			spawndirection = -1
@@ -596,17 +793,24 @@ Class tlEffect Extends tlFXObject
 		EndIf
 	End
 	
+	#Rem monkeydoc Softly kill an effect
+		Call this to kill an effect by stopping it from spawning any more particles. This will make the effect slowly die about as any remaining 
+		particles cease to exist as there lifetime naturally expires. Any single particles are converted to one shot particles.
+	#End
 	Method SoftKill()
 		Dying = True
 	End
-	
+	#Rem monkeydoc Hard kill an effect
+		Immediatley kills an effect by destroying all particles created by it.
+	#End
 	Method HardKill()
 		Destroy()
 		pm.RemoveEffect(Self)
 	End
 	
 	'Internal Methods
-	
+	#Rem monkeydoc @hidden
+	#End
 	Method CompileAll()
 		For Local graph:tlComponent = EachIn Components
 			If Cast<tlGraphComponent>(graph)
@@ -622,7 +826,8 @@ Class tlEffect Extends tlFXObject
 			Cast<tlEmitter>(e).CompileAll()
 		Next
 	End
-	
+	#Rem monkeydoc @hidden
+	#End
 	Method ParentHasGraph:Int(graph:String)
 		If parentemitter
 			If parentemitter.ParentEffect.GetComponent(graph)
@@ -636,14 +841,13 @@ Class tlEffect Extends tlFXObject
 
 End
 
-#REM
-	summary: Copy an effect
+#Rem monkeydoc Copy an effect
 	You should use this command everytime you want to add an effect to the particle, otherwise you'll simply be referencing the effect directly from the library which simply won't work
 	if you add more then one of the same effect.
 	
 	Pass the effect you wish to copy, the particle manager you want it assigned to and if you wish you can copy the directory which allows you to access individual emitters within the effect, in most
-	cases though this will be unnecessary.
-#END
+	cases though this will be unnecessary unless you need to get access to the emitters in the effects to make changes in realtime.
+#End
 Function CopyEffect:tlEffect(e:tlEffect, ParticleManager:tlParticleManager, CopyDirectory:Int = False)
 	Local clone:tlEffect = New tlEffect
 	clone.EffectClass = e.EffectClass
