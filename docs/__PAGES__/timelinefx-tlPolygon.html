@@ -1,0 +1,131 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.tlPolygon</i>
+<h5 cls="mx2docs">
+Class tlPolygon Extends <a href="javascript:void('timelinefx:timelinefx-tlBox')" onclick="openDocsPage('timelinefx:timelinefx-tlBox')">tlBox</a>
+</h5>
+Collision polygon class
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Public Fields </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlPolygon-angle')" onclick="openDocsPage('timelinefx:timelinefx-tlPolygon-angle')">angle</a> </td>
+<td class="mx2docs" style="text-align:left"></td>
+</tr>
+</table>
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Public Constructors </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlPolygon-new')" onclick="openDocsPage('timelinefx:timelinefx-tlPolygon-new')">New</a> </td>
+<td class="mx2docs" style="text-align:left"></td>
+</tr>
+</table>
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Public Methods </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlPolygon-BoxCollide')" onclick="openDocsPage('timelinefx:timelinefx-tlPolygon-BoxCollide')">BoxCollide</a> </td>
+<td class="mx2docs" style="text-align:left">Check for a collision with a <a href="javascript:void('timelinefx:timelinefx-tlBox')" onclick="openDocsPage('timelinefx:timelinefx-tlBox')">tlBox</a> </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlPolygon-CircleCollide')" onclick="openDocsPage('timelinefx:timelinefx-tlPolygon-CircleCollide')">CircleCollide</a> </td>
+<td class="mx2docs" style="text-align:left">Check for a collision with a <a href="javascript:void('timelinefx:timelinefx-tlCircle')" onclick="openDocsPage('timelinefx:timelinefx-tlCircle')">tlCircle</a> </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlPolygon-Draw')" onclick="openDocsPage('timelinefx:timelinefx-tlPolygon-Draw')">Draw</a> </td>
+<td class="mx2docs" style="text-align:left">Draw this tlBox </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlPolygon-LineCollide')" onclick="openDocsPage('timelinefx:timelinefx-tlPolygon-LineCollide')">LineCollide</a> </td>
+<td class="mx2docs" style="text-align:left">Check for a collision with a <a href="javascript:void('timelinefx:timelinefx-tlLine')" onclick="openDocsPage('timelinefx:timelinefx-tlLine')">tlLine</a> </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlPolygon-Move')" onclick="openDocsPage('timelinefx:timelinefx-tlPolygon-Move')">Move</a> </td>
+<td class="mx2docs" style="text-align:left">Move the bounding box by a given amount. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlPolygon-PointInside')" onclick="openDocsPage('timelinefx:timelinefx-tlPolygon-PointInside')">PointInside</a> </td>
+<td class="mx2docs" style="text-align:left">Find out if a point is within the <a href="javascript:void('timelinefx:timelinefx-tlPolygon')" onclick="openDocsPage('timelinefx:timelinefx-tlPolygon')">tlPolygon</a> </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlPolygon-PolyCollide')" onclick="openDocsPage('timelinefx:timelinefx-tlPolygon-PolyCollide')">PolyCollide</a> </td>
+<td class="mx2docs" style="text-align:left">Check for a collision with a <a href="javascript:void('timelinefx:timelinefx-tlPolygon')" onclick="openDocsPage('timelinefx:timelinefx-tlPolygon')">tlPolygon</a> </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlPolygon-Position')" onclick="openDocsPage('timelinefx:timelinefx-tlPolygon-Position')">Position</a> </td>
+<td class="mx2docs" style="text-align:left">Set the position of the Poly. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlPolygon-RayCollide')" onclick="openDocsPage('timelinefx:timelinefx-tlPolygon-RayCollide')">RayCollide</a> </td>
+<td class="mx2docs" style="text-align:left">See is a ray collides with this <a href="javascript:void('timelinefx:timelinefx-tlPolygon')" onclick="openDocsPage('timelinefx:timelinefx-tlPolygon')">tlPolygon</a> </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlPolygon-Rotate')" onclick="openDocsPage('timelinefx:timelinefx-tlPolygon-Rotate')">Rotate</a> </td>
+<td class="mx2docs" style="text-align:left">Rotate the polygon </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlPolygon-RotateDegrees')" onclick="openDocsPage('timelinefx:timelinefx-tlPolygon-RotateDegrees')">RotateDegrees</a> </td>
+<td class="mx2docs" style="text-align:left">Rotate the polygon </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlPolygon-SetAngle')" onclick="openDocsPage('timelinefx:timelinefx-tlPolygon-SetAngle')">SetAngle</a> </td>
+<td class="mx2docs" style="text-align:left">Set the angle of the polygon </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlPolygon-SetAngleDegrees')" onclick="openDocsPage('timelinefx:timelinefx-tlPolygon-SetAngleDegrees')">SetAngleDegrees</a> </td>
+<td class="mx2docs" style="text-align:left">Set the angle of the polygon </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlPolygon-SetScale')" onclick="openDocsPage('timelinefx:timelinefx-tlPolygon-SetScale')">SetScale</a> </td>
+<td class="mx2docs" style="text-align:left">Set the scale of the Polygon </td>
+</tr>
+</table>
+
+<!-- END -->
+
+</body>
+
+</html>

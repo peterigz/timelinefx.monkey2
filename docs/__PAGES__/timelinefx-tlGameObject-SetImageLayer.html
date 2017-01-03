@@ -1,0 +1,50 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.<a href="javascript:void('timelinefx:timelinefx-tlGameObject')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject')">tlGameObject</a>.SetImageLayer</i>
+<h5 cls="mx2docs">
+Method SetImageLayer:Void( layer:<a href="javascript:void('monkey:monkey-types-int')" onclick="openDocsPage('monkey:monkey-types-int')">Int</a> )
+</h5>
+Set the layer that the object's image box resides on.
+All of your game objects' image boxes should ideally be kept on the same layer, or atleast on a different layer to the one that you use to test for collisions.
+
+<!-- END -->
+
+</body>
+
+</html>

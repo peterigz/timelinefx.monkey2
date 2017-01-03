@@ -1,0 +1,68 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.<a href="javascript:void('timelinefx:timelinefx-tlGameObject')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject')">tlGameObject</a>.SetImage</i>
+<h5 cls="mx2docs">
+Method SetImage:Void( image:<a href="javascript:void('timelinefx:timelinefx-tlShape')" onclick="openDocsPage('timelinefx:timelinefx-tlShape')">tlShape</a>, collisiontype:<a href="javascript:void('monkey:monkey-types-int')" onclick="openDocsPage('monkey:monkey-types-int')">Int</a>=tlBOX_COLLISION, layer:<a href="javascript:void('monkey:monkey-types-int')" onclick="openDocsPage('monkey:monkey-types-int')">Int</a>=0 )
+</h5>
+Set the image of the object.
+This will also define a <a href="javascript:void('timelinefx:timelinefx-tlBox')" onclick="openDocsPage('timelinefx:timelinefx-tlBox')">tlBox</a> that you can use for adding to a quad tree and for doing of screen culling and such.
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Parameters </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>image</code> </td>
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlShape')" onclick="openDocsPage('timelinefx:timelinefx-tlShape')">tlShape</a> </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>collisiontype</code> </td>
+<td class="mx2docs" style="text-align:left">Int or either <a href="javascript:void('timelinefx:timelinefx-tlBOX_COLLISION')" onclick="openDocsPage('timelinefx:timelinefx-tlBOX_COLLISION')">tlBOX<i>COLLISION</a>, <a href="javascript:void('timelinefx:timelinefx-tlPOLY_COLLISION')" onclick="openDocsPage('timelinefx:timelinefx-tlPOLY_COLLISION')">tlPOLY</i>COLLISION</a> or <a href="javascript:void('timelinefx:timelinefx-tlCIRCLE_COLLISION')" onclick="openDocsPage('timelinefx:timelinefx-tlCIRCLE_COLLISION')">tlCIRCLE_COLLISION</a> </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>layer</code> </td>
+<td class="mx2docs" style="text-align:left">Int of the collision layer the Image box should go on (for use with <a href="javascript:void('timelinefx:timelinefx-tlQuadTree')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree')">tlQuadTree</a>) </td>
+</tr>
+</table>
+
+<!-- END -->
+
+</body>
+
+</html>

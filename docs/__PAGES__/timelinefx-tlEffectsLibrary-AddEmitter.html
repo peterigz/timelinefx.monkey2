@@ -1,0 +1,51 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.<a href="javascript:void('timelinefx:timelinefx-tlEffectsLibrary')" onclick="openDocsPage('timelinefx:timelinefx-tlEffectsLibrary')">tlEffectsLibrary</a>.AddEmitter</i>
+<h5 cls="mx2docs">
+Method AddEmitter:Void( e:<a href="javascript:void('timelinefx:timelinefx-tlEmitter')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter')">tlEmitter</a> )
+</h5>
+Add a new emitter to the library.
+Emitters are stored using a map and can be retrieved using <a href="javascript:void('timelinefx:timelinefx-tlEffectsLibrary-GetEmitter')" onclick="openDocsPage('timelinefx:timelinefx-tlEffectsLibrary-GetEmitter')">GetEmitter</a>. Generally you don't want to call this at all unless you're building your effects manually,
+just use <a href="javascript:void('timelinefx:timelinefx-tlEffectsLibrary-AddEffect')" onclick="openDocsPage('timelinefx:timelinefx-tlEffectsLibrary-AddEffect')">AddEffect</a> and all its emitters will be added also.
+
+<!-- END -->
+
+</body>
+
+</html>

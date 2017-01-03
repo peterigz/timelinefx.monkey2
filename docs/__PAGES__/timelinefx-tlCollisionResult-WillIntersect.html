@@ -1,0 +1,52 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.<a href="javascript:void('timelinefx:timelinefx-tlCollisionResult')" onclick="openDocsPage('timelinefx:timelinefx-tlCollisionResult')">tlCollisionResult</a>.WillIntersect</i>
+<h5 cls="mx2docs">
+Property WillIntersect:<a href="javascript:void('monkey:monkey-types-int')" onclick="openDocsPage('monkey:monkey-types-int')">Int</a>
+</h5>
+Find out if the last collision check is intersecting
+Knowing if there will be an intersection allows you to adjust the position of objects so that visually they will never overlap. To do this
+you can use the information stored in the translation vector, which is the vector describing how much the objects need to move so that they no longer
+overlap. See <a href="javascript:void('timelinefx:timelinefx-tlCollisionResult-TranslationVector')" onclick="openDocsPage('timelinefx:timelinefx-tlCollisionResult-TranslationVector')">TranslationVector</a>
+
+<!-- END -->
+
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.<a href="javascript:void('timelinefx:timelinefx-tlGameObject')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject')">tlGameObject</a>.ListenLayers</i>
+<h5 cls="mx2docs">
+Property ListenLayers:<a href="javascript:void('monkey:monkey-types-int')" onclick="openDocsPage('monkey:monkey-types-int')">Int</a>[]
+</h5>
+Get/Set the listen layers of the object.
+When using a <a href="javascript:void('timelinefx:timelinefx-tlQuadTree')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree')">tlQuadTree</a> to manage all your game objects, you can define which layers of the quad tree the object should listen for collisions.
+You then define a callback using <a href="javascript:void('timelinefx:timelinefx-tlGameObject-SetCollisionHandler')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-SetCollisionHandler')">SetCollisionHandler</a> where you can use a function to process the collisions.
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Parameters </th>
+<th style="text-align:left"></th>
+</tr>
+</table>
+
+<!-- END -->
+
+</body>
+
+</html>

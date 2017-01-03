@@ -1,0 +1,58 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.LoadEffects</i>
+<h5 cls="mx2docs">
+Function LoadEffects:<a href="javascript:void('timelinefx:timelinefx-tlEffectsLibrary')" onclick="openDocsPage('timelinefx:timelinefx-tlEffectsLibrary')">tlEffectsLibrary</a>( filename:<a href="javascript:void('monkey:monkey-types-string')" onclick="openDocsPage('monkey:monkey-types-string')">String</a> )
+</h5>
+Load a TimelineFX Library
+In order to load in an effects library, you need to do a little preparation first. Monkey 2 applications currently cannot unpack zip files to memory so it's easier to just unzip the effect file
+to your assets folder.
+<p class="mx2docs">Export the effects library from the TimelineFX editor and then unpack the .zip file into a folder of the same name inside the "assets" folder of your monkey app. For example, if you have an ZIP file called explosions, then unpack this
+into your assets folder in a folder called explosions. So the folder structure should be
+<p class="mx2docs">assets/explosions/
+<p class="mx2docs">Once that is done you can load the effects with:
+<pre class="mx2docs"><code class="mx2docs">Local MyEffects:tlEffectsLibrary
+MyEffects = LoadEffects("asset::explosions")
+</code></pre>
+
+<!-- END -->
+
+</body>
+
+</html>

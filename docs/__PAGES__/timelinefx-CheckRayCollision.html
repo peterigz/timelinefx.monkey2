@@ -1,0 +1,83 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.CheckRayCollision</i>
+<h5 cls="mx2docs">
+Function CheckRayCollision:<a href="javascript:void('timelinefx:timelinefx-tlCollisionResult')" onclick="openDocsPage('timelinefx:timelinefx-tlCollisionResult')">tlCollisionResult</a>( target:<a href="javascript:void('timelinefx:timelinefx-tlBox')" onclick="openDocsPage('timelinefx:timelinefx-tlBox')">tlBox</a>, px:<a href="javascript:void('monkey:monkey-types-float')" onclick="openDocsPage('monkey:monkey-types-float')">Float</a>, py:<a href="javascript:void('monkey:monkey-types-float')" onclick="openDocsPage('monkey:monkey-types-float')">Float</a>, dx:<a href="javascript:void('monkey:monkey-types-float')" onclick="openDocsPage('monkey:monkey-types-float')">Float</a>, dy:<a href="javascript:void('monkey:monkey-types-float')" onclick="openDocsPage('monkey:monkey-types-float')">Float</a>, maxdistance:<a href="javascript:void('monkey:monkey-types-float')" onclick="openDocsPage('monkey:monkey-types-float')">Float</a>=0 )
+</h5>
+See if a ray collides with a boundary
+You can use this to test for a collision with a ray and any type of boundary: <a href="javascript:void('timelinefx:timelinefx-tlBox')" onclick="openDocsPage('timelinefx:timelinefx-tlBox')">tlBox</a>, <a href="javascript:void('timelinefx:timelinefx-tlCircle')" onclick="openDocsPage('timelinefx:timelinefx-tlCircle')">tlCircle</a>, <a href="javascript:void('timelinefx:timelinefx-tlLine')" onclick="openDocsPage('timelinefx:timelinefx-tlLine')">tlLine</a> and <a href="javascript:void('timelinefx:timelinefx-tlPolygon')" onclick="openDocsPage('timelinefx:timelinefx-tlPolygon')">tlPolygon</a>.
+Pass the origin of the ray with px and py, and set the direction of the raycast with dx and dy vector. dx and dy will be normalised and extended
+infinitely if maxdistance equals 0 (default), otherwise set maxdistance to how ever far you want the ray to extend to before stopping. If the ray starts
+inside the poly then result.RayOriginInside will be set to true. You can find the angle of reflection to bounce the ray using ReboundVector.
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Parameters </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>target</code> </td>
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox')" onclick="openDocsPage('timelinefx:timelinefx-tlBox')">tlBox</a> you're checking against </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>px</code> </td>
+<td class="mx2docs" style="text-align:left">x origin of the ray </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>py</code> </td>
+<td class="mx2docs" style="text-align:left">y origin of the ray </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>dx</code> </td>
+<td class="mx2docs" style="text-align:left">x direction of the ray </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>dy</code> </td>
+<td class="mx2docs" style="text-align:left">y direction of the ray </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>maxdistance</code> </td>
+<td class="mx2docs" style="text-align:left">maximum distance of the ray, or 0 for inifinate </td>
+</tr>
+</table>
+
+<!-- END -->
+
+</body>
+
+</html>

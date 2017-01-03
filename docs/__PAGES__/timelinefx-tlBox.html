@@ -1,0 +1,262 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.tlBox</i>
+<h5 cls="mx2docs">
+Class tlBox
+</h5>
+Collision box class
+This class is a bounding box that can be used to check for collisions between objects. See <a href="javascript:void('timelinefx:timelinefx-CheckCollision')" onclick="openDocsPage('timelinefx:timelinefx-CheckCollision')">CheckCollision</a>
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Public Fields </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-AreaCheckCount')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-AreaCheckCount')">AreaCheckCount</a> </td>
+<td class="mx2docs" style="text-align:left"></td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-br_corner')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-br_corner')">br_corner</a> </td>
+<td class="mx2docs" style="text-align:left"></td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-collisionlayer')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-collisionlayer')">collisionlayer</a> </td>
+<td class="mx2docs" style="text-align:left"></td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-dead')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-dead')">dead</a> </td>
+<td class="mx2docs" style="text-align:left"></td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-handle')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-handle')">handle</a> </td>
+<td class="mx2docs" style="text-align:left"></td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-highlight')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-highlight')">highlight</a> </td>
+<td class="mx2docs" style="text-align:left"></td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-quad')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-quad')">quad</a> </td>
+<td class="mx2docs" style="text-align:left"></td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-quadlist')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-quadlist')">quadlist</a> </td>
+<td class="mx2docs" style="text-align:left"></td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-quads')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-quads')">quads</a> </td>
+<td class="mx2docs" style="text-align:left"></td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-quadtree')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-quadtree')">quadtree</a> </td>
+<td class="mx2docs" style="text-align:left"></td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-remove')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-remove')">remove</a> </td>
+<td class="mx2docs" style="text-align:left"></td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-tl_corner')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-tl_corner')">tl_corner</a> </td>
+<td class="mx2docs" style="text-align:left"></td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-worldhandle')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-worldhandle')">worldhandle</a> </td>
+<td class="mx2docs" style="text-align:left"></td>
+</tr>
+</table>
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Public Properties </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-CollisionLayer')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-CollisionLayer')">CollisionLayer</a> </td>
+<td class="mx2docs" style="text-align:left">Get the collision layer that this boundary is on </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-CollisionType')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-CollisionType')">CollisionType</a> </td>
+<td class="mx2docs" style="text-align:left">The collision type of the box </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-Data')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-Data')">Data</a> </td>
+<td class="mx2docs" style="text-align:left">The data property of the box. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-Height')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-Height')">Height</a> </td>
+<td class="mx2docs" style="text-align:left">The current height of the box </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-Velocity')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-Velocity')">Velocity</a> </td>
+<td class="mx2docs" style="text-align:left">The current velocity vector </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-Vertices')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-Vertices')">Vertices</a> </td>
+<td class="mx2docs" style="text-align:left"></td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-Width')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-Width')">Width</a> </td>
+<td class="mx2docs" style="text-align:left">The current width of the box </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-World')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-World')">World</a> </td>
+<td class="mx2docs" style="text-align:left">Get the y world coordinate of the boundary </td>
+</tr>
+</table>
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Public Constructors </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-new')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-new')">New</a> </td>
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox')" onclick="openDocsPage('timelinefx:timelinefx-tlBox')">tlBox</a> Constructor </td>
+</tr>
+</table>
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Public Methods </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-BoundingBoxOverlap')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-BoundingBoxOverlap')">BoundingBoxOverlap</a> </td>
+<td class="mx2docs" style="text-align:left">Compare this <a href="javascript:void('timelinefx:timelinefx-tlBox')" onclick="openDocsPage('timelinefx:timelinefx-tlBox')">tlBox</a> with another to see if they overlap </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-BoxCollide')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-BoxCollide')">BoxCollide</a> </td>
+<td class="mx2docs" style="text-align:left">Check for a collision with another <a href="javascript:void('timelinefx:timelinefx-tlBox')" onclick="openDocsPage('timelinefx:timelinefx-tlBox')">tlBox</a> </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-CircleCollide')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-CircleCollide')">CircleCollide</a> </td>
+<td class="mx2docs" style="text-align:left">Check for a collision with a <a href="javascript:void('timelinefx:timelinefx-tlCircle')" onclick="openDocsPage('timelinefx:timelinefx-tlCircle')">tlCircle</a> </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-CircleOverlap')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-CircleOverlap')">CircleOverlap</a> </td>
+<td class="mx2docs" style="text-align:left">Compare this <a href="javascript:void('timelinefx:timelinefx-tlBox')" onclick="openDocsPage('timelinefx:timelinefx-tlBox')">tlBox</a> with a <a href="javascript:void('timelinefx:timelinefx-tlCircle')" onclick="openDocsPage('timelinefx:timelinefx-tlCircle')">tlCircle</a> </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-Draw')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-Draw')">Draw</a> </td>
+<td class="mx2docs" style="text-align:left">Draw this tlBox </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-GetCollisionType')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-GetCollisionType')">GetCollisionType</a> </td>
+<td class="mx2docs" style="text-align:left">Get the collision type of the Box </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-LineCollide')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-LineCollide')">LineCollide</a> </td>
+<td class="mx2docs" style="text-align:left">Check for a collision with a <a href="javascript:void('timelinefx:timelinefx-tlLine')" onclick="openDocsPage('timelinefx:timelinefx-tlLine')">tlLine</a> </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-Move')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-Move')">Move</a> </td>
+<td class="mx2docs" style="text-align:left">Move the bounding box by a given amount. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-PointInside')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-PointInside')">PointInside</a> </td>
+<td class="mx2docs" style="text-align:left">Find out if a point is within the bounding box </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-PolyCollide')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-PolyCollide')">PolyCollide</a> </td>
+<td class="mx2docs" style="text-align:left">Check for a collision with a <a href="javascript:void('timelinefx:timelinefx-tlPolygon')" onclick="openDocsPage('timelinefx:timelinefx-tlPolygon')">tlPolygon</a> </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-Position')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-Position')">Position</a> </td>
+<td class="mx2docs" style="text-align:left">Set the position of the bounding box. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-PreventOverlap')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-PreventOverlap')">PreventOverlap</a> </td>
+<td class="mx2docs" style="text-align:left">Prevent the boundary from overlapping another based on the result of a collision. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-RayCollide')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-RayCollide')">RayCollide</a> </td>
+<td class="mx2docs" style="text-align:left">See is a ray collides with this <a href="javascript:void('timelinefx:timelinefx-tlBox')" onclick="openDocsPage('timelinefx:timelinefx-tlBox')">tlBox</a> </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-ReDimension')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-ReDimension')">ReDimension</a> </td>
+<td class="mx2docs" style="text-align:left">Reset the dimensions of the box to a new width and height </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-RectWithin')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-RectWithin')">RectWithin</a> </td>
+<td class="mx2docs" style="text-align:left">Find out if a <a href="javascript:void('timelinefx:timelinefx-tlBox')" onclick="openDocsPage('timelinefx:timelinefx-tlBox')">tlBox</a> lies within this objects bounding box </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-Repel')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-Repel')">Repel</a> </td>
+<td class="mx2docs" style="text-align:left">Repel boundaries that overlap </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-Separate')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-Separate')">Separate</a> </td>
+<td class="mx2docs" style="text-align:left">Separate boundaries that overlap </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-SetHandlePosition')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-SetHandlePosition')">SetHandlePosition</a> </td>
+<td class="mx2docs" style="text-align:left">Set the handle of the boundary </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-SetScale')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-SetScale')">SetScale</a> </td>
+<td class="mx2docs" style="text-align:left">Set the scale of the Box </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-SetVelocity')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-SetVelocity')">SetVelocity</a> </td>
+<td class="mx2docs" style="text-align:left">Set the velocity of the boundary </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-SetVelocityVector')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-SetVelocityVector')">SetVelocityVector</a> </td>
+<td class="mx2docs" style="text-align:left">Set the velocity vector of the boundary </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-UpdatePosition')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-UpdatePosition')">UpdatePosition</a> </td>
+<td class="mx2docs" style="text-align:left">Update the position of the boundary </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-UpdateWithinQuadtree')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-UpdateWithinQuadtree')">UpdateWithinQuadtree</a> </td>
+<td class="mx2docs" style="text-align:left">Update the box within the quadatree </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-WorldX')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-WorldX')">WorldX</a> </td>
+<td class="mx2docs" style="text-align:left">Get the x world coordinate of the boundary </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox-WorldY')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-WorldY')">WorldY</a> </td>
+<td class="mx2docs" style="text-align:left">Get the y world coordinate of the boundary </td>
+</tr>
+</table>
+
+<!-- END -->
+
+</body>
+
+</html>

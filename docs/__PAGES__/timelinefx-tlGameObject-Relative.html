@@ -1,0 +1,57 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.<a href="javascript:void('timelinefx:timelinefx-tlGameObject')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject')">tlGameObject</a>.Relative</i>
+<h5 cls="mx2docs">
+Property Relative:<a href="javascript:void('monkey:monkey-types-int')" onclick="openDocsPage('monkey:monkey-types-int')">Int</a>
+</h5>
+Get/Set whether the object is relative to it's parent.
+If an object is relative then it will move and rotate with it's parent. Otherwise it will be independent. However, note that if it's not relative it will still
+be updated when the parent object is updated.
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Parameters </th>
+<th style="text-align:left"></th>
+</tr>
+</table>
+
+<!-- END -->
+
+</body>
+
+</html>

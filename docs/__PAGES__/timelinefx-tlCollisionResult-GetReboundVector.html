@@ -1,0 +1,71 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.<a href="javascript:void('timelinefx:timelinefx-tlCollisionResult')" onclick="openDocsPage('timelinefx:timelinefx-tlCollisionResult')">tlCollisionResult</a>.GetReboundVector</i>
+<h5 cls="mx2docs">
+Method GetReboundVector:<a href="javascript:void('timelinefx:timelinefx-tlVector2')" onclick="openDocsPage('timelinefx:timelinefx-tlVector2')">tlVector2</a>( v:<a href="javascript:void('timelinefx:timelinefx-tlVector2')" onclick="openDocsPage('timelinefx:timelinefx-tlVector2')">tlVector2</a>, friction:<a href="javascript:void('monkey:monkey-types-float')" onclick="openDocsPage('monkey:monkey-types-float')">Float</a>=0, bounce:<a href="javascript:void('monkey:monkey-types-float')" onclick="openDocsPage('monkey:monkey-types-float')">Float</a>=1 )
+</h5>
+Get the rebound vector
+Returns New <a href="javascript:void('timelinefx:timelinefx-tlVector2')" onclick="openDocsPage('timelinefx:timelinefx-tlVector2')">tlVector2</a> with the resulting rebound vector
+When an object collides with a surface you may want to know a resulting vector based on bounce and friction. So you can call this
+and pass the velocity vector of the incoming object, and the amount of bounce and friction to have, where a bounce value of 1 and a friction value of 0
+will result in a perfect bounce.
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Parameters </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>v</code> </td>
+<td class="mx2docs" style="text-align:left">The impact vector </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>friction</code> </td>
+<td class="mx2docs" style="text-align:left">Friction can be used to dampen the impact </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>bounce</code> </td>
+<td class="mx2docs" style="text-align:left">The amount of elasticity in the bounce </td>
+</tr>
+</table>
+
+<!-- END -->
+
+</body>
+
+</html>

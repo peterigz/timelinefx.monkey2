@@ -1,0 +1,51 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.<a href="javascript:void('timelinefx:timelinefx-tlParticleManager')" onclick="openDocsPage('timelinefx:timelinefx-tlParticleManager')">tlParticleManager</a>.DrawParticles</i>
+<h5 cls="mx2docs">
+Method DrawParticles:Void( canvas:<a href="javascript:void('mojo:mojo-graphics-Canvas')" onclick="openDocsPage('mojo:mojo-graphics-Canvas')">Canvas</a>, tween:<a href="javascript:void('monkey:monkey-types-float')" onclick="openDocsPage('monkey:monkey-types-float')">Float</a>=1 )
+</h5>
+Draw all particles currently in use.
+Draws all pariticles in use and uses the tween value you pass to use render tween in order to smooth out the movement of effects assuming you
+use some kind of tweening code in your app.
+
+<!-- END -->
+
+</body>
+
+</html>

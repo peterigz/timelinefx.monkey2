@@ -1,0 +1,66 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.CheckCollision</i>
+<h5 cls="mx2docs">
+Function CheckCollision:<a href="javascript:void('timelinefx:timelinefx-tlCollisionResult')" onclick="openDocsPage('timelinefx:timelinefx-tlCollisionResult')">tlCollisionResult</a>( source:<a href="javascript:void('timelinefx:timelinefx-tlBox')" onclick="openDocsPage('timelinefx:timelinefx-tlBox')">tlBox</a>, target:<a href="javascript:void('timelinefx:timelinefx-tlBox')" onclick="openDocsPage('timelinefx:timelinefx-tlBox')">tlBox</a> )
+</h5>
+Check for a collision between 2 Boundaries
+You can use this function to check for collisions between any type of boundary: <a href="javascript:void('timelinefx:timelinefx-tlBox')" onclick="openDocsPage('timelinefx:timelinefx-tlBox')">tlBox</a>, <a href="javascript:void('timelinefx:timelinefx-tlCircle')" onclick="openDocsPage('timelinefx:timelinefx-tlCircle')">tlCircle</a>, <a href="javascript:void('timelinefx:timelinefx-tlLine')" onclick="openDocsPage('timelinefx:timelinefx-tlLine')">tlLine</a> and <a href="javascript:void('timelinefx:timelinefx-tlPolygon')" onclick="openDocsPage('timelinefx:timelinefx-tlPolygon')">tlPolygon</a>. The <a href="javascript:void('timelinefx:timelinefx-tlCollisionResult')" onclick="openDocsPage('timelinefx:timelinefx-tlCollisionResult')">tlCollisionResult</a>
+can then be used to determine what you want to do if a collision happened (or will happen). See <a href="javascript:void('timelinefx:timelinefx-PreventOverlap')" onclick="openDocsPage('timelinefx:timelinefx-PreventOverlap')">PreventOverlap</a> to make boundaries block or push
+each other.
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Parameters </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>source</code> </td>
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox')" onclick="openDocsPage('timelinefx:timelinefx-tlBox')">tlBox</a> object </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>target</code> </td>
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox')" onclick="openDocsPage('timelinefx:timelinefx-tlBox')">tlBox</a> object </td>
+</tr>
+</table>
+
+<!-- END -->
+
+</body>
+
+</html>

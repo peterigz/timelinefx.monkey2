@@ -1,0 +1,212 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.tlEmitter</i>
+<h5 cls="mx2docs">
+Class tlEmitter Extends <a href="javascript:void('timelinefx:timelinefx-tlFXObject')" onclick="openDocsPage('timelinefx:timelinefx-tlFXObject')">tlFXObject</a>
+</h5>
+Emitter Class.
+More docs to come soon as this is still missing some methods to build effects within code (you can still use the editor though)
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Public Properties </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEmitter-AlphaRepeat')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter-AlphaRepeat')">AlphaRepeat</a> </td>
+<td class="mx2docs" style="text-align:left">Set to the number of times the alpha of the particle should cycle within the particle lifetime. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEmitter-AngleOffset')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter-AngleOffset')">AngleOffset</a> </td>
+<td class="mx2docs" style="text-align:left">Set the angle offset or variation. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEmitter-AngleRelative')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter-AngleRelative')">AngleRelative</a> </td>
+<td class="mx2docs" style="text-align:left">Set to TRUE to make th particles spawned have their angle of rotation relative to the parent effect. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEmitter-AngleType')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter-AngleType')">AngleType</a> </td>
+<td class="mx2docs" style="text-align:left">Set the angle type. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEmitter-AnimateOnce')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter-AnimateOnce')">AnimateOnce</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set whether the particle should run through the animation sequence once only. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEmitter-Animating')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter-Animating')">Animating</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set whether the particle should animate. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEmitter-AnimationDirection')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter-AnimationDirection')">AnimationDirection</a> </td>
+<td class="mx2docs" style="text-align:left">Set the direction the animation plays in. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEmitter-ColorRepeat')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter-ColorRepeat')">ColorRepeat</a> </td>
+<td class="mx2docs" style="text-align:left">Set to the number of times the colour should cycle within the particle lifetime. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEmitter-Effects')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter-Effects')">Effects</a> </td>
+<td class="mx2docs" style="text-align:left">Get the List of sub effects within this emitter. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEmitter-Frame')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter-Frame')">Frame</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set the image frame. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEmitter-GroupParticles')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter-GroupParticles')">GroupParticles</a> </td>
+<td class="mx2docs" style="text-align:left">Sets the current state of whether spawned particles are added to the particle managers pool, or the emitters own pool. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEmitter-Layer')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter-Layer')">Layer</a> </td>
+<td class="mx2docs" style="text-align:left">Set the z layer. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEmitter-LockAngle')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter-LockAngle')">LockAngle</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set to TRUE to make the particles spawned have their angle of rotation locked to direction. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEmitter-OneShot')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter-OneShot')">OneShot</a> </td>
+<td class="mx2docs" style="text-align:left">Make a particle a one shot particle or not. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEmitter-ParentEffect')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter-ParentEffect')">ParentEffect</a> </td>
+<td class="mx2docs" style="text-align:left">Get the current parent effect </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEmitter-ParticleRelative')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter-ParticleRelative')">ParticleRelative</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set whether the particles spawned by this emitter remain relative to the containg effect. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEmitter-RandomColor')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter-RandomColor')">RandomColor</a> </td>
+<td class="mx2docs" style="text-align:left">Sets whether the particle chooses a random colour from the colour attributes. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEmitter-RandomStartFrame')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter-RandomStartFrame')">RandomStartFrame</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set the particles to spawn with a random frame. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEmitter-SingleParticle')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter-SingleParticle')">SingleParticle</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set Single Particle. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEmitter-Sprite')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter-Sprite')">Sprite</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set the <a href="javascript:void('timelinefx:timelinefx-tlShape')" onclick="openDocsPage('timelinefx:timelinefx-tlShape')">tlShape</a> assigned to this emitter </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEmitter-TweenSpawns')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter-TweenSpawns')">TweenSpawns</a> </td>
+<td class="mx2docs" style="text-align:left">Get whether particles are being spawned from the old effect coordinates to the new. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEmitter-Uniform')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter-Uniform')">Uniform</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set Uniform. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEmitter-UseEffectEmission')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter-UseEffectEmission')">UseEffectEmission</a> </td>
+<td class="mx2docs" style="text-align:left">Set Use effect emission. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEmitter-Visible')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter-Visible')">Visible</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set the visibility status of the emitter </td>
+</tr>
+</table>
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Public Constructors </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEmitter-new')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter-new')">New</a> </td>
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEmitter')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter')">tlEmitter</a> Constructor </td>
+</tr>
+</table>
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Public Methods </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEmitter-AddEffect')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter-AddEffect')">AddEffect</a> </td>
+<td class="mx2docs" style="text-align:left">Add an effect to the emitters list of effects. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEmitter-Destroy')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter-Destroy')">Destroy</a> </td>
+<td class="mx2docs" style="text-align:left">Destroy the emitter and safely ceanup objects </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEmitter-GetParentEffect')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter-GetParentEffect')">GetParentEffect</a> </td>
+<td class="mx2docs" style="text-align:left">Get the parenteffect value in this <a href="javascript:void('timelinefx:timelinefx-tlEmitter')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter')">tlEmitter</a>. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEmitter-SetBaseHeight')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter-SetBaseHeight')">SetBaseHeight</a> </td>
+<td class="mx2docs" style="text-align:left">Set the base height of the particle </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEmitter-SetBaseHeightVariation')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter-SetBaseHeightVariation')">SetBaseHeightVariation</a> </td>
+<td class="mx2docs" style="text-align:left">Set the base height variation of the particle </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEmitter-SetBaseSize')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter-SetBaseSize')">SetBaseSize</a> </td>
+<td class="mx2docs" style="text-align:left">Set the base width and height of the particle </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEmitter-SetBaseSizeVariation')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter-SetBaseSizeVariation')">SetBaseSizeVariation</a> </td>
+<td class="mx2docs" style="text-align:left">Set the base width and height variation of the particle </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEmitter-SetBaseWidth')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter-SetBaseWidth')">SetBaseWidth</a> </td>
+<td class="mx2docs" style="text-align:left">Set the base width of the particle </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEmitter-SetBaseWidthVariation')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter-SetBaseWidthVariation')">SetBaseWidthVariation</a> </td>
+<td class="mx2docs" style="text-align:left">Set the base width variation of the particle </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEmitter-SetParentEffect')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter-SetParentEffect')">SetParentEffect</a> </td>
+<td class="mx2docs" style="text-align:left">Set the parenteffect value for this <a href="javascript:void('timelinefx:timelinefx-tlEmitter')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter')">tlEmitter</a>. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEmitter-Update')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter-Update')">Update</a> </td>
+<td class="mx2docs" style="text-align:left">Update the Emitter </td>
+</tr>
+</table>
+
+<!-- END -->
+
+</body>
+
+</html>

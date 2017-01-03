@@ -1,0 +1,50 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.<a href="javascript:void('timelinefx:timelinefx-tlEffect')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect')">tlEffect</a>.SetAreaSize</i>
+<h5 cls="mx2docs">
+Method SetAreaSize:Void( Width:<a href="javascript:void('monkey:monkey-types-float')" onclick="openDocsPage('monkey:monkey-types-float')">Float</a>, Height:<a href="javascript:void('monkey:monkey-types-float')" onclick="openDocsPage('monkey:monkey-types-float')">Float</a> )
+</h5>
+Set the area size of the effect
+If the effect is Area or Elipse then you can use this to change the dimensions of it.
+
+<!-- END -->
+
+</body>
+
+</html>

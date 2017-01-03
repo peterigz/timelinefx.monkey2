@@ -1,0 +1,56 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.<a href="javascript:void('timelinefx:timelinefx-tlEffect')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect')">tlEffect</a>.EndBehaviour</i>
+<h5 cls="mx2docs">
+Property EndBehaviour:<a href="javascript:void('monkey:monkey-types-int')" onclick="openDocsPage('monkey:monkey-types-int')">Int</a>
+</h5>
+Set the end behaviour of particles traversing a line
+If an effect if set so that particles traverse the edge of the line, then this makes the particles behave in one of 3 ways when they reach
+the end of the line.  By passing it either of the following const they can:
+<ul>
+<li class="mx2docs">tlEND_LOOPAROUND:* The particles will loop back round to the beginning of the line.</li>
+<li class="mx2docs">tlEND_KILL:* The particles will be killed even if they haven't reached the end of their lifetimes yet.</li>
+<li class="mx2docs">tlLET_FREE:* The particles will be free to continue on their merry way.</li>
+</ul>
+
+<!-- END -->
+
+</body>
+
+</html>

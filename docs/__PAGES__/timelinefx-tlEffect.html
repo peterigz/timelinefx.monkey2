@@ -1,0 +1,249 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.tlEffect</i>
+<h5 cls="mx2docs">
+Class tlEffect Extends <a href="javascript:void('timelinefx:timelinefx-tlFXObject')" onclick="openDocsPage('timelinefx:timelinefx-tlFXObject')">tlFXObject</a>
+</h5>
+The effect class which is the main parent class for emitters.
+Effect types are the main containers for emitters and has a set of global attributes that can affect any emitters it stores.
+The basic entity structure of an effect is: Effect -&gt; Emitter(s) -&gt; Particle(s)
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Public Properties </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-CurrentSizeX')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-CurrentSizeX')">CurrentSizeX</a> </td>
+<td class="mx2docs" style="text-align:left"></td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-Data')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-Data')">Data</a> </td>
+<td class="mx2docs" style="text-align:left">Use this to store and retrieve some data in the effect </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-Directory')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-Directory')">Directory</a> </td>
+<td class="mx2docs" style="text-align:left">Get the effect directory </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-DistanceSetByLife')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-DistanceSetByLife')">DistanceSetByLife</a> </td>
+<td class="mx2docs" style="text-align:left">Set to true to make the distance travelled determined by the life of the particle. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-DoNotTimeOut')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-DoNotTimeOut')">DoNotTimeOut</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set whehter or not the effect times out </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-EffectClass')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-EffectClass')">EffectClass</a> </td>
+<td class="mx2docs" style="text-align:left">The effect class, being one of tlPOINT<i>EFFECT, tlLINE</i>EFFECT, tlAREA<i>EFFECT, tlELLIPSE</i>EFFECT </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-EffectLength')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-EffectLength')">EffectLength</a> </td>
+<td class="mx2docs" style="text-align:left">Set the length of the effect </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-EllipseArc')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-EllipseArc')">EllipseArc</a> </td>
+<td class="mx2docs" style="text-align:left">Set range in degrees of the arc </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-EllipseOffset')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-EllipseOffset')">EllipseOffset</a> </td>
+<td class="mx2docs" style="text-align:left">Offset where the ellipse arc starts from. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-EmissionType')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-EmissionType')">EmissionType</a> </td>
+<td class="mx2docs" style="text-align:left">Set the emission type </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-EmitatPoints')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-EmitatPoints')">EmitatPoints</a> </td>
+<td class="mx2docs" style="text-align:left">Sets whether the effect should emit at points </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-EndBehaviour')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-EndBehaviour')">EndBehaviour</a> </td>
+<td class="mx2docs" style="text-align:left">Set the end behaviour of particles traversing a line </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-IdleTime')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-IdleTime')">IdleTime</a> </td>
+<td class="mx2docs" style="text-align:left">Set the amount of time before idle effects are deleted from the particle manager </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-MaxGX')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-MaxGX')">MaxGX</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set maximum width grid points </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-MaxGY')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-MaxGY')">MaxGY</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set maximum height grid points </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-ParentEmitter')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-ParentEmitter')">ParentEmitter</a> </td>
+<td class="mx2docs" style="text-align:left">Get the parent emitter of the effect </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-ParticleCount')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-ParticleCount')">ParticleCount</a> </td>
+<td class="mx2docs" style="text-align:left">Get the Particle number of particles within this effect. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-ParticleManager')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-ParticleManager')">ParticleManager</a> </td>
+<td class="mx2docs" style="text-align:left">Set the effects particle manager </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-ReverseSpawnDirection')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-ReverseSpawnDirection')">ReverseSpawnDirection</a> </td>
+<td class="mx2docs" style="text-align:left">Set the order particles spawn </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-SpawnDirection')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-SpawnDirection')">SpawnDirection</a> </td>
+<td class="mx2docs" style="text-align:left">This sets the direction particles are spawned. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-TraverseEdge')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-TraverseEdge')">TraverseEdge</a> </td>
+<td class="mx2docs" style="text-align:left">Set to true for particles to traverse line type effects </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-Uniform')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-Uniform')">Uniform</a> </td>
+<td class="mx2docs" style="text-align:left">Set Uniform </td>
+</tr>
+</table>
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Public Constructors </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-new')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-new')">New</a> </td>
+<td class="mx2docs" style="text-align:left">Constructor for the effect. Use this to create a new effect from scratch. </td>
+</tr>
+</table>
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Public Methods </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-GetEffect')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-GetEffect')">GetEffect</a> </td>
+<td class="mx2docs" style="text-align:left">Retrieve an effect from the directory of the effect </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-GetEmitter')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-GetEmitter')">GetEmitter</a> </td>
+<td class="mx2docs" style="text-align:left">Retrieve an emitter from the directory of the effect </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-HardKill')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-HardKill')">HardKill</a> </td>
+<td class="mx2docs" style="text-align:left">Hard kill an effect </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-SetAmount')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-SetAmount')">SetAmount</a> </td>
+<td class="mx2docs" style="text-align:left">Set the Global attribute Amount of the effect </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-SetAreaSize')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-SetAreaSize')">SetAreaSize</a> </td>
+<td class="mx2docs" style="text-align:left">Set the area size of the effect </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-SetEffectAlpha')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-SetEffectAlpha')">SetEffectAlpha</a> </td>
+<td class="mx2docs" style="text-align:left">Set the Global attribute Alpha of the effect </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-SetEffectAngle')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-SetEffectAngle')">SetEffectAngle</a> </td>
+<td class="mx2docs" style="text-align:left">Set the Angle of the effect </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-SetEffectEmissionRange')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-SetEffectEmissionRange')">SetEffectEmissionRange</a> </td>
+<td class="mx2docs" style="text-align:left">Set the Global attribute EmissionRange of the effect </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-SetEffectParticleSize')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-SetEffectParticleSize')">SetEffectParticleSize</a> </td>
+<td class="mx2docs" style="text-align:left">Set the Global attribute Sizex of the effect </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-SetEmissionAngle')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-SetEmissionAngle')">SetEmissionAngle</a> </td>
+<td class="mx2docs" style="text-align:left">Set the Emission Angle of the effect </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-SetGlobalZoom')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-SetGlobalZoom')">SetGlobalZoom</a> </td>
+<td class="mx2docs" style="text-align:left">Set the current zoom level of the effect </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-SetLife')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-SetLife')">SetLife</a> </td>
+<td class="mx2docs" style="text-align:left">Set the Global attribute Life of the effect </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-SetLineLength')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-SetLineLength')">SetLineLength</a> </td>
+<td class="mx2docs" style="text-align:left">Set the line length of the effect </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-SetSize')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-SetSize')">SetSize</a> </td>
+<td class="mx2docs" style="text-align:left">Set the Global attribute Sizex and Sizey of the effect </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-SetSizeX')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-SetSizeX')">SetSizeX</a> </td>
+<td class="mx2docs" style="text-align:left">Set the Global attribute Sizex of the effect </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-SetSizeY')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-SetSizeY')">SetSizeY</a> </td>
+<td class="mx2docs" style="text-align:left">Set the Global attribute Sizey of the effect </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-SetSpin')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-SetSpin')">SetSpin</a> </td>
+<td class="mx2docs" style="text-align:left">Set the Global attribute Spin of the effect </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-SetStretch')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-SetStretch')">SetStretch</a> </td>
+<td class="mx2docs" style="text-align:left">Set the Global attribute Stretch of the effect </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-SetVelocity')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-SetVelocity')">SetVelocity</a> </td>
+<td class="mx2docs" style="text-align:left">Set the Global attribute velocity of the effect </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-SetWeight')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-SetWeight')">SetWeight</a> </td>
+<td class="mx2docs" style="text-align:left">Set the Global attribute Weight of the effect </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-SetZ')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-SetZ')">SetZ</a> </td>
+<td class="mx2docs" style="text-align:left">Set the current zoom level of the effect </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect-SoftKill')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-SoftKill')">SoftKill</a> </td>
+<td class="mx2docs" style="text-align:left">Softly kill an effect </td>
+</tr>
+</table>
+
+<!-- END -->
+
+</body>
+
+</html>

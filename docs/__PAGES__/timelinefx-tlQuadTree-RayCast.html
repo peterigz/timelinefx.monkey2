@@ -1,0 +1,80 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.<a href="javascript:void('timelinefx:timelinefx-tlQuadTree')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree')">tlQuadTree</a>.RayCast</i>
+<h5 cls="mx2docs">
+Method RayCast:<a href="javascript:void('monkey:monkey-types-int')" onclick="openDocsPage('monkey:monkey-types-int')">Int</a>( px:<a href="javascript:void('monkey:monkey-types-float')" onclick="openDocsPage('monkey:monkey-types-float')">Float</a>, py:<a href="javascript:void('monkey:monkey-types-float')" onclick="openDocsPage('monkey:monkey-types-float')">Float</a>, d:<a href="javascript:void('timelinefx:timelinefx-tlVector2')" onclick="openDocsPage('timelinefx:timelinefx-tlVector2')">tlVector2</a>, maxdistance:<a href="javascript:void('monkey:monkey-types-float')" onclick="openDocsPage('monkey:monkey-types-float')">Float</a>=0, Data:<a href="javascript:void('monkey:monkey-types-object')" onclick="openDocsPage('monkey:monkey-types-object')">@object</a>, onFoundObject:Void( <a href="javascript:void('monkey:monkey-types-object')" onclick="openDocsPage('monkey:monkey-types-object')">@object</a>,<a href="javascript:void('monkey:monkey-types-object')" onclick="openDocsPage('monkey:monkey-types-object')">@object</a>,<a href="javascript:void('timelinefx:timelinefx-tlCollisionResult')" onclick="openDocsPage('timelinefx:timelinefx-tlCollisionResult')">tlCollisionResult</a> ), Layer:<a href="javascript:void('monkey:monkey-types-int')" onclick="openDocsPage('monkey:monkey-types-int')">Int</a>[] )
+</h5>
+Query a quadtree with a ray of given length
+This will query the quadtree with a raycast and perform a callback on the first object hit by the ray with a function pointer you pass
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Parameters </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>px</code> </td>
+<td class="mx2docs" style="text-align:left">x coordinate of the starting point of the ray </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>py</code> </td>
+<td class="mx2docs" style="text-align:left">y coordinate of the starting point of the ray </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>d</code> </td>
+<td class="mx2docs" style="text-align:left">tlVector2 describing the direction of the raycast </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>maxdistance</code> </td>
+<td class="mx2docs" style="text-align:left">The maximum distance of the ray cast, or 0 for infinite </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>onFoundObject</code> </td>
+<td class="mx2docs" style="text-align:left">A function pointer to function where you can perform whatever tasks you need to with the objects found. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>Layer</code> </td>
+<td class="mx2docs" style="text-align:left">Array of layers in the quadtree that you want to search </td>
+</tr>
+</table>
+
+<!-- END -->
+
+</body>
+
+</html>

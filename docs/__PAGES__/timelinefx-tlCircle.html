@@ -1,0 +1,129 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.tlCircle</i>
+<h5 cls="mx2docs">
+Class tlCircle Extends <a href="javascript:void('timelinefx:timelinefx-tlBox')" onclick="openDocsPage('timelinefx:timelinefx-tlBox')">tlBox</a>
+</h5>
+Collision circle class, extends _tlBox
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Public Fields </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlCircle-radius')" onclick="openDocsPage('timelinefx:timelinefx-tlCircle-radius')">radius</a> </td>
+<td class="mx2docs" style="text-align:left"></td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlCircle-tformradius')" onclick="openDocsPage('timelinefx:timelinefx-tlCircle-tformradius')">tformradius</a> </td>
+<td class="mx2docs" style="text-align:left"></td>
+</tr>
+</table>
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Public Properties </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlCircle-Radius')" onclick="openDocsPage('timelinefx:timelinefx-tlCircle-Radius')">Radius</a> </td>
+<td class="mx2docs" style="text-align:left">The current radius of the box </td>
+</tr>
+</table>
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Public Constructors </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlCircle-new')" onclick="openDocsPage('timelinefx:timelinefx-tlCircle-new')">New</a> </td>
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox')" onclick="openDocsPage('timelinefx:timelinefx-tlBox')">tlBox</a> Constructor </td>
+</tr>
+</table>
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Public Methods </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlCircle-BoundingBoxOverlap')" onclick="openDocsPage('timelinefx:timelinefx-tlCircle-BoundingBoxOverlap')">BoundingBoxOverlap</a> </td>
+<td class="mx2docs" style="text-align:left">Compare this <a href="javascript:void('timelinefx:timelinefx-tlCircle')" onclick="openDocsPage('timelinefx:timelinefx-tlCircle')">tlCircle</a> with a <a href="javascript:void('timelinefx:timelinefx-tlBox')" onclick="openDocsPage('timelinefx:timelinefx-tlBox')">tlBox</a> to see if they overlap </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlCircle-BoxCollide')" onclick="openDocsPage('timelinefx:timelinefx-tlCircle-BoxCollide')">BoxCollide</a> </td>
+<td class="mx2docs" style="text-align:left">Check for a collision with another <a href="javascript:void('timelinefx:timelinefx-tlBox')" onclick="openDocsPage('timelinefx:timelinefx-tlBox')">tlBox</a> </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlCircle-CircleCollide')" onclick="openDocsPage('timelinefx:timelinefx-tlCircle-CircleCollide')">CircleCollide</a> </td>
+<td class="mx2docs" style="text-align:left">Check for a collision with a <a href="javascript:void('timelinefx:timelinefx-tlCircle')" onclick="openDocsPage('timelinefx:timelinefx-tlCircle')">tlCircle</a> </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlCircle-CircleOverlap')" onclick="openDocsPage('timelinefx:timelinefx-tlCircle-CircleOverlap')">CircleOverlap</a> </td>
+<td class="mx2docs" style="text-align:left">Compare this <a href="javascript:void('timelinefx:timelinefx-tlCircle')" onclick="openDocsPage('timelinefx:timelinefx-tlCircle')">tlCircle</a> with another to see if they overlap </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlCircle-Draw')" onclick="openDocsPage('timelinefx:timelinefx-tlCircle-Draw')">Draw</a> </td>
+<td class="mx2docs" style="text-align:left">Draw this tlBox </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlCircle-LineCollide')" onclick="openDocsPage('timelinefx:timelinefx-tlCircle-LineCollide')">LineCollide</a> </td>
+<td class="mx2docs" style="text-align:left">Check for a collision with a <a href="javascript:void('timelinefx:timelinefx-tlLine')" onclick="openDocsPage('timelinefx:timelinefx-tlLine')">tlLine</a> </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlCircle-PointInside')" onclick="openDocsPage('timelinefx:timelinefx-tlCircle-PointInside')">PointInside</a> </td>
+<td class="mx2docs" style="text-align:left">Find out if a point is within the circle </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlCircle-PolyCollide')" onclick="openDocsPage('timelinefx:timelinefx-tlCircle-PolyCollide')">PolyCollide</a> </td>
+<td class="mx2docs" style="text-align:left">Check for a collision with a <a href="javascript:void('timelinefx:timelinefx-tlPolygon')" onclick="openDocsPage('timelinefx:timelinefx-tlPolygon')">tlPolygon</a> </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlCircle-RayCollide')" onclick="openDocsPage('timelinefx:timelinefx-tlCircle-RayCollide')">RayCollide</a> </td>
+<td class="mx2docs" style="text-align:left">See is a ray collides with this <a href="javascript:void('timelinefx:timelinefx-tlCircle')" onclick="openDocsPage('timelinefx:timelinefx-tlCircle')">tlCircle</a> </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlCircle-SetCircle')" onclick="openDocsPage('timelinefx:timelinefx-tlCircle-SetCircle')">SetCircle</a> </td>
+<td class="mx2docs" style="text-align:left">Set the Box of the circle </td>
+</tr>
+</table>
+
+<!-- END -->
+
+</body>
+
+</html>

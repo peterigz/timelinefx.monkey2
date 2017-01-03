@@ -1,0 +1,51 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.<a href="javascript:void('timelinefx:timelinefx-tlEffect')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect')">tlEffect</a>.SoftKill</i>
+<h5 cls="mx2docs">
+Method SoftKill:Void(  )
+</h5>
+Softly kill an effect
+Call this to kill an effect by stopping it from spawning any more particles. This will make the effect slowly die about as any remaining
+particles cease to exist as there lifetime naturally expires. Any single particles are converted to one shot particles.
+
+<!-- END -->
+
+</body>
+
+</html>

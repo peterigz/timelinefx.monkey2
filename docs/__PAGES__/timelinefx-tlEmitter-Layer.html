@@ -1,0 +1,51 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.<a href="javascript:void('timelinefx:timelinefx-tlEmitter')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter')">tlEmitter</a>.Layer</i>
+<h5 cls="mx2docs">
+Property Layer:<a href="javascript:void('monkey:monkey-types-int')" onclick="openDocsPage('monkey:monkey-types-int')">Int</a>
+</h5>
+Set the z layer.
+Emitters can be set to draw on different layers depending on what kind of effect you need. By default everything is drawn on layer 0, higher layers
+makes those particles spawned by that emitter drawn on top of emitters below them in layers. The layer value can range from 0-8 giving a total of 9 layers.
+
+<!-- END -->
+
+</body>
+
+</html>

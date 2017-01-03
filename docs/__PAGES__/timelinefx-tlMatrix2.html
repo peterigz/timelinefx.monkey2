@@ -1,0 +1,89 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.tlMatrix2</i>
+<h5 cls="mx2docs">
+Struct tlMatrix2
+</h5>
+A simple 2D matrix class
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Public Constructors </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlMatrix2-new')" onclick="openDocsPage('timelinefx:timelinefx-tlMatrix2-new')">New</a> </td>
+<td class="mx2docs" style="text-align:left">Create a new matrix </td>
+</tr>
+</table>
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Public Methods </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlMatrix2-Scale')" onclick="openDocsPage('timelinefx:timelinefx-tlMatrix2-Scale')">Scale</a> </td>
+<td class="mx2docs" style="text-align:left">Scale the matrix by a given amount </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlMatrix2-Set')" onclick="openDocsPage('timelinefx:timelinefx-tlMatrix2-Set')">Set</a> </td>
+<td class="mx2docs" style="text-align:left">Set the matrix to a new set of values </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlMatrix2-Transform')" onclick="openDocsPage('timelinefx:timelinefx-tlMatrix2-Transform')">Transform</a> </td>
+<td class="mx2docs" style="text-align:left">Transfrom the matrix </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlMatrix2-TransformPoint')" onclick="openDocsPage('timelinefx:timelinefx-tlMatrix2-TransformPoint')">TransformPoint</a> </td>
+<td class="mx2docs" style="text-align:left">Transfrom a point </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlMatrix2-TransformVector')" onclick="openDocsPage('timelinefx:timelinefx-tlMatrix2-TransformVector')">TransformVector</a> </td>
+<td class="mx2docs" style="text-align:left">Transfrom a vector with the matrix </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlMatrix2-Transpose')" onclick="openDocsPage('timelinefx:timelinefx-tlMatrix2-Transpose')">Transpose</a> </td>
+<td class="mx2docs" style="text-align:left">Transpose the matrix </td>
+</tr>
+</table>
+
+<!-- END -->
+
+</body>
+
+</html>

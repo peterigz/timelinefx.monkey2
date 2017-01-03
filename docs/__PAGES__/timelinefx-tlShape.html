@@ -1,0 +1,96 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.tlShape</i>
+<h5 cls="mx2docs">
+Class tlShape
+</h5>
+A shape class for storing and working with mojo.image
+Use <a href="javascript:void('timelinefx:timelinefx-LoadShape')" onclick="openDocsPage('timelinefx:timelinefx-LoadShape')">LoadShape</a> to load a shape from the assets directory. <a href="javascript:void('timelinefx:timelinefx-tlShape')" onclick="openDocsPage('timelinefx:timelinefx-tlShape')">tlShape</a> can also be used to store and play animations stored on sprite sheets.
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Public Fields </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlShape-image')" onclick="openDocsPage('timelinefx:timelinefx-tlShape-image')">image</a> </td>
+<td class="mx2docs" style="text-align:left"></td>
+</tr>
+</table>
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Public Properties </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlShape-Frames')" onclick="openDocsPage('timelinefx:timelinefx-tlShape-Frames')">Frames</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set the number of frames in the image </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlShape-Height')" onclick="openDocsPage('timelinefx:timelinefx-tlShape-Height')">Height</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set the height of the image </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlShape-Name')" onclick="openDocsPage('timelinefx:timelinefx-tlShape-Name')">Name</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set the name of the image </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlShape-Url')" onclick="openDocsPage('timelinefx:timelinefx-tlShape-Url')">Url</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set the path of the loaded image, eg "asset::myimage.png" </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlShape-Width')" onclick="openDocsPage('timelinefx:timelinefx-tlShape-Width')">Width</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set width of the image </td>
+</tr>
+</table>
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Public Methods </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlShape-GetImage')" onclick="openDocsPage('timelinefx:timelinefx-tlShape-GetImage')">GetImage</a> </td>
+<td class="mx2docs" style="text-align:left">Get the image </td>
+</tr>
+</table>
+
+<!-- END -->
+
+</body>
+
+</html>

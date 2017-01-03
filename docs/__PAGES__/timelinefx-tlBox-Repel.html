@@ -1,0 +1,70 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.<a href="javascript:void('timelinefx:timelinefx-tlBox')" onclick="openDocsPage('timelinefx:timelinefx-tlBox')">tlBox</a>.Repel</i>
+<h5 cls="mx2docs">
+Method Repel:Void( result:<a href="javascript:void('timelinefx:timelinefx-tlCollisionResult')" onclick="openDocsPage('timelinefx:timelinefx-tlCollisionResult')">tlCollisionResult</a>, push:<a href="javascript:void('monkey:monkey-types-int')" onclick="openDocsPage('monkey:monkey-types-int')">Int</a>=false, factor:<a href="javascript:void('monkey:monkey-types-float')" onclick="openDocsPage('monkey:monkey-types-float')">Float</a>=0.1 )
+</h5>
+Repel boundaries that overlap
+Rather then simply preventing an overlap outright, this will ease a boundary away slowly until it no longer overlaps. This can
+be useful to separate groups of entities away from each other in a more smooth fashion. As with <a href="javascript:void('timelinefx:timelinefx-tlBox-PreventOverlap')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-PreventOverlap')">PreventOverlap</a> set push to true to push
+the other entity away.
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Parameters </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>result</code> </td>
+<td class="mx2docs" style="text-align:left">The <a href="javascript:void('timelinefx:timelinefx-tlCollisionResult')" onclick="openDocsPage('timelinefx:timelinefx-tlCollisionResult')">tlCollisionResult</a> with the collison data to use to move the objects apart </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>push</code> </td>
+<td class="mx2docs" style="text-align:left">Set to true if you want the box to push away the colliding object </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>factor</code> </td>
+<td class="mx2docs" style="text-align:left">the amount to repel the objects </td>
+</tr>
+</table>
+
+<!-- END -->
+
+</body>
+
+</html>

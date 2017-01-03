@@ -1,0 +1,53 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.<a href="javascript:void('timelinefx:timelinefx-tlParticleManager')" onclick="openDocsPage('timelinefx:timelinefx-tlParticleManager')">tlParticleManager</a>.SetGlobalAmountScale</i>
+<h5 cls="mx2docs">
+Method SetGlobalAmountScale:Void( Value:<a href="javascript:void('monkey:monkey-types-float')" onclick="openDocsPage('monkey:monkey-types-float')">Float</a> )
+</h5>
+Set the globalamountscale value of the particle manager.
+Setting this value will scale the amount of the particles spawned by all emitters contained within the particle manager, making it a handy way
+to control globally, the amount of particles that are spawned. This can help improve performance on lower end hardware that struggle to draw
+lots of particles. A value of 1 (the default value) will spawn the default amount for each effect. A value of 0.5 though for example, will spawn
+half the amount of particles of each effect.
+
+<!-- END -->
+
+</body>
+
+</html>

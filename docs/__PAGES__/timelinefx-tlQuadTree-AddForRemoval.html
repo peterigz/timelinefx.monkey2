@@ -1,0 +1,62 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.<a href="javascript:void('timelinefx:timelinefx-tlQuadTree')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree')">tlQuadTree</a>.AddForRemoval</i>
+<h5 cls="mx2docs">
+Method AddForRemoval:Void( r:<a href="javascript:void('timelinefx:timelinefx-tlBox')" onclick="openDocsPage('timelinefx:timelinefx-tlBox')">tlBox</a> )
+</h5>
+Add the <a href="javascript:void('timelinefx:timelinefx-tlBox')" onclick="openDocsPage('timelinefx:timelinefx-tlBox')">tlBox</a> to the remove list
+This will add a <a href="javascript:void('timelinefx:timelinefx-tlBox')" onclick="openDocsPage('timelinefx:timelinefx-tlBox')">tlBox</a> to the queue for removal next time you call <a href="javascript:void('timelinefx:timelinefx-tlQuadTree-CleanUp')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree-CleanUp')">CleanUp</a>. It's important to use this if you're removing items from the quadtree during a query because otherwise you
+will run into a "concurrent list modification error". At the end of your update loop you can call <a href="javascript:void('timelinefx:timelinefx-tlQuadTree-CleanUp')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree-CleanUp')">CleanUp</a> to remove those items from the quadtree in a batch. Note that if you are using a <a href="javascript:void('timelinefx:timelinefx-tlGameObject')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject')">tlGameObject</a>
+then <a href="javascript:void('timelinefx:timelinefx-tlGameObject-Destroy')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-Destroy')">tlGameObject.Destroy</a> will do this automatically, but you'll still need to call <a href="javascript:void('timelinefx:timelinefx-tlQuadTree-CleanUp')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree-CleanUp')">CleanUp</a>
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Parameters </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>r</code> </td>
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox')" onclick="openDocsPage('timelinefx:timelinefx-tlBox')">tlBox</a> </td>
+</tr>
+</table>
+
+<!-- END -->
+
+</body>
+
+</html>

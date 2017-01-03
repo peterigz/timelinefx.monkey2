@@ -1,0 +1,53 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.CopyEffect</i>
+<h5 cls="mx2docs">
+Function CopyEffect:<a href="javascript:void('timelinefx:timelinefx-tlEffect')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect')">tlEffect</a>( e:<a href="javascript:void('timelinefx:timelinefx-tlEffect')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect')">tlEffect</a>, ParticleManager:<a href="javascript:void('timelinefx:timelinefx-tlParticleManager')" onclick="openDocsPage('timelinefx:timelinefx-tlParticleManager')">tlParticleManager</a>, CopyDirectory:<a href="javascript:void('monkey:monkey-types-int')" onclick="openDocsPage('monkey:monkey-types-int')">Int</a>=false )
+</h5>
+Copy an effect
+You should use this command everytime you want to add an effect to the particle, otherwise you'll simply be referencing the effect directly from the library which simply won't work
+if you add more then one of the same effect.
+<p class="mx2docs">Pass the effect you wish to copy, the particle manager you want it assigned to and if you wish you can copy the directory which allows you to access individual emitters within the effect, in most
+cases though this will be unnecessary unless you need to get access to the emitters in the effects to make changes in realtime.
+
+<!-- END -->
+
+</body>
+
+</html>

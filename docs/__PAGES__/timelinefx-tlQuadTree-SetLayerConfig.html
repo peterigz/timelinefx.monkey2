@@ -1,0 +1,71 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.<a href="javascript:void('timelinefx:timelinefx-tlQuadTree')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree')">tlQuadTree</a>.SetLayerConfig</i>
+<h5 cls="mx2docs">
+Method SetLayerConfig:Void( Layer:<a href="javascript:void('monkey:monkey-types-int')" onclick="openDocsPage('monkey:monkey-types-int')">Int</a>, maxlevels:<a href="javascript:void('monkey:monkey-types-int')" onclick="openDocsPage('monkey:monkey-types-int')">Int</a>, maxpernode:<a href="javascript:void('monkey:monkey-types-int')" onclick="openDocsPage('monkey:monkey-types-int')">Int</a> )
+</h5>
+Configure a Layer of the quadtree
+As the quadtree is broken up into Layers, this means you can configure each Layer to have a specific number of maximum levels
+and objects per node. This helps you to be more specific about how you optimise your quadtree. You should configure the Layers immediately
+after creating the quadtree and before anything is added to the tree. Layers can not be reconfigured once the quadtree has had objects added
+to it.
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Parameters </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>Layer</code> </td>
+<td class="mx2docs" style="text-align:left">The layer index to configure </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>maxpernode</code> </td>
+<td class="mx2docs" style="text-align:left">The number of objects placed into a quad before it's subdivived </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>maxlayers</code> </td>
+<td class="mx2docs" style="text-align:left">The number of layers in the quadtree- useful for organsing your game objects </td>
+</tr>
+</table>
+
+<!-- END -->
+
+</body>
+
+</html>

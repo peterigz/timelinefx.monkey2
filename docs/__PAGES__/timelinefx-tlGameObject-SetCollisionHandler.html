@@ -1,0 +1,60 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.<a href="javascript:void('timelinefx:timelinefx-tlGameObject')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject')">tlGameObject</a>.SetCollisionHandler</i>
+<h5 cls="mx2docs">
+Method SetCollisionHandler:Void( callback:Void( <a href="javascript:void('monkey:monkey-types-object')" onclick="openDocsPage('monkey:monkey-types-object')">@object</a>,<a href="javascript:void('monkey:monkey-types-object')" onclick="openDocsPage('monkey:monkey-types-object')">@object</a> ) )
+</h5>
+The the function callback used for processing collisions on the <a href="javascript:void('timelinefx:timelinefx-tlQuadTree')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree')">tlQuadTree</a>
+The callback function you use must have 2 object parameters
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Parameters </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>callback</code> </td>
+<td class="mx2docs" style="text-align:left">Function pointer </td>
+</tr>
+</table>
+
+<!-- END -->
+
+</body>
+
+</html>

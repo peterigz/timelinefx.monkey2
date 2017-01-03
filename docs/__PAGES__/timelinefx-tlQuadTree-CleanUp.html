@@ -1,0 +1,51 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.<a href="javascript:void('timelinefx:timelinefx-tlQuadTree')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree')">tlQuadTree</a>.CleanUp</i>
+<h5 cls="mx2docs">
+Method CleanUp:Void(  )
+</h5>
+Remove marked objects
+Run this at the end of your logic loop or whenever you want to remove objects from the quadtree that have been
+marked for removal. Objects are marked whenever you call MarkForRemoval on a <a href="javascript:void('timelinefx:timelinefx-tlBox')" onclick="openDocsPage('timelinefx:timelinefx-tlBox')">tlBox</a>, use <a href="javascript:void('timelinefx:timelinefx-tlQuadTree-AddForRemoval')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree-AddForRemoval')">AddForRemoval</a> or tlGameobject.Destroy
+
+<!-- END -->
+
+</body>
+
+</html>

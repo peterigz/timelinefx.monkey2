@@ -1,0 +1,75 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.LoadShape</i>
+<h5 cls="mx2docs">
+Function LoadShape:<a href="javascript:void('timelinefx:timelinefx-tlShape')" onclick="openDocsPage('timelinefx:timelinefx-tlShape')">tlShape</a>( url:<a href="javascript:void('monkey:monkey-types-string')" onclick="openDocsPage('monkey:monkey-types-string')">String</a>, width:<a href="javascript:void('monkey:monkey-types-int')" onclick="openDocsPage('monkey:monkey-types-int')">Int</a>=0, height:<a href="javascript:void('monkey:monkey-types-int')" onclick="openDocsPage('monkey:monkey-types-int')">Int</a>=0, frames:<a href="javascript:void('monkey:monkey-types-int')" onclick="openDocsPage('monkey:monkey-types-int')">Int</a>=1, padding:<a href="javascript:void('monkey:monkey-types-int')" onclick="openDocsPage('monkey:monkey-types-int')">Int</a>=false )
+</h5>
+Load a <a href="javascript:void('timelinefx:timelinefx-tlShape')" onclick="openDocsPage('timelinefx:timelinefx-tlShape')">tlShape</a>
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Parameters </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>url</code> </td>
+<td class="mx2docs" style="text-align:left">String of the path where the image is stored </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>width</code> </td>
+<td class="mx2docs" style="text-align:left">Int width of the image </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>height</code> </td>
+<td class="mx2docs" style="text-align:left">Int height of the image </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>frames</code> </td>
+<td class="mx2docs" style="text-align:left">Int number of frames in the image </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>padding</code> </td>
+<td class="mx2docs" style="text-align:left">True or False whether to add padding around each frame. </td>
+</tr>
+</table>
+
+<!-- END -->
+
+</body>
+
+</html>

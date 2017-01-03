@@ -1,0 +1,80 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.<a href="javascript:void('timelinefx:timelinefx-tlQuadTree')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree')">tlQuadTree</a>.ForEachObjectWithinRange</i>
+<h5 cls="mx2docs">
+Method ForEachObjectWithinRange:Void( x:<a href="javascript:void('monkey:monkey-types-float')" onclick="openDocsPage('monkey:monkey-types-float')">Float</a>, y:<a href="javascript:void('monkey:monkey-types-float')" onclick="openDocsPage('monkey:monkey-types-float')">Float</a>, radius:<a href="javascript:void('monkey:monkey-types-float')" onclick="openDocsPage('monkey:monkey-types-float')">Float</a>, Data:<a href="javascript:void('monkey:monkey-types-object')" onclick="openDocsPage('monkey:monkey-types-object')">@object</a>, onFoundObject:Void( <a href="javascript:void('monkey:monkey-types-object')" onclick="openDocsPage('monkey:monkey-types-object')">@object</a>,<a href="javascript:void('monkey:monkey-types-object')" onclick="openDocsPage('monkey:monkey-types-object')">@object</a> ), Layer:<a href="javascript:void('monkey:monkey-types-int')" onclick="openDocsPage('monkey:monkey-types-int')">Int</a>[] )
+</h5>
+Query the quadtree to find objects within a certain radius
+This will query the quadtree and do a callback on any objects it finds within a given radius.
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Parameters </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>x</code> </td>
+<td class="mx2docs" style="text-align:left">x coordinate of range </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>y</code> </td>
+<td class="mx2docs" style="text-align:left">y coordinate of range </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>radius</code> </td>
+<td class="mx2docs" style="text-align:left">Radius of the range </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>Data</code> </td>
+<td class="mx2docs" style="text-align:left">any object object to pass to the query </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>onFoundObject</code> </td>
+<td class="mx2docs" style="text-align:left">A function pointer to function where you can perform whatever tasks you need to with the objects found. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>Layer</code> </td>
+<td class="mx2docs" style="text-align:left">Array of layers in the quadtree that you want to search </td>
+</tr>
+</table>
+
+<!-- END -->
+
+</body>
+
+</html>

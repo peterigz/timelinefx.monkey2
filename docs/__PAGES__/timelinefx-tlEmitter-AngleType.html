@@ -1,0 +1,56 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.<a href="javascript:void('timelinefx:timelinefx-tlEmitter')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter')">tlEmitter</a>.AngleType</i>
+<h5 cls="mx2docs">
+Property AngleType:<a href="javascript:void('monkey:monkey-types-int')" onclick="openDocsPage('monkey:monkey-types-int')">Int</a>
+</h5>
+Set the angle type.
+Angle type tells the particle how it show orientate itself when spawning. Either tlANGLE<i>ALIGN, tlANGLE</i>RANDOM or tlANGLE_SPECIFY.
+<ul>
+<li class="mx2docs">tlANGLE_ALIGN: Force the particle to align itself with the direction that it's travelling in.</li>
+<li class="mx2docs">tlANGLE_RANDOM: Choose a random angle.</li>
+<li class="mx2docs">tlANGLE_SPECIFY: Specify the angle that the particle spawns with.</li>
+</ul>
+Use <a href="javascript:void('timelinefx:timelinefx-tlEmitter-AngleOffset')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter-AngleOffset')">AngleOffset</a> to control the either both the specific angle, random range of angles and an offset if aligning.
+
+<!-- END -->
+
+</body>
+
+</html>

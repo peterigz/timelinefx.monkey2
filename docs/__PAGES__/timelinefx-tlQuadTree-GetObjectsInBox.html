@@ -1,0 +1,68 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.<a href="javascript:void('timelinefx:timelinefx-tlQuadTree')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree')">tlQuadTree</a>.GetObjectsInBox</i>
+<h5 cls="mx2docs">
+Method GetObjectsInBox:<a href="javascript:void('std:std-collections-Stack')" onclick="openDocsPage('std:std-collections-Stack')">Stack</a>&lt;<a href="javascript:void('monkey:monkey-types-object')" onclick="openDocsPage('monkey:monkey-types-object')">@object</a>>( area:<a href="javascript:void('timelinefx:timelinefx-tlBox')" onclick="openDocsPage('timelinefx:timelinefx-tlBox')">tlBox</a>, Layer:<a href="javascript:void('monkey:monkey-types-int')" onclick="openDocsPage('monkey:monkey-types-int')">Int</a>[], GetData:<a href="javascript:void('monkey:monkey-types-int')" onclick="openDocsPage('monkey:monkey-types-int')">Int</a>=false )
+</h5>
+Query the quadtree to find objects within a <i>tlBox</i>
+This does the same thing as <a href="javascript:void('timelinefx:timelinefx-tlQuadTree-ForEachObjectInBox')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree-ForEachObjectInBox')">ForEachObjectInBox</a> except it returns a stack of objects that it finds
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Parameters </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>area</code> </td>
+<td class="mx2docs" style="text-align:left">A tlBox that will be used to define the area that is searched </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>Layer</code> </td>
+<td class="mx2docs" style="text-align:left">Array of layers in the quadtree that you want to search </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>GetData</code> </td>
+<td class="mx2docs" style="text-align:left">If set to true then the Data field within the tlBox will be returned rather than the box itself </td>
+</tr>
+</table>
+
+<!-- END -->
+
+</body>
+
+</html>

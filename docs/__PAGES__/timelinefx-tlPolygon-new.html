@@ -1,0 +1,74 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.<a href="javascript:void('timelinefx:timelinefx-tlPolygon')" onclick="openDocsPage('timelinefx:timelinefx-tlPolygon')">tlPolygon</a>.New</i>
+<h5 cls="mx2docs">
+Method New:Void(  )
+</h5>
+<h5 cls="mx2docs">
+Method New:Void( x:<a href="javascript:void('monkey:monkey-types-float')" onclick="openDocsPage('monkey:monkey-types-float')">Float</a>, y:<a href="javascript:void('monkey:monkey-types-float')" onclick="openDocsPage('monkey:monkey-types-float')">Float</a>, verts:<a href="javascript:void('monkey:monkey-types-float')" onclick="openDocsPage('monkey:monkey-types-float')">Float</a>[], layer:<a href="javascript:void('monkey:monkey-types-int')" onclick="openDocsPage('monkey:monkey-types-int')">Int</a>=0, data:<a href="javascript:void('monkey:monkey-types-object')" onclick="openDocsPage('monkey:monkey-types-object')">@object</a>=Null, centerhandle:<a href="javascript:void('monkey:monkey-types-int')" onclick="openDocsPage('monkey:monkey-types-int')">Int</a>=true )
+</h5>
+<h5 cls="mx2docs">
+Method New:Void( verts:<a href="javascript:void('monkey:monkey-types-float')" onclick="openDocsPage('monkey:monkey-types-float')">Float</a>[], layer:<a href="javascript:void('monkey:monkey-types-int')" onclick="openDocsPage('monkey:monkey-types-int')">Int</a>=0, data:<a href="javascript:void('monkey:monkey-types-object')" onclick="openDocsPage('monkey:monkey-types-object')">@object</a>=Null )
+</h5>
+<a href="javascript:void('timelinefx:timelinefx-tlPolygon')" onclick="openDocsPage('timelinefx:timelinefx-tlPolygon')">tlPolygon</a> Constructor<p class="mx2docs">	    | <code>Note:</code> |
+	    |:-----------|
+	    | Polygon must be convex (no internal angles &gt; 180deg)
+<p class="mx2docs">		@param x Top left y coordinate
+		@param y Top Left x coordinate
+		@param verts Array of vertices that descibe the Polygon
+		@param layer The layer that the box is on, used for quadtrees
+		@param data any Object associated with the box
+<p class="mx2docs">	    @example
+	    	Local box:=New tlPolygon(100, 100, new Float[](- 10.0, -10.0, -15.0, 0.0, -10.0, 10.0, 10.0, 10.0, 15.0, 0.0, 10.0, -10.0), 0)
+	    @end
+<a href="javascript:void('timelinefx:timelinefx-tlPolygon')" onclick="openDocsPage('timelinefx:timelinefx-tlPolygon')">tlPolygon</a> Constructor<p class="mx2docs">	    | <code>Note:</code> |
+	    |:-----------|
+	    | Polygon must be convex (no internal angles &gt; 180deg)
+<p class="mx2docs">		@param verts Array of vertices that descibe the Polygon
+		@param layer The layer that the box is on, used for quadtrees
+		@param data any Object associated with the box
+<p class="mx2docs">	    @example
+	    	Local box:=New tlPolygon(new Float[](- 10.0, -10.0, -15.0, 0.0, -10.0, 10.0, 10.0, 10.0, 15.0, 0.0, 10.0, -10.0), 0)
+	    @end
+
+<!-- END -->
+
+</body>
+
+</html>

@@ -1,0 +1,136 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.tlCollisionResult</i>
+<h5 cls="mx2docs">
+Struct tlCollisionResult
+</h5>
+Class for storing the results of a collision
+You can use CheckCollision to check for a collision between 2 objects which will return a <a href="javascript:void('timelinefx:timelinefx-tlCollisionResult')" onclick="openDocsPage('timelinefx:timelinefx-tlCollisionResult')">tlCollisionResult</a>
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Public Fields </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlCollisionResult-source')" onclick="openDocsPage('timelinefx:timelinefx-tlCollisionResult-source')">source</a> </td>
+<td class="mx2docs" style="text-align:left"></td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlCollisionResult-target')" onclick="openDocsPage('timelinefx:timelinefx-tlCollisionResult-target')">target</a> </td>
+<td class="mx2docs" style="text-align:left"></td>
+</tr>
+</table>
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Public Properties </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlCollisionResult-HasIntersection')" onclick="openDocsPage('timelinefx:timelinefx-tlCollisionResult-HasIntersection')">HasIntersection</a> </td>
+<td class="mx2docs" style="text-align:left">Find out if the collision has an intersection </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlCollisionResult-HasSurfaceNormal')" onclick="openDocsPage('timelinefx:timelinefx-tlCollisionResult-HasSurfaceNormal')">HasSurfaceNormal</a> </td>
+<td class="mx2docs" style="text-align:left">GFind out if the collision as a surface normal </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlCollisionResult-Intersecting')" onclick="openDocsPage('timelinefx:timelinefx-tlCollisionResult-Intersecting')">Intersecting</a> </td>
+<td class="mx2docs" style="text-align:left">Find out if the last collision check is intersecting </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlCollisionResult-IsColliding')" onclick="openDocsPage('timelinefx:timelinefx-tlCollisionResult-IsColliding')">IsColliding</a> </td>
+<td class="mx2docs" style="text-align:left">Find out if the last collision check found a collision </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlCollisionResult-NoCollision')" onclick="openDocsPage('timelinefx:timelinefx-tlCollisionResult-NoCollision')">NoCollision</a> </td>
+<td class="mx2docs" style="text-align:left"></td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlCollisionResult-RayDistance')" onclick="openDocsPage('timelinefx:timelinefx-tlCollisionResult-RayDistance')">RayDistance</a> </td>
+<td class="mx2docs" style="text-align:left">Get the distance from the ray origin to the instersection point </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlCollisionResult-RayIntersection')" onclick="openDocsPage('timelinefx:timelinefx-tlCollisionResult-RayIntersection')">RayIntersection</a> </td>
+<td class="mx2docs" style="text-align:left">Get the intersection point of the raycast </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlCollisionResult-RayOriginInside')" onclick="openDocsPage('timelinefx:timelinefx-tlCollisionResult-RayOriginInside')">RayOriginInside</a> </td>
+<td class="mx2docs" style="text-align:left">Find out if the last ray cast found that the ray originated inside the boundary </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlCollisionResult-RaySurfaceNormal')" onclick="openDocsPage('timelinefx:timelinefx-tlCollisionResult-RaySurfaceNormal')">RaySurfaceNormal</a> </td>
+<td class="mx2docs" style="text-align:left">Get the surface normal that the ray hits </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlCollisionResult-SourceBoundary')" onclick="openDocsPage('timelinefx:timelinefx-tlCollisionResult-SourceBoundary')">SourceBoundary</a> </td>
+<td class="mx2docs" style="text-align:left">The Source boundary of a collision check </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlCollisionResult-SurfaceNormal')" onclick="openDocsPage('timelinefx:timelinefx-tlCollisionResult-SurfaceNormal')">SurfaceNormal</a> </td>
+<td class="mx2docs" style="text-align:left">Get the surface normal of the collision </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlCollisionResult-TargetBoundary')" onclick="openDocsPage('timelinefx:timelinefx-tlCollisionResult-TargetBoundary')">TargetBoundary</a> </td>
+<td class="mx2docs" style="text-align:left">The Target boundary of a collision check </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlCollisionResult-TranslationVector')" onclick="openDocsPage('timelinefx:timelinefx-tlCollisionResult-TranslationVector')">TranslationVector</a> </td>
+<td class="mx2docs" style="text-align:left">Get the translation vector of the collision </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlCollisionResult-WillIntersect')" onclick="openDocsPage('timelinefx:timelinefx-tlCollisionResult-WillIntersect')">WillIntersect</a> </td>
+<td class="mx2docs" style="text-align:left">Find out if the last collision check is intersecting </td>
+</tr>
+</table>
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Public Methods </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlCollisionResult-GetReboundVector')" onclick="openDocsPage('timelinefx:timelinefx-tlCollisionResult-GetReboundVector')">GetReboundVector</a> </td>
+<td class="mx2docs" style="text-align:left">Get the rebound vector </td>
+</tr>
+</table>
+
+<!-- END -->
+
+</body>
+
+</html>

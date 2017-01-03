@@ -1,0 +1,77 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.<a href="javascript:void('timelinefx:timelinefx-tlGameObject')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject')">tlGameObject</a>.Render</i>
+<h5 cls="mx2docs">
+Method Render:Void( canvas:<a href="javascript:void('mojo:mojo-graphics-Canvas')" onclick="openDocsPage('mojo:mojo-graphics-Canvas')">Canvas</a>, tween:<a href="javascript:void('monkey:monkey-types-float')" onclick="openDocsPage('monkey:monkey-types-float')">Float</a>=0, origin:<a href="javascript:void('timelinefx:timelinefx-tlVector2')" onclick="openDocsPage('timelinefx:timelinefx-tlVector2')">tlVector2</a>=New tlVector2, renderchildren:<a href="javascript:void('monkey:monkey-types-int')" onclick="openDocsPage('monkey:monkey-types-int')">Int</a>=true, screenbox:<a href="javascript:void('timelinefx:timelinefx-tlBox')" onclick="openDocsPage('timelinefx:timelinefx-tlBox')">tlBox</a>=Null )
+</h5>
+Render the entity
+This will Draw the entity onto the screen using the tween value you pass to it to interpolate between old and new positions when
+using fixed rate timing.
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Parameters </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>canvas</code> </td>
+<td class="mx2docs" style="text-align:left">Canvas to draw to </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>tween</code> </td>
+<td class="mx2docs" style="text-align:left">the tween value to smooth out the rendering (optional) </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>origin</code> </td>
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlVector2')" onclick="openDocsPage('timelinefx:timelinefx-tlVector2')">tlVector2</a> use this to offset the rendering if you have a game world you can scroll about. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>renderchildren</code> </td>
+<td class="mx2docs" style="text-align:left">True/False if you want to render the children of the object (default true) </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>screenbox</code> </td>
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox')" onclick="openDocsPage('timelinefx:timelinefx-tlBox')">tlBox</a> you can pass a tlBox that is used to cull anything outside of the box (optional) </td>
+</tr>
+</table>
+
+<!-- END -->
+
+</body>
+
+</html>

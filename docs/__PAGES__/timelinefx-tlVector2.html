@@ -1,0 +1,177 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.tlVector2</i>
+<h5 cls="mx2docs">
+Struct tlVector2
+</h5>
+A 2d vector class
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Public Fields </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlVector2-invalid')" onclick="openDocsPage('timelinefx:timelinefx-tlVector2-invalid')">invalid</a> </td>
+<td class="mx2docs" style="text-align:left"></td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlVector2-x')" onclick="openDocsPage('timelinefx:timelinefx-tlVector2-x')">x</a> </td>
+<td class="mx2docs" style="text-align:left"></td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlVector2-y')" onclick="openDocsPage('timelinefx:timelinefx-tlVector2-y')">y</a> </td>
+<td class="mx2docs" style="text-align:left"></td>
+</tr>
+</table>
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Public Properties </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlVector2-Invalid')" onclick="openDocsPage('timelinefx:timelinefx-tlVector2-Invalid')">Invalid</a> </td>
+<td class="mx2docs" style="text-align:left">Find out if the vector is valid (an equivalent for null) </td>
+</tr>
+</table>
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Public Constructors </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlVector2-new')" onclick="openDocsPage('timelinefx:timelinefx-tlVector2-new')">New</a> </td>
+<td class="mx2docs" style="text-align:left">Make a new vector </td>
+</tr>
+</table>
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Public Methods </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlVector2-AddVector')" onclick="openDocsPage('timelinefx:timelinefx-tlVector2-AddVector')">AddVector</a> </td>
+<td class="mx2docs" style="text-align:left">Add a vector </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlVector2-Angle')" onclick="openDocsPage('timelinefx:timelinefx-tlVector2-Angle')">Angle</a> </td>
+<td class="mx2docs" style="text-align:left">Get the angle of the vector <b>Needs updating to work with radians</b> </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlVector2-Clone')" onclick="openDocsPage('timelinefx:timelinefx-tlVector2-Clone')">Clone</a> </td>
+<td class="mx2docs" style="text-align:left">Clone the vector </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlVector2-Divide')" onclick="openDocsPage('timelinefx:timelinefx-tlVector2-Divide')">Divide</a> </td>
+<td class="mx2docs" style="text-align:left">Divide a vector </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlVector2-DotProduct')" onclick="openDocsPage('timelinefx:timelinefx-tlVector2-DotProduct')">DotProduct</a> </td>
+<td class="mx2docs" style="text-align:left">Get the dot product of this vector and another </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlVector2-HasLength')" onclick="openDocsPage('timelinefx:timelinefx-tlVector2-HasLength')">HasLength</a> </td>
+<td class="mx2docs" style="text-align:left">Find out if the vector has length </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlVector2-LeftNormal')" onclick="openDocsPage('timelinefx:timelinefx-tlVector2-LeftNormal')">LeftNormal</a> </td>
+<td class="mx2docs" style="text-align:left">Get the left hand normal of the vector </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlVector2-Length')" onclick="openDocsPage('timelinefx:timelinefx-tlVector2-Length')">Length</a> </td>
+<td class="mx2docs" style="text-align:left">Get the length of the vector </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlVector2-Limit')" onclick="openDocsPage('timelinefx:timelinefx-tlVector2-Limit')">Limit</a> </td>
+<td class="mx2docs" style="text-align:left">Normalise the vector to a specific limit </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlVector2-Mirror')" onclick="openDocsPage('timelinefx:timelinefx-tlVector2-Mirror')">Mirror</a> </td>
+<td class="mx2docs" style="text-align:left">Mirror the vector </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlVector2-Move')" onclick="openDocsPage('timelinefx:timelinefx-tlVector2-Move')">Move</a> </td>
+<td class="mx2docs" style="text-align:left">Move the vector </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlVector2-MoveByVector')" onclick="openDocsPage('timelinefx:timelinefx-tlVector2-MoveByVector')">MoveByVector</a> </td>
+<td class="mx2docs" style="text-align:left">Move the vector </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlVector2-Multiply')" onclick="openDocsPage('timelinefx:timelinefx-tlVector2-Multiply')">Multiply</a> </td>
+<td class="mx2docs" style="text-align:left">Multiply a vector </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlVector2-Normal')" onclick="openDocsPage('timelinefx:timelinefx-tlVector2-Normal')">Normal</a> </td>
+<td class="mx2docs" style="text-align:left">Get the normal of the vector </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlVector2-Normalise')" onclick="openDocsPage('timelinefx:timelinefx-tlVector2-Normalise')">Normalise</a> </td>
+<td class="mx2docs" style="text-align:left">Normalise the vector </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlVector2-NormaliseTo')" onclick="openDocsPage('timelinefx:timelinefx-tlVector2-NormaliseTo')">NormaliseTo</a> </td>
+<td class="mx2docs" style="text-align:left">Normalise to a specific length </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlVector2-Scale')" onclick="openDocsPage('timelinefx:timelinefx-tlVector2-Scale')">Scale</a> </td>
+<td class="mx2docs" style="text-align:left">Scale the vector </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlVector2-SetPositionByVector')" onclick="openDocsPage('timelinefx:timelinefx-tlVector2-SetPositionByVector')">SetPositionByVector</a> </td>
+<td class="mx2docs" style="text-align:left">Position the vector </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlVector2-SubtractVector')" onclick="openDocsPage('timelinefx:timelinefx-tlVector2-SubtractVector')">SubtractVector</a> </td>
+<td class="mx2docs" style="text-align:left">Subtract a vector </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlVector2-ToString')" onclick="openDocsPage('timelinefx:timelinefx-tlVector2-ToString')">ToString</a> </td>
+<td class="mx2docs" style="text-align:left">Get the string representation of the vector </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlVector2-Unit')" onclick="openDocsPage('timelinefx:timelinefx-tlVector2-Unit')">Unit</a> </td>
+<td class="mx2docs" style="text-align:left">Get the Unit Vector (same as normalise) </td>
+</tr>
+</table>
+
+<!-- END -->
+
+</body>
+
+</html>

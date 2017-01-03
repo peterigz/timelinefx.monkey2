@@ -1,0 +1,314 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.tlParticleManager</i>
+<h5 cls="mx2docs">
+Class tlParticleManager
+</h5>
+The particle manager class for TimelinFX. This class manages all effects you create and is used to update and render all particles.
+The particle manger is the main type you can use to easily manage all of the effects you want to use in your application. It will automatically update
+all of the effects and draw the particles with a simple call to #Update and #DrawParticles.
+<p class="mx2docs">The process of using the particle manager class is to, create it, add an effect to it and then update and draw in the OnCreate, OnUpdate and OnRender methods in a monkey App class:
+<pre class="mx2docs"><code class="mx2docs">'The minimum we need to import is mojo, std and of course timelinefx!
+
+Using mojo..
+Using std..
+Using timelinefx..
+
+'Create a simple Monky App Class
+Class FXexample Extends Window
+
+
+	'Create some fields to store an effects libray, effect, and a particle manager.
+	Field MyEffects:tlEffectsLibrary
+	Field MyEffect:tlEffect
+	Field MyParticleManager:tlParticleManager
+	Field Paused:Int
+	Field EffectNames:String[]
+	Field CurrentEffect:Int
+	Field stop:int
+
+	'In the OnCreate method you can load your effects
+	'library and set up the particle manager.
+	Method New(title:String,width:Int,height:Int)
+		Super.New( title, width, height )
+		'load the effects file. See the docs on LoadEffects on how to
+		'prepare an effects library for use in monkey.
+		MyEffects = LoadEffects("asset::explosions")
+
+		'Use GetEffect, to retrieve an effect from the library.
+		MyEffect = MyEffects.GetEffect("glowing explosion")
+
+		'create a particle manager to manage all the effects and particles
+		MyParticleManager = CreateParticleManager(5000)
+
+		'Set the number of times per second that you want the particles to
+		'be updated. Best to set this to the UpdateRate
+		SetUpdateFrequency(60)
+
+		'Let the Particle manager know the screen size
+		MyParticleManager.SetScreenSize(Width, Height)
+
+		'Set the origin so that we can use mouse coords to place effects on screen
+		MyParticleManager.SetOrigin(Width / 2, Height / 2)
+
+		Local effects:=MyEffects.Effects
+
+		'Get the effect names in the library so we can loop through them
+		EffectNames = New String[effects.Count()]
+		Local i:int
+		For Local name:=Eachin effects.Keys
+			If Not name.Contains("/")
+				EffectNames[i] = name
+				i+=1
+			End If
+		Next
+		EffectNames = EffectNames.Slice(0, i-1)
+		Print EffectNames.Length
+	End
+
+	'Use the OnRender method to render all particles
+	Method OnRender(canvas:Canvas) Override
+		'lets create an effect everytime the mouse is clicked
+		If Keyboard.KeyHit(Key.Z)
+			CurrentEffect-=1
+			If CurrentEffect &lt; 0 CurrentEffect = EffectNames.Length-1
+		End If
+		If Keyboard.KeyHit(Key.X)
+			CurrentEffect+=1
+			If CurrentEffect &gt; EffectNames.Length-1 CurrentEffect = 0
+		End If
+		If stop
+			'DebugStop()
+			stop = False
+		End If
+		If Mouse.ButtonHit(MouseButton.Left)
+			'Copy the effect *Important! Dont just add an effect directly from the
+			'library, make a copy of it first*
+			Local tempeffect:tlEffect
+
+			MyEffect = MyEffects.GetEffect(EffectNames[CurrentEffect])
+			tempeffect = CopyEffect(MyEffect, MyParticleManager)
+
+			'Position the effect where we want it
+			tempeffect.SetPosition(Mouse.X, Mouse.Y)
+
+			'Add the effect to the particle manager
+			MyParticleManager.AddEffect(tempeffect)
+
+			stop = True
+		EndIf
+
+		If Keyboard.KeyHit(Key.P)
+			Paused = ~Paused
+		End If
+
+		If Keyboard.KeyHit(Key.Space)
+			MyParticleManager.ClearAll()
+		End If
+
+		Local updatetime:= Millisecs()
+		If Not Paused
+			'Update the particle manager
+			MyParticleManager.Update()
+		End If
+		updatetime = Millisecs() - updatetime
+
+		App.RequestRender()
+		canvas.Clear( New Color(0,0,0,1) )
+
+		'draw the particles
+		Local rendertime:= Millisecs()
+		MyParticleManager.DrawParticles(canvas)
+		rendertime = Millisecs() - rendertime
+
+		canvas.Color = New Color(1,1,1,1)
+		canvas.DrawText ("Press space to clear particles", 10, 10)
+		canvas.DrawText ("Current Effect (use z &amp; x to change): " + EffectNames[CurrentEffect], 10, 30)
+		canvas.DrawText ( App.FPS, 10, 50)
+
+	End
+End
+
+Function Main()
+
+	New AppInstance
+
+	New FXexample("Particle Manager", 1024, 768)
+
+	App.Run()
+
+End
+
+</code></pre>
+<p class="mx2docs">The particle manager maintains 2 lists of particles, an Inuse list for particles currently in the rendering pipeline and an UnUsed list for a pool of particles
+that can be used by emitters at any time. You can control the maximum number of particles a particle manager can use when you create it:
+<pre class="mx2docs"><code class="mx2docs">local MaximumParticles:int=2500
+local MyParticleManager:tlParticleManager=CreateParticleManager(MaximumParticles)
+</code></pre>
+<p class="mx2docs">When emitters need to spawn new particles they will try and grab the next available particle in the Unused list.
+<p class="mx2docs">The command SetScreenSize tells the particle manager the size of the viewport currently being rendered to. With this information it locates the center of the
+screen. This is important because the effects do not locate themselves using screen coordinates, they instead use an abritrary set of world coordinates. So if you
+place an effect at the coordinates 0,0 it will be drawn at the center of the screen. But don't worry, if you want to use screen coordinates to place your
+effects you can use the <a href="javascript:void('timelinefx:timelinefx-tlParticleManager-SetOrigin')" onclick="openDocsPage('timelinefx:timelinefx-tlParticleManager-SetOrigin')">SetOrigin</a> command to offset the world coordinates to screen space:
+<pre class="mx2docs"><code class="mx2docs">MyParticleManager.SetScreenSize(Width,Height
+MyParticleManager.SetOrigin(Width/2,Height/2)
+</code></pre>
+<p class="mx2docs">This will place the origin at the top-left of the viewport so effects placed at 0,0 now will be drawn in the top-left corner of the screen in the same way DrawImage
+would. If however your application uses it's own world coordinate system to postion entities then it should be easy to use #SetOrigin to syncronise the location of any
+effects with your app.
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Public Properties </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlParticleManager-CurrentTime')" onclick="openDocsPage('timelinefx:timelinefx-tlParticleManager-CurrentTime')">CurrentTime</a> </td>
+<td class="mx2docs" style="text-align:left">The current time in millisecs since the particle manager has been updated.. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlParticleManager-GlobalAmountScale')" onclick="openDocsPage('timelinefx:timelinefx-tlParticleManager-GlobalAmountScale')">GlobalAmountScale</a> </td>
+<td class="mx2docs" style="text-align:left">The Global amount scale is used to control the overal number of particles that will be spawned.. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlParticleManager-IdleTimeLimit')" onclick="openDocsPage('timelinefx:timelinefx-tlParticleManager-IdleTimeLimit')">IdleTimeLimit</a> </td>
+<td class="mx2docs" style="text-align:left">Set the idle time limit to control how long before an idle effect is removed from the particle manager's list of effects. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlParticleManager-Origin')" onclick="openDocsPage('timelinefx:timelinefx-tlParticleManager-Origin')">Origin</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set the origin of the particle manager </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlParticleManager-ParticlesInUse')" onclick="openDocsPage('timelinefx:timelinefx-tlParticleManager-ParticlesInUse')">ParticlesInUse</a> </td>
+<td class="mx2docs" style="text-align:left">Returns the number of particles currently in use by the particle manager.. </td>
+</tr>
+</table>
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Public Constructors </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlParticleManager-new')" onclick="openDocsPage('timelinefx:timelinefx-tlParticleManager-new')">New</a> </td>
+<td class="mx2docs" style="text-align:left">Constructor for tlParticleManager. </td>
+</tr>
+</table>
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Public Methods </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlParticleManager-AddEffect')" onclick="openDocsPage('timelinefx:timelinefx-tlParticleManager-AddEffect')">AddEffect</a> </td>
+<td class="mx2docs" style="text-align:left">Adds a new effect to the particle manager. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlParticleManager-ClearAll')" onclick="openDocsPage('timelinefx:timelinefx-tlParticleManager-ClearAll')">ClearAll</a> </td>
+<td class="mx2docs" style="text-align:left">Remove all effects and clear all particles in use. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlParticleManager-ClearInUse')" onclick="openDocsPage('timelinefx:timelinefx-tlParticleManager-ClearInUse')">ClearInUse</a> </td>
+<td class="mx2docs" style="text-align:left">Clear all particles in use. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlParticleManager-DisableSetColor')" onclick="openDocsPage('timelinefx:timelinefx-tlParticleManager-DisableSetColor')">DisableSetColor</a> </td>
+<td class="mx2docs" style="text-align:left">Disable the particles from rendering using set colour. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlParticleManager-DrawParticles')" onclick="openDocsPage('timelinefx:timelinefx-tlParticleManager-DrawParticles')">DrawParticles</a> </td>
+<td class="mx2docs" style="text-align:left">Draw all particles currently in use. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlParticleManager-EnableSetColor')" onclick="openDocsPage('timelinefx:timelinefx-tlParticleManager-EnableSetColor')">EnableSetColor</a> </td>
+<td class="mx2docs" style="text-align:left">Enable the use of set colour for rendering particles.. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlParticleManager-GetGlobalAmountScale')" onclick="openDocsPage('timelinefx:timelinefx-tlParticleManager-GetGlobalAmountScale')">GetGlobalAmountScale</a> </td>
+<td class="mx2docs" style="text-align:left">Get the globalamountscale value of the particle manager. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlParticleManager-RemoveEffect')" onclick="openDocsPage('timelinefx:timelinefx-tlParticleManager-RemoveEffect')">RemoveEffect</a> </td>
+<td class="mx2docs" style="text-align:left">Removes an effect from the particle manager. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlParticleManager-SetGlobalAmountScale')" onclick="openDocsPage('timelinefx:timelinefx-tlParticleManager-SetGlobalAmountScale')">SetGlobalAmountScale</a> </td>
+<td class="mx2docs" style="text-align:left">Set the globalamountscale value of the particle manager. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlParticleManager-SetIdleTimeLimit')" onclick="openDocsPage('timelinefx:timelinefx-tlParticleManager-SetIdleTimeLimit')">SetIdleTimeLimit</a> </td>
+<td class="mx2docs" style="text-align:left">Set the amount of time before idle effects are deleted from the particle manager. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlParticleManager-SetOrigin')" onclick="openDocsPage('timelinefx:timelinefx-tlParticleManager-SetOrigin')">SetOrigin</a> </td>
+<td class="mx2docs" style="text-align:left">Set the Origin of the particle Manager.. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlParticleManager-SetOrigin_X')" onclick="openDocsPage('timelinefx:timelinefx-tlParticleManager-SetOrigin_X')">SetOrigin_X</a> </td>
+<td class="mx2docs" style="text-align:left">Set the x origin. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlParticleManager-SetOrigin_Y')" onclick="openDocsPage('timelinefx:timelinefx-tlParticleManager-SetOrigin_Y')">SetOrigin_Y</a> </td>
+<td class="mx2docs" style="text-align:left">Set the y origin. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlParticleManager-SetScreenPosition')" onclick="openDocsPage('timelinefx:timelinefx-tlParticleManager-SetScreenPosition')">SetScreenPosition</a> </td>
+<td class="mx2docs" style="text-align:left">Set the current screen position. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlParticleManager-SetScreenSize')" onclick="openDocsPage('timelinefx:timelinefx-tlParticleManager-SetScreenSize')">SetScreenSize</a> </td>
+<td class="mx2docs" style="text-align:left">Set the current screen size. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlParticleManager-SetZoom')" onclick="openDocsPage('timelinefx:timelinefx-tlParticleManager-SetZoom')">SetZoom</a> </td>
+<td class="mx2docs" style="text-align:left">Set the level of zoom. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlParticleManager-Togglepause')" onclick="openDocsPage('timelinefx:timelinefx-tlParticleManager-Togglepause')">Togglepause</a> </td>
+<td class="mx2docs" style="text-align:left">Pause and unpause the particle manager. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlParticleManager-Update')" onclick="openDocsPage('timelinefx:timelinefx-tlParticleManager-Update')">Update</a> </td>
+<td class="mx2docs" style="text-align:left">Update the Particle Manager. </td>
+</tr>
+</table>
+
+<!-- END -->
+
+</body>
+
+</html>

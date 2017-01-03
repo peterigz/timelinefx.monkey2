@@ -1,0 +1,61 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.<a href="javascript:void('timelinefx:timelinefx-tlBox')" onclick="openDocsPage('timelinefx:timelinefx-tlBox')">tlBox</a>.SetVelocityVector</i>
+<h5 cls="mx2docs">
+Method SetVelocityVector:Void( vector:<a href="javascript:void('timelinefx:timelinefx-tlVector2')" onclick="openDocsPage('timelinefx:timelinefx-tlVector2')">tlVector2</a> )
+</h5>
+Set the velocity vector of the boundary
+It's important to set the velocity of the boundary so that collisions can be more accurately calculated. If you're attaching this
+to an entity in your game then you'll just need to match this to your entities velocity.
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Parameters </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>vector</code> </td>
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlVector2')" onclick="openDocsPage('timelinefx:timelinefx-tlVector2')">tlVector2</a> of the velocity </td>
+</tr>
+</table>
+
+<!-- END -->
+
+</body>
+
+</html>

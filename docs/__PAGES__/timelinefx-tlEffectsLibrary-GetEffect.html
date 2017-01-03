@@ -1,0 +1,57 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.<a href="javascript:void('timelinefx:timelinefx-tlEffectsLibrary')" onclick="openDocsPage('timelinefx:timelinefx-tlEffectsLibrary')">tlEffectsLibrary</a>.GetEffect</i>
+<h5 cls="mx2docs">
+Method GetEffect:<a href="javascript:void('timelinefx:timelinefx-tlEffect')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect')">tlEffect</a>( name:<a href="javascript:void('monkey:monkey-types-string')" onclick="openDocsPage('monkey:monkey-types-string')">String</a> )
+</h5>
+Retrieve an effect from the library
+Use this to get an effect from the library by passing the name of the effect you want. Example:
+<pre class="mx2docs"><code class="mx2docs">local explosion:tlEffect=MyEffectsLibrary.GetEffect("explosion")
+</code></pre>
+<p class="mx2docs">You should always use <a href="javascript:void('timelinefx:timelinefx-CopyEffect')" onclick="openDocsPage('timelinefx:timelinefx-CopyEffect')">timelinefx.CopyEffect</a> if you plan on adding the effect to a <a href="javascript:void('timelinefx:timelinefx-tlParticleManager')" onclick="openDocsPage('timelinefx:timelinefx-tlParticleManager')">tlParticleManager</a>
+<p class="mx2docs">All effects and emitters are stored using a directory like path structure so to get at sub effects you can do:
+<pre class="mx2docs"><code class="mx2docs">local explosion:tlEffect=MyEffectsLibrary.GetEffect("Effect/Emitter/Sub Effect/Another Emitter/A deeper sub effect")}
+</code></pre>
+<p class="mx2docs">Note that you should always use forward slashes.
+
+<!-- END -->
+
+</body>
+
+</html>

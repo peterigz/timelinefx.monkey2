@@ -1,0 +1,456 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.tlGameObject</i>
+<h5 cls="mx2docs">
+Class tlGameObject Virtual
+</h5>
+The base class for all particle objects, can also be used for general game entities
+This is the main type for storing entity information such as coordinates, colour and other information. This type is designed to be a base
+type that you can use to extend and create other classes, for example Player or Bullet.
+<p class="mx2docs">Entities can be parented to other entities and maintain and update a list of children. These children can be relative to their parents therefore
+minimising the work needed to calculate where entities should be drawn to the screen. If a parent rotates, then it's children will rotate with it and
+likewise, if the parent moves then its children will move with it as well. Children don't have to be relative however, set realative to false using <a href="javascript:void('timelinefx:timelinefx-tlGameObject-Relative')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-Relative')">Relative</a>
+to make the children move independantly, however they will still be updated by their parent
+<p class="mx2docs">If you have an entity with children, and those children in turn have children, in order to update all of those entities only one call to the parent
+<a href="javascript:void('timelinefx:timelinefx-tlGameObject-Update')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-Update')">Update</a> method is required to see all of the children updated too. This also applies to rendering the entities on screen - by calling <a href="javascript:void('timelinefx:timelinefx-tlGameObject-Render')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-Render')">Render</a> on the parent entityall children entities will also be rendered. See the code below for an example
+<p class="mx2docs">Entities draw to the screen using <a href="javascript:void('timelinefx:timelinefx-tlShape')" onclick="openDocsPage('timelinefx:timelinefx-tlShape')">tlShape</a>, a class that allows you to easily draw single or animated images. To set the image use <a href="javascript:void('timelinefx:timelinefx-tlGameObject-Image')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-Image')">Image</a>
+and <a href="javascript:void('timelinefx:timelinefx-LoadShape')" onclick="openDocsPage('timelinefx:timelinefx-LoadShape')">LoadShape</a>. You can adjust the appearence of the entity such as colour and scale using commands such as <a href="javascript:void('timelinefx:timelinefx-tlGameObject-Red')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-Red')">Red</a>, <a href="javascript:void('timelinefx:timelinefx-tlGameObject-Green')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-Green')">Green</a>, <a href="javascript:void('timelinefx:timelinefx-tlGameObject-Blue')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-Blue')">Blue</a>, <a href="javascript:void('timelinefx:timelinefx-tlGameObject-Alpha')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-Alpha')">Alpha</a>,
+<a href="javascript:void('timelinefx:timelinefx-tlGameObject-SetScale')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-SetScale')">SetScale</a> and <a href="javascript:void('timelinefx:timelinefx-tlGameObject-Angle')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-Angle')">Angle</a>.<p class="mx2docs">When entities are rendered they can be tweened so that their animation and movement on the screen is smoothed out using fixed rate timing. You pass the tween value when you call <a href="javascript:void('timelinefx:timelinefx-tlGameObject-Render')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-Render')">Render</a> but it's
+only optional.
+<p class="mx2docs">tlGameObject os component based, meaning it uses <a href="javascript:void('timelinefx:timelinefx-tlComponent')" onclick="openDocsPage('timelinefx:timelinefx-tlComponent')">tlComponent</a>s to add functionality. <a href="javascript:void('timelinefx:timelinefx-tlComponent')" onclick="openDocsPage('timelinefx:timelinefx-tlComponent')">tlComponent</a> is an abstract class you can extend and override the update method to add whatever functionality you
+need to the object, be it a control system or movement. You can create as many components as you need for an object and they can be re-used as much as you need. See <a href="javascript:void('timelinefx:timelinefx-tlComponent')" onclick="openDocsPage('timelinefx:timelinefx-tlComponent')">tlComponent</a> for more info.
+<pre class="mx2docs"><code class="mx2docs">Namespace myapp
+
+
+Using std..
+Using mojo..
+Using timelinefx..
+
+Class MyWindow Extends Window
+
+	Field GameObject:tlGameObject
+	Field ChildObject:tlGameObject
+
+	Method New( title:String="tlGameObject example",width:Int=640,height:Int=480,flags:WindowFlags=Null )
+
+		Super.New( title,width,height,flags )
+
+		'Create a couple of new game objects
+		GameObject = New tlGameObject
+		ChildObject = New tlGameObject
+
+		'Assign images using LoadShape
+		GameObject.Image = LoadShape("asset::smoke.png")
+		ChildObject.Image = LoadShape("asset::smoke.png")
+
+		'Position the child object. This will be relative to the parent object.
+		ChildObject.SetPosition(0, 200)
+		'Scale it down a bit
+		ChildObject.SetScale(0.5)
+
+		'Add the child object to the parent object
+		GameObject.AddChild(ChildObject)
+		'Set the parent position
+		GameObject.SetPosition(width/2, height/2)
+		'Update the gameobject to make sure everything is initialised in the correct positions
+		GameObject.Update()
+	End
+
+	Method OnRender( canvas:Canvas ) Override
+
+		App.RequestRender()
+
+		canvas.Clear( New Color(0,0,0,1) )
+
+		'Rotate the parent object to show that the child stays relative
+		GameObject.Rotate(0.05)
+		'Update the game object
+		GameObject.Update()
+		'Render the game object
+		GameObject.Render(canvas)
+	End
+
+End
+
+Function Main()
+
+	New AppInstance
+
+	New MyWindow
+
+	App.Run()
+End
+
+</code></pre>
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Public Properties </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-Alpha')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-Alpha')">Alpha</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set the Alpha value of the object. Alpha is the opacity of the object when rendered </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-Angle')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-Angle')">Angle</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set the local rotation of the object. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-Animating')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-Animating')">Animating</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set whether the object is animating or not. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-AutoCenter')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-AutoCenter')">AutoCenter</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set the whether the objects handle is set to auto center </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-BlendMode')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-BlendMode')">BlendMode</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set the Blendmode of the object for rendering </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-Blue')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-Blue')">Blue</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set the Blue value of the object </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-ChildCount')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-ChildCount')">ChildCount</a> </td>
+<td class="mx2docs" style="text-align:left">Get the number of children in the object. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-CollisionBox')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-CollisionBox')">CollisionBox</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set the collisionbox of the object. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-Components')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-Components')">Components</a> </td>
+<td class="mx2docs" style="text-align:left">Get the components of the object. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-ContainingBox')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-ContainingBox')">ContainingBox</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set the containingbox of the object. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-CurrentFrame')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-CurrentFrame')">CurrentFrame</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set current animation frame of the object </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-Destroyed')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-Destroyed')">Destroyed</a> </td>
+<td class="mx2docs" style="text-align:left">Get or set the destroyed flag </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-DoNotRender')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-DoNotRender')">DoNotRender</a> </td>
+<td class="mx2docs" style="text-align:left">Set this to true if you don't want the object to be rendered. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-FrameRate')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-FrameRate')">FrameRate</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set the framerate of the image. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-Frames')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-Frames')">Frames</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set the number of animation frames. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-Green')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-Green')">Green</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set the Green value of the object </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-HandleVector')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-HandleVector')">HandleVector</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set the handle of the object. Handle is the origin of the object. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-Image')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-Image')">Image</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set the <a href="javascript:void('timelinefx:timelinefx-tlShape')" onclick="openDocsPage('timelinefx:timelinefx-tlShape')">tlShape</a> of the object. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-ImageBox')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-ImageBox')">ImageBox</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set the imagebox of the object. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-IsDestroyed')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-IsDestroyed')">IsDestroyed</a> </td>
+<td class="mx2docs" style="text-align:left">Has Destory been called on the gameobject? </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-IsStatic')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-IsStatic')">IsStatic</a> </td>
+<td class="mx2docs" style="text-align:left">Is the object a static object? See <a href="javascript:void('timelinefx:timelinefx-tlGameObject-SetStatic')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-SetStatic')">SetStatic</a> </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-ListenLayers')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-ListenLayers')">ListenLayers</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set the listen layers of the object. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-LocalRotation')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-LocalRotation')">LocalRotation</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set the local rotation of the object. See <a href="javascript:void('timelinefx:timelinefx-tlGameObject-Angle')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-Angle')">Angle</a> </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-LocalVector')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-LocalVector')">LocalVector</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set the local vector of the object </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-Name')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-Name')">Name</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set the name of the object </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-Parent')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-Parent')">Parent</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set the parent of the object. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-Red')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-Red')">Red</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set the Red value of the object </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-Relative')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-Relative')">Relative</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set whether the object is relative to it's parent. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-Removed')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-Removed')">Removed</a> </td>
+<td class="mx2docs" style="text-align:left">This flag tells you if the child has been removed from the parent's child list. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-RenderCollisionBox')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-RenderCollisionBox')">RenderCollisionBox</a> </td>
+<td class="mx2docs" style="text-align:left">Set to true to render the collision box of the object for debugging and testing purposes </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-RootParent')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-RootParent')">RootParent</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set the root parent at the top of the hierarchy </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-ScaleVector')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-ScaleVector')">ScaleVector</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set the scale vector of the object reltive to the parent </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-UpdateContainerBox')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-UpdateContainerBox')">UpdateContainerBox</a> </td>
+<td class="mx2docs" style="text-align:left">Set to true if you don't want the container box to be updated. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-UpdateTime')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-UpdateTime')">UpdateTime</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set the the updatetime of the object. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-WorldRotation')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-WorldRotation')">WorldRotation</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set the world rotation of the object. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-WorldScaleVector')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-WorldScaleVector')">WorldScaleVector</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set the scale vector of the object reltive to the world </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-WorldVector')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-WorldVector')">WorldVector</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set the World Vector of the object. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-Zoom')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-Zoom')">Zoom</a> </td>
+<td class="mx2docs" style="text-align:left">Get/Set the Zoom level of the object. This helps with features where you can zoom in and out of the game world </td>
+</tr>
+</table>
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Public Constructors </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-new')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-new')">New</a> </td>
+<td class="mx2docs" style="text-align:left">New construct for creating a <a href="javascript:void('timelinefx:timelinefx-tlGameObject')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject')">tlGameObject</a> and setting defaults </td>
+</tr>
+</table>
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Public Methods </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-AddChild')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-AddChild')">AddChild</a> </td>
+<td class="mx2docs" style="text-align:left">Add a child object to this object. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-AddComponent')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-AddComponent')">AddComponent</a> </td>
+<td class="mx2docs" style="text-align:left">Add a <a href="javascript:void('timelinefx:timelinefx-tlComponent')" onclick="openDocsPage('timelinefx:timelinefx-tlComponent')">tlComponent</a> to the object </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-AttachChild')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-AttachChild')">AttachChild</a> </td>
+<td class="mx2docs" style="text-align:left">Add a child object to this object but don't make it relative. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-Capture')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-Capture')">Capture</a> </td>
+<td class="mx2docs" style="text-align:left">Capture the transformation values of the object </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-CaptureAll')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-CaptureAll')">CaptureAll</a> </td>
+<td class="mx2docs" style="text-align:left">Capture all including children </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-ClearChildren')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-ClearChildren')">ClearChildren</a> </td>
+<td class="mx2docs" style="text-align:left">Remove all children from this object </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-Destroy')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-Destroy')">Destroy</a> </td>
+<td class="mx2docs" style="text-align:left">Destroy the object. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-Detatch')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-Detatch')">Detatch</a> </td>
+<td class="mx2docs" style="text-align:left">Detatch a child object to this object. Same as <a href="javascript:void('timelinefx:timelinefx-tlGameObject-RemoveChild')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-RemoveChild')">RemoveChild</a> </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-GetChildCount')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-GetChildCount')">GetChildCount</a> </td>
+<td class="mx2docs" style="text-align:left">Get the number of children in this object </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-GetChildren')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-GetChildren')">GetChildren</a> </td>
+<td class="mx2docs" style="text-align:left">Get the <a href="javascript:void('std:std-collections-Stack')" onclick="openDocsPage('std:std-collections-Stack')">Stack</a> of children for this object. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-GetComponent')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-GetComponent')">GetComponent</a> </td>
+<td class="mx2docs" style="text-align:left">Get a <a href="javascript:void('timelinefx:timelinefx-tlComponent')" onclick="openDocsPage('timelinefx:timelinefx-tlComponent')">tlComponent</a> from the object </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-GetWorldX')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-GetWorldX')">GetWorldX</a> </td>
+<td class="mx2docs" style="text-align:left">Get the world x coordinate of the object </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-GetWorldY')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-GetWorldY')">GetWorldY</a> </td>
+<td class="mx2docs" style="text-align:left">Get the world y coordinate of the object </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-KillChildren')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-KillChildren')">KillChildren</a> </td>
+<td class="mx2docs" style="text-align:left">Set all children to "dead" so they are marked for removal. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-ListenOnTheseLayers')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-ListenOnTheseLayers')">ListenOnTheseLayers</a> </td>
+<td class="mx2docs" style="text-align:left">Set the layers you want this object to listen for collisions on </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-Move')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-Move')">Move</a> </td>
+<td class="mx2docs" style="text-align:left">move the object relative to it's current position </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-MoveVector')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-MoveVector')">MoveVector</a> </td>
+<td class="mx2docs" style="text-align:left">move the object relative to it's current position using a <a href="javascript:void('timelinefx:timelinefx-tlVector2')" onclick="openDocsPage('timelinefx:timelinefx-tlVector2')">tlVector2</a> </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-RemoveChild')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-RemoveChild')">RemoveChild</a> </td>
+<td class="mx2docs" style="text-align:left">Remove a child object from this object. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-Render')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-Render')">Render</a> </td>
+<td class="mx2docs" style="text-align:left">Render the entity </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-Rotate')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-Rotate')">Rotate</a> </td>
+<td class="mx2docs" style="text-align:left">Rotate the object relative to it's current rotation </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-SetCollisionBox')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-SetCollisionBox')">SetCollisionBox</a> </td>
+<td class="mx2docs" style="text-align:left">Set the dimensions of the objects collision box </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-SetCollisionBoxtoImage')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-SetCollisionBoxtoImage')">SetCollisionBoxtoImage</a> </td>
+<td class="mx2docs" style="text-align:left">Set the collision box of the object to the imagebox </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-SetCollisionCircle')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-SetCollisionCircle')">SetCollisionCircle</a> </td>
+<td class="mx2docs" style="text-align:left">Set the dimensions of the objects collision circle </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-SetCollisionHandler')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-SetCollisionHandler')">SetCollisionHandler</a> </td>
+<td class="mx2docs" style="text-align:left">The the function callback used for processing collisions on the <a href="javascript:void('timelinefx:timelinefx-tlQuadTree')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree')">tlQuadTree</a> </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-SetCollisionPoly')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-SetCollisionPoly')">SetCollisionPoly</a> </td>
+<td class="mx2docs" style="text-align:left">Set the dimensions of the objects collisionbox </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-SetCurrentFrame')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-SetCurrentFrame')">SetCurrentFrame</a> </td>
+<td class="mx2docs" style="text-align:left">Set the current frame on the game object image </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-SetHandle')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-SetHandle')">SetHandle</a> </td>
+<td class="mx2docs" style="text-align:left">Set the handle of the object. See <a href="javascript:void('timelinefx:timelinefx-tlGameObject-HandleVector')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-HandleVector')">HandleVector</a> </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-SetImage')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-SetImage')">SetImage</a> </td>
+<td class="mx2docs" style="text-align:left">Set the image of the object. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-SetImageLayer')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-SetImageLayer')">SetImageLayer</a> </td>
+<td class="mx2docs" style="text-align:left">Set the layer that the object's image box resides on. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-SetPosition')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-SetPosition')">SetPosition</a> </td>
+<td class="mx2docs" style="text-align:left">Set the position of the object </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-SetPositionVector')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-SetPositionVector')">SetPositionVector</a> </td>
+<td class="mx2docs" style="text-align:left">Set the position of the object using a <a href="javascript:void('timelinefx:timelinefx-tlVector2')" onclick="openDocsPage('timelinefx:timelinefx-tlVector2')">tlVector2</a> </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-SetScale')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-SetScale')">SetScale</a> </td>
+<td class="mx2docs" style="text-align:left">Set the scale of the object </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-SetStatic')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-SetStatic')">SetStatic</a> </td>
+<td class="mx2docs" style="text-align:left"></td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-SetStaticPosition')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-SetStaticPosition')">SetStaticPosition</a> </td>
+<td class="mx2docs" style="text-align:left">Set the position of the #tlGameObject for static objects </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-SyncWithCollisionBox')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-SyncWithCollisionBox')">SyncWithCollisionBox</a> </td>
+<td class="mx2docs" style="text-align:left">Use the collisionbox to prevent an overlap with another object. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-TieToVector')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-TieToVector')">TieToVector</a> </td>
+<td class="mx2docs" style="text-align:left">Tie the object to a vector so that whatever the position of the vector, will be the position of the object. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-UnTie')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-UnTie')">UnTie</a> </td>
+<td class="mx2docs" style="text-align:left">Untie the object from the vector that it's tied to. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-Update')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-Update')">Update</a> </td>
+<td class="mx2docs" style="text-align:left">Update the object </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject-UpdateStaticCollisionBox')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject-UpdateStaticCollisionBox')">UpdateStaticCollisionBox</a> </td>
+<td class="mx2docs" style="text-align:left"></td>
+</tr>
+</table>
+
+<!-- END -->
+
+</body>
+
+</html>

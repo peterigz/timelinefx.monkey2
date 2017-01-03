@@ -1,0 +1,87 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.CreatePolygon</i>
+<h5 cls="mx2docs">
+Function CreatePolygon:<a href="javascript:void('timelinefx:timelinefx-tlPolygon')" onclick="openDocsPage('timelinefx:timelinefx-tlPolygon')">tlPolygon</a>( x:<a href="javascript:void('monkey:monkey-types-float')" onclick="openDocsPage('monkey:monkey-types-float')">Float</a>, y:<a href="javascript:void('monkey:monkey-types-float')" onclick="openDocsPage('monkey:monkey-types-float')">Float</a>, verts:<a href="javascript:void('monkey:monkey-types-float')" onclick="openDocsPage('monkey:monkey-types-float')">Float</a>[], layer:<a href="javascript:void('monkey:monkey-types-int')" onclick="openDocsPage('monkey:monkey-types-int')">Int</a>=0, data:<a href="javascript:void('monkey:monkey-types-object')" onclick="openDocsPage('monkey:monkey-types-object')">@object</a>=Null )
+</h5>
+Create a <a href="javascript:void('timelinefx:timelinefx-tlPolygon')" onclick="openDocsPage('timelinefx:timelinefx-tlPolygon')">tlPolygon</a>
+Returns New <a href="javascript:void('timelinefx:timelinefx-tlPolygon')" onclick="openDocsPage('timelinefx:timelinefx-tlPolygon')">tlPolygon</a>, or Null if verts[] contained the wrong amount.
+Create a new <a href="javascript:void('timelinefx:timelinefx-tlPolygon')" onclick="openDocsPage('timelinefx:timelinefx-tlPolygon')">tlPolygon</a> at the given coordinates with the given array of vertices. The coordinates will represent the center of the polygon which is
+automatically calculated. The array must contain more then 5 values (2 per vertex) and be an even number or null will be returned. The coordinates of
+the vertices in the array are arranged like so: [x,y,x,y,x,y .. etc]. Use layer to specify a particular layer
+to place the box on so that you can more easily organise your collisions. You use 0, 1, 2..and so on up to 31
+to place the boundary on all layers.
+<p class="mx2docs">   | <code>Note:</code> |
+   |:-----------|
+   | Polygon must be convex (no internal angles &gt; 180deg)
+<p class="mx2docs">   @example
+   	Local box:=CreatePolygon(100, 100, new Float[](- 10.0, -10.0, -15.0, 0.0, -10.0, 10.0, 10.0, 10.0, 15.0, 0.0, 10.0, -10.0), 0)
+   @end
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Parameters </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>x</code> </td>
+<td class="mx2docs" style="text-align:left">Top left y coordinate </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>y</code> </td>
+<td class="mx2docs" style="text-align:left">Top Left x coordinate </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>verts</code> </td>
+<td class="mx2docs" style="text-align:left">Array of vertices that descibe the Polygon </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>layer</code> </td>
+<td class="mx2docs" style="text-align:left">The layer that the box is on, used for quadtrees </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>data</code> </td>
+<td class="mx2docs" style="text-align:left">any Object associated with the box </td>
+</tr>
+</table>
+
+<!-- END -->
+
+</body>
+
+</html>

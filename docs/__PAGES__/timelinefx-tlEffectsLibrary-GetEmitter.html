@@ -1,0 +1,55 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.<a href="javascript:void('timelinefx:timelinefx-tlEffectsLibrary')" onclick="openDocsPage('timelinefx:timelinefx-tlEffectsLibrary')">tlEffectsLibrary</a>.GetEmitter</i>
+<h5 cls="mx2docs">
+Method GetEmitter:<a href="javascript:void('timelinefx:timelinefx-tlEmitter')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter')">tlEmitter</a>( name:<a href="javascript:void('monkey:monkey-types-string')" onclick="openDocsPage('monkey:monkey-types-string')">String</a> )
+</h5>
+Retrieve an emitter from the library
+Use this To get an emitter from the library by passing the name of the emitter you want. All effects And emitters are
+stored using a map with a directory like path structure. So retrieving an emitter called blast wave inside an effect called explosion
+would be done like so:
+<pre class="mx2docs"><code class="mx2docs">local blastwave:tlemitter=MyEffectsLibrary.GetEmitter("explosion/blast wave")
+</code></pre>
+<p class="mx2docs">Note that you should always use forward slashes.
+
+<!-- END -->
+
+</body>
+
+</html>

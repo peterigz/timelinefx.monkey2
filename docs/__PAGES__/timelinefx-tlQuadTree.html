@@ -1,0 +1,321 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.tlQuadTree</i>
+<h5 cls="mx2docs">
+Class tlQuadTree
+</h5>
+Quadtree type for managing a quadtree
+Rather then go on about what a quadtree is, here's some useful resources I used myself to find out about them:
+http://en.wikipedia.org/wiki/Quadtree, http://www.kyleschouviller.com/wsuxna/quadtree-source-included/ and http://www.heroicvirtuecreations.com/QuadTree.html
+<p class="mx2docs">Quadtrees vary with each implementation based on the users needs. I've tried to be flexible here with a emphasis on handling objects that will
+move about a lot. If an object moves within a quadtree then it will generally have to be re-added to the quadtree, so I've implemented that possibility here.
+Thankfully there's no need to rebuild the quadtree every time an object moves, the object just removes and adds itself back to the tree, and it will only do it if
+it's moved outside of its containing <a href="javascript:void('timelinefx:timelinefx-tlQuadTreeNode')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTreeNode')">tlQuadTreeNode</a>.
+<p class="mx2docs">When I say object, I mean a <a href="javascript:void('timelinefx:timelinefx-tlBox')" onclick="openDocsPage('timelinefx:timelinefx-tlBox')">tlBox</a>, which is a simple axis aligned bounding box type that can be added to the quadtree, the more complex <a href="javascript:void('timelinefx:timelinefx-tlCircle')" onclick="openDocsPage('timelinefx:timelinefx-tlCircle')">tlCircle</a>, <a href="javascript:void('timelinefx:timelinefx-tlLine')" onclick="openDocsPage('timelinefx:timelinefx-tlLine')">tlLine</a> and
+<a href="javascript:void('timelinefx:timelinefx-tlPolygon')" onclick="openDocsPage('timelinefx:timelinefx-tlPolygon')">tlPolygon</a> which extend <a href="javascript:void('timelinefx:timelinefx-tlBox')" onclick="openDocsPage('timelinefx:timelinefx-tlBox')">tlBox</a> can also be added, but the quadtree will only concern itself with bounding boxes when a query is made on thequadtree.
+<p class="mx2docs">Using the quadtree is simple enough, create a new quadtree with whatever dimensions you want and then use <a href="javascript:void('timelinefx:timelinefx-tlQuadTree-AddBox')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree-AddBox')">tlQuadTree.AddBox</a> to add bounding boxes to it. In
+your main loop you might want to put RunQuadtreeMaintenance which tidies up the quadtree by finding empty partitions and deleting them. Of course
+the whole point of a quadtree is to find out which objects are within a particular area so that you can do collision checking, rendering, updating or whatever. To do that,
+you can query the quadtree by simply calling either <a href="javascript:void('timelinefx:timelinefx-tlQuadTree-ForEachObjectInArea')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree-ForEachObjectInArea')">tlQuadTree.ForEachObjectInArea</a> or <a href="javascript:void('timelinefx:timelinefx-tlQuadTree-ForEachObjectInBox')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree-ForEachObjectInBox')">tlQuadTree.ForEachObjectInBox</a> which will run a callback function of your choice to perform your
+specific tasks on them. There's also queries available to check for objects within a radius by using, tlQuadTree.ForEachObjectInRange and <a href="javascript:void('timelinefx:timelinefx-tlQuadTree-ForEachObjectInCircle')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree-ForEachObjectInCircle')">tlQuadTree.ForEachObjectInCircle</a>, and also
+for lines and rays using <a href="javascript:void('timelinefx:timelinefx-tlQuadTree-ForEachObjectAlongLine')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree-ForEachObjectAlongLine')">tlQuadTree.ForEachObjectAlongLine</a> and <a href="javascript:void('timelinefx:timelinefx-tlQuadTree-RayCast')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree-RayCast')">tlQuadTree.RayCast</a>.
+<p class="mx2docs">Implementing this quadtree within your game will probably involve including <a href="javascript:void('timelinefx:timelinefx-tlBox')" onclick="openDocsPage('timelinefx:timelinefx-tlBox')">tlBox</a>, <a href="javascript:void('timelinefx:timelinefx-tlCircle')" onclick="openDocsPage('timelinefx:timelinefx-tlCircle')">tlCircle</a>, <a href="javascript:void('timelinefx:timelinefx-tlLine')" onclick="openDocsPage('timelinefx:timelinefx-tlLine')">tlLine</a> or <a href="javascript:void('timelinefx:timelinefx-tlPolygon')" onclick="openDocsPage('timelinefx:timelinefx-tlPolygon')">tlPolygon</a> as a field within your entity/actor etc types.
+When your actors move about, just make sure you update the position of the Box as well using <a href="javascript:void('timelinefx:timelinefx-tlBox-Position')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-Position')">tlBox.Position</a> or <a href="javascript:void('timelinefx:timelinefx-tlBox-Move')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-Move')">tlBox.Move</a>. When this happens all the necessary updating
+of the quadtree will happen automatically behind the scenes. Be aware that if an object moves outside of the quadtree bounds it will drop out of the quadtree.
+<p class="mx2docs">The object is added to each node it overlaps. No object will ever be added to a node that has children, they will be moved down the quadtree to the bottom level of that branch.
+<p class="mx2docs">tlBoxs are aware if they have already been found and a callback has been made within the same search, so a callback will never be made twice on
+the same search query.
+<p class="mx2docs">No, onced a node is partioned and objects moved down, they're there to stay, however if you RunQuadtreeMaintenance then empty nodes will be unpartitioned. I
+didn't think it was worth the overhead to worry about moving objects back up the tree again.
+<p class="mx2docs">The quadtree will just concern itself with doing callbacks on objects it finds with rect-&gt;rect collision in the case of <i>QueryQuadtreeArea</i>, and circle-&gt;rect
+collision in the case of tlQuadTree.ForEachObjectInRange. Once you've found those objects you can then go on and do more complex collision checking such as poly-&gt;poly. If
+however you only need to check for rect-&gt;rect then you can assume a hit straight away as the quadtree will only callback actual hits, potential hits are
+already excluded automatically if their bounding box is outside the area being queried.
+<p class="mx2docs">A potential hit would be an object in the same quadtree node that the area check overlaps. So if the area you're checking a collision for overlaps
+2 quadnodes, all the objects in those 2 nodes would be considered potential hits. I decided that I may aswell cull any of those bounding boxes that
+don't overlap the area being checked before doing the callback so that the amount of potential hits is reduced further, and to save wasting the time doing it in the callback function.
+This applies to both <a href="javascript:void('timelinefx:timelinefx-tlQuadTree-ForEachObjectInArea')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree-ForEachObjectInArea')">tlQuadTree.ForEachObjectInArea</a> and tlQuadTree.ForEachObjectInRange functions, but as mentioned before, it will only cull according to bounding boxes, you'll have
+to do a further check in your callback to manage the more complex poly-&gt;poly, poly-&gt;rect etc., collisions.
+<p class="mx2docs">When you run a QueryQuadtreeArea (of any type) you can pass an object that will be passed through to the callback function. So the call back function
+you create should look like: <code>Function MyCallBackFunction(ObjectFoundInQuadtree:Object, MyData:object)</code> So your data could be anything such as a bullet
+or pLayer ship etc., and assuming that object has a tlBox field you can do further collision checks between the 2. If you don't need to pass any
+data then just leave it null.
+<p class="mx2docs">Boxes have a field called collisiontype which you can find out using the property <a href="javascript:void('timelinefx:timelinefx-tlBox-CollisionType')" onclick="openDocsPage('timelinefx:timelinefx-tlBox-CollisionType')">timelinefx.tlBox.CollisionType</a>. This will return either <a href="javascript:void('timelinefx:timelinefx-tlBOX_COLLISION')" onclick="openDocsPage('timelinefx:timelinefx-tlBOX_COLLISION')">tlBOX_COLLISION</a>,
+<a href="javascript:void('timelinefx:timelinefx-tlCIRCLE_COLLISION')" onclick="openDocsPage('timelinefx:timelinefx-tlCIRCLE_COLLISION')">tlCIRCLE_COLLISION</a>, <a href="javascript:void('timelinefx:timelinefx-tlPOLY_COLLISION')" onclick="openDocsPage('timelinefx:timelinefx-tlPOLY_COLLISION')">tlPOLY_COLLISION</a> or <a href="javascript:void('timelinefx:timelinefx-tlLINE_COLLISION')" onclick="openDocsPage('timelinefx:timelinefx-tlLINE_COLLISION')">tlLINE_COLLISION</a>. The chances are though, that you won't need to know the type, as a call to <a href="javascript:void('timelinefx:timelinefx-CheckCollision')" onclick="openDocsPage('timelinefx:timelinefx-CheckCollision')">CheckCollision</a>will automatically determine the type and perform the appropriate collision check.
+<p class="mx2docs">Yes you can create as many quadtrees as you want, however, bear in mind that a <a href="javascript:void('timelinefx:timelinefx-tlBox')" onclick="openDocsPage('timelinefx:timelinefx-tlBox')">tlBox</a> can only ever exist in 1 quadtree at a time. In most cases, with
+the use of Layers, 1 quadtree will probably be enough.
+<p class="mx2docs">You can put boxes onto different Layers of the quadtree to help organise your collisions and optimise too. Each Layer has it's own separate quadtree
+which can be defined according to how you need it to be optimised. See <a href="javascript:void('timelinefx:timelinefx-tlQuadTree-SetLayerConfig')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree-SetLayerConfig')">SetLayerConfig</a>. So you could put a load of enemy objects onto one Layer
+and the pLayer objects onto another. This will speed things up when an enemy might have to query the quadtree to see if the pLayer is nearby because
+the Layer that the pLayer is on won't be so cluttered with other objects. If you need to check for collisions between many objects vs many other objects,
+then you should try to put those objects onto the same Layer. This way when each object checks for a collision with an object on the same Layer it
+can skip having to query the quadtree, because each tlbox already knows what quadtree nodes it exists in, so it can check against other objects in the same
+node straight away without having to drill down into the quadtree each time.
+<pre class="mx2docs"><code class="mx2docs">
+'Import the TimelineFX Module
+
+'We need the following namespaces
+Using std..
+Using mojo..
+Using timelinefx..
+
+Class Game Extends Window
+
+	'Field to store the quadtree
+	Field QTree:tlQuadTree
+
+	'field for our box that will used to query the quad tree
+	Field player:tlBox
+
+	'A Field to store the canvas
+	Field currentCanvas:Canvas
+
+	Method New()
+		'create the quadtree and make it the same size as the window. Here we're making it so that the maximum number of times it can
+		'be subdivided is 5, and it will sub divide a when 10 objects are added to a quad. These numbers you can change To tweak performance
+		'It will vary depending on how you use the quadtree
+		QTree = New tlQuadTree(0, 0, Width, Height, 5, 10)
+
+		'Populate the quadtree with a bunch of objects
+		For Local c:Int = 1 To 1000
+			Local t:Int = Rnd(3)
+			Local rect:tlBox
+			Local x:Float = Rnd() * Width
+			Local y:Float = Rnd() * Height
+			Select t
+				Case 0
+					'Create a Basic bounding box boundary
+					rect = New tlBox(x, y, 10, 10, 0)
+				Case 1
+					'Create a circle Boundary
+					rect = New tlCircle(x, y, 5, 0)
+				Case 2
+					'Create a polygon boundary
+					Local verts:= New Float[](- 10.0, -10.0, -15.0, 0.0, -10.0, 10.0, 10.0, 10.0, 15.0, 0.0, 10.0, -10.0)
+					rect = New tlPolygon(x, y, verts, 0)
+			End Select
+			'Add the boundary to the quadtree
+			QTree.AddBox(rect)
+		Next
+
+		player = New tlBox(0, 0, 50, 50)
+	End
+
+	Method OnRender( canvas:Canvas ) Override
+
+		currentCanvas = canvas
+
+		App.RequestRender()
+
+		canvas.Clear( New Color(0,0,0,1) )
+
+		canvas.BlendMode = BlendMode.Alpha
+
+		'position the player box
+		player.Position(Mouse.X, Mouse.Y)
+		Local time:=App.Millisecs
+		'when space is pressed, draw everything on the screen. We do this by calling "ForEachObjectInArea", and define the area as the screen size. We also
+		'pass the DrawScreen interface which will be called by the quadtree if it finds something in the are. We also pass the layers that we want to check.
+		If Keyboard.KeyDown(Key.Space) QTree.ForEachObjectInArea(0, 0, Width, Height, Self, DrawScreenCallBack, New Int[](0, 1, 2))
+
+		'Check for objects within a box using "ForEachObjectWithinBox", passing our player box. We also pass the player as "Data" which is forwarded on to the
+		'DrawBoxAction so we can use it to find out if it is actually colliding with anything. We pass the DrawBoxAction interface
+		'we created which will be called when the qaudtree finds something within the bounding box of the object. We also pass the layers that we want to check.
+		QTree.ForEachObjectInBox(player, self, DrawBoxCallBack, New Int[](0, 1, 2))
+
+		'Draw the player box
+		player.Draw(canvas)
+		time = App.Millisecs - time
+
+		canvas.DrawText(time, 10, 10)
+
+	End
+
+End
+
+'These are our call back fuctions where we can decide what to do with each object found in the quadtree query.
+'The parameters will contain the object found and any data that you pass through to the query.
+Function DrawBoxCallBack:Void(foundobject:Object, data:Object)
+	'Use casting to create a local rect of whatever boundary object the quad tree has found.
+	'This could be either a tlBoundary, tlBoundaryCircle, tlBoundaryLine or tlBoundaryPoly
+	Local rect:tlBox = Cast&lt;tlBox&gt;(foundobject)
+	'We used the data variable to pass the Game object. This could be
+	'any object, such as a game entity, which could have a field containing a tlBoundary representing
+	'its bounding box/poly etc.
+	Local thegame:= Cast&lt;Game&gt;(data)
+	'Do a collision check and store the result
+	Local collisionresult:tlCollisionResult = CheckCollision(thegame.player, rect)
+	'If there is a collision
+	If collisionresult.Intersecting = True
+		'if we can check for the type of collision like this, you can have either tlPOLY_COLLISION, tlBOX_COLLISION, tlLINE_COLLISION,tlCIRCLE_COLLISION
+		If rect.CollisionType = tlPOLY_COLLISION
+			'For any polygon collisions rotate the polygon
+			Cast&lt;tlPolygon&gt;(rect).RotateDegrees(1)
+
+			'because the polygon has move it needs to be updated within the quadtree.
+			Cast&lt;tlPolygon&gt;(rect).UpdateWithinQuadtree()
+		End If
+
+		'Draw the object that collided with the player box in a different colour
+		thegame.currentCanvas.Color = New Color(0, 1, 0)
+		rect.Draw(thegame.currentCanvas)
+	End If
+End
+
+Function DrawScreenCallBack:Void(o:Object, data:Object)
+	'Use casting to create a local rect of whatever boundary object the quad tree has found.
+	'This could be either a tlBoundary, tlBoundaryCircle, tlBoundaryLine or tlBoundaryPoly
+	'Note that the Box object has a Data field that you could use to store another object, say your game entity.
+	Local rect:tlBox = Cast&lt;tlBox&gt;(o)
+	Local thegame:=Cast&lt;Game&gt;(data)
+	thegame.currentCanvas.Color = New Color(0.5, 0.5, 0.5)
+
+	'Draw the box that was found
+	rect.Draw(thegame.currentCanvas)
+End
+
+Function Main()
+
+	New AppInstance
+
+	New Game
+
+	App.Run()
+
+End
+
+</code></pre>
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Public Constructors </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlQuadTree-new')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree-new')">New</a> </td>
+<td class="mx2docs" style="text-align:left">Create a new <a href="javascript:void('timelinefx:timelinefx-tlQuadTree')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree')">tlQuadTree</a> </td>
+</tr>
+</table>
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Public Methods </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlQuadTree-AddBox')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree-AddBox')">AddBox</a> </td>
+<td class="mx2docs" style="text-align:left">Add a new bounding box to the Quadtree </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlQuadTree-AddForRemoval')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree-AddForRemoval')">AddForRemoval</a> </td>
+<td class="mx2docs" style="text-align:left">Add the <a href="javascript:void('timelinefx:timelinefx-tlBox')" onclick="openDocsPage('timelinefx:timelinefx-tlBox')">tlBox</a> to the remove list </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlQuadTree-CleanUp')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree-CleanUp')">CleanUp</a> </td>
+<td class="mx2docs" style="text-align:left">Remove marked objects </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlQuadTree-Draw')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree-Draw')">Draw</a> </td>
+<td class="mx2docs" style="text-align:left">Draw a Layer of the quadtree </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlQuadTree-ForEachObjectAlongLine')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree-ForEachObjectAlongLine')">ForEachObjectAlongLine</a> </td>
+<td class="mx2docs" style="text-align:left">Query a quadtree with a <a href="javascript:void('timelinefx:timelinefx-tlLine')" onclick="openDocsPage('timelinefx:timelinefx-tlLine')">tlLine</a> </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlQuadTree-ForEachObjectInArea')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree-ForEachObjectInArea')">ForEachObjectInArea</a> </td>
+<td class="mx2docs" style="text-align:left">Query the Quadtree to find objects with an area </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlQuadTree-ForEachObjectInBox')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree-ForEachObjectInBox')">ForEachObjectInBox</a> </td>
+<td class="mx2docs" style="text-align:left">Query the quadtree to find objects within a <a href="javascript:void('timelinefx:timelinefx-tlBox')" onclick="openDocsPage('timelinefx:timelinefx-tlBox')">tlBox</a> </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlQuadTree-ForEachObjectInCircle')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree-ForEachObjectInCircle')">ForEachObjectInCircle</a> </td>
+<td class="mx2docs" style="text-align:left">Query the quadtree to find objects within a <a href="javascript:void('timelinefx:timelinefx-tlCircle')" onclick="openDocsPage('timelinefx:timelinefx-tlCircle')">tlCircle</a> </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlQuadTree-ForEachObjectWithinRange')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree-ForEachObjectWithinRange')">ForEachObjectWithinRange</a> </td>
+<td class="mx2docs" style="text-align:left">Query the quadtree to find objects within a certain radius </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlQuadTree-GetHeight')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree-GetHeight')">GetHeight</a> </td>
+<td class="mx2docs" style="text-align:left">Get the height of the tlQuadtree </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlQuadTree-GetObjectsFound')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree-GetObjectsFound')">GetObjectsFound</a> </td>
+<td class="mx2docs" style="text-align:left">Find out how many objects were found on the last query </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlQuadTree-GetObjectsInBox')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree-GetObjectsInBox')">GetObjectsInBox</a> </td>
+<td class="mx2docs" style="text-align:left">Query the quadtree to find objects within a <i>tlBox</i> </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlQuadTree-GetObjectsInCircle')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree-GetObjectsInCircle')">GetObjectsInCircle</a> </td>
+<td class="mx2docs" style="text-align:left">Query the quadtree to find objects within a <a href="javascript:void('timelinefx:timelinefx-tlCircle')" onclick="openDocsPage('timelinefx:timelinefx-tlCircle')">tlCircle</a> </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlQuadTree-GetTotalObjects')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree-GetTotalObjects')">GetTotalObjects</a> </td>
+<td class="mx2docs" style="text-align:left">Find out how many objects are currently in the quadtree </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlQuadTree-GetWidth')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree-GetWidth')">GetWidth</a> </td>
+<td class="mx2docs" style="text-align:left">Get the width of the tlQuadtree </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlQuadTree-RayCast')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree-RayCast')">RayCast</a> </td>
+<td class="mx2docs" style="text-align:left">Query a quadtree with a ray of given length </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlQuadTree-RunMaintenance')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree-RunMaintenance')">RunMaintenance</a> </td>
+<td class="mx2docs" style="text-align:left">Perform some house keeping on the quadtree </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlQuadTree-SetLayerConfig')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree-SetLayerConfig')">SetLayerConfig</a> </td>
+<td class="mx2docs" style="text-align:left">Configure a Layer of the quadtree </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlQuadTree-UnHighlight')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree-UnHighlight')">UnHighlight</a> </td>
+<td class="mx2docs" style="text-align:left">unhiglight all quad nodes, mainly for debugging purposes </td>
+</tr>
+</table>
+
+<!-- END -->
+
+</body>
+
+</html>

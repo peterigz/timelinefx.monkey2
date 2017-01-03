@@ -1,0 +1,51 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.<a href="javascript:void('timelinefx:timelinefx-tlEffect')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect')">tlEffect</a>.DistanceSetByLife</i>
+<h5 cls="mx2docs">
+Property DistanceSetByLife:<a href="javascript:void('monkey:monkey-types-int')" onclick="openDocsPage('monkey:monkey-types-int')">Int</a>
+</h5>
+Set to true to make the distance travelled determined by the life of the particle.
+When <a href="javascript:void('timelinefx:timelinefx-tlEffect-TraverseEdge')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-TraverseEdge')">TraverseEdge</a> is set to true and <a href="javascript:void('timelinefx:timelinefx-tlEffect-EndBehaviour')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect-EndBehaviour')">EndBehaviour</a> is set to true then the distance travelled along the line will be determined by the
+age of the particle.
+
+<!-- END -->
+
+</body>
+
+</html>

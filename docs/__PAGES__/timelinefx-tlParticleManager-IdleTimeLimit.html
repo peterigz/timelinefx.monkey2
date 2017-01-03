@@ -1,0 +1,55 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.<a href="javascript:void('timelinefx:timelinefx-tlParticleManager')" onclick="openDocsPage('timelinefx:timelinefx-tlParticleManager')">tlParticleManager</a>.IdleTimeLimit</i>
+<h5 cls="mx2docs">
+Property IdleTimeLimit:<a href="javascript:void('monkey:monkey-types-int')" onclick="openDocsPage('monkey:monkey-types-int')">Int</a>
+</h5>
+Set the idle time limit to control how long before an idle effect is removed from the particle manager's list of effects.
+An effect is considered idle if it currently has no particles active within it. You may have effects that have moments where they do not spawn any particles, so you can tweak this
+property to stop effects being prematurely removed from the particle manager.
+<p class="mx2docs">The default value is 100 (measured in game updates)
+<p class="mx2docs">If you want an effect to never be removed from the particle manager then you can use
+<pre class="mx2docs"><code class="mx2docs">effect.DoNotTimeOut(True)
+</code></pre>
+
+<!-- END -->
+
+</body>
+
+</html>

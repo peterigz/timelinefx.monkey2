@@ -1,0 +1,98 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.tlEffectsLibrary</i>
+<h5 cls="mx2docs">
+Class tlEffectsLibrary
+</h5>
+Effects library for storing a list of effects and particle images/animations.
+When using LoadEffects, all the effects and images that go with them are stored in this type.
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Public Properties </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffectsLibrary-Effects')" onclick="openDocsPage('timelinefx:timelinefx-tlEffectsLibrary-Effects')">Effects</a> </td>
+<td class="mx2docs" style="text-align:left">Return the list of effects stored in the library </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffectsLibrary-Name')" onclick="openDocsPage('timelinefx:timelinefx-tlEffectsLibrary-Name')">Name</a> </td>
+<td class="mx2docs" style="text-align:left">Get the name of the effects library </td>
+</tr>
+</table>
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Public Methods </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffectsLibrary-AddEffect')" onclick="openDocsPage('timelinefx:timelinefx-tlEffectsLibrary-AddEffect')">AddEffect</a> </td>
+<td class="mx2docs" style="text-align:left">add an effect to the library </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffectsLibrary-AddEmitter')" onclick="openDocsPage('timelinefx:timelinefx-tlEffectsLibrary-AddEmitter')">AddEmitter</a> </td>
+<td class="mx2docs" style="text-align:left">Add a new emitter to the library. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffectsLibrary-AddShape')" onclick="openDocsPage('timelinefx:timelinefx-tlEffectsLibrary-AddShape')">AddShape</a> </td>
+<td class="mx2docs" style="text-align:left">Add a shape to the library </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffectsLibrary-ClearAll')" onclick="openDocsPage('timelinefx:timelinefx-tlEffectsLibrary-ClearAll')">ClearAll</a> </td>
+<td class="mx2docs" style="text-align:left">Clear all effects in the library </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffectsLibrary-GetEffect')" onclick="openDocsPage('timelinefx:timelinefx-tlEffectsLibrary-GetEffect')">GetEffect</a> </td>
+<td class="mx2docs" style="text-align:left">Retrieve an effect from the library </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffectsLibrary-GetEmitter')" onclick="openDocsPage('timelinefx:timelinefx-tlEffectsLibrary-GetEmitter')">GetEmitter</a> </td>
+<td class="mx2docs" style="text-align:left">Retrieve an emitter from the library </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffectsLibrary-GetShape')" onclick="openDocsPage('timelinefx:timelinefx-tlEffectsLibrary-GetShape')">GetShape</a> </td>
+<td class="mx2docs" style="text-align:left">Get a Shape from the library </td>
+</tr>
+</table>
+
+<!-- END -->
+
+</body>
+
+</html>

@@ -1,0 +1,69 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:<a href="javascript:void('timelinefx:timelinefx')" onclick="openDocsPage('timelinefx:timelinefx')">timelinefx</a>.PreventOverlap</i>
+<h5 cls="mx2docs">
+Function PreventOverlap:Void( result:<a href="javascript:void('timelinefx:timelinefx-tlCollisionResult')" onclick="openDocsPage('timelinefx:timelinefx-tlCollisionResult')">tlCollisionResult</a>, push:<a href="javascript:void('monkey:monkey-types-int')" onclick="openDocsPage('monkey:monkey-types-int')">Int</a>=false )
+</h5>
+Prevent boundaries from overlapping, based on a <a href="javascript:void('timelinefx:timelinefx-tlCollisionResult')" onclick="openDocsPage('timelinefx:timelinefx-tlCollisionResult')">tlCollisionResult</a>
+After you have retrieved a <a href="javascript:void('timelinefx:timelinefx-tlCollisionResult')" onclick="openDocsPage('timelinefx:timelinefx-tlCollisionResult')">tlCollisionResult</a> from calling <a href="javascript:void('timelinefx:timelinefx-CheckCollision')" onclick="openDocsPage('timelinefx:timelinefx-CheckCollision')">CheckCollision</a> you can call this function to separate 2 boundaries from each other.
+If push is false (default) then the source boundary will be stopped by the target boundary, otherwsie the source bouandry will push the target boundary
+along it's veloctity vector and the normal of the edge it's pushing against.
+| <code>Note:</code> |
+   |:-----------|
+   |Remember that after an overlap has been been prevented, the coordinates of the boundary wil have change in order to separate it from the other	boundary, so remember to update any other objects coordinates to match this (such as your game object). If your game object is dictating where the boundary is located then it might inadvertantly place the bouandary back inside the object it's colliding with causing strange things to happen.
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Parameters </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>result</code> </td>
+<td class="mx2docs" style="text-align:left">_tlCollisionResult with the source and target that you want to prevent a n overlap on </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><code>push</code> </td>
+<td class="mx2docs" style="text-align:left">False (default) if you want the source object stopped by the target, otherwise set to true for the source object to push the target object. </td>
+</tr>
+</table>
+
+<!-- END -->
+
+</body>
+
+</html>

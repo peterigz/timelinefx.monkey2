@@ -1,0 +1,253 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="../../../../docs/style.css">
+
+	<script>
+	
+	function openDocsPage( page ){
+
+		if( page.indexOf( '#' )!=-1 ){
+			
+			var url='../../../'+page.replace( ':','/docs/__MANPAGES__/' ).replace( /\#/g,'.md.html#' );
+				
+		}else{
+			
+			var url='../../../'+page.replace( ':','/docs/__PAGES__/' ).replace( /\./g,'-' )+'.html';
+		}
+
+		//alert( 'page='+page+', url='+url );
+			
+		document.location.href=url;
+		
+		return false;
+	}
+	
+	</script>
+
+</head>
+
+<body class="docs_body">
+
+<!-- CONTENT -->
+
+<i>timelinefx:timelinefx</i>
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Structs </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlCollisionResult')" onclick="openDocsPage('timelinefx:timelinefx-tlCollisionResult')">tlCollisionResult</a> </td>
+<td class="mx2docs" style="text-align:left">Class for storing the results of a collision </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlMatrix2')" onclick="openDocsPage('timelinefx:timelinefx-tlMatrix2')">tlMatrix2</a> </td>
+<td class="mx2docs" style="text-align:left">A simple 2D matrix class </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlVector2')" onclick="openDocsPage('timelinefx:timelinefx-tlVector2')">tlVector2</a> </td>
+<td class="mx2docs" style="text-align:left">A 2d vector class </td>
+</tr>
+</table>
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Classes </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBox')" onclick="openDocsPage('timelinefx:timelinefx-tlBox')">tlBox</a> </td>
+<td class="mx2docs" style="text-align:left">Collision box class </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlCircle')" onclick="openDocsPage('timelinefx:timelinefx-tlCircle')">tlCircle</a> </td>
+<td class="mx2docs" style="text-align:left">Collision circle class, extends _tlBox </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlComponent')" onclick="openDocsPage('timelinefx:timelinefx-tlComponent')">tlComponent</a> </td>
+<td class="mx2docs" style="text-align:left">Abstract component class you can use to add functionality to your game objects </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffect')" onclick="openDocsPage('timelinefx:timelinefx-tlEffect')">tlEffect</a> </td>
+<td class="mx2docs" style="text-align:left">The effect class which is the main parent class for emitters. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEffectsLibrary')" onclick="openDocsPage('timelinefx:timelinefx-tlEffectsLibrary')">tlEffectsLibrary</a> </td>
+<td class="mx2docs" style="text-align:left">Effects library for storing a list of effects and particle images/animations. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlEmitter')" onclick="openDocsPage('timelinefx:timelinefx-tlEmitter')">tlEmitter</a> </td>
+<td class="mx2docs" style="text-align:left">Emitter Class. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlGameObject')" onclick="openDocsPage('timelinefx:timelinefx-tlGameObject')">tlGameObject</a> </td>
+<td class="mx2docs" style="text-align:left">The base class for all particle objects, can also be used for general game entities </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlLine')" onclick="openDocsPage('timelinefx:timelinefx-tlLine')">tlLine</a> </td>
+<td class="mx2docs" style="text-align:left">Collision line class </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlParticleManager')" onclick="openDocsPage('timelinefx:timelinefx-tlParticleManager')">tlParticleManager</a> </td>
+<td class="mx2docs" style="text-align:left">The particle manager class for TimelinFX. This class manages all effects you create and is used to update and render all particles. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlPolygon')" onclick="openDocsPage('timelinefx:timelinefx-tlPolygon')">tlPolygon</a> </td>
+<td class="mx2docs" style="text-align:left">Collision polygon class </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlQuadTree')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTree')">tlQuadTree</a> </td>
+<td class="mx2docs" style="text-align:left">Quadtree type for managing a quadtree </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlShape')" onclick="openDocsPage('timelinefx:timelinefx-tlShape')">tlShape</a> </td>
+<td class="mx2docs" style="text-align:left">A shape class for storing and working with mojo.image </td>
+</tr>
+</table>
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Consts </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlBOX_COLLISION')" onclick="openDocsPage('timelinefx:timelinefx-tlBOX_COLLISION')">tlBOX_COLLISION</a> </td>
+<td class="mx2docs" style="text-align:left">Used as the value representing a Box collision </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlCIRCLE_COLLISION')" onclick="openDocsPage('timelinefx:timelinefx-tlCIRCLE_COLLISION')">tlCIRCLE_COLLISION</a> </td>
+<td class="mx2docs" style="text-align:left">Used as the value representing a Circle collision </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlLINE_COLLISION')" onclick="openDocsPage('timelinefx:timelinefx-tlLINE_COLLISION')">tlLINE_COLLISION</a> </td>
+<td class="mx2docs" style="text-align:left">Used as the value representing a Line collision </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-tlPOLY_COLLISION')" onclick="openDocsPage('timelinefx:timelinefx-tlPOLY_COLLISION')">tlPOLY_COLLISION</a> </td>
+<td class="mx2docs" style="text-align:left">Used as the value representing a Polygon collision </td>
+</tr>
+</table>
+<table class="mx2docs">
+<tr class="mx2docs">
+<th style="text-align:left">Functions </th>
+<th style="text-align:left"></th>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-AngleDifference')" onclick="openDocsPage('timelinefx:timelinefx-AngleDifference')">AngleDifference</a> </td>
+<td class="mx2docs" style="text-align:left">Get the difference between 2 angles. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-CheckCollision')" onclick="openDocsPage('timelinefx:timelinefx-CheckCollision')">CheckCollision</a> </td>
+<td class="mx2docs" style="text-align:left">Check for a collision between 2 Boundaries </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-CheckRayCollision')" onclick="openDocsPage('timelinefx:timelinefx-CheckRayCollision')">CheckRayCollision</a> </td>
+<td class="mx2docs" style="text-align:left">See if a ray collides with a boundary </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-CopyEffect')" onclick="openDocsPage('timelinefx:timelinefx-CopyEffect')">CopyEffect</a> </td>
+<td class="mx2docs" style="text-align:left">Copy an effect </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-CopyEmitter')" onclick="openDocsPage('timelinefx:timelinefx-CopyEmitter')">CopyEmitter</a> </td>
+<td class="mx2docs" style="text-align:left">Makes a copy of the emitter passed to it </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-CountBits')" onclick="openDocsPage('timelinefx:timelinefx-CountBits')">CountBits</a> </td>
+<td class="mx2docs" style="text-align:left">Count the number of bits that are set in a number. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-CreateBox')" onclick="openDocsPage('timelinefx:timelinefx-CreateBox')">CreateBox</a> </td>
+<td class="mx2docs" style="text-align:left">Create a new tlBox </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-CreateCircle')" onclick="openDocsPage('timelinefx:timelinefx-CreateCircle')">CreateCircle</a> </td>
+<td class="mx2docs" style="text-align:left">Create a <a href="javascript:void('timelinefx:timelinefx-tlCircle')" onclick="openDocsPage('timelinefx:timelinefx-tlCircle')">tlCircle</a> </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-CreateLine')" onclick="openDocsPage('timelinefx:timelinefx-CreateLine')">CreateLine</a> </td>
+<td class="mx2docs" style="text-align:left">Create a tlCircle </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-CreateParticleManager')" onclick="openDocsPage('timelinefx:timelinefx-CreateParticleManager')">CreateParticleManager</a> </td>
+<td class="mx2docs" style="text-align:left">a new particle manager. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-CreatePolygon')" onclick="openDocsPage('timelinefx:timelinefx-CreatePolygon')">CreatePolygon</a> </td>
+<td class="mx2docs" style="text-align:left">Create a <a href="javascript:void('timelinefx:timelinefx-tlPolygon')" onclick="openDocsPage('timelinefx:timelinefx-tlPolygon')">tlPolygon</a> </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-DegRad')" onclick="openDocsPage('timelinefx:timelinefx-DegRad')">DegRad</a> </td>
+<td class="mx2docs" style="text-align:left">Convert degrees to radians </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-GetDirection')" onclick="openDocsPage('timelinefx:timelinefx-GetDirection')">GetDirection</a> </td>
+<td class="mx2docs" style="text-align:left">get the direction from 1 point to another. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-GetDistance')" onclick="openDocsPage('timelinefx:timelinefx-GetDistance')">GetDistance</a> </td>
+<td class="mx2docs" style="text-align:left">The distance between 1 point and another. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-GetDistanceFast')" onclick="openDocsPage('timelinefx:timelinefx-GetDistanceFast')">GetDistanceFast</a> </td>
+<td class="mx2docs" style="text-align:left">This gets the distance but doesn't perform a square root. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-GetNearestPowerOf2')" onclick="openDocsPage('timelinefx:timelinefx-GetNearestPowerOf2')">GetNearestPowerOf2</a> </td>
+<td class="mx2docs" style="text-align:left">Round up to the nearest power of 2. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-LineToCircle')" onclick="openDocsPage('timelinefx:timelinefx-LineToCircle')">LineToCircle</a> </td>
+<td class="mx2docs" style="text-align:left">Do a Line to Circle collision check </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-LinesCross')" onclick="openDocsPage('timelinefx:timelinefx-LinesCross')">LinesCross</a> </td>
+<td class="mx2docs" style="text-align:left">Do a Line to Line collision check </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-LoadAnimation')" onclick="openDocsPage('timelinefx:timelinefx-LoadAnimation')">LoadAnimation</a> </td>
+<td class="mx2docs" style="text-align:left">Load a <a href="javascript:void('timelinefx:timelinefx-tlShape')" onclick="openDocsPage('timelinefx:timelinefx-tlShape')">tlShape</a> sequence of images. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-LoadEffects')" onclick="openDocsPage('timelinefx:timelinefx-LoadEffects')">LoadEffects</a> </td>
+<td class="mx2docs" style="text-align:left">Load a TimelineFX Library </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-LoadShape')" onclick="openDocsPage('timelinefx:timelinefx-LoadShape')">LoadShape</a> </td>
+<td class="mx2docs" style="text-align:left">Load a <a href="javascript:void('timelinefx:timelinefx-tlShape')" onclick="openDocsPage('timelinefx:timelinefx-tlShape')">tlShape</a> </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-NearestPointToCircle')" onclick="openDocsPage('timelinefx:timelinefx-NearestPointToCircle')">NearestPointToCircle</a> </td>
+<td class="mx2docs" style="text-align:left">Return the nearest point on a line to the center of a circle </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-PreventOverlap')" onclick="openDocsPage('timelinefx:timelinefx-PreventOverlap')">PreventOverlap</a> </td>
+<td class="mx2docs" style="text-align:left">Prevent boundaries from overlapping, based on a <a href="javascript:void('timelinefx:timelinefx-tlCollisionResult')" onclick="openDocsPage('timelinefx:timelinefx-tlCollisionResult')">tlCollisionResult</a> </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-Round')" onclick="openDocsPage('timelinefx:timelinefx-Round')">Round</a> </td>
+<td class="mx2docs" style="text-align:left">rounds a number to the nearest int. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-SetUpdateFrequency')" onclick="openDocsPage('timelinefx:timelinefx-SetUpdateFrequency')">SetUpdateFrequency</a> </td>
+<td class="mx2docs" style="text-align:left">Set the update frequency of the particles </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-TweenValues')" onclick="openDocsPage('timelinefx:timelinefx-TweenValues')">TweenValues</a> </td>
+<td class="mx2docs" style="text-align:left">Interpolate between 2 values. </td>
+</tr>
+<tr class="mx2docs">
+<td class="mx2docs" style="text-align:left"><a href="javascript:void('timelinefx:timelinefx-WithinFieldOfView')" onclick="openDocsPage('timelinefx:timelinefx-WithinFieldOfView')">WithinFieldOfView</a> </td>
+<td class="mx2docs" style="text-align:left">Check if a point is with a field of view </td>
+</tr>
+</table>
+
+<!-- END -->
+
+</body>
+
+</html>
