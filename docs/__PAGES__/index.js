@@ -78,22 +78,7 @@
     ] }
     ,{ text:'Classes',children:[
       { text:'tlBox',data:{page:'timelinefx:timelinefx.tlBox'},children:[
-        { text:'Fields',children:[
-          { text:'AreaCheckCount',data:{page:'timelinefx:timelinefx.tlBox.AreaCheckCount'},children:[] }
-          ,{ text:'br_corner',data:{page:'timelinefx:timelinefx.tlBox.br_corner'},children:[] }
-          ,{ text:'collisionlayer',data:{page:'timelinefx:timelinefx.tlBox.collisionlayer'},children:[] }
-          ,{ text:'dead',data:{page:'timelinefx:timelinefx.tlBox.dead'},children:[] }
-          ,{ text:'handle',data:{page:'timelinefx:timelinefx.tlBox.handle'},children:[] }
-          ,{ text:'highlight',data:{page:'timelinefx:timelinefx.tlBox.highlight'},children:[] }
-          ,{ text:'quad',data:{page:'timelinefx:timelinefx.tlBox.quad'},children:[] }
-          ,{ text:'quadlist',data:{page:'timelinefx:timelinefx.tlBox.quadlist'},children:[] }
-          ,{ text:'quads',data:{page:'timelinefx:timelinefx.tlBox.quads'},children:[] }
-          ,{ text:'quadtree',data:{page:'timelinefx:timelinefx.tlBox.quadtree'},children:[] }
-          ,{ text:'remove',data:{page:'timelinefx:timelinefx.tlBox.remove'},children:[] }
-          ,{ text:'tl_corner',data:{page:'timelinefx:timelinefx.tlBox.tl_corner'},children:[] }
-          ,{ text:'worldhandle',data:{page:'timelinefx:timelinefx.tlBox.worldhandle'},children:[] }
-        ] }
-        ,{ text:'Contructors',children:[
+        { text:'Contructors',children:[
           { text:'new',data:{page:'timelinefx:timelinefx.tlBox.new'},children:[] }
         ] }
         ,{ text:'Properties',children:[
@@ -135,11 +120,7 @@
         ] }
       ] }
       ,{ text:'tlCircle',data:{page:'timelinefx:timelinefx.tlCircle'},children:[
-        { text:'Fields',children:[
-          { text:'radius',data:{page:'timelinefx:timelinefx.tlCircle.radius'},children:[] }
-          ,{ text:'tformradius',data:{page:'timelinefx:timelinefx.tlCircle.tformradius'},children:[] }
-        ] }
-        ,{ text:'Contructors',children:[
+        { text:'Contructors',children:[
           { text:'new',data:{page:'timelinefx:timelinefx.tlCircle.new'},children:[] }
         ] }
         ,{ text:'Properties',children:[
@@ -420,10 +401,7 @@
         ] }
       ] }
       ,{ text:'tlPolygon',data:{page:'timelinefx:timelinefx.tlPolygon'},children:[
-        { text:'Fields',children:[
-          { text:'angle',data:{page:'timelinefx:timelinefx.tlPolygon.angle'},children:[] }
-        ] }
-        ,{ text:'Contructors',children:[
+        { text:'Contructors',children:[
           { text:'new',data:{page:'timelinefx:timelinefx.tlPolygon.new'},children:[] }
         ] }
         ,{ text:'Methods',children:[

@@ -226,27 +226,53 @@ Class tlBox
 	Field data:Object
 		
 	Public
+	#Rem monkeydoc @hidden
+	#End
 	Field handle:tlVector2 
+	#Rem monkeydoc @hidden
+	#End
 	Field worldhandle:tlVector2
 	
+	#Rem monkeydoc @hidden
+	#End
 	Field quad:tlQuadTreeNode
+	#Rem monkeydoc @hidden
+	#End
 	Field quadlist:Stack<tlQuadTreeNode>	'list of quad nodes this rect is in
+	#Rem monkeydoc @hidden
+	#End
 	Field quads:Int							'number of quads the rect is in
+	#Rem monkeydoc @hidden
+	#End
 	Field AreaCheckCount:=New Int[8]
-	'Field link:TLink
-	Field collisionlayer:Int
-	
-	Field quadtree:tlQuadTree
-	
-	Field tl_corner:tlVector2			'top left corner
-	Field br_corner:tlVector2			'bottom right corner
-
-	Field remove:int 					'set to 1 to mark for removal
-	Field dead:int 				
-
-	field highlight:int = false
 
 	#Rem monkeydoc @hidden
+	#End
+	Field collisionlayer:Int
+	
+	#Rem monkeydoc @hidden
+	#End
+	Field quadtree:tlQuadTree
+	
+	#Rem monkeydoc @hidden
+	#End
+	Field tl_corner:tlVector2			'top left corner
+	#Rem monkeydoc @hidden
+	#End
+	Field br_corner:tlVector2			'bottom right corner
+
+	#Rem monkeydoc @hidden
+	#End
+	Field remove:int 					'set to 1 to mark for removal
+	#Rem monkeydoc @hidden
+	#End
+	Field dead:int 				
+
+	#Rem monkeydoc @hidden
+	#End
+	field highlight:int = false
+
+	#Rem monkeydoc Constructor
 	#End
 	Method New()
 	End
@@ -333,6 +359,8 @@ Class tlBox
 		UpdateNormals()
 	End
 	
+	#Rem monkeydoc Get the vertices array of the [[tlBox]]
+	#End
 	Property Vertices:tlVector2[]()
 		Return vertices
 	End
@@ -1353,7 +1381,11 @@ End
 #End
 Class tlCircle Extends tlBox
 	
+	#Rem monkeydoc @hidden
+	#End
 	Field radius:Float
+	#Rem monkeydoc @hidden
+	#End
 	Field tformradius:Float
 	
 	#Rem monkeydoc [[tlBox]] Constructor
@@ -1954,9 +1986,13 @@ End
 #Rem monkeydoc Collision polygon class
 #End
 Class tlPolygon Extends tlBox
-		
+	
+	#Rem monkeydoc @hidden
+	#End
 	Field angle:Float
 
+	#Rem monkeydoc Constructor
+	#End
 	Method New()
 	End
 	
@@ -3522,7 +3558,7 @@ Function CreateBox:tlBox(x:Float, y:Float, w:Float, h:Float, layer:Int = 0, data
 	Return New tlBox(x, y, w, h, layer, data)
 End Function
 
-#Rem monkeydoc Create a tlCircle
+#Rem monkeydoc Create a [[tlLine]]
 	Create a new [[tlLine]] at the coordinates given, x1 and y1 being the start of the line and x2 and y2 being the end. The will placed exactly
 	according to the coordinates you give, but it's worth bearing in mind that the handle of the line will be at the center point along the line. Therefore
 	the world coordinates will be set to half way point along the line. Use layer to specify a particular layer

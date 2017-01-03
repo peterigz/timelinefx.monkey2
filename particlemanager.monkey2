@@ -626,7 +626,7 @@ Class tlParticleManager
 	End Method
 End
 
-#Rem monkeydoc a new particle manager.
+#Rem monkeydoc a new [[tlParticleManager]].
 	Creates a new particle manager that you can use to create and update new effects. Pass the maximum number of particles that you wish to update at any one time.
 	@return [[tlParticleManager]]
 #End
