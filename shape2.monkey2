@@ -166,12 +166,14 @@ Function LoadShape:tlShape(url:String, width:Int = 0, height:Int = 0, frames:Int
 	If frames = 1
 		shape.image = New Image[1]
 		shape.image[0] = Image.Load(url)
+		shape.Width = shape.image[0].Width
+		shape.Height = shape.image[0].Height
 	Else
 		shape.image = tlShape.LoadFrames(url, frames, width, height, padding)
+		shape.Width = width
+		shape.Height = height
 	EndIf
 
-	shape.Width = width
-	shape.Height = height
 	shape.Frames = frames
 	shape.Url = url
 	
