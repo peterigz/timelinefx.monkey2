@@ -3,7 +3,7 @@ Namespace myapp
 #Import "<std>"
 #Import "<mojo>"
 #Import "<timelinefx>"
-#Import "assets/smoke.png"
+#Import "assets/toonCloud.png"
 
 Using std..
 Using mojo..
@@ -23,8 +23,8 @@ Class MyWindow Extends Window
 		ChildObject = New tlGameObject
 		
 		'Assign images using LoadShape
-		GameObject.Image = LoadShape("asset::smoke.png")
-		ChildObject.Image = LoadShape("asset::smoke.png")
+		GameObject.Image = LoadShape("asset::toonCloud.png")
+		ChildObject.Image = LoadShape("asset::toonCloud.png")
 		
 		'Position the child object. This will be relative to the parent object.
 		ChildObject.SetPosition(0, 200)
