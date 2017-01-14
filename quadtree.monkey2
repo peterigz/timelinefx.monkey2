@@ -474,7 +474,7 @@ Class tlQuadTree
 	#Rem monkeydoc Query the quadtree to find objects within a [[tlCircle]]
 		@param circle A tlCircle that will be used to define the area that is searched
 		@param Data any object object to pass to the query
-		@param onFoundObject A tlQuadTreeEvent interface that contains the event that will be called for any objects found in the area
+		@param onFoundObject A callback that contains a pointer to the function that will be called for any objects found in the area
 		@param Layer Array of layers in the quadtree that you want to search
 	#End
 	Method ForEachObjectInCircle(circle:tlCircle, Data:Object, onFoundObject:void(ReturnedObject:Object, Data:Object), Layer:Int[])
