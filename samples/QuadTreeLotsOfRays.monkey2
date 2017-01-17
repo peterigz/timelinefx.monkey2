@@ -27,6 +27,8 @@ Class Game Extends Window
 	
 	Field currentCanvas:Canvas
 	Field point:tlVector2
+	Field currentslice:Float
+	Field faceangle:Float
 
 	Method New()
 		'create the quadtree and make it the same size as the window. Here we're making it so that the maximum number of times it can
@@ -76,6 +78,9 @@ Class Game Extends Window
 		If Mouse.ButtonDown(MouseButton.Left) vpoint = New tlVector2(Mouse.X, Mouse.Y)
 		ray = New tlVector2(Mouse.X - point.x, Mouse.Y - point.y).Normalise()
 		
+		If Keyboard.KeyDown(Key.Left) faceangle-=0.1
+		If Keyboard.KeyDown(Key.Right) faceangle+=0.1
+		
 		'Set our point coordinates.
 		point= vpoint.Clone()
 		
@@ -87,9 +92,9 @@ Class Game Extends Window
 		Local raytime:=Millisecs()
 		'query the quadtree with the ray and run our call back if it hit. Otherwise draw the full length of the ray (300)
 		'we're using the data variable here to pass through the Point to the interface
-		For Local i:=0.0 To 360.0 Step 0.25
+		For Local i:=0.0 To 360 Step 0.1
 			ray = New tlVector2(0, 1)
-			Local Direction:=DegRad(i)
+			Local Direction:=DegRad(i)+faceangle
 			mat = New tlMatrix2(Cos(Direction), Sin(Direction), -Sin(Direction), Cos(Direction))
 			ray = mat.TransformVector(ray).Normalise()
 			If Not QTree.RayCast(point.x, point.y, ray, 300.0, Self, RayCallBack, New Int[](0, 1, 2))
@@ -99,7 +104,7 @@ Class Game Extends Window
 		Next
 		raytime=Millisecs() - raytime
 		'QTree.Draw(canvas, 0, 0, 0)
-		canvas.DrawText("Ray Time: " + raytime, 10, 10)
+		canvas.DrawText("Ray Time (including drawing): " + raytime, 10, 10)
 	End
 
 End
@@ -113,12 +118,13 @@ Function RayCallBack:Void(ObjectTheRayHit:Object, Data:Object, Result:tlCollisio
 	Local thegame:=Cast<Game>(Data)
 	Local box:tlBox = Cast<tlBox>(ObjectTheRayHit)
 	
-	thegame.currentCanvas.Color = New Color( 1, 0, 0 )
-	
 	'if the ray does not originate inside an object then draw the ray and intersection point
 	If Not Result.RayOriginInside
+		thegame.currentCanvas.Color = New Color( 1, 0, 0 )
 		thegame.currentCanvas.DrawLine(thegame.point.x, thegame.point.y, Result.RayIntersection.x, Result.RayIntersection.y)
 	End If
+	
+	Result.RayDistance
 	
 	'draw the box the ray hit
 	thegame.currentCanvas.Color = New Color( 1, 1, 1 )

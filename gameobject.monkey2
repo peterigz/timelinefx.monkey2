@@ -798,6 +798,8 @@ Class tlGameObject Virtual
 		Self.image = image
 		frames = Self.image.Frames
 		Select collisiontype
+			case -1
+				'no collision
 			Case tlPOLY_COLLISION
 				SetImagePoly(GetWorldX(), GetWorldX(),New Float[](Float(-Self.image.Width) / 2, Float(-Self.image.Height) / 2,
 					Float(-Self.image.Width) / 2, Float(Self.image.Height) / 2,
