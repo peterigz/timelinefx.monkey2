@@ -42,8 +42,7 @@ Class tlQuadTree
 </h5>
 Quadtree type for managing a quadtree
 Rather then go on about what a quadtree is, here's some useful resources I used myself to find out about them:
-http://en.wikipedia.org/wiki/Quadtree, http://www.kyleschouviller.com/wsuxna/quadtree-source-included/ and http://www.heroicvirtuecreations.com/QuadTree.html
-<p class="mx2docs">Quadtrees vary with each implementation based on the users needs. I've tried to be flexible here with a emphasis on handling objects that will
+<a href='http://en.wikipedia.org/wiki/Quadtree'>http://en.wikipedia.org/wiki/Quadtree</a>, <a href='http://www.kyleschouviller.com/wsuxna/quadtree-source-included/ and http://www.heroicvirtuecreations.com/QuadTree.html'>http://www.kyleschouviller.com/wsuxna/quadtree-source-included/ and http://www.heroicvirtuecreations.com/QuadTree.html</a><p class="mx2docs">Quadtrees vary with each implementation based on the users needs. I've tried to be flexible here with a emphasis on handling objects that will
 move about a lot. If an object moves within a quadtree then it will generally have to be re-added to the quadtree, so I've implemented that possibility here.
 Thankfully there's no need to rebuild the quadtree every time an object moves, the object just removes and adds itself back to the tree, and it will only do it if
 it's moved outside of its containing <a href="javascript:void('timelinefx:timelinefx-tlQuadTreeNode')" onclick="openDocsPage('timelinefx:timelinefx-tlQuadTreeNode')">tlQuadTreeNode</a>.

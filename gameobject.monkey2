@@ -1373,11 +1373,13 @@ Class tlGameObject Virtual
 	#End
 	Method UpdateStaticCollisionBox()
 		TForm()
-		imagebox.Position(world_vec.x, world_vec.y)
-		imagebox.SetScale(world_scale_vec.x, world_scale_vec.y)
-		If imageboxtype = tlPOLY_COLLISION
-			Cast<tlPolygon>(imagebox).SetAngle(world_rotation)
-		End If
+		If imagebox
+			imagebox.Position(world_vec.x, world_vec.y)
+			imagebox.SetScale(world_scale_vec.x, world_scale_vec.y)
+			If imageboxtype = tlPOLY_COLLISION
+				Cast<tlPolygon>(imagebox).SetAngle(world_rotation)
+			End If
+		End If 
 		If collisionbox
 			collisionbox.Position(world_vec.x, world_vec.y)
 			collisionbox.SetScale(world_scale_vec.x, world_scale_vec.y)
