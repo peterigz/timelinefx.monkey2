@@ -1,7 +1,7 @@
 #Rem
 	TimelineFX Module by Peter Rigby
 	
-	Copyright (c) 2012 Peter J Rigby
+	Copyright (c) 2017 Peter J Rigby
 	
 	Permission is hereby granted, free of charge, to any person obtaining a copy
 	of this software and associated documentation files (the "Software"), to deal
@@ -99,6 +99,11 @@ Class tlEffect Extends tlFXObject
 	Field effectlayer:Int
 	
 	Public
+	
+	#Rem monkeydoc A function to call on every update of the effect
+		You can set this to any function so that you can apply extra scripting to the effect
+	#End
+	Field OnUpdate:Void()
 	
 	'Temp attribute values
 	'There's no current angle becuase that sets the game object's local_rotation field
@@ -806,6 +811,12 @@ Class tlEffect Extends tlFXObject
 	Method HardKill()
 		Destroy()
 		pm.RemoveEffect(Self)
+	End
+	
+	Method Update()
+		Super.Update()
+		
+		OnUpdate()
 	End
 	
 	'Internal Methods
