@@ -725,6 +725,8 @@ Class tlGameObject Virtual
 		matrix = New tlMatrix2
 		scale_matrix = New tlMatrix2
 		
+		BlendMode = BlendMode.Alpha
+		
 		'compoents
 		'components = New List<tlComponent>
 		

@@ -448,7 +448,7 @@ Class tlEffect Extends tlFXObject
 	#end
 	Property AnimZoom:Float()
 		Return animzoom
-	Setter(v:Int)
+	Setter(v:Float)
 		animzoom = v
 	End
 	#Rem monkeydoc 

@@ -31,7 +31,7 @@ Class Game Extends Window
 		QTree = New tlQuadTree(0, 0, Width, Height, 5, 10) 
 		
 		'Populate the quadtree with a bunch of objects
-		For Local c:Int = 1 To 1000
+		For Local c:Int = 1 To 10000
 			Local t:Int = Rnd(3)
 			Local rect:tlBox
 			Local x:Float = Rnd() * Width 

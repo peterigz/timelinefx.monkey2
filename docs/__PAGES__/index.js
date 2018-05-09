@@ -159,7 +159,10 @@
         ] }
       ] }
       ,{ text:'tlEffect',data:{page:'timelinefx:timelinefx.tlEffect'},children:[
-        { text:'Contructors',children:[
+        { text:'Fields',children:[
+          { text:'OnUpdate',data:{page:'timelinefx:timelinefx.tlEffect.OnUpdate'},children:[] }
+        ] }
+        ,{ text:'Contructors',children:[
           { text:'new',data:{page:'timelinefx:timelinefx.tlEffect.new'},children:[] }
         ] }
         ,{ text:'Properties',children:[
@@ -209,6 +212,7 @@
           ,{ text:'SetWeight',data:{page:'timelinefx:timelinefx.tlEffect.SetWeight'},children:[] }
           ,{ text:'SetZ',data:{page:'timelinefx:timelinefx.tlEffect.SetZ'},children:[] }
           ,{ text:'SoftKill',data:{page:'timelinefx:timelinefx.tlEffect.SoftKill'},children:[] }
+          ,{ text:'Update',data:{page:'timelinefx:timelinefx.tlEffect.Update'},children:[] }
         ] }
       ] }
       ,{ text:'tlEffectsLibrary',data:{page:'timelinefx:timelinefx.tlEffectsLibrary'},children:[
